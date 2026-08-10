@@ -290,13 +290,13 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--input",
-        default=str(_PROJECT_ROOT / "datasets" / "raw_laws" / "Luat_dat_dai_chuong_3.docx"),
-        help="Đường dẫn file đầu vào (mặc định: datasets/raw_laws/Luat_dat_dai_chuong_3.docx)",
+        default=str(_PROJECT_ROOT / "datasets" / "raw_laws"),
+        help="Đường dẫn file hoặc thư mục đầu vào (mặc định: datasets/raw_laws/)",
     )
     parser.add_argument(
         "--output",
-        default=str(_PROJECT_ROOT / "outputs" / "clean_texts" / "clean_law_document.txt"),
-        help="Đường dẫn file đầu ra (mặc định: outputs/clean_texts/clean_law_document.txt)",
+        default=str(_PROJECT_ROOT / "outputs" / "clean_texts"),
+        help="Đường dẫn file hoặc thư mục đầu ra (mặc định: outputs/clean_texts/)",
     )
     parser.add_argument(
         "--log",
@@ -306,20 +306,30 @@ if __name__ == "__main__":
     parser.add_argument(
         "--batch",
         action="store_true",
-        help="Xử lý hàng loạt tất cả .docx trong thư mục --input",
+        help="Ép buộc xử lý hàng loạt tất cả .docx trong thư mục --input",
     )
 
     args = parser.parse_args()
 
-    if args.batch:
+    input_path = Path(args.input)
+    output_path = Path(args.output)
+
+    if args.batch or input_path.is_dir():
+        # Nếu là thư mục, tự động chạy chế độ batch
+        out_dir = output_path.parent if output_path.suffix else output_path
         run_batch(
-            input_dir=args.input,
-            output_dir=Path(args.output).parent,
+            input_dir=input_path,
+            output_dir=out_dir,
         )
     else:
+        # Nếu là file, chạy chế độ xử lý 1 file
+        # Nếu output truyền vào là một thư mục, tự động sinh tên file
+        if not output_path.suffix:
+            output_path = output_path / f"clean_{input_path.stem}.txt"
+            
         result = run_pipeline(
-            input_path=args.input,
-            output_path=args.output,
+            input_path=input_path,
+            output_path=output_path,
             log_file=args.log,
         )
         sys.exit(0 if result.success else 1)
