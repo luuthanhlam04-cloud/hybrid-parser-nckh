@@ -49,6 +49,12 @@ _BARE_NUMBER_PATTERN = re.compile(
     r"^\s*\d+\s*$"
 )
 
+# Chữ ký số / Metadata Header của Cổng thông tin điện tử / Công báo
+_DIGITAL_SIGNATURE_PATTERN = re.compile(
+    r"^\s*(Người ký:|Email:.*?Cơ quan:|CÔNG BÁO/Số).*$", 
+    flags=re.IGNORECASE
+)
+
 # ---------------------------------------------------------------------------
 # Pattern nhận diện "Dangling Clause" (dòng treo)
 # Dòng chỉ chứa đúng một ký hiệu khoản/điểm, không có text theo sau.
@@ -179,10 +185,11 @@ class TextCleaner:
     @staticmethod
     def _remove_page_numbers(lines: list[str]) -> list[str]:
         """
-        Xóa các dòng được nhận diện là số trang:
+        Xóa các dòng được nhận diện là số trang và header:
           - "Trang 3/15" (có hoặc không có khoảng trắng)
           - "---Page 3---"
           - Dòng chỉ chứa số thuần (ví dụ: "15") — số trang đứng riêng lẻ
+          - Header chữ ký số của Cổng thông tin điện tử / Công báo
 
         ⚠️ KHÔNG xóa dòng có dạng "1." hoặc "a)" — đây là khoản/điểm (đã
            được xử lý bởi _merge_dangling_clauses ở bước trước).
@@ -193,8 +200,9 @@ class TextCleaner:
                 _PAGE_MARKER_PATTERN.match(line)
                 or _PAGE_DASH_PATTERN.match(line)
                 or _BARE_NUMBER_PATTERN.match(line)
+                or _DIGITAL_SIGNATURE_PATTERN.match(line)
             ):
-                logger.debug("[TextCleaner] Xóa dòng số trang: '%s'", line)
+                logger.debug("[TextCleaner] Xóa dòng nhiễu: '%s'", line)
                 continue
             result.append(line)
         return result
