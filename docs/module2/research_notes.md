@@ -55,6 +55,7 @@ Scope tag convention dùng xuyên suốt notes này:
 | **2.4 Node Creator** | ✅ DONE — ID 222/222 unique, schema v1.1 | implicit_parent TXT fix ✅ | POINT ID prefix artifact — cosmetic, ghi chú ở dưới |
 | **Pipeline tổng thể** | ⏳ PENDING | — | Chỉ review sau khi 2.2–2.4 ổn |
 | **Prototype C2 (TXT+CLAUSE)** | 🧊 FROZEN | CLAUSE TXT = 0% | Xem Mục 7 |
+| **CLAUSE Detection v1 (DOCX+Numbering)** | 🔬 RESEARCH — đủ cơ sở chốt design | ilvl=0/decimal=CLAUSE, ilvl=1/lowerLetter=POINT | Xem Mục 3.5 |
 
 > **Nguyên tắc tiến trình**: 2.2 → 2.3 → 2.4 → Pipeline review → Prototype C2 (plain text)
 
@@ -250,34 +251,37 @@ PatternEntry(
 )
 ```
 
-### 3.3 Mô hình 3 lớp tín hiệu `[HYPOTHESIS]`
+### 3.3 Mô hình 4 tín hiệu `[DOCX mode — updated sau Numbering Investigation]`
+
+Sau khi điều tra DOCX Numbering Metadata (xem 3.5), mô hình tín hiệu được cập nhật từ 3 lên 4:
 
 ```
-              Legal Document
+              Legal Document (DOCX)
                    │
-      ┌────────────┴────────────┐
-      │                         │
- Document Metadata          Text Content
- (nếu có)
-      │                         │
-  Style Signal             Text Pattern
-  (Heading 2, Body Text)   (Điều \d+, ^[a-zđ]\))
-      │                         │
-      └────────────┬────────────┘
-                   ↓
-          Candidate Detection
-                   ↓
-          Context Analysis
-          (parent / sequence / depth)
-                   ↓
-          Boundary Detection
-                   ↓
-          Hierarchy Builder
-                   ↓
-              Legal Node
+      ┌────────────┼────────────┬────────────┐
+      │            │            │            │
+  Word Style  Numbering    Text Pattern  Context
+  (Heading 2, (ilvl, numFmt, (Điều \d+,  (parent node,
+  List Para)  lvlText)      ^[a-zđ]\))   depth, sequence)
+      │            │            │            │
+      └────────────┴────────────┴────────────┘
+                              ↓
+                   Candidate Detection
+                              ↓
+                   Boundary Detection
+                              ↓
+                   Hierarchy Builder
+                              ↓
+                         Legal Node
 ```
 
-Lớp 1 (Style) chỉ có khi DOCX. Lớp 2 (Text Pattern) luôn có. Lớp 3 (Context) là điều kiện giúp giảm FP.
+**Ưu tiên tín hiệu theo độ tin cậy (DOCX)**:
+- Tín hiệu mạnh nhất: `Style + Numbering (ilvl + numFmt)` — xác định CLAUSE/POINT mà không cần đọc text
+- Tín hiệu trung bình: `Text Pattern` — xác định CHAPTER/SECTION/ARTICLE
+- Tín hiệu bổ trợ: `Context` — giảm FP, validate candidate
+
+**Với Plain Text (TXT/PDF)**:
+- Không có Style và Numbering → chỉ còn Text Pattern + Context → xem KL-01
 
 ### 3.4 Pattern Taxonomy v1 `[CORPUS: Ch3-LDD]`
 
@@ -294,16 +298,102 @@ Lớp 1 (Style) chỉ có khi DOCX. Lớp 2 (Text Pattern) luôn có. Lớp 3 (C
 - `ĐIỀU \d+.` → HYPOTHESIS
 
 **CLAUSE**:
-- `^\d+\.\s+` (DOCX: List Paragraph) → HIGH `[CORPUS: Ch3-LDD]`
-- `required_style="List Paragraph"` (fallback khi mất số) → HIGH `[CORPUS: Ch3-LDD]`
+- `ilvl=0 + numFmt=decimal + lvlText=%1. + Style=List Paragraph` → **STRONGEST** `[CORPUS: Ch3-LDD]` — xác nhận từ Numbering Investigation (xem 3.5)
+- `^\d+\.\s+` (Text Pattern fallback, chỉ dùng khi `current_node == ARTICLE`) → MEDIUM `[CORPUS: Ch3-LDD]`
+- `required_style="List Paragraph"` (fallback cấp 2 khi không có số) → LOW — xem lưu ý về 20 separator paras ở 3.5
 - `Khoản \d+.` → HYPOTHESIS
 - Không dùng: `^\d+\.\s+[A-ZĐÁÀẢÃẠ]` — Khoản không bắt buộc bắt đầu bằng chữ hoa
 
 **POINT**:
-- `[a-zđ]\)\s+` → HIGH · CONFIRMED: `đ)` xuất hiện 8 lần `[CORPUS: Ch3-LDD]`
+- `ilvl=1 + numFmt=lowerLetter + lvlText=%2) + Style=List Paragraph` → **STRONGEST** `[CORPUS: Ch3-LDD]` — xác nhận từ Numbering Investigation
+- `[a-zđ]\)\s+` (Text Pattern) → MEDIUM · CONFIRMED: `đ)` xuất hiện 8 lần · Known FP: "Tiến **đ**ộ" (xem so sánh nội bộ Mục 8)
 - Known FP: "điểm a" trong cross-reference câu
 
 ---
+
+### 3.5 DOCX Numbering Metadata Investigation `[EVIDENCE — Ch3-LDD]`
+
+**Bối cảnh**: Prototype B nhận diện CLAUSE qua `Style=List Paragraph` nhưng không tận dụng Numbering metadata của DOCX — dẫn đến `number` field phải lấy từ `paragraph.text` (dễ gây FP và không đọc được số ẩn). Phần này ghi lại kết quả điều tra XML metadata của DOCX để chốt hướng Clause Detection v1.
+
+#### Câu hỏi 1: Numbering trong DOCX hoạt động như thế nào?
+
+**Câu trả lời**: Word lưu numbering qua cơ chế 3 tầng:
+```
+numbering.xml
+  └─ abstractNum (định nghĩa format: numFmt, lvlText, start)
+        ↑ được tham chiếu bởi
+  └─ num (instance — mỗi danh sách cụ thể có 1 numId)
+        ↑ được gắn vào paragraph qua
+  └─ numPr trong paragraph XML (chứa numId + ilvl)
+```
+
+**Hệ quả quan trọng**: Số `1.` `2.` `3.` mà ta thấy trên màn hình **không có trong `paragraph.text`** — chúng được Word tính và render từ `abstractNum.start + số lần xuất hiện trong numId group`. Do đó: Regex `^\d+\.\s+` không match được CLAUSE trong DOCX (match 0 lần trên corpus).
+
+#### Câu hỏi 2: numId có phải là loại node không?
+
+**Câu trả lời**: **Không.** numId chỉ là định danh của một danh sách Word cụ thể (mỗi lần tạo list mới → numId mới). Corpus Ch3-LDD có **41 numId khác nhau** nhưng chỉ có 2 loại node (CLAUSE/POINT). Để nhận diện loại node phải nhìn:
+```
+ilvl + numFmt + lvlText (từ abstractNum)
+```
+chứ không phải numId.
+
+#### Câu hỏi 3: ilvl=0 và ilvl=1 encode cấu trúc gì?
+
+**Câu trả lời — xác nhận từ data**:
+
+| ilvl | numFmt | lvlText | Word render | → Node Type |
+|:---:|---|---|---|---|
+| `0` | `decimal` | `%1.` | `1.` `2.` `3.` | **CLAUSE** |
+| `1` | `lowerLetter` | `%2)` | `a)` `b)` `c)` ... `đ)` | **POINT** |
+
+**Lưu ý quan trọng**: `lowerLetter` trong tiếng Việt render được `đ)` vì Word dùng Vietnamese locale. Đây là tín hiệu **mạnh hơn Regex** vì nó encode ý định của người soạn thảo, không phải text thô.
+
+#### Câu hỏi 4: 20 List Paragraph có numId=None là gì?
+
+**Câu trả lời**: **Tất cả 20 đều là paragraph rỗng (`text=""`)**. Đây là các separator paragraph — dòng trống Word tạo ra khi người soạn thảo nhấn Enter trong list. Chúng **không phải Khoản** và phải bị bỏ qua (skip) khi parse.
+
+> **Lưu ý thiết kế**: Việc xác nhận 20/20 `numId=None` là empty loại bỏ hoàn toàn phương án C ("danh sách không phải Clause") và A ("Khoản mất numbering") đã đặt ra trước điều tra. Chỉ cần rule đơn giản: `text.strip() == "" → skip`.
+
+#### Câu hỏi 5: Có nên dùng position làm number không?
+
+**Câu trả lời**: **Không.** `position` và `number` là hai khái niệm khác nhau có ý nghĩa khác nhau:
+
+```
+Khoản 1         → number=1, position=1
+Khoản 3         → number=3, position=2  ← position≠number
+```
+
+- `position`: Vị trí tương đối trong danh sách anh em (sequential 1,2,3...)
+- `number`: Số thứ tự theo văn bản gốc (có thể không liên tục nếu có lỗi soạn thảo)
+
+Chênh lệch `position vs number` chính là dữ liệu để **Module 3 (Validation)** phát hiện gap ("có khả năng thiếu Khoản 2"). Nếu gán `position` làm `number`, Module 3 sẽ mù với loại lỗi này.
+
+> **Ghi chú**: Với DOCX + Auto-numbering, `number` được tính từ `abstractNum.start + offset trong numId group` — **không cần đọc text**.
+
+#### Kết luận và Clause Detection v1 (DOCX scope)
+
+```
+DOCX Paragraph
+      ↓
+┌─────────────────────────────┐
+│ Signal 1: Style             │ List Paragraph
+│ Signal 2: ilvl              │ 0 = CLAUSE, 1 = POINT
+│ Signal 3: numFmt + lvlText  │ decimal/%1. hoặc lowerLetter/%2)
+│ Signal 4: Context           │ paragraph nằm trong ARTICLE
+└─────────────────────────────┘
+      ↓
+  Clause/Point Candidate
+      ↓
+  number = counted per numId group (từ abstractNum.start)
+  position = sequential rank trong siblings
+```
+
+**Ưu tiên implement**:
+- Mức 1 (DOCX + numbering): Style + ilvl + numFmt + Context → **tuyến chính**
+- Mức 2 (DOCX + style, mất numbering): Style + Text Pattern + Context → fallback
+- Mức 3 (Plain text): Text Pattern + Context → 🧊 Frozen (xem KL-01)
+
+**Interface Module 1 → Module 2**: Module 1 cần pass thêm `numbering_id` (numId) và `numbering_level` (ilvl) cho mỗi paragraph. Module 2 diễn giải — không tự đọc XML.
 
 ## 4. Design Decisions & Reasoning (Quyết định Thiết kế & Lý giải)
 
@@ -319,9 +409,12 @@ Lớp 1 (Style) chỉ có khi DOCX. Lớp 2 (Text Pattern) luôn có. Lớp 3 (C
 | `parent_id` thay vì `ancestor_path` | Để Module 4 tự traverse khi build graph. Switch sang materialized path nếu cần |
 | Prototype B dùng `text = direct text` *(implementation hiện tại, chưa phải design cuối cùng)* | Tránh duplicate content. Semantics cuối cùng của `text` và cách xử lý `title` vẫn chưa chốt — xem "Chưa nên chốt" |
 | Không tạo Virtual Clause | Parser quan sát thực tế, không nội suy. Validation quyết định mức độ lỗi |
-| Prototype B dùng `implicit_parent=true` cho Orphan POINT *(quyết định tạm thời — logic đang có bug ở TXT mode, cần verify ở 2.4)* | Flag để Module 3 phát hiện. Không tự sửa cấu trúc |
+| `implicit_parent=True` cho Orphan POINT (✅ fix xong — 8/8 đúng ở TXT mode) | Flag để Module 3 phát hiện. Không tự sửa cấu trúc |
 | Hierarchical ID tạm thời | `ldd-2024_dieu-26_khoan-1`. Có điểm yếu khi multi-doc |
 | `đ` → `d` trong ID | Tương thích với Neo4j property key |
+| `position ≠ number` — phải giữ riêng hai field | `position`: thứ tự tương đối trong siblings (sequential). `number`: số theo văn bản gốc (có thể không liên tục). Module 3 dùng gap giữa chúng để phát hiện lỗi soạn thảo |
+| numId không phải loại node | 41 numId khác nhau trong corpus nhưng chỉ có 2 loại (CLAUSE/POINT). Loại node xác định từ `ilvl + numFmt + lvlText` — không phải numId |
+| CLAUSE detection ưu tiên Numbering Metadata (ilvl=0, decimal) thay vì Text Regex | Số `1.` `2.` `3.` không có trong `paragraph.text` — Word render từ metadata. Text Regex = fallback khi mất metadata |
 | 5 NodeType: CHAPTER/SECTION/ARTICLE/CLAUSE/POINT | Structural Taxonomy, không phải Legal Ontology (thuộc Module 7) |
 
 ### Chưa nên chốt (cần thêm evidence hoặc thống nhất team)
@@ -399,17 +492,19 @@ Không phải hướng của Module 2 vì chi phí, độ tái lập kém, nguy 
 | **CLAUSE** | **185** | **0** | **−185** |
 | POINT | 8 | 8 | 0 |
 
-**Nguyên nhân gốc**: Cấu trúc Khoản trong DOCX dùng Word Auto-numbering (List style). Số thứ tự là metadata của paragraph, không phải ký tự text. Khi export sang TXT, metadata bị loại bỏ. Pattern `^\d+\.\s+` không có gì để match.
+**Nguyên nhân gốc** (đã làm rõ sau Numbering Investigation — xem 3.5): Cấu trúc Khoản trong DOCX dùng Word Auto-numbering. Số thứ tự (`1.` `2.` `3.`) là metadata trong `numbering.xml` — được Word render khi hiển thị, **không bao giờ xuất hiện trong `paragraph.text`**. Khi export sang TXT, metadata bị loại bỏ, `paragraph.text` chỉ chứa nội dung thuần túy. Pattern `^\d+\.\s+` không có gì để match vì số không nằm trong text.
 
 **Hệ quả downstream**:
 - Parser TXT mode chỉ sinh ra 37 nodes thay vì 222
 - 8 POINTs bị gán parent thẳng lên ARTICLE (implicit orphan)
-- 7/8 ID Collision — xem KL-02
+- KL-02: ID Collision do mất CLAUSE layer
 
-**Hướng giải quyết tiềm năng (chưa implement — Prototype C2)**:
-1. Heuristic context: paragraph sau ARTICLE, không phải marker Điểm → coi là CLAUSE
-2. Position-based: đếm vị trí paragraph từ Điều, indent level 1 là CLAUSE
-3. Regex fallback: pattern nhận diện không phụ thuộc số thứ tự
+**Lưu ý bổ sung từ Internal Comparison** (xem Mục 8): `code_minh` (implementation bạn cùng nhóm) cũng đối mặt với KL-01 trên cùng input plain text → CLAUSE = 0. Điều này xác nhận đây là bottleneck của input representation, không phải lỗi implementation cụ thể. Chưa đủ evidence để gọi là "research gap" — cần khảo sát literature.
+
+**Hướng giải quyết** (cho DOCX scope hiện tại — đã có evidence từ 3.5):
+1. Mức 1: `Style=List Paragraph + ilvl=0 + numFmt=decimal` → CLAUSE — **khả thi, đủ cơ sở**
+2. Mức 2: `Style=List Paragraph + Text Pattern + context=ARTICLE` → fallback
+3. Mức 3 (TXT): heuristic context / position-based → 🧊 Frozen (Prototype C2)
 
 ### 🧊 KL-02: Hierarchical ID Collision khi mất CLAUSE layer
 
@@ -434,7 +529,34 @@ Mọi kết quả từ Prototype A/B/C đều có scope `[CORPUS: Ch3-LDD]`. Ch�
 
 ---
 
-## 8. Research Gaps (Khoảng trống Nghiên cứu)
+## 8. Empirical Comparison (Đối chiếu Thực nghiệm nội bộ)
+
+Để có cái nhìn khách quan về các chiến lược thiết kế (parsing strategies) khác nhau trên cùng một dạng biểu diễn đầu vào (Plain text [CORPUS: Ch3-LDD]), chúng tôi đã thực hiện một baseline comparison nội bộ giữa implementation của Minh (code_minh) và hybrid_parser.
+
+Kết quả thu được như sau:
+
+| Node Type | code_minh | hybrid_parser |
+|---|:---:|:---:|
+| CHAPTER | 1 | 1 |
+| SECTION | 5 | 5 |
+| ARTICLE | 23 | 23 |
+| CLAUSE (Khoản) | 0 | 0 |
+| POINT (Điểm) | 9 | 8 |
+| TEXT (Noise) | 1 | 0 |
+
+**Phân tích Trade-off và Lỗi hệ thống:**
+
+1. **KL-01 là bottleneck của Input Representation**: Cả hai implementation đều trả về 0 CLAUSE. Điều này chứng minh KL-01 không phải là lỗi cá biệt của riêng implementation nào, mà là giới hạn cố hữu khi input mất hoàn toàn tín hiệu cấu trúc (Word Style).
+2. **False Positive của POINT**: code_minh sinh ra 9 Điểm, trong đó có 1 Node dư (bắt nhầm chữ đ trong văn bản). Điều này cung cấp evidence thực chứng ủng hộ phương pháp **Regex + Context** của hybrid_parser (bắt chuẩn xác 8 Điểm) thay vì chỉ dùng Regex Pattern đơn giản.
+3. **Bài toán định danh ID (ID Collision)**:
+   - Kiến trúc code_minh sử dụng chuỗi ghép tĩnh (VD: rticle_37_point_đ), dẫn đến việc nếu một Điều có nhiều Điểm đ) thuộc các Khoản khác nhau, ID sẽ bị trùng (đã phát hiện 3 cặp trùng trong corpus hiện tại). Điều này có nguy cơ gây lỗi merge/override tùy thuộc vào logic Ingestion của Module 9.
+   - Kiến trúc hybrid_parser sinh ID phân cấp đầy đủ (path mapping từ law -> chapter -> section -> article -> clause -> point). Path ID cung cấp khả năng debug và truy vết (traceability) tốt hơn hẳn. Prototype hiện tại đạt ID uniqueness 100% trên corpus Chương III được kiểm thử.
+
+So sánh này không nhằm kết luận implementation nào tốt hơn, mà để làm rõ các lỗi, trade-off và giới hạn kỹ thuật của hai chiến lược parsing khác nhau.
+
+---
+
+## 9. Research Gaps (Khoảng trống Nghiên cứu)
 
 Chưa đủ bằng chứng để tuyên bố Research Gap mạnh rằng "chưa ai làm Regex Parser cho luật Việt Nam". Điểm có thể nghiên cứu thực tế hơn:
 
@@ -451,7 +573,7 @@ Các điểm đáng nghiên cứu cụ thể:
 
 ---
 
-## 9. Open Research Questions (Câu hỏi Nghiên cứu Mở)
+## 10. Open Research Questions (Câu hỏi Nghiên cứu Mở)
 
 ### Về Pattern
 
@@ -497,7 +619,7 @@ Các điểm đáng nghiên cứu cụ thể:
 
 ---
 
-## 10. Research TODO (Những vấn đề cần nghiên cứu thêm)
+## 11. Research TODO (Những vấn đề cần nghiên cứu thêm)
 
 ### Giai đoạn hiện tại — Hoàn thiện 2.2/2.3/2.4
 
@@ -548,7 +670,7 @@ Các điểm đáng nghiên cứu cụ thể:
 
 ---
 
-## 11. Future Improvements (Hướng phát triển)
+## 12. Future Improvements (Hướng phát triển)
 
 Các hướng có thể nghiên cứu sau khi pipeline cơ bản ổn định:
 
@@ -564,7 +686,7 @@ Các hướng có thể nghiên cứu sau khi pipeline cơ bản ổn định:
 
 ---
 
-## 12. Evolution (Lịch sử tiến hóa)
+## 13. Evolution (Lịch sử tiến hóa)
 
 ```
 Prototype A (DOCX)                              ← DONE
@@ -607,7 +729,7 @@ Cross-corpus Pattern Generalization
 
 ---
 
-## 13. References (Tài liệu tham khảo)
+## 14. References (Tài liệu tham khảo)
 
 **Bắt buộc đọc trước khi viết pattern**:
 - [ ] **Nghị định 34/2016/NĐ-CP** — Quy định chi tiết về định dạng văn bản quy phạm pháp luật VN
@@ -628,7 +750,7 @@ Cross-corpus Pattern Generalization
 
 ---
 
-## 14. Defense Questions & Technical Answers (Câu hỏi phản biện)
+## 15. Defense Questions & Technical Answers (Câu hỏi phản biện)
 
 **Regex có xử lý được tất cả văn bản pháp luật Việt Nam không?**  
 Không nên khẳng định. Regex xử lý tốt các cấu trúc có tính quy luật, nhưng khả năng tổng quát cần kiểm chứng trên nhiều corpus. Prototype C đã chứng minh ngay cùng một corpus, khi mất Style thì CLAUSE = 0%.
