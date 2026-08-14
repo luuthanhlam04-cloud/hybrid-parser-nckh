@@ -51,8 +51,8 @@ Scope tag convention dùng xuyên suốt notes này:
 |---|---|---|---|
 | **2.1 Regex Engine** | ✅ Baseline DONE (Prototype B) / 🔄 Generalization IN PROGRESS | DOCX: CHAPTER/SECTION/ARTICLE/POINT = 100% | CLAUSE TXT = 0% — frozen. Chưa tổng quát |
 | **2.2 Boundary Detector** | 🔄 IN PROGRESS | Cần verify multiline / start\|end idx | Trọng tâm hiện tại |
-| **2.3 Hierarchy Builder** | ✅ DONE — verified 12/12 checks | Stack, position, edge cases | EC-1/EC-3 đúng. Children IDs có artifact nhỏ |
-| **2.4 Node Creator** | ✅ DONE — ID 222/222 unique, schema v1.1 | implicit_parent TXT fix ✅ | POINT ID prefix artifact — cosmetic, ghi chú ở dưới |
+| **2.3 Hierarchy Builder** | ✅ Prototype verified | Stack, position, edge cases | EC-1/EC-3 đúng. Children IDs có artifact nhỏ |
+| **2.4 Node Creator** | ✅ Prototype verified / 🔄 Interface pending | implicit_parent TXT fix ✅ | POINT ID prefix artifact — cosmetic, ghi chú ở dưới |
 | **Pipeline tổng thể** | ⏳ PENDING | — | Chỉ review sau khi 2.2–2.4 ổn |
 | **Prototype C2 (TXT+CLAUSE)** | 🧊 FROZEN | CLAUSE TXT = 0% | Xem Mục 7 |
 | **CLAUSE Detection v1 (DOCX+Numbering)** | 🔬 RESEARCH — đủ cơ sở chốt design | ilvl=0/decimal=CLAUSE, ilvl=1/lowerLetter=POINT | Xem Mục 3.5 |
@@ -414,7 +414,7 @@ DOCX Paragraph
 | `đ` → `d` trong ID | Tương thích với Neo4j property key |
 | `position ≠ number` — phải giữ riêng hai field | `position`: thứ tự tương đối trong siblings (sequential). `number`: số theo văn bản gốc (có thể không liên tục). Module 3 dùng gap giữa chúng để phát hiện lỗi soạn thảo |
 | numId không phải loại node | 41 numId khác nhau trong corpus nhưng chỉ có 2 loại (CLAUSE/POINT). Loại node xác định từ `ilvl + numFmt + lvlText` — không phải numId |
-| CLAUSE detection ưu tiên Numbering Metadata (ilvl=0, decimal) thay vì Text Regex | Số `1.` `2.` `3.` không có trong `paragraph.text` — Word render từ metadata. Text Regex = fallback khi mất metadata |
+| CLAUSE detection ưu tiên Numbering Metadata (ilvl=0, decimal) thay vì Text Regex | Trong DOCX mode, tại corpus Ch3-LDD: Số `1.` `2.` `3.` không có trong `paragraph.text` — Word render từ metadata. Text Regex = fallback khi mất metadata |
 | 5 NodeType: CHAPTER/SECTION/ARTICLE/CLAUSE/POINT | Structural Taxonomy, không phải Legal Ontology (thuộc Module 7) |
 
 ### Chưa nên chốt (cần thêm evidence hoặc thống nhất team)
@@ -517,7 +517,7 @@ Không phải hướng của Module 2 vì chi phí, độ tái lập kém, nguy 
 
 **Evidence**: 8 POINTs trong TXT có parent = ARTICLE, nhưng `implicit_parent = False`.  
 **Nguyên nhân**: Logic dùng chuỗi `"_khoan-" not in parent_id` — cần kiểm tra lại với TXT law_prefix.  
-**Trạng thái**: Chưa fix, sẽ giải quyết khi hoàn thiện 2.4.
+**Trạng thái**: Resolved in current prototype: 8/8 orphan POINTs correctly flagged in TXT mode.
 
 ### KL-04: Lỗi ở Module 1 có thể làm Module 2 thất bại
 
@@ -673,8 +673,9 @@ Các điểm đáng nghiên cứu cụ thể:
 
 **2.4 Node Creator**
 - [ ] Chốt schema v1.1: `id, type, depth, title, text, parent_id, children_count, position, number, law_prefix, law_code, source_doc, word_style, start_idx, end_idx, implicit_parent`
-- [ ] Verify ID không collision trong DOCX mode (222 nodes — tất cả unique?)
-- [ ] Fix: `implicit_parent` logic bug trong TXT mode (KL-03)
+- [x] Verify ID không collision trong DOCX mode (222 nodes — tất cả unique?)
+- [x] Fix: `implicit_parent` logic bug trong TXT mode (KL-03)
+- [ ] Verify ID path correctness / ancestor path consistency after current fix
 - [ ] Verify: `text = direct text` đúng cho tất cả node types
 - [ ] Verify: `normalize_marker` — `đ` → `d` đã đúng, test với `ă`, `â`... nếu có
 - [ ] Document: các field nào sẽ là input cho Module 3, 4, 5, 6
@@ -811,5 +812,47 @@ Parser quan sát thực tế và gắn flag (`implicit_parent=true`). Validation
 
 ---
 
-*Tổng hợp từ: thảo luận 2026-08-14, Prototype A/B/C experiments, Pattern Taxonomy v1*  
-*Cập nhật lần cuối: 2026-08-14 — sau Prototype C*
+## 16. Kế hoạch Merge & Đàm phán Data Contract (M1 -> M2)
+
+*Dựa trên kết quả thực nghiệm sinh JSON thực tế (ngày 2026-08-15).*
+
+### 🛑 Vấn đề nghiêm trọng trước khi Merge
+JSON output hiện tại của Module 2 (trên DOCX) cho thấy:
+```json
+"position": 1,
+"number": null
+```
+**Bản chất vấn đề:** 
+- `position` (thứ tự xuất hiện trong parent) khác với `number` (số thứ tự pháp lý thực tế). Ví dụ: Một Điều bị bãi bỏ Khoản 2, thì Khoản 3 sẽ có `position=2` nhưng `number=3`.
+- Sự chênh lệch (`position != number`) chính là căn cứ duy nhất để Module 3 (Validation) phát hiện ra các Gap (lỗ hổng cấu trúc).
+- Tuyệt đối **KHÔNG ĐƯỢC** giải quyết bằng cách gán `number = position` (vì sẽ phá hỏng dữ liệu).
+- Nguyên nhân: Số của Khoản nằm trong metadata ẩn của DOCX. Module 1 của nhóm (code_minh) có trích xuất được số này nhưng lại render thẳng vào text thay vì giữ dưới dạng metadata độc lập. Giao tiếp hiện tại giữa Module 1 và 2 chưa đủ thông tin.
+
+### 📝 Đề xuất Data Contract M1 -> M2 mới
+Thay vì chỉ nhận text thuần, Module 2 cần Module 1 truyền cấu trúc `paragraph` với đầy đủ metadata chưa bị bóp méo:
+
+```json
+{
+  "text": "Cá nhân được phép...",
+  "word_style": "List Paragraph",
+  "numbering_id": 25,
+  "numbering_level": 0,
+  "numbering_format": "decimal",
+  "number": 1,
+  "paragraph_index": 138
+}
+```
+
+**Tại sao cần Contract này?**
+- Cho phép Module 2 cross-validate: Kết hợp giữa `numbering metadata` + `context` + `text` thay vì tin vào một field duy nhất.
+- Hỗ trợ giải quyết dứt điểm KL-01 (Mất Clause trong Plain Text) và hạn chế False Positive.
+
+### ⚠️ Lưu ý giới hạn dữ liệu (Overfitting Risk)
+Việc sử dụng `numbering_level = 0 -> CLAUSE` hay `numbering_level = 1 -> POINT` phải được gắn tag **[CORPUS: Ch3-LDD]**. Nó đúng tuyệt đối trên Chương III Luật Đất đai nhưng chưa được kiểm chứng quy luật trên các văn bản luật khác. Không nên biến nó thành quy tắc cứng (hard-coded) cho toàn hệ thống.
+
+**Hành động tiếp theo:** Đóng băng Module 2. Ưu tiên đàm phán Data Contract với tác giả Module 1.
+
+---
+
+*Tổng hợp từ: thảo luận 2026-08-14 và 2026-08-15, Prototype A/B/C experiments, Pattern Taxonomy v1*  
+*Cập nhật lần cuối: 2026-08-15 — chuẩn bị Merge Module 1*
