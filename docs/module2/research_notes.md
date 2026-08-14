@@ -554,7 +554,37 @@ Kết quả thu được như sau:
 
 So sánh này không nhằm kết luận implementation nào tốt hơn, mà để làm rõ các lỗi, trade-off và giới hạn kỹ thuật của hai chiến lược parsing khác nhau.
 
+### Quan sát từ 5 thách thức kỹ thuật của `code_minh` (nguồn: `tom_tat_module_2.md`)
+
+Một số đã xuất hiện ở `hybrid_parser`, một số là edge case chưa được kiểm thử, một số có cách tiếp cận đáng tham khảo khi merge.
+
+**1. Nhiều Điểm trên cùng 1 dòng (Multiple Points per Line)**
+- *Thực trạng*: Văn bản luật có thể viết gộp `a) ...; b) ...; đ) ...` trên 1 dòng. Regex `^[a-zđ]\)\s+` chỉ bắt Điểm đầu tiên.
+- *Giải pháp `code_minh`*: `re.finditer()` quét toàn bộ dòng, tính index toán học để cắt thành nhiều Node Điểm.
+- *Đối chiếu `hybrid_parser`*: **Chưa có test case này trong corpus Ch3-LDD**. Cần thêm vào checklist 2.2 Boundary Detector.
+
+**2. Đứt gãy nội dung Điểm nhiều đoạn (Point Continuation)**
+- *Thực trạng*: Một Điểm trải nhiều đoạn văn — đoạn 2 dễ thành TEXT node mồ côi hoặc trỏ nhầm lên Khoản.
+- *Giải pháp `code_minh`*: Thêm `POINT` vào Context Memory. BoundaryDetector giữ Node ở trạng thái `pending`, absorb các dòng tiếp theo đến khi gặp Marker mới.
+- *Đối chiếu `hybrid_parser`*: `pending_chunk` đã có nhưng **chưa verify với multiline POINT**. Một trong các mục mở ở checklist 2.2.
+
+**3. Chồng lấp vị trí ký tự (Position Overlap)**
+- *Thực trạng*: `end` của Khoản 2 dễ đè lên `start` của Điểm a do độ trễ khi chốt node.
+- *Giải pháp `code_minh`*: `flush_pending(end_index)` ép `position.end = line_start_idx` của dòng chứa node con tiếp theo.
+- *Đối chiếu `hybrid_parser`*: `start_idx`/`end_idx` có trong schema v1.1 nhưng **chưa verify kỹ** (checklist 2.2 chưa hoàn thành). Kỹ thuật `flush_pending` là tham khảo tốt.
+
+**4. Trùng lặp Title và Text**
+- *Thực trạng*: Parser ban đầu đưa toàn bộ câu vào cả `title` và `text`.
+- *Giải pháp `code_minh`*: Cắt marker (`"2."`, `"a)"`) làm `title`, slice phần còn lại làm `text`.
+- *Đối chiếu `hybrid_parser`*: `text = direct text` (không gộp title) — đúng hướng. Nhưng semantics field `text` vs `title` **vẫn chưa chốt** (xem Mục 4).
+
+**5. Sinh Node Rác (Empty Nodes)**
+- *Thực trạng*: Ngắt dòng dư thừa tạo TEXT node chỉ chứa `\n`.
+- *Giải pháp `code_minh`*: HierarchyBuilder lọc `chunk.type == TEXT và strip() == ""`.
+- *Đối chiếu `hybrid_parser`*: 20 separator paragraphs (`numId=None, text=""`) được skip ở Regex Engine. Cần xác nhận TXT mode cũng lọc được.
+
 ---
+
 
 ## 9. Research Gaps (Khoảng trống Nghiên cứu)
 
