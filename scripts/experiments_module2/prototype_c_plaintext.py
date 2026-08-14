@@ -79,7 +79,7 @@ print(f"Total CLAUSE TXT = {type_counts.get('CLAUSE', 0)}")
 print(f"Baseline DOCX    = {BASELINE_DOCX['CLAUSE']}")
 
 # --- Luu output
-out_path = os.path.join(os.path.dirname(__file__), \'..\', \'..\', \'..\', 'legal_nodes_ch3_txt.json')
+out_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'legal_nodes_ch3_txt.json')
 with open(out_path, 'w', encoding='utf-8') as f:
     json.dump(result.nodes, f, ensure_ascii=False, indent=2)
 print(f"\nSaved -> legal_nodes_ch3_txt.json ({len(result.nodes)} nodes)")
