@@ -65,3 +65,7 @@ Trong quá trình xây dựng, tôi đã đối mặt và xử lý triệt để
 5. **Sinh Node Rác (Empty Nodes):**
    - *Thực trạng:* Các ngắt dòng dư thừa tạo ra các node TEXT chỉ chứa `\n`.
    - *Giải quyết:* Chặn đánh chặn ở lớp `hierarchy_builder`, nếu `chunk.type == NodeType.TEXT` và `.strip()` trả về rỗng thì lập tức loại bỏ.
+
+6. **Vượt cấp cấu trúc & Xung đột ID (ID Collision Bug KL-02):**
+   - *Thực trạng:* Ở các văn bản lỗi cấu trúc (ví dụ: mất tầng Khoản, Điểm nhảy bậc nhận trực tiếp Điều làm cha), mô hình "Hierarchical ID thuần túy" sẽ sinh ra ID giống hệt nhau cho 2 Điểm cùng ký hiệu thuộc 2 Khoản bị ẩn khác nhau (vd: cùng sinh ra `article_27_point_d`), dẫn đến ghi đè mất dữ liệu.
+   - *Giải quyết:* Nâng cấp toàn diện sang kiến trúc **Hybrid ID (Position Offset Suffix)**. Công thức `Hybrid_ID = {Hierarchical_Prefix}_p{char_start_index}`. Bằng cách nối thêm vị trí ký tự tuyệt đối (`start_index`) vào đuôi ID, ID sinh ra (vd: `article_27_point_d_p1859` và `article_27_point_d_p2306`) vừa đảm bảo **tính duy nhất 100% (Uniqueness)** mà vẫn bảo toàn **tính giải thích được (Explainability)**. Ngoài ra, thêm cơ chế **Fail-Fast** quét trùng lặp ở `parser.py` để bắn lỗi `ValueError` ngăn chặn ngay lập tức nếu còn sót lỗi chồng chéo.

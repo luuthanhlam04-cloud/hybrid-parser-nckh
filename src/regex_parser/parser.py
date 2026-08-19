@@ -1,4 +1,5 @@
 import json
+import logging
 from typing import List
 from .boundary_detector import BoundaryDetector
 from .hierarchy_builder import HierarchyBuilder
@@ -12,6 +13,14 @@ class RegexParser:
     def parse(self, text: str) -> List[LegalNode]:
         chunks = self.boundary_detector.detect_boundaries(text)
         nodes = self.hierarchy_builder.build_hierarchy(chunks)
+        
+        seen_ids = set()
+        for node in nodes:
+            if node.id in seen_ids:
+                logging.error(f"CRITICAL: ID Collision detected for id: {node.id}")
+                raise ValueError(f"ID Collision detected: {node.id}")
+            seen_ids.add(node.id)
+            
         return nodes
 
     def parse_to_json(self, text: str) -> str:

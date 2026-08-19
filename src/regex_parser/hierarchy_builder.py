@@ -1,6 +1,7 @@
 import logging
+import re
 from typing import List, Dict, Optional
-from .node_generator import NodeType, LegalNode, Position
+from .node_generator import NodeType, LegalNode, Position, generate_hybrid_id
 from .boundary_detector import RawChunk
 
 logger = logging.getLogger(__name__)
@@ -19,25 +20,24 @@ class HierarchyBuilder:
             NodeType.POINT: None,
         }
 
-    def _generate_id(self, chunk_type: NodeType, marker: Optional[str]) -> str:
-        # e.g., article_26, article_26_clause_1, article_26_clause_1_point_a
-        parts = []
-        if self.active_nodes[NodeType.ARTICLE]:
-            art_id = self.active_nodes[NodeType.ARTICLE].id
-            parts.append(art_id)
-        
+    def _generate_prefix(self, chunk_type: NodeType, marker: Optional[str]) -> str:
+        def strip_p(node_id: str) -> str:
+            return re.sub(r'_p\d+$', '', node_id)
+
         clean_marker = str(marker).split()[-1] if marker else "unknown"
         if chunk_type == NodeType.ARTICLE:
             return f"article_{clean_marker}"
         elif chunk_type == NodeType.CLAUSE:
-            base = parts[0] if parts else "orphan"
+            base = "orphan"
+            if self.active_nodes[NodeType.ARTICLE]:
+                base = strip_p(self.active_nodes[NodeType.ARTICLE].id)
             return f"{base}_clause_{clean_marker}"
         elif chunk_type == NodeType.POINT:
             base = "orphan"
             if self.active_nodes[NodeType.CLAUSE]:
-                base = self.active_nodes[NodeType.CLAUSE].id
+                base = strip_p(self.active_nodes[NodeType.CLAUSE].id)
             elif self.active_nodes[NodeType.ARTICLE]:
-                base = self.active_nodes[NodeType.ARTICLE].id
+                base = strip_p(self.active_nodes[NodeType.ARTICLE].id)
             return f"{base}_point_{clean_marker}"
         elif chunk_type == NodeType.PART:
             return f"part_{clean_marker}"
@@ -50,7 +50,6 @@ class HierarchyBuilder:
     def build_hierarchy(self, chunks: List[RawChunk]) -> List[LegalNode]:
         nodes: List[LegalNode] = []
         self.reset_state()
-        text_counters = {}
 
         def get_parent_id(target_type: NodeType) -> Optional[str]:
             if target_type == NodeType.CHAPTER:
@@ -118,14 +117,13 @@ class HierarchyBuilder:
 
             if chunk.type == NodeType.TEXT:
                 base_id = parent_id if parent_id else "orphan"
-                if base_id not in text_counters:
-                    text_counters[base_id] = 1
-                else:
-                    text_counters[base_id] += 1
-                node_id = f"{base_id}_text_{text_counters[base_id]}"
+                base_prefix = re.sub(r'_p\d+$', '', base_id)
+                prefix = f"{base_prefix}_text"
+                node_id = generate_hybrid_id(prefix, chunk.position.start)
                 title = None
             else:
-                node_id = self._generate_id(chunk.type, chunk.marker)
+                prefix = self._generate_prefix(chunk.type, chunk.marker)
+                node_id = generate_hybrid_id(prefix, chunk.position.start)
                 title = chunk.title
                 
             node = LegalNode(
