@@ -158,6 +158,85 @@ class LegalParser:
         )
 
     # -----------------------------------------------------------------------
+    # Public: parse từ StructuredParagraph (M1→M2 contract)
+    # -----------------------------------------------------------------------
+    def parse_structured(self, paragraphs: list, source_doc: str = "") -> ParseResult:
+        """
+        Parse từ danh sách StructuredParagraph — interface chính của M1→M2 contract.
+
+        Thay thế parse_docx() + parse_text() khi M1 đã trích xuất metadata.
+        M2 không tự đọc lại DOCX khi sử dụng method này.
+
+        Args:
+            paragraphs:  list[StructuredParagraph] từ DocxLoader.load_structured()
+                         hoặc TxtLoader.load_structured().
+            source_doc:  Tên file nguồn (để ghi vào Legal Node JSON).
+
+        Returns:
+            ParseResult với danh sách Legal Node JSON.
+
+        Flow:
+            StructuredParagraph
+              → to_engine_dict()  (giữ ilvl, num_fmt, number, marker)
+              → RegexEngine.match_paragraphs()  (dùng ilvl+num_fmt hints)
+              → _merge_contract_metadata()  (ghi number/marker từ M1 vào MatchResult)
+              → BoundaryDetector / HierarchyBuilder / NodeGenerator
+        """
+        import sys as _sys
+        import os as _os
+        _contracts_path = _os.path.join(_os.path.dirname(__file__), "..", "..")
+        if _contracts_path not in _sys.path:
+            _sys.path.insert(0, _contracts_path)
+
+        if source_doc:
+            self.node_generator.source_doc = source_doc
+
+        # Phân biệt DOCX và TXT path dựa vào metadata availability
+        has_metadata = any(getattr(p, "has_metadata", False) for p in paragraphs)
+        mode = "structured_docx" if has_metadata else "structured_txt"
+
+        # Chuyển StructuredParagraph → dict (RegexEngine nhận dict)
+        para_dicts = [p.to_engine_dict() for p in paragraphs]
+
+        # Lớp 1+2 matching — RegexEngine sẽ dùng ilvl+num_fmt từ dict
+        match_results = self.regex_engine.match_paragraphs(para_dicts)
+
+        # Ghi number/marker từ M1 contract vào MatchResult (nguồn chính xác hơn Regex)
+        # M1 đã tính sẵn counter — không để Regex ghi đè
+        match_results = self._merge_contract_metadata(match_results, paragraphs)
+
+        return self._run_pipeline(
+            input_units=para_dicts,
+            match_results=match_results,
+            mode=mode,
+        )
+
+    @staticmethod
+    def _merge_contract_metadata(match_results: list, paragraphs: list) -> list:
+        """
+        Ghi number / marker từ StructuredParagraph vào MatchResult.
+
+        Lý do: RegexEngine có thể không extract được number nếu text không có label.
+        M1 đã tính sẵn từ numbering XML — đây là nguồn truth.
+
+        Rule:
+          - Nếu paragraph.number is not None → ghi vào match.number (override)
+          - Nếu paragraph.marker is not None → ghi vào match.marker (override)
+          - Nếu match is None → bỏ qua
+        """
+        for match, para in zip(match_results, paragraphs):
+            if match is None:
+                continue
+            p_number = getattr(para, "number", None)
+            p_marker = getattr(para, "marker", None)
+            if p_number is not None:
+                match.number = str(p_number)  # MatchResult.number là str
+            if p_marker is not None:
+                match.marker = p_marker
+        return match_results
+
+
+    # -----------------------------------------------------------------------
     # Public: save output
     # -----------------------------------------------------------------------
     def save_json(self, result: ParseResult, output_path: str, indent: int = 2):
