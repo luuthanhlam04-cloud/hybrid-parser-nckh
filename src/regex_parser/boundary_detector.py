@@ -1,184 +1,176 @@
-import re
-from dataclasses import dataclass
-from typing import Optional, List, Tuple
-from .node_generator import NodeType, Position
-from .regex_engine import (
-    PART_PATTERN, CHAPTER_PATTERN, SECTION_PATTERN,
-    ARTICLE_PATTERN, CLAUSE_PATTERN, POINT_PATTERN
-)
 
+# -*- coding: utf-8 -*-
+"""
+boundary_detector.py — Module 2: Regex Parser
+Xác định ranh giới (start / end) của từng Legal Node.
+
+Đây là bài toán RIÊNG với nhận diện marker:
+  - Regex Engine → tìm điểm BẮT ĐẦU của node
+  - Boundary Detector → tìm điểm KẾT THÚC của node
+
+Ví dụ thực tế [CORPUS: Ch3-LDD]:
+  a) Cá nhân được nhận chuyển đổi...    ← bắt đầu
+     ...tiếp tục sang dòng tiếp theo... ← vẫn thuộc Điểm a
+     ...và dòng tiếp theo nữa...
+  b) Tổ chức kinh tế...                 ← bắt đầu node mới → Điểm a kết thúc
+
+Boundary = "node kết thúc khi gặp marker cùng cấp hoặc cấp cao hơn".
+"""
+
+from dataclasses import dataclass, field
+from typing import Optional
+from regex_engine import MatchResult, NodeType
+
+
+# ---------------------------------------------------------------------------
+# Boundary — ranh giới vật lý của một node trong danh sách input
+# ---------------------------------------------------------------------------
 @dataclass
-class RawChunk:
-    type: NodeType
-    marker: Optional[str]
-    title: Optional[str]
-    text: str
-    position: Position
+class Boundary:
+    match: MatchResult       # Match result tại điểm bắt đầu
+    start_idx: int           # Index bắt đầu trong danh sách input (inclusive)
+    end_idx: int             # Index kết thúc (exclusive) — chưa biết khi tạo
+    char_start: int = 0      # Absolute character offset (zero-based)
+    content_lines: list[str] = field(default_factory=list)  # Các dòng thuộc node này
 
+    @property
+    def node_type(self) -> NodeType:
+        return self.match.node_type
+
+    @property
+    def raw_text(self) -> str:
+        return self.match.raw_text
+
+    @property
+    def full_content(self) -> str:
+        """Toàn bộ nội dung của node (dòng đầu + content_lines)."""
+        all_lines = [self.raw_text] + self.content_lines
+        return "\n".join(line for line in all_lines if line.strip())
+
+    @property
+    def body_text(self) -> str:
+        """
+        Nội dung BODY — không bao gồm dòng header (marker + title).
+        Dùng cho CLAUSE và POINT khi cần lấy nội dung thuần.
+        """
+        return "\n".join(line for line in self.content_lines if line.strip())
+
+
+# ---------------------------------------------------------------------------
+# BoundaryDetector
+# ---------------------------------------------------------------------------
 class BoundaryDetector:
-    def __init__(self):
-        pass
+    """
+    Xác định ranh giới của các Legal Node từ danh sách MatchResult.
 
-    def detect_boundaries(self, text: str) -> List[RawChunk]:
-        chunks: List[RawChunk] = []
-        lines = text.splitlines(keepends=True)
-        current_char_index = 0
+    Logic cốt lõi:
+      - Node bắt đầu tại vị trí của MatchResult.
+      - Node kết thúc khi:
+        a) Gặp MatchResult tiếp theo có depth <= depth của node hiện tại
+        b) Hết danh sách input
 
-        pending_chunk: Optional[dict] = None
+    Đây là thuật toán Stack-based:
+      - Khi gặp marker mới → đóng node cũ (nếu depth >= depth mới) → mở node mới
+      - Dòng không phải marker → append vào content của node đang mở
 
-        def flush_pending(end_index: int):
-            nonlocal pending_chunk
-            if pending_chunk:
-                combined_text = "".join(pending_chunk["text_lines"]).strip()
-                chunks.append(
-                    RawChunk(
-                        type=pending_chunk["type"],
-                        marker=pending_chunk["marker"],
-                        title=pending_chunk["title"],
-                        text=combined_text,
-                        position=Position(start=pending_chunk["start"], end=end_index)
-                    )
-                )
-                pending_chunk = None
+    [HYPOTHESIS]: Thuật toán này chưa được benchmark.
+    Sẽ được so sánh với Phương án khác khi có failure cases.
+    """
 
-        i = 0
-        while i < len(lines):
-            line = lines[i]
-            line_start_idx = current_char_index
-            line_len = len(line)
-            current_char_index += line_len
-            
-            stripped = line.strip()
-            
-            if not stripped:
-                if pending_chunk:
-                    pending_chunk["text_lines"].append(line)
-                i += 1
-                continue
+    def detect(
+        self,
+        input_units: list,  # list[str] hoặc list[dict] với key 'text'
+        match_results: list[Optional[MatchResult]],
+    ) -> list[Boundary]:
+        """
+        Phát hiện ranh giới từ danh sách match_results.
 
-            point_matches = list(POINT_PATTERN.finditer(line))
-            if point_matches:
-                flush_pending(line_start_idx)
-                
-                for match_idx, match in enumerate(point_matches):
-                    point_marker = match.group(1) 
-                    point_title = f"{point_marker})"
-                    start_pos = line_start_idx + match.start()
-                    
-                    next_start = point_matches[match_idx + 1].start() if match_idx + 1 < len(point_matches) else line_len
-                    
-                    marker_full_str = match.group(0)
-                    text_part = line[match.start() + len(marker_full_str):next_start]
-                    
-                    if match_idx == len(point_matches) - 1:
-                        pending_chunk = {
-                            "type": NodeType.POINT,
-                            "marker": point_marker,
-                            "title": point_title,
-                            "text_lines": [text_part],
-                            "start": start_pos
-                        }
+        Args:
+            input_units: Danh sách dòng text hoặc paragraph dicts.
+            match_results: Kết quả match tương ứng (cùng index).
+
+        Returns:
+            Danh sách Boundary đã xác định đầy đủ start_idx, end_idx, content_lines.
+        """
+        assert len(input_units) == len(match_results), (
+            "input_units và match_results phải có cùng độ dài"
+        )
+
+        boundaries: list[Boundary] = []
+        current_boundary: Optional[Boundary] = None
+
+        def get_text(unit) -> str:
+            if isinstance(unit, str):
+                return unit
+            if isinstance(unit, dict):
+                return unit.get("text", "")
+            return str(unit)
+
+        char_starts = []
+        cumulative = 0
+        for unit in input_units:
+            text = get_text(unit)
+            char_starts.append(cumulative)
+            cumulative += len(text) + 1  # +1 for newline
+
+        for idx, (unit, match) in enumerate(zip(input_units, match_results)):
+            text = get_text(unit)
+
+            if match is not None:
+                # Gặp marker mới → đóng boundary đang mở nếu cần
+                if current_boundary is not None:
+                    new_depth = match.node_type.depth
+                    cur_depth = current_boundary.node_type.depth
+
+                    if new_depth <= cur_depth:
+                        # Node mới có cùng hoặc cao hơn cấp → đóng node hiện tại
+                        current_boundary.end_idx = idx
+                        boundaries.append(current_boundary)
+                        current_boundary = None
                     else:
-                        end_pos = line_start_idx + next_start
-                        chunks.append(
-                            RawChunk(
-                                type=NodeType.POINT,
-                                marker=point_marker,
-                                title=point_title,
-                                text=text_part.strip(),
-                                position=Position(start=start_pos, end=end_pos)
-                            )
-                        )
-                i += 1
-                continue
+                        # Node mới là con của node hiện tại
+                        # Đóng node hiện tại trước khi xử lý node con
+                        current_boundary.end_idx = idx
+                        boundaries.append(current_boundary)
+                        current_boundary = None
 
-            match_part = PART_PATTERN.search(line)
-            match_chapter = CHAPTER_PATTERN.search(line)
-            match_section = SECTION_PATTERN.search(line)
-            match_article = ARTICLE_PATTERN.search(line)
-            match_clause = CLAUSE_PATTERN.search(line)
+                # Mở boundary mới
+                current_boundary = Boundary(
+                    match=match,
+                    start_idx=idx,
+                    end_idx=idx + 1,  # Sẽ được cập nhật sau
+                    char_start=char_starts[idx]
+                )
 
-            matched_type = None
-            marker_val = None
-            title_val = None
-            text_val = ""
-
-            if match_part:
-                matched_type = NodeType.PART
-                marker_str = match_part.group(0)
-                marker_val = marker_str.strip()
-                title_val = marker_str.strip()
-                text_val = line[match_part.end():]
-            elif match_chapter:
-                matched_type = NodeType.CHAPTER
-                marker_str = match_chapter.group(0)
-                marker_val = marker_str.strip()
-                title_val = marker_str.strip()
-                text_val = line[match_chapter.end():]
-            elif match_section:
-                matched_type = NodeType.SECTION
-                marker_str = match_section.group(0)
-                marker_val = marker_str.strip()
-                title_val = marker_str.strip()
-                text_val = line[match_section.end():]
-            elif match_article:
-                matched_type = NodeType.ARTICLE
-                marker_str = match_article.group(0) 
-                marker_val = re.search(r'\d+', marker_str).group(0) if re.search(r'\d+', marker_str) else marker_str
-                rest_line = line[match_article.end():].strip()
-                if rest_line:
-                    title_val = marker_str.strip() + " " + rest_line
-                    text_val = "" 
-                else:
-                    title_val = marker_str.strip()
-                    text_val = ""
-            elif match_clause:
-                matched_type = NodeType.CLAUSE
-                marker_str = match_clause.group(0)
-                marker_val = re.search(r'\d+', marker_str).group(0) if re.search(r'\d+', marker_str) else marker_str
-                title_val = marker_str.strip()
-                text_val = line[match_clause.end():]
-
-            if matched_type:
-                flush_pending(line_start_idx)
-                
-                if matched_type in (NodeType.PART, NodeType.CHAPTER, NodeType.SECTION):
-                    title_val = line.strip()
-                    if i + 1 < len(lines):
-                        next_line = lines[i+1]
-                        next_stripped = next_line.strip()
-                        if next_stripped and not any(p.search(next_line) for p in [PART_PATTERN, CHAPTER_PATTERN, SECTION_PATTERN, ARTICLE_PATTERN, CLAUSE_PATTERN, POINT_PATTERN]):
-                            title_val += "\n" + next_stripped
-                            pending_chunk = {
-                                "type": matched_type,
-                                "marker": marker_val,
-                                "title": title_val,
-                                "text_lines": [], 
-                                "start": line_start_idx
-                            }
-                            current_char_index += len(next_line)
-                            i += 2
-                            continue
-                
-                pending_chunk = {
-                    "type": matched_type,
-                    "marker": marker_val,
-                    "title": title_val,
-                    "text_lines": [text_val] if text_val else [],
-                    "start": line_start_idx
-                }
             else:
-                if pending_chunk:
-                    pending_chunk["text_lines"].append(line)
-                else:
-                    pending_chunk = {
-                        "type": NodeType.TEXT,
-                        "marker": None,
-                        "title": None,
-                        "text_lines": [line],
-                        "start": line_start_idx
-                    }
-            i += 1
+                # Dòng không phải marker → nội dung của node đang mở
+                if current_boundary is not None:
+                    if text.strip():
+                        current_boundary.content_lines.append(text)
 
-        flush_pending(current_char_index)
-        return chunks
+        # Đóng boundary cuối cùng nếu còn
+        if current_boundary is not None:
+            current_boundary.end_idx = len(input_units)
+            boundaries.append(current_boundary)
+
+        return boundaries
+
+    # -----------------------------------------------------------------------
+    # Utility: lọc boundaries theo NodeType
+    # -----------------------------------------------------------------------
+    @staticmethod
+    def filter_by_type(
+        boundaries: list[Boundary],
+        node_type: NodeType,
+    ) -> list[Boundary]:
+        return [b for b in boundaries if b.node_type == node_type]
+
+    @staticmethod
+    def get_boundaries_in_range(
+        boundaries: list[Boundary],
+        start: int,
+        end: int,
+    ) -> list[Boundary]:
+        """Lấy tất cả boundaries nằm trong range [start, end)."""
+        return [b for b in boundaries if start <= b.start_idx < end]
+

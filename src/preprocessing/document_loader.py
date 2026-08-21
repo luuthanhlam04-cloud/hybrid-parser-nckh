@@ -320,6 +320,130 @@ class DocxLoader(BaseLoader):
         return lines
 
 
+    def load_structured(self, path: str | Path) -> list:
+        """
+        Tải văn bản từ DOCX và trả về list[StructuredParagraph] — M1→M2 contract.
+
+        Khác với load() (trả về list[str] với label đã render),
+        load_structured() GIỮ metadata dưới dạng structured fields:
+          - text: nội dung text thuần, KHÔNG có label đứng trước
+          - word_style: Word Style name
+          - num_id, ilvl, num_fmt: numbering metadata
+          - number: giá trị counter đã tính (int hoặc str), None nếu không có
+          - marker: ký tự POINT (a, b, đ...), None nếu không phải POINT
+          - is_empty: True nếu text trống
+
+        Thiết kế theo RQ6: bảo toàn thông tin cấu trúc xuyên suốt preprocessing.
+        Khi nào mà M2 cần recover hierarchy, nó dùng metadata này thay vì
+        phải suy diễn lại từ text đã bị render.
+
+        Args:
+            path: Đường dẫn tới file .docx.
+
+        Returns:
+            list[StructuredParagraph] — sẵn sàng truyền vào LegalParser.parse_structured().
+        """
+        # Import ở đây để tránh circular dependency nếu contracts.py nằm cùng package
+        import sys as _sys
+        _contracts_path = str(Path(__file__).resolve().parents[1])
+        if _contracts_path not in _sys.path:
+            _sys.path.insert(0, _contracts_path)
+        from contracts import StructuredParagraph
+
+        path = Path(path)
+        if not path.exists():
+            raise FileNotFoundError(f"Không tìm thấy file: {path}")
+        if path.suffix.lower() != ".docx":
+            raise ValueError(f"load_structured chỉ hỗ trợ .docx, nhận được: {path.suffix}")
+
+        logger.info("[DocxLoader] load_structured: %s", path.name)
+
+        try:
+            with zipfile.ZipFile(path, "r") as zf:
+                doc_xml = zf.read("word/document.xml")
+        except (zipfile.BadZipFile, KeyError) as exc:
+            logger.error("[load_structured] Không thể đọc document.xml: %s", exc)
+            return []
+
+        num_parser = _NumXmlParser(path)
+        root = ET.fromstring(doc_xml)
+        body = root.find(".//w:body", NS)
+        if body is None:
+            return []
+
+        paragraphs: list[StructuredParagraph] = []
+        for idx, para in enumerate(body.findall("w:p", NS)):
+            # Numbering metadata
+            num_id, ilvl = _get_num_props(para)
+
+            # Word Style name
+            word_style = _get_word_style(para)
+
+            # Text thuần — KHÔNG gắn label
+            text_parts: list[str] = []
+            for run in para.findall(".//w:r", NS):
+                for t_el in run.findall("w:t", NS):
+                    text_parts.append(t_el.text or "")
+            para_text = "".join(text_parts).strip()
+
+            # Numbering metadata đầy đủ (chỉ khi có num_id > 0)
+            p_num_id:  int | None = None
+            p_ilvl:    int | None = None
+            p_num_fmt: str | None = None
+            p_number:  object | None = None
+            p_marker:  str | None = None
+
+            if num_id > 0 and para_text:
+                levels = num_parser._num_map.get(num_id, {})
+                lvl_info = levels.get(ilvl)
+                if lvl_info:
+                    p_num_id  = num_id
+                    p_ilvl    = ilvl
+                    p_num_fmt = lvl_info["numFmt"]
+
+                    # Tính counter (tăng bộ đếm nội bộ)
+                    counter_key = (num_id, ilvl)
+                    if counter_key not in num_parser._counters:
+                        num_parser._counters[counter_key] = lvl_info["start"] - 1
+                    num_parser._reset_child_counters(num_id, ilvl)
+                    num_parser._counters[counter_key] += 1
+                    count = num_parser._counters[counter_key]
+
+                    # Tách number (ordinal) và marker (letter) theo num_fmt
+                    fmt = lvl_info["numFmt"]
+                    if fmt == "decimal":
+                        p_number = count        # int: 1, 2, 3...
+                    elif fmt == "lowerLetter":
+                        alpha = "abcdefghijklmnopqrstuvwxyz"
+                        # Tiếng Việt: sau d là đ (vị trí 4 trong sequence)
+                        viet_alpha = list("abcdđeghiklmno")
+                        idx_letter = (count - 1) % len(viet_alpha)
+                        p_marker = viet_alpha[idx_letter]   # str: "a", "b", "đ"...
+                    elif fmt in ("lowerRoman", "upperRoman"):
+                        p_number = _to_roman(count).upper() if fmt == "upperRoman" else _to_roman(count).lower()
+                    elif fmt in ("upperLetter",):
+                        p_number = chr(ord('A') + (count - 1) % 26)
+                    else:
+                        p_number = count  # fallback
+
+            paragraphs.append(StructuredParagraph(
+                index=idx,
+                text=para_text,
+                word_style=word_style,
+                num_id=p_num_id,
+                ilvl=p_ilvl,
+                num_fmt=p_num_fmt,
+                number=p_number,
+                marker=p_marker,
+                is_empty=(para_text.strip() == ""),
+            ))
+
+        logger.info("[load_structured] Đã trích xuất %d paragraphs.", len(paragraphs))
+        return paragraphs
+
+
+
+
 def _get_num_props(para: ET.Element) -> tuple[int, int]:
     """
     Trích xuất (numId, ilvl) từ thuộc tính w:numPr của đoạn văn.
@@ -340,6 +464,25 @@ def _get_num_props(para: ET.Element) -> tuple[int, int]:
     return num_id, ilvl
 
 
+
+def _get_word_style(para: ET.Element) -> str | None:
+    """
+    Trích xuất Word Style name từ w:pStyle của đoạn văn.
+    Trả về None nếu không có style.
+
+    Ví dụ: "List Paragraph", "Heading 2", "Body Text", "Normal".
+    """
+    ppr = para.find("w:pPr", NS)
+    if ppr is None:
+        return None
+    pstyle = ppr.find("w:pStyle", NS)
+    if pstyle is None:
+        return None
+    return pstyle.get(f"{{{NS['w']}}}val")
+
+
+
+
 # ---------------------------------------------------------------------------
 # Loader đơn giản cho .txt (mở rộng tương lai)
 # ---------------------------------------------------------------------------
@@ -352,6 +495,41 @@ class TxtLoader(BaseLoader):
             raise FileNotFoundError(f"Không tìm thấy file: {path}")
         with open(path, encoding="utf-8", errors="replace") as f:
             return f.read().splitlines()
+
+
+    def load_structured(self, path: str | Path) -> list:
+        """
+        Trả về list[StructuredParagraph] từ file .txt.
+
+        TXT path — information loss đã xảy ra:
+          - word_style = None (không có Word Style)
+          - num_id = None (không có numbering metadata)
+          - ilvl = None
+          - num_fmt = None
+          - number = None (không biết số thứ tự pháp lý)
+          - marker = None (không biết ký tự điểm)
+
+        Đây là honest representation của information loss.
+        Module 2 sẽ phải dùng Regex + Context (Lớp 2+3) để xử lý.
+        So sánh với DOCX path (4 tín hiệu) giúp đo information loss — RQ6.
+
+        PDF: KHÔNG hỗ trợ. Xem limitation notes.
+        """
+        import sys as _sys
+        _contracts_path = str(Path(__file__).resolve().parents[1])
+        if _contracts_path not in _sys.path:
+            _sys.path.insert(0, _contracts_path)
+        from contracts import txt_paragraph
+
+        path = Path(path)
+        if not path.exists():
+            raise FileNotFoundError(f"Không tìm thấy file: {path}")
+
+        lines = self.load(path)
+        return [txt_paragraph(index=i, text=line) for i, line in enumerate(lines)]
+
+
+
 
 
 # ---------------------------------------------------------------------------
