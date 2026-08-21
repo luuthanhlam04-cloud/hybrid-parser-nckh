@@ -1,0 +1,22 @@
+{
+  "summary": {
+    "total_nodes_received": 222,
+    "total_nodes_validated": 222,
+    "fatal_errors_count": 0,
+    "warnings_count": 1,
+    "structural_integrity_score": 100.0
+  },
+  "issues": [
+    {
+      "rule_id": "VAL-006",
+      "node_id": "point_e",
+      "severity": "WARNING",
+      "issue_type": "GapIndex",
+      "message": "Missing sequence element 'point_e' detected between 'point_đ' and 'point_g' under parent 'doc_chuong-iii_muc-3_dieu-37_khoan-1_p21301'.",
+      "position": {
+        "start": -1,
+        "end": -1
+      }
+    }
+  ]
+}
