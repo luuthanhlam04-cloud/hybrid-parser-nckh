@@ -3,7 +3,7 @@
 node_generator.py — Module 2: Regex Parser
 Sinh Legal Node JSON từ HierarchyNode.
 
-Schema Legal Node v1.1 (draft — chưa chốt chính thức):
+Schema Legal Node v1.2 (draft — chưa chốt chính thức):
 {
   "id":              string  — hierarchical ID với law prefix
   "type":            string  — CHAPTER | SECTION | ARTICLE | CLAUSE | POINT
@@ -13,13 +13,18 @@ Schema Legal Node v1.1 (draft — chưa chốt chính thức):
   "parent_id":       string? — ID của node cha, null nếu là gốc
   "children_count":  int     — số lượng children trực tiếp
   "position":        int     — thứ tự trong cùng parent (1-indexed)
-  "number":          string? — số thứ tự gốc ("26", "III", "1", "a")
+  "number":          int|str? — số thứ tự pháp lý của CHAPTER/SECTION/ARTICLE/CLAUSE.
+                               int nếu decimal (Khoản 3 → 3), str nếu khác (Đượng III).
+                               null nếu M1 không phục hồi được (TXT mode).
+                               KHÔNG dùng cho POINT — xem field 'marker'.
+  "marker":          str?    — ký tự nhận diện của POINT (a, b, c, đ, e...) hoặc null.
+                               null với mọi node type khác POINT.
   "law_prefix":      string  — prefix văn bản
   "law_code":        string? — mã văn bản pháp luật
   "source_doc":      string  — tên file nguồn
-  "word_style":      string? — Word Style DOCX nếu có (để debug)
-  "start_idx":       int     — vị trí bắt đầu trong input list
-  "end_idx":         int     — vị trí kết thúc trong input list
+  "word_style":      string? — Word Style DOCX nếu có (để debug / trace)
+  "start_idx":       int     — vị trí bắt đầu trong input list (paragraph index)
+  "end_idx":         int     — vị trí kết thúc trong input list (exclusive)
   "implicit_parent": bool    — True nếu POINT thiếu CLAUSE cha (orphan)
 }
 
@@ -106,79 +111,35 @@ class NodeGenerator:
     # -----------------------------------------------------------------------
     def _build_id_map(self, nodes: list[HierarchyNode]) -> None:
         """
-        Build mapping: id(node) -> final hierarchical ID string.
+        Build mapping: id(node) → final hierarchical ID string.
 
-        Dùng Python object identity (id(node)) làm key thay vì temp_id string
-        để tránh collision khi nhiều CLAUSE không có số (đều có temp_id 'khoan_posX'
-        nhưng X reset về 1 mỗi Article → vẫn trùng nếu dùng string key).
+        Sử dụng object identity (id(node)) và node.parent_node (object reference
+        được gán bởi HierarchyBuilder) — tránh hoàn toàn string temp_id lookup.
 
-        Giải pháp: nodes được xử lý theo thứ tự tuyến tính (preorder) nên parent
-        luôn có mặt trong _obj_id_map trước khi child được xử lý.
-        Parent được tìm bằng cách build _temp_to_obj lookup riêng — nhưng do
-        temp_id có thể trùng, ta dùng phương án khác: lưu parent_id dưới dạng
-        object reference thay vì string.
+        Tại sao không dùng temp_id string:
+          - Nhiều CLAUSE khác nhau (thuộc nhiều Điều khác nhau) có cùng
+            temp_id ví dụ "khoan_pos5" → collision → parent_id sai.
+          - Giải pháp: HierarchyBuilder giờ lưu node.parent_node là object reference.
+            NodeGenerator dùng id(node.parent_node) để tra cứu — unambiguous.
 
-        Thực tế: node.parent_id là temp_id của parent. Vì parent luôn xuất hiện
-        trước child trong list (preorder), ta có thể tìm parent bằng cách scan
-        nodes đã xử lý và tìm node có id(node) == parent được gán khi build().
+        Thuật toán:
+          1. Nodes đã được sắp xếp theo preorder (parent xuất hiện trước child).
+          2. Với mỗi node, tra _obj_id_map với id(node.parent_node).
+             Parent đã có ID vì được xử lý trước.
+          3. Sinh ID = parent_final_id + "_" + node_suffix.
         """
-        # Cần map: node object -> parent node object
-        # Ta có thể build điều này từ HierarchyNode.children_ids và parent_id
-        # Cách đơn giản nhất: build map từ Python object id(child) -> parent object
-        # bằng cách duyệt qua children_ids của từng node
-
-        # Step 1: build parent_of map: id(child_node) -> parent_node
-        parent_of: dict[int, HierarchyNode] = {}
         for node in nodes:
-            for child_obj in nodes:
-                # children_ids chứa temp_id strings — không reliable do collision
-                # Thay vào đó dùng parent_id của child trực tiếp
-                pass
-
-        # Cách đúng: dùng node.parent_id (temp_id của parent)
-        # Vì nodes theo thứ tự preorder: build lookup temp_id_with_position -> first_seen_node
-        # Mỗi node có parent_id = temp_id của parent. Parent xuất hiện trước.
-        # Ta cần reverse: temp_id -> node object của node đó (không phải parent của nó)
-
-        # Build: temp_id -> node_object (lần xuất hiện đầu tiên)
-        # Dùng id duy nhất bằng cách kết hợp temp_id + depth + sequence
-        # Nhưng đơn giản hơn: vì nodes theo preorder, parent index < child index.
-        # Tìm parent bằng cách lưu node theo index.
-
-        node_by_index: dict[int, HierarchyNode] = {}
-        for i, node in enumerate(nodes):
-            node_by_index[i] = node
-
-        # Build parent_of bằng cách tìm parent theo index (backward scan)
-        # Strategy: node.parent_id == temp_id(parent, position=parent.position)
-        # Vì parent luôn có index < child, scan ngược lại tìm node có đúng temp_id
-        def find_parent_node(child: HierarchyNode, child_idx: int) -> Optional[HierarchyNode]:
-            if not child.parent_id:
-                return None
-            # Scan backward từ child_idx-1 về 0
-            # Parent là node gần nhất có temp_id == child.parent_id VÀ depth < child.depth
-            child_depth = child.node_type.depth
-            for j in range(child_idx - 1, -1, -1):
-                candidate = node_by_index[j]
-                candidate_tid = candidate.temp_id(position_override=candidate.position)
-                if (candidate_tid == child.parent_id and
-                        candidate.node_type.depth < child_depth):
-                    return candidate
-            return None
-
-        # Process nodes in order — parent always comes before child (preorder)
-        for i, node in enumerate(nodes):
-            parent = find_parent_node(node, i)
-            if parent is not None:
-                parent_final = self._obj_id_map.get(id(parent))
+            parent_node = node.parent_node
+            if parent_node is not None:
+                parent_final = self._obj_id_map.get(id(parent_node))
                 if parent_final:
                     self._obj_id_map[id(node)] = f"{parent_final}_{self._node_suffix(node)}"
                 else:
-                    # Parent chưa có ID (không nên xảy ra với preorder)
+                    # Không nên xảy ra với preorder — log để debug
                     self._obj_id_map[id(node)] = f"{self.law_prefix}_{self._node_suffix(node)}"
             else:
+                # Root node (không có parent)
                 self._obj_id_map[id(node)] = f"{self.law_prefix}_{self._node_suffix(node)}"
-
     def _node_suffix(self, node: HierarchyNode) -> str:
         """Tạo phần suffix của ID cho node.
 
@@ -215,15 +176,14 @@ class NodeGenerator:
         # Dùng obj_id_map để lấy final ID chính xác cho node này
         final_id = self._obj_id_map.get(id(node), f"{self.law_prefix}_{node.temp_id()}")
 
-        # Tìm parent final ID
+        # Tìm parent final ID trực tiếp qua object reference (giải pháp cho bug collision)
         parent_final = None
-        if node.parent_id:
-            # Tìm parent object bằng backward scan (tái dùng logic tương tự _build_id_map)
-            for candidate in self._obj_map.values():
-                if (candidate.temp_id(position_override=candidate.position) == node.parent_id and
-                        candidate.node_type.depth < node.node_type.depth):
-                    parent_final = self._obj_id_map.get(id(candidate))
-                    break
+        if node.parent_node is not None:
+            parent_final = self._obj_id_map.get(id(node.parent_node))
+        elif node.parent_id:
+            # Fallback: nếu không có parent_node (ví dụ node được tạo từ path khác)
+            # Log cảnh báo vì đây là trường hợp không mong muốn
+            pass  # parent_final giữ None
 
         match = node.boundary.match
         b = node.boundary
@@ -237,7 +197,8 @@ class NodeGenerator:
             "parent_id":       parent_final,
             "children_count":  len(node.children_ids),
             "position":        node.position,
-            "number":          match.number or match.marker,
+            "number":          match.number,         # Số pháp lý (CHAPTER/SECTION/ARTICLE/CLAUSE), int|str|None
+            "marker":          match.marker,          # Ký tự nhận diện POINT (a/b/đ/e...), None cho node khác
             "law_prefix":      self.law_prefix,
             "law_code":        self.law_code,
             "source_doc":      self.source_doc,

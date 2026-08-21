@@ -26,6 +26,10 @@ from regex_engine import NodeType
 class HierarchyNode:
     boundary: Boundary
     parent_id: Optional[str] = None
+    # Object reference đến parent node — dùng trong NodeGenerator để tránh
+    # collision khi tra cứu parent bằng temp_id string (bug đã xác nhận).
+    # Không serialize — chỉ dùng nội bộ trong quá trình build.
+    parent_node: Optional['HierarchyNode'] = field(default=None, repr=False)
     children_ids: list[str] = field(default_factory=list)
     position: int = 1   # Thứ tự trong cùng parent (bắt đầu từ 1)
 
@@ -102,11 +106,15 @@ class HierarchyBuilder:
             while stack and stack[-1].depth >= current_depth:
                 stack.pop()
 
-            # Gán parent (chưa append children — chưa có temp_id đúng)
+            # Gán parent: lưu CẢ object reference VÀ temp_id string
+            # - parent_node: object reference — dùng bởi NodeGenerator (unambiguous)
+            # - parent_id: temp_id string — giữ backward compat, dùng trong check_orphans
             if stack:
-                parent_node = stack[-1]
-                node.parent_id = self._get_node_id(parent_node)
+                p = stack[-1]
+                node.parent_node = p                          # Object reference (fix bug)
+                node.parent_id = self._get_node_id(p)        # Temp_id string (compat)
             else:
+                node.parent_node = None
                 node.parent_id = None
 
             # Gán position TRƯỚC khi gọi temp_id (temp_id dùng position khi marker=None)
@@ -116,8 +124,7 @@ class HierarchyBuilder:
 
             # Sau khi có position, mới append vào children_ids của parent
             if stack:
-                parent_node = stack[-1]
-                parent_node.children_ids.append(self._get_node_id(node))
+                stack[-1].children_ids.append(self._get_node_id(node))
 
             stack.append(node)
             nodes.append(node)
