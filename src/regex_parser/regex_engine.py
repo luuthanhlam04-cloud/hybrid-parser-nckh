@@ -64,6 +64,80 @@ class PatternEntry:
 # Mỗi NodeType có danh sách các PatternEntry, theo thứ tự ưu tiên.
 # Pattern nào được kiểm chứng từ corpus thực sẽ đứng trước.
 # ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# DOCX_NUMBERING_HINTS — bộ quy tắc ánh xạ (ilvl + num_fmt) → NodeType
+#
+# Thiết kế: Corpus-specific, có metadata provenance (giống PATTERN_REGISTRY).
+# KHÔNG hard-code: "ilvl=0 = CLAUSE toàn hệ thống".
+# Mỗi rule gắn tag [CORPUS] và phải được kiểm chứng trước khi promote.
+#
+# Cách dùng (trong RegexEngine.match_text):
+#   Nếu input có ilvl + num_fmt → tra lookup để lấy NodeType hint.
+#   Hint này ưu tiên CAO HƠN STYLE_HINTS nhưng VẪN là hint, không override Regex.
+#
+# Mở rộng corpus mới:
+#   Thêm entry mới vào danh sách. Entry cũ không bị ảnh hưởng.
+#   Nếu corpus mới có ilvl=0 → SECTION thì thêm rule với source_corpus mới.
+# ---------------------------------------------------------------------------
+@dataclass
+class NumberingHintEntry:
+    """Một rule ánh xạ (ilvl + num_fmt) → NodeType, kèm metadata provenance."""
+    ilvl:         int
+    num_fmt:      str         # "decimal" | "lowerLetter" | "lowerRoman" | ...
+    node_type:    NodeType
+    source_corpus: str        # 'Ch3-LDD-2024' | 'GENERAL' | 'HYPOTHESIS'
+    confidence:   str         # 'HIGH' | 'MEDIUM' | 'HYPOTHESIS'
+    note:         str
+
+
+# Bộ quy tắc hiện tại — chỉ chứa evidence từ Ch3-LDD-2024.
+# KHÔNG thêm rule mới cho corpus chưa kiểm chứng vào đây.
+DOCX_NUMBERING_HINTS: list[NumberingHintEntry] = [
+    NumberingHintEntry(
+        ilvl=0,
+        num_fmt="decimal",
+        node_type=NodeType.CLAUSE,
+        source_corpus="Ch3-LDD-2024",
+        confidence="HIGH",
+        note="ilvl=0 + decimal → CLAUSE. Đã verify trên Ch3-LDD: 185 nodes. [CORPUS: Ch3-LDD]"
+    ),
+    NumberingHintEntry(
+        ilvl=1,
+        num_fmt="lowerLetter",
+        node_type=NodeType.POINT,
+        source_corpus="Ch3-LDD-2024",
+        confidence="HIGH",
+        note="ilvl=1 + lowerLetter → POINT (bao gồm 'đ'). Đã verify trên Ch3-LDD: 8 nodes. [CORPUS: Ch3-LDD]"
+    ),
+]
+
+
+def get_numbering_hint(
+    ilvl: Optional[int],
+    num_fmt: Optional[str],
+    hints: list[NumberingHintEntry] = DOCX_NUMBERING_HINTS,
+) -> Optional[NodeType]:
+    """
+    Tra cứu NodeType hint từ (ilvl, num_fmt).
+
+    Args:
+        ilvl:     w:ilvl của paragraph (None nếu không có).
+        num_fmt:  numFmt string (None nếu không có).
+        hints:    Danh sách rule cần tra (mặc định: DOCX_NUMBERING_HINTS).
+
+    Returns:
+        NodeType nếu tìm thấy rule khớp, None nếu không.
+        Nếu nhiều rule khớp (corpus conflict), ưu tiên rule đầu tiên.
+    """
+    if ilvl is None or num_fmt is None:
+        return None
+    for entry in hints:
+        if entry.ilvl == ilvl and entry.num_fmt == num_fmt:
+            return entry.node_type
+    return None
+
+
 PATTERN_REGISTRY: dict[NodeType, list[PatternEntry]] = {
 
     # -----------------------------------------------------------------------
@@ -210,6 +284,15 @@ PATTERN_REGISTRY: dict[NodeType, list[PatternEntry]] = {
             note="Bộ ký tự [a-zđ]. Bỏ scope để bắt được orphan POINT. [CORPUS: Ch3-LDD]"
         ),
         PatternEntry(
+            pattern=r"^(?P<text>.+)$",
+            source_corpus="Ch3-LDD-2024",
+            confidence="HIGH",
+            example="<text không có marker do python-docx / M1 đã extract>",
+            required_style="List Paragraph",
+            scope=None,
+            note="Phục hồi Điểm từ List Paragraph khi marker đã nằm trong metadata."
+        ),
+        PatternEntry(
             pattern=r"^\s*(?P<marker>[a-zđ])\.\s+(?P<text>.+)$",
             source_corpus="UNKNOWN",
             confidence="HYPOTHESIS",
@@ -285,17 +368,21 @@ class RegexEngine:
         word_style: Optional[str] = None,
         para_idx: int = 0,
         scope_node_type: Optional[NodeType] = None,
+        ilvl: Optional[int] = None,
+        num_fmt: Optional[str] = None,
     ) -> Optional[MatchResult]:
         """
         Match text với Pattern Registry.
 
         Args:
-            text: Nội dung cần match.
-            line_idx: Vị trí dòng trong input.
-            word_style: Word Style từ DOCX (Lớp 1 tín hiệu). None nếu không có.
-            para_idx: Index paragraph DOCX.
-            scope_node_type: NodeType của container hiện tại (dùng cho scoped patterns).
-                             VD: ARTICLE → chỉ xét CLAUSE patterns có scope='inside_ARTICLE'.
+            text:            Nội dung cần match.
+            line_idx:        Vị trí dòng trong input.
+            word_style:      Word Style từ DOCX (Lớp 1 tín hiệu). None nếu không có.
+            para_idx:        Index paragraph DOCX.
+            scope_node_type: NodeType của container hiện tại.
+            ilvl:            w:ilvl từ DOCX (Lớp 1 tín hiệu mạnh nhất). None nếu không có.
+            num_fmt:         numFmt từ DOCX numbering. None nếu không có.
+                             Kết hợp ilvl + num_fmt → tra DOCX_NUMBERING_HINTS (corpus-specific rules).
 
         Returns:
             MatchResult nếu match thành công, None nếu không.
@@ -304,14 +391,19 @@ class RegexEngine:
         if not stripped:
             return None
 
-        # Lấy style hint (Lớp 1 tín hiệu) nếu có
+        # Lớp 1 tín hiệu: ưu tiên numbering hint (ilvl+num_fmt) > style hint
+        # Numbering metadata là tín hiệu chính xác hơn Style (Style có thể sai)
+        numbering_hint: Optional[NodeType] = get_numbering_hint(ilvl, num_fmt)
         style_hint: Optional[NodeType] = None
         if word_style:
             style_hint = self.STYLE_HINTS.get(word_style)
 
-        # Thứ tự ưu tiên node types để thử
-        # Nếu có style_hint → thử node type đó trước
-        ordered_types = self._get_ordered_types(style_hint, scope_node_type)
+        # Thứ tự ưu tiên: numbering hint > style hint > scope > default
+        ordered_types = self._get_ordered_types(
+            numbering_hint=numbering_hint,
+            style_hint=style_hint,
+            scope=scope_node_type,
+        )
 
         for node_type in ordered_types:
             for compiled_pattern, entry in self._compiled[node_type]:
@@ -319,8 +411,15 @@ class RegexEngine:
                 if not self._check_scope(entry.scope, scope_node_type):
                     continue
                 # Kiểm tra required_style
-                if entry.required_style and entry.required_style != word_style:
-                    continue
+                if entry.required_style:
+                    # Tín hiệu Numbering (nếu có và khớp) mạnh hơn Style
+                    if numbering_hint == node_type:
+                        pass
+                    # Bỏ qua khoảng trắng khi so sánh ("ListParagraph" từ XML vs "List Paragraph" từ code)
+                    elif word_style and entry.required_style.replace(" ", "") == word_style.replace(" ", ""):
+                        pass
+                    else:
+                        continue
 
                 m = compiled_pattern.match(stripped)
                 if m:
@@ -365,10 +464,12 @@ class RegexEngine:
         paragraphs: list[dict],
     ) -> list[Optional[MatchResult]]:
         """
-        Match danh sách paragraphs từ DOCX.
+        Match danh sách paragraphs từ DOCX hoặc từ StructuredParagraph.to_engine_dict().
 
         Args:
-            paragraphs: List dict với keys: 'text' (str), 'style' (str), 'index' (int).
+            paragraphs: List dict với keys: 'text' (str), 'style' (str|None),
+                        'index' (int), và các optional keys: 'ilvl', 'num_fmt', 'num_id',
+                        'number', 'marker' (từ StructuredParagraph contract).
         """
         results = []
         current_scope = None
@@ -378,7 +479,9 @@ class RegexEngine:
                 line_idx=p.get("index", i),
                 word_style=p.get("style"),
                 para_idx=i,
-                scope_node_type=current_scope
+                scope_node_type=current_scope,
+                ilvl=p.get("ilvl"),       # Mới: từ StructuredParagraph
+                num_fmt=p.get("num_fmt"), # Mới: từ StructuredParagraph
             )
             results.append(res)
             if res:
@@ -393,20 +496,27 @@ class RegexEngine:
     # -----------------------------------------------------------------------
     def _get_ordered_types(
         self,
-        style_hint: Optional[NodeType],
-        scope: Optional[NodeType],
+        numbering_hint: Optional[NodeType] = None,
+        style_hint: Optional[NodeType] = None,
+        scope: Optional[NodeType] = None,
     ) -> list[NodeType]:
         """
         Xác định thứ tự NodeType cần thử.
-        style_hint được thử trước để tận dụng Lớp 1 tín hiệu.
-        scope giới hạn: nếu đang trong ARTICLE → ưu tiên CLAUSE, POINT.
+
+        Thứ tự ưu tiên:
+          1. numbering_hint (ilvl+num_fmt từ DOCX_NUMBERING_HINTS) — mạnh nhất
+          2. style_hint (Word Style) — mạnh thứ hai
+          3. scope (context hiện tại) — fallback
+          4. Tất cả các type theo thứ tự mặc định
+
+        Nếu numbering_hint khác style_hint, numbering_hint thắng.
         """
         all_types = list(NodeType)
-        if style_hint:
-            # Style hint lên đầu
-            ordered = [style_hint] + [t for t in all_types if t != style_hint]
+        primary = numbering_hint or style_hint  # numbering > style
+
+        if primary:
+            ordered = [primary] + [t for t in all_types if t != primary]
         elif scope == NodeType.ARTICLE:
-            # Đang trong ARTICLE → CLAUSE, POINT trước
             ordered = [NodeType.CLAUSE, NodeType.POINT] + [
                 t for t in all_types if t not in (NodeType.CLAUSE, NodeType.POINT)
             ]
