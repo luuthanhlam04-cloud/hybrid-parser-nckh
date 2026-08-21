@@ -7,7 +7,7 @@ import json
 import logging
 from typing import List, Dict, Any
 
-from src.regex_parser.node_generator import LegalNode
+from src.validation.schema_validator import LegalNode
 from .schema_validator import validate_schema
 from .integrity_checker import check_integrity
 from .sequence_checker import check_sequences
@@ -161,8 +161,8 @@ class ValidationEngine:
                             f"parent '{child.parent_id}' was removed due to ERROR."
                         ),
                         "position": {
-                            "start": child.position.start,
-                            "end": child.position.end,
+                            "start": child.start_idx,
+                            "end": child.end_idx,
                         },
                     })
 

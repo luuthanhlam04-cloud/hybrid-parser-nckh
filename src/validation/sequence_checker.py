@@ -10,7 +10,7 @@ import logging
 from typing import List, Dict, Any, Optional
 from collections import defaultdict
 
-from src.regex_parser.node_generator import LegalNode
+from src.validation.schema_validator import LegalNode
 
 logger = logging.getLogger(__name__)
 
@@ -34,19 +34,21 @@ ROMAN_NUMERALS = [
 
 def _extract_marker(node: LegalNode) -> Optional[str]:
     """
-    Trích xuất giá trị marker (số hoặc chữ) từ title của node.
-    Ví dụ:
-        "1." -> "1"
-        "a)" -> "a"
-        "Chương III\\nTIÊU ĐỀ" -> "III"
-        "Điều 26. ..." -> "26"
-        "Mục 1\\n..." -> "1"
+    Trích xuất giá trị marker (số hoặc chữ) từ metadata của node.
+    Sử dụng Single Source of Truth (node.number / node.marker) từ M1.
+    Fallback về Regex nếu metadata bị mất (TXT mode).
     """
+    if node.type == "POINT" and node.marker is not None:
+        return str(node.marker).lower()
+    if node.type in ("CHAPTER", "SECTION", "ARTICLE", "CLAUSE") and node.number is not None:
+        return str(node.number)
+
+    # Legacy regex fallback (cho TXT)
     if not node.title:
         return None
 
     title = node.title.strip()
-    node_type = node.type.value
+    node_type = node.type
 
     if node_type == "CHAPTER":
         # Tìm số La Mã: "Chương III" hoặc "Chương III\n..."
@@ -93,8 +95,8 @@ def check_sequences(nodes: List[LegalNode]) -> List[Dict[str, Any]]:
     # Nhóm node theo (parent_id, type)
     groups: Dict[tuple, List[LegalNode]] = defaultdict(list)
     for node in nodes:
-        if node.type.value in ("CHAPTER", "SECTION", "ARTICLE", "CLAUSE", "POINT"):
-            key = (node.parent_id, node.type.value)
+        if node.type in ("CHAPTER", "SECTION", "ARTICLE", "CLAUSE", "POINT"):
+            key = (node.parent_id, node.type)
             groups[key].append(node)
 
     for (parent_id, node_type), group_nodes in groups.items():

@@ -5,8 +5,26 @@ Nguyên tắc: Chỉ phát hiện, KHÔNG tự sửa dữ liệu.
 import logging
 from typing import List, Dict, Any
 
-from pydantic import ValidationError
-from src.regex_parser.node_generator import LegalNode
+from pydantic import BaseModel, ValidationError, Field
+
+class LegalNode(BaseModel):
+    id: str
+    type: str
+    depth: int
+    title: str | None = None
+    text: str
+    parent_id: str | None = None
+    children_count: int
+    position: int
+    number: int | str | None = None
+    marker: str | None = None
+    law_prefix: str
+    law_code: str | None = None
+    source_doc: str
+    word_style: str | None = None
+    start_idx: int
+    end_idx: int
+    implicit_parent: bool
 
 logger = logging.getLogger(__name__)
 

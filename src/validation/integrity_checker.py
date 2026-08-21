@@ -10,7 +10,7 @@ Nguyên tắc: Chỉ phát hiện, KHÔNG tự sửa dữ liệu.
 import logging
 from typing import List, Dict, Any, Set
 
-from src.regex_parser.node_generator import LegalNode
+from src.validation.schema_validator import LegalNode
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ def _check_duplicate_ids(nodes: List[LegalNode]) -> List[Dict[str, Any]]:
                 "issue_type": "DuplicateNodeID",
                 "message": f"Duplicate node ID '{node.id}' found at index {idx}, "
                            f"first seen at index {seen[node.id]}.",
-                "position": {"start": node.position.start, "end": node.position.end},
+                "position": {"start": node.start_idx, "end": node.end_idx},
             })
             logger.warning("DuplicateNodeID: '%s' at index %d", node.id, idx)
         else:
@@ -66,17 +66,17 @@ def _check_orphan_nodes(nodes: List[LegalNode]) -> List[Dict[str, Any]]:
     top_level_types = {"PART", "CHAPTER", "TEXT"}
 
     for node in nodes:
-        if node.parent_id is None and node.type.value not in top_level_types:
+        if node.parent_id is None and node.type not in top_level_types:
             issues.append({
                 "rule_id": "VAL-002",
                 "node_id": node.id,
                 "severity": "ERROR",
                 "issue_type": "OrphanNode",
-                "message": f"Node '{node.id}' (type={node.type.value}) has no parent "
+                "message": f"Node '{node.id}' (type={node.type}) has no parent "
                            f"(parent_id is None).",
-                "position": {"start": node.position.start, "end": node.position.end},
+                "position": {"start": node.start_idx, "end": node.end_idx},
             })
-            logger.warning("OrphanNode: '%s' (type=%s)", node.id, node.type.value)
+            logger.warning("OrphanNode: '%s' (type=%s)", node.id, node.type)
 
     return issues
 
@@ -95,7 +95,7 @@ def _check_broken_parents(nodes: List[LegalNode]) -> List[Dict[str, Any]]:
                 "issue_type": "BrokenParent",
                 "message": f"Node '{node.id}' has parent_id '{node.parent_id}' "
                            f"which does not exist in the dataset.",
-                "position": {"start": node.position.start, "end": node.position.end},
+                "position": {"start": node.start_idx, "end": node.end_idx},
             })
             logger.warning("BrokenParent: '%s' -> '%s'", node.id, node.parent_id)
 
@@ -137,8 +137,8 @@ def _check_cyclic_dependencies(nodes: List[LegalNode]) -> List[Dict[str, Any]]:
                         "message": f"Cyclic dependency detected: node '{current}' "
                                    f"is part of a parent-child loop.",
                         "position": {
-                            "start": target_node.position.start,
-                            "end": target_node.position.end,
+                            "start": target_node.start_idx,
+                            "end": target_node.end_idx,
                         },
                     })
                     logger.warning("CyclicDependency: '%s'", current)
@@ -159,7 +159,7 @@ def _check_empty_nodes(nodes: List[LegalNode]) -> List[Dict[str, Any]]:
     check_types = {"CLAUSE", "POINT", "TEXT"}
 
     for node in nodes:
-        if node.type.value not in check_types:
+        if node.type not in check_types:
             continue
         if not node.text or not node.text.strip():
             issues.append({
@@ -167,8 +167,8 @@ def _check_empty_nodes(nodes: List[LegalNode]) -> List[Dict[str, Any]]:
                 "node_id": node.id,
                 "severity": "WARNING",
                 "issue_type": "EmptyNode",
-                "message": f"Node '{node.id}' (type={node.type.value}) has empty text content.",
-                "position": {"start": node.position.start, "end": node.position.end},
+                "message": f"Node '{node.id}' (type={node.type}) has empty text content.",
+                "position": {"start": node.start_idx, "end": node.end_idx},
             })
 
     return issues
