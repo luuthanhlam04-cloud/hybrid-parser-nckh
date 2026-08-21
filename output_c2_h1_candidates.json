@@ -1,0 +1,186 @@
+[
+  {
+    "para_index": 9,
+    "text": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đấ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-1_dieu-26",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=9) trong ARTICLE 'ldd-2024_chuong-iii_muc-1_dieu-26'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 18,
+    "text": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-1_dieu-27",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=18) trong ARTICLE 'ldd-2024_chuong-iii_muc-1_dieu-27'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 30,
+    "text": "Người nhận quyền sử dụng đất được quy định như sau:",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-1_dieu-28",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=30) trong ARTICLE 'ldd-2024_chuong-iii_muc-1_dieu-28'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 48,
+    "text": "Quyền đối với thửa đất liền kề bao gồm quyền về lối đi; cấp nước, thoát nước; tư",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-1_dieu-29",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=48) trong ARTICLE 'ldd-2024_chuong-iii_muc-1_dieu-29'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 51,
+    "text": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, cá nhân, người gốc Việt Nam định cư ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-1_dieu-30",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=51) trong ARTICLE 'ldd-2024_chuong-iii_muc-1_dieu-30'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 55,
+    "text": "Sử dụng đất đúng mục đích, đúng ranh giới thửa đất, đúng quy định về sử dụng độ ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-1_dieu-31",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=55) trong ARTICLE 'ldd-2024_chuong-iii_muc-1_dieu-31'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 66,
+    "text": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-2_dieu-32",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=66) trong ARTICLE 'ldd-2024_chuong-iii_muc-2_dieu-32'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 69,
+    "text": "Tổ chức kinh tế được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-2_dieu-33",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=69) trong ARTICLE 'ldd-2024_chuong-iii_muc-2_dieu-33'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 81,
+    "text": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-2_dieu-34",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=81) trong ARTICLE 'ldd-2024_chuong-iii_muc-2_dieu-34'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 93,
+    "text": "Tổ chức kinh tế nhận chuyển nhượng quyền sử dụng đất, chuyển mục đích sử dụng đấ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-2_dieu-35",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=93) trong ARTICLE 'ldd-2024_chuong-iii_muc-2_dieu-35'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 103,
+    "text": "Tổ chức kinh tế nhận góp vốn bằng quyền sử dụng đất của cá nhân, tổ chức kinh tế",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-2_dieu-36",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=103) trong ARTICLE 'ldd-2024_chuong-iii_muc-2_dieu-36'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 114,
+    "text": "Cá nhân sử dụng đất nông nghiệp được Nhà nước giao trong hạn mức; đất được Nhà n",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-3_dieu-37",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=114) trong ARTICLE 'ldd-2024_chuong-iii_muc-3_dieu-37'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 138,
+    "text": "Cá nhân được phép chuyển mục đích sử dụng đất từ đất được Nhà nước giao đất khôn",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-3_dieu-38",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=138) trong ARTICLE 'ldd-2024_chuong-iii_muc-3_dieu-38'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 143,
+    "text": "Cộng đồng dân cư sử dụng đất có quyền và nghĩa vụ chung quy định tại Điều 26 và ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-3_dieu-39",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=143) trong ARTICLE 'ldd-2024_chuong-iii_muc-3_dieu-39'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 150,
+    "text": "Tổ chức nước ngoài có chức năng ngoại giao sử dụng đất tại Việt Nam có các quyền",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-4_dieu-40",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=150) trong ARTICLE 'ldd-2024_chuong-iii_muc-4_dieu-40'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 157,
+    "text": "Người gốc Việt Nam định cư ở nước ngoài về đầu tư tại Việt Nam được Nhà nước gia",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-4_dieu-41",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=157) trong ARTICLE 'ldd-2024_chuong-iii_muc-4_dieu-41'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 176,
+    "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất có ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-4_dieu-42",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=176) trong ARTICLE 'ldd-2024_chuong-iii_muc-4_dieu-42'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 184,
+    "text": "Người gốc Việt Nam định cư ở nước ngoài nhận chuyển nhượng quyền sử dụng đất tro",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-4_dieu-43",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=184) trong ARTICLE 'ldd-2024_chuong-iii_muc-4_dieu-43'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 189,
+    "text": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam thì đượ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-4_dieu-44",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=189) trong ARTICLE 'ldd-2024_chuong-iii_muc-4_dieu-44'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 207,
+    "text": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-5_dieu-45",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=207) trong ARTICLE 'ldd-2024_chuong-iii_muc-5_dieu-45'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 231,
+    "text": "Tổ chức kinh tế, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-5_dieu-46",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=231) trong ARTICLE 'ldd-2024_chuong-iii_muc-5_dieu-46'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 241,
+    "text": "Cá nhân sử dụng đất nông nghiệp do được Nhà nước giao đất, do chuyển đổi, nhận c",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-5_dieu-47",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=241) trong ARTICLE 'ldd-2024_chuong-iii_muc-5_dieu-47'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  },
+  {
+    "para_index": 243,
+    "text": "Cá nhân là người dân tộc thiểu số được Nhà nước giao đất, cho thuê đất theo quy ",
+    "parent_article_id": "ldd-2024_chuong-iii_muc-5_dieu-48",
+    "hypothesis": "H1",
+    "confidence": 0.65,
+    "reason": "Paragraph đầu tiên (idx=243) trong ARTICLE 'ldd-2024_chuong-iii_muc-5_dieu-48'. Là điểm bắt đầu tiềm năng của CLAUSE đầu tiên — chưa rõ boundary."
+  }
+]
