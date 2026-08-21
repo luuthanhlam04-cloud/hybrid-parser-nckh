@@ -30,9 +30,9 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 # ---------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parents[2]
 SRC  = ROOT / "src"
-DOCX_FILE     = ROOT.parent / "Luat_dat_dai_chuong_3 (1).docx"
-CLEAN_TXT     = ROOT.parent / "luat_ch3_clean.txt"
-REF_ANNOTATON = ROOT / "output_module2_merged.json"   # Reference Annotation (≠ Gold Standard)
+DOCX_FILE     = ROOT / "datasets" / "raw_laws" / "Luat_dat_dai_chuong_3.docx"
+CLEAN_TXT     = ROOT / "outputs" / "clean_texts" / "clean_Luat_dat_dai_chuong_3.txt"
+REF_ANNOTATON = ROOT / "outputs" / "physical_graphs" / "raw_nodes_clean_Luat_dat_dai_chuong_3.json"
 TXT_OUT       = ROOT / "output_c2_txt_baseline.json"
 
 sys.path.insert(0, str(SRC))
