@@ -1,0 +1,9 @@
+============================================================
+  KẾT QUẢ PIPELINE — ✅ THÀNH CÔNG
+============================================================
+  File đầu vào : D:\code\hybrid-parser-nckh\datasets\raw_laws\Luat_dat_dai_chuong_3.docx
+  File đầu ra  : D:\code\hybrid-parser-nckh\outputs\clean_texts\clean_Luat_dat_dai_chuong_3.txt
+  Dòng đầu vào : 288
+  Ký tự đầu ra : 48,065
+  Thời gian    : 0.054s
+============================================================

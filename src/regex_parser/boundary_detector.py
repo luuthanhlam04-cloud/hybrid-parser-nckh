@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 boundary_detector.py — Module 2: Regex Parser
@@ -29,6 +30,7 @@ class Boundary:
     match: MatchResult       # Match result tại điểm bắt đầu
     start_idx: int           # Index bắt đầu trong danh sách input (inclusive)
     end_idx: int             # Index kết thúc (exclusive) — chưa biết khi tạo
+    char_start: int = 0      # Absolute character offset (zero-based)
     content_lines: list[str] = field(default_factory=list)  # Các dòng thuộc node này
 
     @property
@@ -104,6 +106,13 @@ class BoundaryDetector:
                 return unit.get("text", "")
             return str(unit)
 
+        char_starts = []
+        cumulative = 0
+        for unit in input_units:
+            text = get_text(unit)
+            char_starts.append(cumulative)
+            cumulative += len(text) + 1  # +1 for newline
+
         for idx, (unit, match) in enumerate(zip(input_units, match_results)):
             text = get_text(unit)
 
@@ -130,6 +139,7 @@ class BoundaryDetector:
                     match=match,
                     start_idx=idx,
                     end_idx=idx + 1,  # Sẽ được cập nhật sau
+                    char_start=char_starts[idx]
                 )
 
             else:
@@ -163,3 +173,4 @@ class BoundaryDetector:
     ) -> list[Boundary]:
         """Lấy tất cả boundaries nằm trong range [start, end)."""
         return [b for b in boundaries if start <= b.start_idx < end]
+

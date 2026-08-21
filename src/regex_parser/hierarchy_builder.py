@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 hierarchy_builder.py — Module 2: Regex Parser
@@ -177,3 +178,4 @@ class HierarchyBuilder:
                         "missing_to": positions[i + 1],
                     })
         return gaps
+

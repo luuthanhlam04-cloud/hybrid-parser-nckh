@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 regex_engine.py — Module 2: Regex Parser
@@ -574,3 +575,4 @@ def load_text_lines(filepath: str) -> list[str]:
     """Load plain text file thành list dòng."""
     with open(filepath, encoding="utf-8") as f:
         return [line.rstrip("\n\r") for line in f.readlines()]
+

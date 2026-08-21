@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 node_generator.py — Module 2: Regex Parser
@@ -111,35 +112,27 @@ class NodeGenerator:
     # -----------------------------------------------------------------------
     def _build_id_map(self, nodes: list[HierarchyNode]) -> None:
         """
-        Build mapping: id(node) → final hierarchical ID string.
+        Build mapping: id(node) → final hierarchical ID string (Hybrid ID).
 
-        Sử dụng object identity (id(node)) và node.parent_node (object reference
-        được gán bởi HierarchyBuilder) — tránh hoàn toàn string temp_id lookup.
-
-        Tại sao không dùng temp_id string:
-          - Nhiều CLAUSE khác nhau (thuộc nhiều Điều khác nhau) có cùng
-            temp_id ví dụ "khoan_pos5" → collision → parent_id sai.
-          - Giải pháp: HierarchyBuilder giờ lưu node.parent_node là object reference.
-            NodeGenerator dùng id(node.parent_node) để tra cứu — unambiguous.
-
-        Thuật toán:
-          1. Nodes đã được sắp xếp theo preorder (parent xuất hiện trước child).
-          2. Với mỗi node, tra _obj_id_map với id(node.parent_node).
-             Parent đã có ID vì được xử lý trước.
-          3. Sinh ID = parent_final_id + "_" + node_suffix.
+        Sử dụng object identity (id(node)) và node.parent_node.
+        Hybrid ID: {pure_prefix}_p{char_start}
         """
         for node in nodes:
             parent_node = node.parent_node
+            char_start = getattr(node.boundary, 'char_start', 0)
+            
             if parent_node is not None:
                 parent_final = self._obj_id_map.get(id(parent_node))
                 if parent_final:
-                    self._obj_id_map[id(node)] = f"{parent_final}_{self._node_suffix(node)}"
+                    # Chặt chẽ: xóa đuôi _p... của parent để lấy lại pure_prefix
+                    clean_prefix = re.sub(r"_p\d+$", "", parent_final)
+                    self._obj_id_map[id(node)] = f"{clean_prefix}_{self._node_suffix(node)}_p{char_start}"
                 else:
-                    # Không nên xảy ra với preorder — log để debug
-                    self._obj_id_map[id(node)] = f"{self.law_prefix}_{self._node_suffix(node)}"
+                    self._obj_id_map[id(node)] = f"{self.law_prefix}_{self._node_suffix(node)}_p{char_start}"
             else:
                 # Root node (không có parent)
-                self._obj_id_map[id(node)] = f"{self.law_prefix}_{self._node_suffix(node)}"
+                self._obj_id_map[id(node)] = f"{self.law_prefix}_{self._node_suffix(node)}_p{char_start}"
+
     def _node_suffix(self, node: HierarchyNode) -> str:
         """Tạo phần suffix của ID cho node.
 
@@ -243,3 +236,4 @@ class NodeGenerator:
             parts.append(body)
 
         return "\n".join(parts).strip()
+

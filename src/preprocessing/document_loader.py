@@ -319,6 +319,7 @@ class DocxLoader(BaseLoader):
 
         return lines
 
+
     def load_structured(self, path: str | Path) -> list:
         """
         Tải văn bản từ DOCX và trả về list[StructuredParagraph] — M1→M2 contract.
@@ -442,6 +443,7 @@ class DocxLoader(BaseLoader):
 
 
 
+
 def _get_num_props(para: ET.Element) -> tuple[int, int]:
     """
     Trích xuất (numId, ilvl) từ thuộc tính w:numPr của đoạn văn.
@@ -462,6 +464,7 @@ def _get_num_props(para: ET.Element) -> tuple[int, int]:
     return num_id, ilvl
 
 
+
 def _get_word_style(para: ET.Element) -> str | None:
     """
     Trích xuất Word Style name từ w:pStyle của đoạn văn.
@@ -479,6 +482,7 @@ def _get_word_style(para: ET.Element) -> str | None:
 
 
 
+
 # ---------------------------------------------------------------------------
 # Loader đơn giản cho .txt (mở rộng tương lai)
 # ---------------------------------------------------------------------------
@@ -491,6 +495,7 @@ class TxtLoader(BaseLoader):
             raise FileNotFoundError(f"Không tìm thấy file: {path}")
         with open(path, encoding="utf-8", errors="replace") as f:
             return f.read().splitlines()
+
 
     def load_structured(self, path: str | Path) -> list:
         """
@@ -522,6 +527,7 @@ class TxtLoader(BaseLoader):
 
         lines = self.load(path)
         return [txt_paragraph(index=i, text=line) for i, line in enumerate(lines)]
+
 
 
 

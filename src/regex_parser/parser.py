@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 parser.py — Module 2: Regex Parser
@@ -290,38 +291,85 @@ class LegalParser:
 # ---------------------------------------------------------------------------
 # CLI — chạy trực tiếp để test
 # ---------------------------------------------------------------------------
+def process_single_file(parser: LegalParser, input_path: Path, output_path: Path):
+    if input_path.suffix.lower() == ".docx":
+        result = parser.parse_docx(str(input_path))
+    else:
+        result = parser.parse_text(str(input_path))
+
+    result.print_summary()
+    
+    # Fail-Fast: duplicate ID check
+    seen_ids = set()
+    for node in result.nodes:
+        if node["id"] in seen_ids:
+            import logging
+            duplicate_id = node["id"]
+            logging.error("CRITICAL: ID Collision detected: %s", duplicate_id)
+            raise ValueError(f"ID Collision detected: {duplicate_id}")
+        seen_ids.add(node["id"])
+        
+    parser.save_json(result, str(output_path))
+    
+    print("\n[Sample output - first 3 nodes]:")
+    for node in result.nodes[:3]:
+        print(json.dumps(node, ensure_ascii=False, indent=2))
+        
 def main():
     import argparse
 
     ap = argparse.ArgumentParser(description="Module 2 — Legal Regex Parser")
-    ap.add_argument("input", help="Đường dẫn file input (.docx hoặc .txt)")
-    ap.add_argument("--output", "-o", default="legal_nodes.json",
-                    help="File output JSON (default: legal_nodes.json)")
+    ap.add_argument("input", nargs="?", default="outputs/clean_texts",
+                    help="Đường dẫn file input (.docx hoặc .txt) HOẶC thư mục (mặc định: outputs/clean_texts)")
+    ap.add_argument("--output", "-o", default="outputs/physical_graphs",
+                    help="Thư mục output (mặc định: outputs/physical_graphs) hoặc file output JSON cụ thể")
     ap.add_argument("--law-prefix", default="doc",
                     help="Prefix cho document ID (vd: ldd-2024)")
     ap.add_argument("--law-code", default=None,
                     help="Mã văn bản pháp luật (vd: 59/2024/QH15)")
     args = ap.parse_args()
 
-    parser = LegalParser(
-        law_prefix=args.law_prefix,
-        law_code=args.law_code,
-        source_doc=Path(args.input).name,
-    )
+    input_path = Path(args.input)
+    output_path = Path(args.output)
+    
+    # Tạo thư mục output nếu chưa có
+    if not output_path.exists() and output_path.suffix == "":
+        output_path.mkdir(parents=True, exist_ok=True)
 
-    if args.input.lower().endswith(".docx"):
-        result = parser.parse_docx(args.input)
+    if input_path.is_file():
+        parser = LegalParser(
+            law_prefix=args.law_prefix,
+            law_code=args.law_code,
+            source_doc=input_path.name,
+        )
+        if output_path.is_dir() or output_path.suffix == "":
+            final_out = output_path / f"raw_nodes_{input_path.stem}.json"
+        else:
+            final_out = output_path
+            final_out.parent.mkdir(parents=True, exist_ok=True)
+            
+        process_single_file(parser, input_path, final_out)
+        
+    elif input_path.is_dir():
+        if output_path.suffix != "":
+            print("Lỗi: Khi input là thư mục, output cũng phải là một thư mục.")
+            return
+            
+        valid_files = [f for f in input_path.iterdir() if f.is_file() and f.suffix.lower() in [".txt", ".docx"]]
+        print(f"Tìm thấy {len(valid_files)} file hợp lệ trong thư mục {input_path}")
+        
+        for file in valid_files:
+            print(f"\n--- Đang xử lý: {file.name} ---")
+            parser = LegalParser(
+                law_prefix=args.law_prefix,
+                law_code=args.law_code,
+                source_doc=file.name,
+            )
+            final_out = output_path / f"raw_nodes_{file.stem}.json"
+            process_single_file(parser, file, final_out)
     else:
-        result = parser.parse_text(args.input)
-
-    result.print_summary()
-    parser.save_json(result, args.output)
-
-    # In 3 node đầu để kiểm tra nhanh
-    print("\n[Sample output - first 3 nodes]:")
-    for node in result.nodes[:3]:
-        print(json.dumps(node, ensure_ascii=False, indent=2))
-
+        print(f"Không tìm thấy file hoặc thư mục: {args.input}")
 
 if __name__ == "__main__":
     main()
+
