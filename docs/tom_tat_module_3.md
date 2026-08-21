@@ -102,3 +102,44 @@ Kết quả này chứng minh:
 - **Hybrid ID từ Module 2 hoạt động hoàn hảo:** 0 DuplicateNodeID, 0 BrokenParent → Lỗi KL-02 đã được xử lý triệt để.
 - **Cây phân cấp hoàn toàn hợp lệ:** 0 OrphanNode, 0 CyclicDependency → mọi quan hệ cha-con đều khớp chính xác.
 - **25 EmptyNode (WARNING)** là hành vi bình thường: Các node cấp CHAPTER, SECTION, ARTICLE thường chỉ mang tiêu đề mà không có nội dung text riêng.
+
+## 6. Tổng kết Chiến dịch Hợp nhất (Merge M1 + M2 + M3 + C2) - Cột mốc Checkpoint v1
+
+Chiến dịch hợp nhất đã kết nối thành công 3 Module (Preprocessing, Physical Parser, Validation Engine) cùng với nhánh nghiên cứu phục hồi đứt gãy (C2) thành một Physical Pipeline v1 hoàn chỉnh và chốt chặn (Frozen).
+
+### A. Quá trình thực thi & Số liệu
+1. **M1 → M2 (Production Core):**
+   - **Đầu vào:** `Luat_dat_dai_chuong_3.docx` (288 paragraphs).
+   - **Đầu ra:** Chính xác **222 nodes** (1 Chapter, 5 Section, 23 Article, 84 Clause, 109 Point).
+   - **Chất lượng:** Thuật toán *Hybrid ID* (kết hợp `law_code` + `parent_id` + offset/char_start) đã triệt tiêu 100% tình trạng đụng độ ID. Không ghi nhận lỗi Fatal Error nào.
+2. **M3 Validation:**
+   - Score đạt **100.0%**.
+   - Phát hiện **1 Warning (GapIndex)**: Hệ thống báo lỗi thiếu Điểm "e" dưới Khoản 1 Điều 37.
+3. **M1(TXT) → M2 → M3 (Compatibility Test):**
+   - Đứt gãy 100% cấp độ Khoản (Clause) khi parse qua đường TXT (còn 37 nodes).
+   - M3 **không crash**, báo cáo Score 100%. Node Điểm (Point) được chấp nhận mồ côi cấp Khoản và nối thẳng vào Điều (Article) nhờ M2 thiết lập `implicit_parent = True`.
+4. **C2 (Research - Phục hồi đứt gãy):**
+   - F1-Score của tập H2 duy trì chính xác ở mức **0.521**.
+   - Chứng minh Hybrid ID không phá vỡ Logic matching dựa trên nội dung (text-based matching) của Module nghiên cứu.
+
+### B. Các phát hiện & Sửa lỗi (Bugs Fixed)
+- **Lỗi thiếu Pydantic Schema:** Script cũ của Module 3 gọi `LegalNode.model_validate()` nhưng khai báo Schema chưa được đồng bộ. Đã tự động tái tạo `class LegalNode(BaseModel)` chuẩn hóa theo hợp đồng (Data Contract) của M2.
+- **Xử lý Technical Debt (Single Source of Truth):** 
+  - Trước hợp nhất: Module 3 tự dùng Regex quét `node.title` để tìm marker (ví dụ `a)`, `1.`), rất dễ sai sót.
+  - Sau hợp nhất: Module 3 ưu tiên lấy `node.marker` và `node.number` (vốn đã được M1 bóc tách cực kỳ chính xác từ thẻ XML `w:lvlText` của DOCX).
+  - *Kết quả tuyệt vời:* Nhờ loại bỏ Regex mò mẫm, M3 đã bóc trúng phóc việc văn bản gốc bị khuyết mất Điểm "e" (nhảy từ đ → g).
+
+### C. Trade-offs (Sự đánh đổi)
+1. **TXT Degradation vs. Robustness:** Chấp nhận mất dữ liệu cấp Khoản trên file TXT (do giới hạn không có metadata) thay vì cố viết Regex quá phức tạp. Bù lại, hệ thống M3 có tính chống chịu (Robustness) cao, không sụp đổ khi nhận cây đồ thị bị thoái hóa.
+2. **PDF Out of Scope:** Giới hạn scope v1 chỉ tập trung xử lý DOCX/TXT. PDF được gác lại để tránh loãng nguồn lực cho đến khi các parser PDF (như LlamaParse, MinerU) ổn định hơn.
+3. **No Auto-repair:** Quyết định không tự động sửa lỗi chuỗi (như tự thêm điểm "e" ảo). Việc giữ nguyên bản gốc để con người/LLM quyết định ở phase sau quan trọng hơn việc "làm đẹp" dữ liệu.
+
+### D. Vấn đề bỏ ngỏ (Open Issues)
+- **Khả năng khái quát (Generalization):** Rule hiện tại parse rất mượt Luật Đất Đai. Liệu các Nghị định, Thông tư có cấu trúc lỏng lẻo hơn (VD: các Phụ lục, Bảng biểu) có làm M2 sinh ra quá nhiều rác (Orphan) không?
+- **Đồng bộ Annotation C2:** Reference Annotation hiện tại là "cross-checked đại diện". Trong tương lai cần một Ground Truth do con người (Lawyers) gắn nhãn thủ công để đánh giá C2 chính xác hơn.
+
+### E. Câu hỏi mở rộng (Chuyển tiếp sang Phase Semantic Extraction)
+Khi Physical Pipeline đã đóng băng (Frozen), bài toán chuyển từ "Bóc tách Cấu trúc" sang "Hiểu Ngữ nghĩa". Các câu hỏi lớn được đặt ra:
+1. **Ontology Design:** Trong Luật Đất đai, những Thực thể (Entity) nào đáng giá nhất để trích xuất? (Cơ quan quản lý, Thẩm quyền, Đối tượng chịu thuế, Hành vi cấm...).
+2. **Cross-reference Resolution:** Làm sao để nhận diện một cụm từ "Tại khoản 2 Điều này" và nối nó thành Edge `REFERENCES` tới đúng ID của node đích trên đồ thị?
+3. **LLM Chunking Strategy:** 1 Node Vật lý có nên là 1 Node Ngữ nghĩa? Hay cần gộp (Merge) các Điểm nhỏ (Point) lên Khoản (Clause) để đủ context cho LLM hiểu?
