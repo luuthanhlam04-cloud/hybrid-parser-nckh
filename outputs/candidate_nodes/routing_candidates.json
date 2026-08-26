@@ -1,0 +1,1344 @@
+{
+  "router_metadata": {
+    "document_id": "doc",
+    "schema_version": "1.0",
+    "routing_model": "regex_only",
+    "threshold": 0.75,
+    "total_evaluated": 222,
+    "total_candidates": 69
+  },
+  "candidates": [
+    {
+      "node_id": "doc_chuong-iii_p106",
+      "route": "RULE_ONLY",
+      "routing_score": 0.0,
+      "reason": "TYPE_FILTER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_p158",
+      "route": "RULE_ONLY",
+      "routing_score": 0.0,
+      "reason": "TYPE_FILTER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_p180",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-1_p223",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-2_p365",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-3_p433",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-5_p602",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-6_p692",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-7_p803",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_p1035",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-1_p1179",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_p1405",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-a_p1496",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1814",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-a_p2588",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-b_p2794",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-c_p3217",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-d_p3372",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_p3465",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_p3497",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-a_p3549",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-b_p3646",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p3930",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p4064",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p4162",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-g_p4273",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-h_p4356",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5095",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5350",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p5524",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6316",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-a_p6776",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-2_p7178",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-3_p7394",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-29_p7565",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-29_khoan-1_p7605",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-29_khoan-2_p7834",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-30_p8119",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-3_p9133",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_p9431",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-2_p9703",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-3_p9925",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-4_p9994",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-5_p10115",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-6_p10241",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-7_p10310",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_p10396",
+      "route": "RULE_ONLY",
+      "routing_score": 0.0,
+      "reason": "TYPE_FILTER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-32_p10503",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-1_p10650",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_p11077",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_p11236",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-a_p11392",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-b_p11462",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-c_p11543",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p11859",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p12187",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p12391",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-2_p12614",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_p12893",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-a_p13127",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-b_p13433",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "EXCEPTION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_p14069",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_p14245",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14466",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-c_p14648",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15135",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15343",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15442",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_p15825",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_p17281",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-1_p17394",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-2_p17549",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_p17816",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-a_p17947",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-b_p18093",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-c_p18366",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_p18569",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_diem-a_p18800",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_diem-b_p19014",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_p19158",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_p19302",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-b_p19690",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_p19787",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-a_p19897",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-3_p20984",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_p21183",
+      "route": "RULE_ONLY",
+      "routing_score": 0.0,
+      "reason": "TYPE_FILTER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_p21250",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_p21301",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-a_p21627",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-b_p21698",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-c_p21757",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p21866",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22025",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22461",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p22984",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_p23381",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-a_p23477",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-b_p23547",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-c_p24048",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24309",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24415",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24600",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_p24870",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-a_p24987",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-b_p25125",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-4_p25242",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-5_p25444",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-38_p25608",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-1_p25756",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_p26015",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-a_p26278",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-b_p26470",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-39_p26603",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-39_khoan-1_p26663",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-39_khoan-2_p26765",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_p27192",
+      "route": "RULE_ONLY",
+      "routing_score": 0.0,
+      "reason": "TYPE_FILTER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-40_p27359",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_p27434",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-a_p27536",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-b_p27606",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-c_p27699",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-2_p28006",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_p28202",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-1_p28366",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_p28544",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-a_p28714",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-b_p28784",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-c_p28899",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29112",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29572",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29670",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_p30039",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-a_p30338",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-c_p30516",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-d_p30633",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-d_p30767",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-4_p30850",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-5_p31108",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-42_p31453",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-1_p31581",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_p31859",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-a_p32028",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-3_p33000",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-43_p33519",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-1_p33702",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_p33912",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_p34424",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-1_p34692",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_p34926",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-a_p35046",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-b_p35116",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-c_p35701",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-d_p35809",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_p35912",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-a_p36407",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-b_p36548",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-c_p36840",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-4_p37072",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-5_p38031",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_p38299",
+      "route": "RULE_ONLY",
+      "routing_score": 0.0,
+      "reason": "TYPE_FILTER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_p38358",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_p38579",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-b_p39292",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39615",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-2_p39738",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_p39986",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-a_p40271",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-b_p40472",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-c_p40594",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-5_p41303",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_p41601",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-a_p41826",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-b_p41869",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-c_p41912",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-d_p41924",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-7_p41970",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_p42362",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-a_p42458",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "EXCEPTION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-b_p42694",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_p43205",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_p43343",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-a_p43572",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-b_p43672",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "EXCEPTION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_p44009",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_diem-a_p44272",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_diem-b_p44317",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-3_p44416",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-4_p44769",
+      "route": "REJECT",
+      "routing_score": 0.4,
+      "reason": "LOW_CONFIDENCE_CONDITION"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-5_p44959",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-47_p45245",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-48_p45666",
+      "route": "REJECT",
+      "routing_score": 0.0,
+      "reason": "NO_TRIGGER"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-1_p45727",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-2_p46774",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-3_p46954",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-4_p47212",
+      "route": "LLM_CANDIDATE",
+      "routing_score": 1.0,
+      "reason": "CROSS_REF"
+    }
+  ]
+}
