@@ -1,0 +1,1 @@
+{"repos": [{"repoId": "Qwen/Qwen3-Embedding-0.6B", "repoType": "model", "commitHash": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3", "filePaths": ["vocab.json", "README.md", "merges.txt", "model.safetensors", "tokenizer.json", "tokenizer_config.json", "config.json", "config_sentence_transformers.json", "1_Pooling/config.json", "modules.json"]}]}

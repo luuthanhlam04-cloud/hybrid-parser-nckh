@@ -146,17 +146,18 @@ class TestNodeTransformation:
         result = exporter.node_to_graph_node(node)
         assert "type" not in result["properties"]
 
-    def test_parent_id_not_in_properties(self, exporter):
+    def test_parent_id_in_properties(self, exporter):
         node = _make_node("n", "CLAUSE", parent_id="parent")
         result = exporter.node_to_graph_node(node)
-        assert "parent_id" not in result["properties"]
+        assert "parent_id" in result["properties"]
+        assert result["properties"]["parent_id"] == "parent"
 
     def test_all_other_fields_in_properties(self, exporter):
         node = _make_node("n", "CLAUSE", parent_id="p", start_idx=5)
         result = exporter.node_to_graph_node(node)
         props = result["properties"]
         # Fields này phải có trong properties
-        for key in ["start_idx", "end_idx", "depth", "text", "title",
+        for key in ["parent_id", "start_idx", "end_idx", "depth", "text", "title",
                     "children_count", "position", "number", "marker",
                     "law_prefix", "law_code", "source_doc", "word_style",
                     "implicit_parent"]:

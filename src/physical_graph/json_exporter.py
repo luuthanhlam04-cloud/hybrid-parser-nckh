@@ -31,7 +31,7 @@ from src.physical_graph.edge_generator import Edge
 # EXCLUDED FIELDS (không đưa vào properties, đã được nâng lên top-level)
 # ============================================================
 
-_NODE_TOP_LEVEL_KEYS = frozenset({"id", "type", "parent_id"})
+_NODE_TOP_LEVEL_KEYS = frozenset({"id", "type"})
 
 
 class GraphExporter:
@@ -102,6 +102,7 @@ class GraphExporter:
         self,
         raw_nodes: List[Dict[str, Any]],
         all_edges: List[Edge],
+        document_id: str = "doc",
     ) -> Dict[str, Any]:
         """
         Kết hợp nodes và edges thành cấu trúc graph hoàn chỉnh.
@@ -109,6 +110,7 @@ class GraphExporter:
         Args:
             raw_nodes: Danh sách raw node dict từ validated_nodes.json.
             all_edges: Danh sách Edge (BELONG_TO + NEXT + PREVIOUS gộp lại).
+            document_id: Identifier của document.
 
         Returns:
             Dict theo Graph Serialization Format.
@@ -118,6 +120,8 @@ class GraphExporter:
 
         return {
             "graph_metadata": {
+                "document_id": document_id,
+                "schema_version": "1.0",
                 "total_nodes": len(graph_nodes),
                 "total_edges": len(graph_edges),
             },

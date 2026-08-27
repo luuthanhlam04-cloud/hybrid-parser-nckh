@@ -1,0 +1,6 @@
+{
+  "model_name": "Qwen/Qwen3-Embedding-0.6B",
+  "task_description": "Given a legal clause from Vietnamese law, extract its embedding for semantic routing and finding legal exceptions or conditions.",
+  "embedding_dim": 1024,
+  "num_nodes": 222
+}
