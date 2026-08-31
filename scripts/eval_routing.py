@@ -2,19 +2,19 @@ import json
 import csv
 import os
 
-GOLDEN_CSV = "outputs/golden_set_annotation.csv"
+GOLDEN_CSV = "outputs/full_golden_set_annotation.csv"
 EXP_A = "outputs/candidate_nodes/routing_candidates_expA.json"
 EXP_B = "outputs/candidate_nodes/routing_candidates_expB.json"
 EXP_C = "outputs/candidate_nodes/routing_candidates_expC.json"
 
 def load_golden_labels(csv_path: str) -> dict:
     labels = {}
-    with open(csv_path, "r", encoding="utf-8") as f:
+    with open(csv_path, "r", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            node_id = row["node_id"]
+            node_id = row["Node_id"]
             try:
-                val = int(row["is_semantic"])
+                val = int(row["is_semantic_human"])
                 labels[node_id] = val
             except ValueError:
                 pass
