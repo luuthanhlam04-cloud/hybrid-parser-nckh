@@ -41,10 +41,11 @@ def verify_m4_output():
     print(f"Đã nạp {len(nodes)} nodes và {len(edges)} edges từ M4.")
     
     # Kiểm tra tính toàn vẹn (schema_version)
-    if "schema_version" not in graph:
-        print("CẢNH BÁO: M4 Graph thiếu schema_version")
+    graph_metadata = graph.get("graph_metadata", {})
+    if "schema_version" not in graph_metadata:
+        print("CẢNH BÁO: M4 Graph thiếu schema_version trong graph_metadata")
     else:
-        print(f"Graph Schema Version: {graph['schema_version']}")
+        print(f"Graph Schema Version: {graph_metadata['schema_version']}")
         
     return True
 
