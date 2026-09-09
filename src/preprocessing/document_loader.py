@@ -415,10 +415,8 @@ class DocxLoader(BaseLoader):
                         p_number = count        # int: 1, 2, 3...
                     elif fmt == "lowerLetter":
                         alpha = "abcdefghijklmnopqrstuvwxyz"
-                        # Tiếng Việt: sau d là đ (vị trí 4 trong sequence)
-                        viet_alpha = list("abcdđeghiklmno")
-                        idx_letter = (count - 1) % len(viet_alpha)
-                        p_marker = viet_alpha[idx_letter]   # str: "a", "b", "đ"...
+                        idx_letter = (count - 1) % 26
+                        p_marker = alpha[idx_letter]   # str: "a", "b", "k", "o"...
                     elif fmt in ("lowerRoman", "upperRoman"):
                         p_number = _to_roman(count).upper() if fmt == "upperRoman" else _to_roman(count).lower()
                     elif fmt in ("upperLetter",):
