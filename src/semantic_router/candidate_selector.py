@@ -42,9 +42,13 @@ class CandidateSelector:
         }
 
         output_data = {
-            "router_metadata": final_metadata,
+            "metadata": final_metadata,
             "candidates": [asdict(r) for r in results]
         }
 
-        with output_path.open("w", encoding="utf-8") as f:
+        tmp_path = output_path.with_suffix(".tmp.json")
+        with tmp_path.open("w", encoding="utf-8") as f:
             json.dump(output_data, f, ensure_ascii=False, indent=2)
+            
+        import os
+        os.replace(tmp_path, output_path)

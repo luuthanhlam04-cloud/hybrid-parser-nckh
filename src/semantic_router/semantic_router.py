@@ -30,9 +30,9 @@ class SemanticRouter:
         self.embedding_engine = None
         if self.config.get("ablation_mode") in ["EXP-B", "EXP-C"]:
             self.embedding_engine = EmbeddingEngine(
-                embeddings_path="outputs/embeddings/embeddings.npy",
-                node_ids_path="outputs/embeddings/node_ids.json",
-                anchors_path="outputs/embeddings/anchors.npy"
+                embeddings_path="outputs/embeddings/luat_dat_dai_ch3/embeddings.npy",
+                node_ids_path="outputs/embeddings/luat_dat_dai_ch3/node_ids.json",
+                anchors_path="outputs/embeddings/luat_dat_dai_ch3/anchors.npy"
             )
 
     def _pre_filter_rule_only(self, node: Dict[str, Any]) -> bool:
@@ -69,6 +69,16 @@ class SemanticRouter:
             # 2. Lấy nội dung text
             props = node.get("properties", {})
             text = props.get("text", "")
+
+            # 2.5 Lọc các node rỗng (độ dài <= 5) như Điều 26, Điều 27
+            if len(text.strip()) <= 5:
+                results.append(RoutingResult(
+                    node_id=node_id,
+                    route="REJECT",
+                    routing_score=0.0,
+                    reason="EMPTY_NODE"
+                ))
+                continue
 
             # 3. Tính điểm Regex (Tín hiệu A)
             regex_score, category = self.routing_engine.evaluate_regex(text)
@@ -112,15 +122,16 @@ class SemanticRouter:
 
         return results
 
-    def export(self, results: List[RoutingResult], output_path: str | Path):
+    def export(self, results: List[RoutingResult], output_path: str | Path, metadata: Dict[str, Any] = None):
         """
         Xuất kết quả ra JSON.
         """
-        metadata = {
-            "document_id": self.graph.get("graph_metadata", {}).get("document_id", "doc"),
-            "schema_version": "1.0",
-            "routing_model": "regex_only" if self.config.get("ablation_mode") == "EXP-A" else "qwen3",
-            "threshold": self.threshold_controller.get_threshold()
-        }
+        if metadata is None:
+            metadata = {
+                "document_id": self.graph.get("graph_metadata", {}).get("document_id", "doc"),
+                "schema_version": "1.0",
+                "routing_model": "regex_only" if self.config.get("ablation_mode") == "EXP-A" else "qwen3",
+                "threshold": self.threshold_controller.get_threshold()
+            }
         self.candidate_selector.export(results, metadata, output_path)
 
