@@ -602,6 +602,11 @@ Trong quá trình đánh giá và tối ưu Module 5, một loạt các rào c�
   4. "Chốt" một điểm Threshold trên đường cong đó dựa vào ngân sách dự án.
   5. Xuất ra 1 Bảng báo cáo duy nhất chứa đủ (Precision, Recall, F1, TP...) tại đúng Threshold đó để nghiệm thu.
 
+### 21.4 Phát kiến Tình cờ: LLM-as-Embedder (Sự cố cấu hình Model)
+- **Bối cảnh:** Trong lần benchmark đầu tiên trên Kaggle, thay vì load mô hình Text-Embedding chuyên dụng, hệ thống đã vô tình load các mô hình Causal LLM (sinh text) là `Qwen/Qwen2.5-0.5B`, `1.5B`, và `3B` thông qua thư viện `SentenceTransformers`.
+- **Hiện tượng:** Thư viện tự động extract các hidden states thô (raw unpooled hidden states) của mô hình sinh text và áp dụng Mean Pooling để tạo vector ngữ nghĩa. Đáng kinh ngạc là mô hình Causal LLM siêu nhỏ (0.5B) dù chưa được fine-tune contrastive learning cho task embedding vẫn đánh bại hoàn toàn các mô hình chuyên dụng như `BGE-M3` hay `E5-Large`.
+- **Insight Học thuật:** Điều này chứng minh năng lực nén ngữ nghĩa (semantic compression) cực mạnh của kiến trúc Qwen. Khái niệm **"LLM-as-Embedder"** (sử dụng thẳng LLM để trích xuất vector) là một hướng đi vô cùng hứa hẹn. Ở lần chạy lại tiếp theo, Benchmark sẽ so sánh trực tiếp cả 2 dòng: **Qwen Causal LLM** (sự cố bất ngờ) và **Qwen3-Embedding** (mô hình chuẩn) để đánh giá độ chênh lệch.
+
 ---
 
 ## 22. Tư liệu Học thuật: Benchmark M5 — Từ Vướng mắc đến Phát kiến
@@ -853,4 +858,63 @@ Cụm từ dạng *"đã [làm X] mà chưa [hoàn thành Y]"* → Là 1. Ví d�
 
 > **→ Ghi chú viết luận:** Có thể dùng node `28(1)(n)` làm ví dụ minh họa trong phần "Limitations" của chương Methodology: *"Despite the Hybrid Routing architecture, a small subset of semantically complex nodes — those containing dense legal-process references — remain outside the detection capability of M5 and must be handled downstream."*
 
+---
 
+## 23. Phân Tích Chuyên Sâu Kết Quả Benchmark 10 Models (Qwen-0.5B vs Phần còn lại)
+*(Cập nhật sau khi chạy full 10 models trên Dataset 193 nodes)*
+
+Sau khi chạy thành công 10 models (bao gồm cả Qwen3-8B với cấu hình INT8) và phân tích sâu vào đồ thị Cost-Recall, một loạt các giả thuyết hệ thống đã được xác nhận.
+
+### 23.1 Sự khác biệt giữa F1 và Cost-Recall trong M5
+Nếu chỉ nhìn vào điểm F1 lớn nhất, các mô hình trông có vẻ sàn sàn nhau (quanh mức 0.79 - 0.81). Tuy nhiên, bài toán Semantic Router không phải là Classification thông thường, mà là bài toán **Tối ưu Workload Hệ thống**.
+* **Cost (TP + FP):** Chi phí và rác đẩy vào LLM M6.
+* **Recall (TP / TP + FN):** Độ phủ, đảm bảo không bỏ sót luật quan trọng.
+* **Precision (TP / TP + FP):** Độ sạch của Candidate list.
+F1 bị "mù" với Cost. F1 = 0.8 có thể từ Cost 100 hoặc Cost 1000. Trên đồ thị Cost-Recall, khoảng cách năng lực thực sự của các mô hình mới lộ diện rõ ràng.
+
+### 23.2 Đánh giá 5 Thuật toán Fusion dưới lăng kính Cost-Recall
+
+1. **Max-Fusion (Khuyên dùng nhất - 🥇):**
+   * *Cơ chế:* `Candidate = max(Regex, Embedding)`
+   * *Bản chất:* **Rule-Preserving Expansion (Safety Net)**. Regex Baseline cực kỳ sạch (69/69 nodes đúng, Precision 100%). Max-Fusion bảo vệ tuyệt đối 69 node này. Embedding chỉ có một nhiệm vụ: "Lục tìm 58 positive nodes còn sót lại trong 124 nodes còn lại".
+   * *Kết quả:* Qwen-0.5B trên Max-Fusion đạt **Recall 96.9% ở Cost 175**. Trả thêm ~100 Cost (trong đó có ~50 rác FP) để vớt gần như trọn vẹn 58 node cực khó. Đây là Operating Point lý tưởng nhất.
+
+2. **Weighted-Fusion w=0.3 (🥈):**
+   * *Cơ chế:* `0.3*Regex + 0.7*Embedding`
+   * *Kết quả:* Đạt F1 cao nhất (0.820 trên Qwen-0.5B). Tuy nhiên, về kiến trúc, nó **rất nguy hiểm**. Nếu Regex chốt 1.0, nhưng Embedding chấm 0.1, điểm tổng chỉ còn 0.37. Node chắc chắn đúng này có thể bị loại nếu Threshold = 0.4. Không nên dùng ở Production vì nó cho phép Embedding "cãi lại" một rule chắc chắn đúng.
+
+3. **Embed-Only (🥉):**
+   * Thước đo nội lực (không có Regex bảo vệ). Qwen-0.5B tự đạt Recall 93.7% (Cost 171). Trong khi đó, Qwen3-8B chỉ đạt max Recall 33.1%. BGE-M3 đạt Recall 100% nhưng phải kéo Cost lên 193 (chọn toàn bộ).
+
+4. **Weighted-Fusion w=0.7 và Average-Fusion (❌):**
+   * *Average:* Làm pha loãng tín hiệu. Kéo tụt điểm của các node mà Regex đã khẳng định.
+   * *Weighted 0.7:* Điểm số kẹt cứng ở Cost 69, Recall 54.3% (khớp y hệt Regex Baseline). Lý do: Các node Regex=0 không bao giờ vượt nổi Threshold 0.3 dù Embedding có chấm 1.0 đi nữa. Đây là Regex-Only trá hình.
+
+### 23.3 Giải mã hiện tượng Qwen-0.5B (Causal LM vs Retrieval Models)
+
+Dữ liệu chứng minh kích thước model (Scale) không quyết định chiến thắng (Qwen3-8B thất bại trong việc đánh bại 0.5B). 
+* **Objective Mismatch:** Qwen3-Embed, BGE-M3, E5 là các mô hình **Retrieval** (tối ưu cho việc dùng Query ngắn tìm Document dài). Nhưng Task M5 là dò tìm quan hệ phụ thuộc ngữ nghĩa (Semantic Dependency Detection) so với 10 short Anchors.
+* **Lợi thế của Causal LM:** Qwen-0.5B là mô hình sinh ngôn ngữ. Các biểu diễn ẩn (hidden states) của nó được học để **mô hình hóa ngữ cảnh, cấu trúc điều kiện (If-Then), quan hệ phụ thuộc** trong câu. Khi so sánh với cụm *"trừ trường hợp"*, Qwen-0.5B nhận diện được *cấu trúc ngữ pháp pháp lý* sắc bén hơn các mô hình tìm kiếm thông tin. Qwen-0.5B đóng vai trò là "Semantic Completer" hoàn hảo để vớt 58 ca khó (điều kiện ẩn, ngoại lệ lắt léo) mà Regex không thể bắt bằng pattern string thuần túy.
+
+> **→ Ghi chú viết luận:** Trình bày finding này dưới góc độ: "Model được fine-tune cho Retrieval không mặc định là lựa chọn tốt nhất cho Semantic Routing. Causal Representation có thể chứa những tín hiệu compositionality tốt hơn cho task dò tìm trạng thái pháp lý."
+
+### 23.4 Kế hoạch tiếp theo: Bài test "Oracle Rescue" (Diagnostic Run)
+
+Để chứng minh cơ chế "Semantic Completer" của Qwen-0.5B bằng dữ liệu rành mạch nhất, chúng ta cần bóc tách riêng tập hợp mà Regex đầu hàng.
+* Vứt bỏ 69 nodes dễ (Regex = 1.0).
+* **Cô lập 124 nodes khó (58 TP + 66 TN).**
+* Thực hiện Diagnostic Run (chỉ tính Embed-Only) cho Qwen-0.5B và BGE-M3 trên tập con này, và xuất raw score của 10 Anchors.
+Nếu Qwen-0.5B tẽ được 58 TP này ra khỏi 66 TN tốt hơn BGE-M3, ta có bằng chứng định lượng tuyệt đối về cơ chế hoạt động của mô hình trong M5.
+
+### 23.5 Phân Tích Điểm Gãy (Breakpoint) & Lựa Chọn Threshold cho Qwen-0.5B Max-Fusion
+
+Dữ liệu threshold sweep của Qwen-0.5B (Max-Fusion) bộc lộ hiện tượng **Nén Điểm Cực Đoan (Extreme Score Compression)**. Ranh giới quyết định (decision boundary) thực sự của mô hình nằm kẹt cứng trong một khe rất hẹp từ `0.80` đến `0.95`. Việc phân tích các "điểm gãy" trong khoảng này là cơ sở quan trọng nhất để chọn operating point:
+
+*   **T = 0.80 (Vùng an toàn/Không lọc):** 192 candidates, 100% Recall. Điểm số của hầu hết corpus đều cao hơn 0.80. Mức này an toàn tuyệt đối nhưng không có giá trị vận hành vì hệ thống gần như không giảm tải (chỉ lọc được 1 node rác).
+*   **T = 0.85 (Điểm "gãy" đẹp nhất - Vùng Cân Bằng):** 175 candidates, 96.85% Recall, 70.29% Precision (F1 = 0.815). So với 0.80, hệ thống giảm được 17 rác (8.9% workload) nhưng chỉ mất 4 semantic nodes. Cả Cost ↓, Precision ↑, và Recall vẫn cực kỳ cao. Đây là operating point cân bằng nhất.
+*   **T = 0.90 (Vùng sát sinh/Lọc quá tay):** 122 candidates, 71.65% Recall. Chỉ nhích threshold thêm 0.05, hệ thống mất tới **32 semantic nodes** (FN tăng từ 4 lên 36). Sự sụt giảm 25.2% Recall này là bằng chứng đanh thép cho thấy 0.90 đã vượt qua "vùng lọc nhiễu" và cắt thẳng vào nhóm positive. Đánh đổi này quá đắt đối với Router.
+*   **T ≥ 0.95 (Vùng Regex-Only):** 69 candidates, 54.33% Recall. Mức này tương đương với việc vô hiệu hóa Embedding, biến M5 trở lại thành Regex-only. Mất gần một nửa positive nodes là mức không thể chấp nhận được.
+
+> **→ Ghi chú viết luận (Chốt M5 v1):** 
+> *Threshold 0.85 được chọn tạm thời cho M5 v1 vì đạt trade-off cân bằng nhất giữa candidate workload (175/193), recall (96.85%) và precision (70.29%) trong phạm vi threshold sweep hiện tại. Đây chưa phải threshold tối ưu mang tính tổng quát và sẽ được đánh giá lại khi mở rộng nhiều chương và nhiều luật (khi đó có thể là 0.82, 0.87 hoặc một chính sách threshold chuẩn hóa khác).*
+> *Không nên ghi "0.85 là ngưỡng tối ưu" một cách tuyệt đối, mà cần ghi rõ reasoning phân tích từng mốc 0.80, 0.85, 0.90, 0.95 như trên. Điều này chứng minh năng lực phân tích hệ thống (Systems Engineering) thay vì tối ưu hóa F1 một cách máy móc.*
