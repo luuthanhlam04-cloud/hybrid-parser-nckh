@@ -1,0 +1,6 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B",
+  "dimension": 896,
+  "node_count": 222,
+  "input_hash": "b26095a2d0d66be9969fdef417bf4f03acea30eabc75f9960a365d6e96bfff3f"
+}
