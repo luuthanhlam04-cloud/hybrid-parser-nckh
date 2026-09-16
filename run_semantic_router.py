@@ -5,6 +5,7 @@ import logging
 import hashlib
 from typing import Dict, Any
 
+sys.stdout.reconfigure(encoding="utf-8")
 sys.path.insert(0, os.path.dirname(__file__))
 
 from src.semantic_router.semantic_router import SemanticRouter
