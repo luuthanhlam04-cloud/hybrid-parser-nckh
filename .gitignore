@@ -4,3 +4,5 @@ __pycache__/
 *.pyc
 .env
 
+# Ignore embedding outputs
+outputs/embeddings/

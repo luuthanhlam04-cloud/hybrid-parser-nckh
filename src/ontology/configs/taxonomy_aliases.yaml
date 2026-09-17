@@ -1,0 +1,373 @@
+# ==========================================
+# SEED TAXONOMY - LUẬT ĐẤT ĐAI 2024 (V1.3)
+# ==========================================
+
+# ------------------------------------------
+# 1. LEGAL_SUBJECT: CƠ QUAN, TỔ CHỨC, CÁ NHÂN
+# ------------------------------------------
+subject.state:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Nhà nước"
+  aliases:
+    - "nhà nước"
+    - "cơ quan nhà nước"
+    - "cơ quan có thẩm quyền"
+    - "cơ quan, tổ chức có thẩm quyền"
+    - "chính phủ"
+    - "nước cộng hòa xã hội chủ nghĩa việt nam"
+    - "ủy ban nhân dân cấp huyện"
+    - "ủy ban nhân dân cấp xã"
+
+subject.land_user.individual.citizen:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Cá nhân"
+  aliases:
+    - "cá nhân"
+    - "công dân"
+    - "cá nhân trong nước"
+    - "người sử dụng đất"
+    - "nhóm người sử dụng đất"
+    - "thành viên hộ gia đình"
+    - "cá nhân sử dụng đất"
+    - "cá nhân sử dụng đất nông nghiệp"
+    - "người nhận quyền sử dụng đất"
+    - "người mua tài sản gắn liền với đất"
+    - "người thuê lại quyền sử dụng đất"
+
+subject.land_user.individual.ethnic_minority:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Cá nhân là người dân tộc thiểu số"
+  aliases:
+    - "người dân tộc thiểu số"
+    - "cá nhân là người dân tộc thiểu số"
+
+subject.land_user.individual.heir:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Người nhận thừa kế"
+  aliases:
+    - "người nhận thừa kế"
+    - "người thừa kế"
+    - "người thuộc hàng thừa kế"
+    - "người nhận thừa kế quyền sử dụng đất"
+
+subject.land_user.community:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Cộng đồng dân cư"
+  aliases:
+    - "cộng đồng dân cư"
+    - "cộng đồng dân cư sử dụng đất"
+
+subject.land_user.domestic_org.economic:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Tổ chức kinh tế"
+  aliases:
+    - "tổ chức kinh tế"
+    - "doanh nghiệp"
+    - "công ty"
+    - "tổ chức trong nước"
+    - "tổ chức"
+    - "doanh nghiệp nhà nước"
+    - "tổ chức hoạt động kinh doanh bất động sản"
+    - "chủ đầu tư"
+    - "pháp nhân mới"
+    - "các tổ chức là pháp nhân bị chia, tách, sáp nhập, hợp nhất, chuyển đổi"
+
+subject.land_user.domestic_org.public_service:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Đơn vị sự nghiệp công lập"
+  aliases:
+    - "đơn vị sự nghiệp công lập"
+
+subject.land_user.domestic_org.religion:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Tổ chức tôn giáo"
+  aliases:
+    - "tổ chức tôn giáo"
+    - "tổ chức tôn giáo trực thuộc"
+
+subject.land_user.foreign.overseas_vietnamese:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Người Việt Nam định cư ở nước ngoài"
+  aliases:
+    - "người việt nam định cư ở nước ngoài"
+    - "việt kiều"
+    - "người gốc việt nam định cư ở nước ngoài"
+    - "người gốc việt nam định cư ở nước ngoài không thuộc đối tượng được sở hữu nhà ở gắn liền với quyền sử dụng đất ở tại việt nam"
+
+subject.land_user.foreign.fdi_enterprise:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Tổ chức kinh tế có vốn đầu tư nước ngoài"
+  aliases:
+    - "tổ chức kinh tế có vốn đầu tư nước ngoài"
+    - "nhà đầu tư nước ngoài"
+    - "doanh nghiệp liên doanh"
+    - "người nước ngoài"
+
+subject.land_user.foreign.diplomatic:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Tổ chức nước ngoài có chức năng ngoại giao"
+  aliases:
+    - "tổ chức nước ngoài có chức năng ngoại giao"
+
+subject.third_party.credit_institution:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Tổ chức tín dụng"
+  aliases:
+    - "tổ chức tín dụng"
+    - "các tổ chức tín dụng được phép hoạt động tại việt nam"
+    - "ngân hàng chính sách"
+
+# ------------------------------------------
+# 2. LEGAL_SUBJECT (MỞ RỘNG): ĐỐI TƯỢNG, TÀI SẢN (OBJECTS/ASSETS)
+# (Theo V1.3, Đồ thị phẳng gom Khách thể vào LEGAL_SUBJECT để làm Target cho Mũi tên)
+# ------------------------------------------
+# Nhánh 1: Quyền tài sản (Vô hình) - Phục vụ giao dịch, thế chấp, thừa kế
+subject.asset.land_rights:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Quyền sử dụng đất"
+  aliases:
+    - "quyền sử dụng đất"
+    - "quyền sử dụng đất ở"
+    - "quyền sử dụng đất nông nghiệp"
+    - "quyền sử dụng đất trồng lúa"
+    - "quyền sử dụng đất rừng phòng hộ"
+    - "giá trị quyền sử dụng đất"
+
+# Nhánh 2: Đối tượng vật lý / Khách thể quản lý (Hữu hình) - Phục vụ thu hồi, giao đất
+subject.asset.physical_land:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Đất đai (Khách thể vật lý)"
+  aliases:
+    - "đất"
+    - "đất sử dụng hợp pháp"
+    - "đất nông nghiệp"
+    - "đất rừng đặc dụng"
+    - "đất cho thuê"
+    - "đất không thu tiền sử dụng đất"
+    - "đất có thu tiền sử dụng đất"
+    - "diện tích đất thu hồi"
+
+subject.asset.property:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Tài sản gắn liền với đất"
+  aliases:
+    - "tài sản gắn liền với đất"
+    - "tài sản thuộc sở hữu của mình gắn liền với đất"
+    - "tài sản thuộc sở hữu của mình"
+    - "nhà ở gắn liền với quyền sử dụng đất ở"
+    - "công trình xây dựng"
+    - "hạ tầng kỹ thuật"
+    - "các công trình"
+    - "nhà tình nghĩa"
+    - "nhà đại đoàn kết"
+
+subject.asset.money:
+  ontology_class: "LEGAL_SUBJECT"
+  canonical_text: "Nghĩa vụ tài chính (Tiền)"
+  aliases:
+    - "tiền sử dụng đất"
+    - "tiền thuê đất"
+    - "tiền thuê đất hằng năm"
+    - "tiền bồi thường"
+    - "khoản tiền"
+    - "giá trị quyền sử dụng đất"
+    - "thuế thu nhập"
+    - "lệ phí trước bạ"
+
+# ------------------------------------------
+# 3. LEGAL_ACTION: HÀNH VI PHÁP LÝ (TRUNG LẬP)
+# ------------------------------------------
+action.transaction.transfer:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Chuyển nhượng"
+  aliases:
+    - "chuyển nhượng"
+    - "quyền chuyển nhượng"
+    - "chuyển nhượng quyền sử dụng đất"
+    - "mua bán đất"
+    - "quyền bán"
+
+action.transaction.mortgage:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Thế chấp"
+  aliases:
+    - "thế chấp"
+    - "quyền thế chấp"
+    - "thế chấp quyền sử dụng đất"
+
+action.transaction.donate:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Tặng cho"
+  aliases:
+    - "tặng cho"
+    - "tặng cho quyền sử dụng đất"
+
+action.transaction.lease:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Cho thuê / Cho thuê lại"
+  aliases:
+    - "cho thuê"
+    - "hợp đồng cho thuê"
+    - "cho thuê lại quyền sử dụng đất"
+    - "quyền thuê trong hợp đồng thuê đất"
+
+action.transaction.capital_contribution:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Góp vốn"
+  aliases:
+    - "góp vốn bằng quyền sử dụng đất"
+    - "quyền góp vốn bằng tài sản gắn liền với đất"
+
+action.transaction.inheritance:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Để thừa kế / Nhận thừa kế"
+  aliases:
+    - "để thừa kế"
+    - "nhận thừa kế"
+    - "quyền để thừa kế"
+    - "quyền thừa kế quyền sử dụng đất"
+    - "hồ sơ về việc nhận thừa kế"
+
+action.procedural.notarization:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Công chứng / Chứng thực"
+  aliases:
+    - "công chứng"
+    - "chứng thực"
+    - "việc công chứng, chứng thực"
+
+action.procedural.registration:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Đăng ký đất đai"
+  aliases:
+    - "kê khai đăng ký đất đai"
+    - "thủ tục đăng ký đất đai"
+
+action.administrative.complaint:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Khiếu nại / Khởi kiện"
+  aliases:
+    - "khiếu nại"
+    - "tố cáo"
+    - "khởi kiện"
+
+action.compensation:
+  ontology_class: "LEGAL_ACTION"
+  canonical_text: "Bồi thường / Tái định cư"
+  aliases:
+    - "bồi thường"
+    - "hỗ trợ"
+    - "tái định cư"
+
+# ------------------------------------------
+# 4. CONDITION: ĐIỀU KIỆN
+# ------------------------------------------
+condition.document.has_certificate:
+  ontology_class: "CONDITION"
+  canonical_text: "Có Giấy chứng nhận"
+  aliases:
+    - "có giấy chứng nhận quyền sử dụng đất"
+    - "có sổ đỏ"
+    - "đã được cấp giấy chứng nhận"
+    - "giấy chứng nhận quyền sở hữu nhà ở và quyền sử dụng đất ở"
+    - "giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất"
+    - "giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
+    - "đủ điều kiện để cấp giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
+
+condition.status.no_dispute:
+  ontology_class: "CONDITION"
+  canonical_text: "Đất không có tranh chấp"
+  aliases:
+    - "đất không có tranh chấp"
+    - "không có tranh chấp"
+    - "đất không có tranh chấp hoặc tranh chấp đã được giải quyết bởi cơ quan nhà nước có thẩm quyền, bản án, quyết định của tòa án, quyết định hoặc phán quyết của trọng tài đã có hiệu lực pháp luật"
+
+condition.temporal.within_term:
+  ontology_class: "CONDITION"
+  canonical_text: "Trong thời hạn sử dụng đất"
+  aliases:
+    - "thời hạn sử dụng đất"
+    - "thời hạn thuê đất"
+    - "thời hạn còn lại"
+    - "thời hạn sử dụng đất còn lại"
+
+condition.compliance.right_purpose:
+  ontology_class: "CONDITION"
+  canonical_text: "Đúng mục đích sử dụng"
+  aliases:
+    - "đúng mục đích"
+    - "mục đích đã được xác định"
+    - "địa điểm, diện tích, mục đích sử dụng đất"
+
+# ------------------------------------------
+# 5. EXCEPTION: NGOẠI LỆ
+# ------------------------------------------
+exception.inheritance:
+  ontology_class: "EXCEPTION"
+  canonical_text: "Ngoại lệ do thừa kế"
+  aliases:
+    - "trừ trường hợp nhận thừa kế"
+    - "trừ trường hợp thừa kế quyền sử dụng đất"
+    - "ngoại trừ trường hợp thừa kế"
+
+exception.consolidation:
+  ontology_class: "EXCEPTION"
+  canonical_text: "Trường hợp dồn điền đổi thửa"
+  aliases:
+    - "chuyển đổi đất nông nghiệp khi dồn điền, đổi thửa"
+
+exception.donation_to_state:
+  ontology_class: "EXCEPTION"
+  canonical_text: "Tặng cho quyền sử dụng đất cho Nhà nước"
+  aliases:
+    - "tặng cho quyền sử dụng đất cho nhà nước, cộng đồng dân cư"
+
+# ------------------------------------------
+# 6. LEGAL_DOCUMENT_REF: DẪN CHIẾU PHÁP LÝ
+# ------------------------------------------
+reference.law.land_law_2024:
+  ontology_class: "LEGAL_DOCUMENT_REF"
+  canonical_text: "Luật Đất đai 2024"
+  aliases:
+    - "luật này"
+    - "của luật này"
+    - "pháp luật về đất đai"
+
+reference.law.other_laws:
+  ontology_class: "LEGAL_DOCUMENT_REF"
+  canonical_text: "Quy định pháp luật khác"
+  aliases:
+    - "quy định khác của pháp luật có liên quan"
+    - "pháp luật có liên quan"
+    - "quy định của pháp luật"
+    - "pháp luật"
+
+reference.law.civil_law:
+  ontology_class: "LEGAL_DOCUMENT_REF"
+  canonical_text: "Pháp luật về Dân sự"
+  aliases:
+    - "pháp luật về dân sự"
+
+reference.law.real_estate:
+  ontology_class: "LEGAL_DOCUMENT_REF"
+  canonical_text: "Pháp luật về Kinh doanh Bất động sản"
+  aliases:
+    - "luật kinh doanh bất động sản"
+    - "luật nhà ở"
+    - "quy định của pháp luật về nhà ở"
+
+reference.internal.articles:
+  ontology_class: "LEGAL_DOCUMENT_REF"
+  canonical_text: "Điều khoản tham chiếu nội bộ"
+  aliases:
+    - "điều 26"
+    - "điều 31"
+    - "điều 33"
+    - "điều 37"
+    - "điều 46 của luật này"
+    - "điều 47"
+    - "điều kiện quy định tại điều 48"
+    - "khoản 1"
+    - "khoản 2"
+    - "khoản 1 và khoản 3 điều 33"
+    - "điểm a khoản 4 điều 127"
