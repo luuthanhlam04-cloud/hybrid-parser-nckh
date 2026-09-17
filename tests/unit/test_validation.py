@@ -4,7 +4,7 @@ Giả lập các node bị lỗi: Trùng ID, Orphan, BrokenParent, Cyclic,
 Missing Khoản 2, Missing Điểm c, EmptyNode.
 """
 import pytest
-from src.regex_parser.node_generator import LegalNode, Position
+from src.validation.schema_validator import LegalNode
 from src.validation.validator import ValidationEngine
 from src.validation.integrity_checker import check_integrity
 from src.validation.sequence_checker import check_sequences
@@ -23,10 +23,21 @@ def _make_node(
     return LegalNode(
         id=node_id,
         type=node_type,
+        depth=0,
         title=title,
         text=text,
         parent_id=parent_id,
-        position=Position(start=start, end=end),
+        children_count=0,
+        position=0,
+        number=None,
+        marker=None,
+        law_prefix="test",
+        law_code=None,
+        source_doc="test.txt",
+        word_style=None,
+        start_idx=start,
+        end_idx=end,
+        implicit_parent=False,
     )
 
 
