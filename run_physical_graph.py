@@ -1,6 +1,9 @@
 import os
 import sys
+import io
 import logging
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 sys.path.insert(0, os.path.dirname(__file__))
 
