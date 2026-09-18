@@ -1,0 +1,24 @@
+{
+    "total_rejected_edges": 284,
+    "breakdown": {
+        "REJECT: Range violation for ALLOW. Target class LEGAL_SUBJECT not in ['LEGAL_ACTION']": 131,
+        "REJECT: Range violation for REQUIRE. Target class LEGAL_SUBJECT not in ['LEGAL_ACTION']": 35,
+        "REJECT: Range violation for HAS_CONDITION. Target class LEGAL_SUBJECT not in ['CONDITION']": 17,
+        "REJECT: Range violation for PROHIBIT. Target class LEGAL_SUBJECT not in ['LEGAL_ACTION']": 17,
+        "REJECT: Domain violation for HAS_CONDITION. Source class CONDITION not in ['LEGAL_SUBJECT', 'LEGAL_ACTION']": 12,
+        "REJECT: Range violation for ALLOW. Target class LEGAL_DOCUMENT_REF not in ['LEGAL_ACTION']": 12,
+        "REJECT: Range violation for HAS_CONDITION. Target class LEGAL_DOCUMENT_REF not in ['CONDITION']": 11,
+        "REJECT: Unknown relation_type APPLY_TO": 9,
+        "REJECT: Range violation for REQUIRE. Target class CONDITION not in ['LEGAL_ACTION']": 6,
+        "REJECT: Range violation for REQUIRE. Target class LEGAL_DOCUMENT_REF not in ['LEGAL_ACTION']": 6,
+        "REJECT: Range violation for ALLOW. Target class CONDITION not in ['LEGAL_ACTION']": 6,
+        "REJECT: Domain violation for ALLOW. Source class LEGAL_ACTION not in ['LEGAL_SUBJECT']": 5,
+        "REJECT: Self-loop not allowed for REQUIRE": 5,
+        "REJECT: Domain violation for HAS_EXCEPTION. Source class LEGAL_SUBJECT not in ['LEGAL_ACTION', 'CONDITION']": 3,
+        "REJECT: Range violation for HAS_CONDITION. Target class LEGAL_ACTION not in ['CONDITION']": 3,
+        "REJECT: Range violation for PROHIBIT. Target class CONDITION not in ['LEGAL_ACTION']": 3,
+        "REJECT: Range violation for REFERENCE_TO. Target class LEGAL_SUBJECT not in ['LEGAL_DOCUMENT_REF']": 1,
+        "REJECT: Domain violation for HAS_CONDITION. Source class LEGAL_DOCUMENT_REF not in ['LEGAL_SUBJECT', 'LEGAL_ACTION']": 1,
+        "REJECT: Domain violation for ALLOW. Source class CONDITION not in ['LEGAL_SUBJECT']": 1
+    }
+}
