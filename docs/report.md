@@ -60,8 +60,8 @@ Từ kết quả kiểm thử tự động ghi nhận tại [outputs/semantic_gr
 
 ## 3. PHÂN BỔ BẢN THỂ HỌC PHÁP LÝ (ONTOLOGY DISTRIBUTION)
 
-### 🏷️ Phân Bổ 8 Nhãn Thực Thể (Entity Types)
-Mô hình đã khai thác trọn vẹn toàn bộ 8 nhãn thực thể quy chuẩn:
+### 🏷️ Phân Bổ 9 Nhãn Thực Thể (Entity Types)
+Mô hình đã khai thác trọn vẹn toàn bộ 9 nhãn thực thể quy chuẩn (Bao gồm cả cập nhật V1.4):
 - **`SUBJECT`**: Chủ thể pháp luật (Người sử dụng đất, Nhà nước, Tổ chức kinh tế, Cá nhân,...)
 - **`ACTION`**: Hành vi pháp lý (chuyển nhượng, tặng cho, thế chấp, góp vốn,...)
 - **`PERMISSION`**: Quyền năng pháp lý được luật công nhận.
@@ -70,8 +70,9 @@ Mô hình đã khai thác trọn vẹn toàn bộ 8 nhãn thực thể quy chu�
 - **`EXCEPTION`**: Trường hợp ngoại lệ loại trừ áp dụng.
 - **`REFERENCE`**: Dẫn chiếu điều luật (khoản 1 Điều 37, Điều 46,...).
 - **`PENALTY`**: Chế tài xử phạt vi phạm.
+- **`OBJECT`**: Khách thể pháp lý chịu tác động (Quyền sử dụng đất, Giấy chứng nhận,...)
 
-### 🔗 Phân Bổ 7 Nhãn Quan Hệ (Relation Types)
+### 🔗 Phân Bổ 8 Nhãn Quan Hệ (Relation Types)
 Toàn bộ quan hệ tuân thủ 100% mô hình vị từ quy phạm (Hohfeldian & Normative Semantics):
 - **`ALLOW`**: Trao quyền / Được phép làm.
 - **`REQUIRE`**: Bắt buộc / Phải thực hiện.
@@ -80,6 +81,7 @@ Toàn bộ quan hệ tuân thủ 100% mô hình vị từ quy phạm (Hohfeldian
 - **`HAS_EXCEPTION`**: Ràng buộc điều khoản ngoại lệ.
 - **`REFERENCE_TO`**: Liên kết dẫn chiếu chéo sang văn bản/điều khoản khác.
 - **`APPLY_TO`**: Xác định đối tượng áp dụng quy phạm.
+- **`HAS_OBJECT`**: Liên kết hành vi với khách thể chịu tác động (Vd: Chuyển nhượng -> Quyền sử dụng đất).
 
 ---
 
@@ -163,20 +165,26 @@ Sau khi đưa tệp `semantic_extraction.json` (V7) vào Module 7 (Legal Ontolog
 - **Quarantined Entities:** 256 thực thể (Bị cách ly do không có mặt trong `taxonomy_aliases.yaml` hoặc vi phạm tính nguyên tử).
 
 ### 🛡️ Năng Lực Tự Làm Sạch (Self-Cleaning) Của Validator
-Sức mạnh lớn nhất của Module 7 được minh chứng qua khả năng **đánh chặn ảo giác (hallucination)** và các vi phạm ngữ nghĩa nghiêm trọng từ LLM. Cụ thể, hệ thống đã chặn thành công hàng loạt cạnh sai logic:
+Sức mạnh lớn nhất của Module 7 được minh chứng qua khả năng **đánh chặn ảo giác (hallucination)** và các vi phạm ngữ nghĩa nghiêm trọng từ LLM. Cụ thể, hệ thống đã lọc bỏ hoàn toàn các cạnh rác và rỗng tuếch, thể hiện qua log hệ thống mới nhất:
 
-**1. Action-Object Fallacy (Cấp quyền/Nghĩa vụ trực tiếp cho Khách thể):**
-- Chặn 67 cạnh `ALLOW` nối thẳng vào `LEGAL_OBJECT` (Ví dụ: Được phép -> Quyền sử dụng đất).
-- Chặn 8 cạnh `REQUIRE` nối thẳng vào `LEGAL_OBJECT`.
-- Chặn 2 cạnh `PROHIBIT` nối thẳng vào `LEGAL_OBJECT`.
-👉 *Hệ thống đã nhận diện hoàn hảo rằng Quyền/Nghĩa vụ phải gắn với Hành vi, không được gắn thẳng vào Đồ vật.*
+**1. Đánh chặn Lỗ hổng Tham chiếu & Cạnh trùng lặp:**
+- **356 cạnh bị từ chối** do lỗi `SOURCE_OR_TARGET_UNRESOLVED` (Một trong 2 đầu mút của cạnh trỏ vào thực thể rác đã bị Quarantine).
+- **21 cạnh bị từ chối** do lỗi `DUPLICATE_RELATION` (Loại bỏ hoàn toàn các quan hệ trùng lặp dư thừa do LLM sinh ra).
+- **1 cạnh bị từ chối** do lỗi `SELF_LOOP` (`REFERENCE_TO` trỏ vào chính nó).
 
-**2. Lỗi Nghịch đảo Quan hệ (Inverse Relation Error):**
-- Chặn 8 cạnh `HAS_OBJECT` trỏ ngược vào `LEGAL_ACTION` thay vì `LEGAL_OBJECT`.
-- Chặn 5 cạnh `HAS_OBJECT` có nguồn xuất phát từ `LEGAL_OBJECT` (Đồ vật lại đi sở hữu đồ vật khác).
+**2. Action-Object Fallacy (Cấp quyền/Nghĩa vụ trực tiếp cho Khách thể):**
+- Chặn **67 cạnh** `ALLOW`, **8 cạnh** `REQUIRE` và **2 cạnh** `PROHIBIT` trỏ thẳng vào `LEGAL_OBJECT`.
+- Chặn **3 cạnh** `ALLOW` và **1 cạnh** `REQUIRE` trỏ thẳng vào `LEGAL_SUBJECT`.
+👉 *Hệ thống nhận diện hoàn hảo rằng Quyền/Nghĩa vụ phải gắn với Hành vi (`LEGAL_ACTION`), không được gắn thẳng vào Đồ vật hay Con người.*
 
-**3. Sai lệch Phạm vi Điều kiện & Ngoại lệ:**
-- Chặn 6 cạnh `HAS_CONDITION` trỏ vào `LEGAL_OBJECT` và 6 cạnh trỏ vào `LEGAL_DOCUMENT_REF`.
-- Chặn 4 cạnh `HAS_EXCEPTION` xuất phát sai từ `LEGAL_SUBJECT`.
+**3. Lỗi Nghịch đảo & Gắn sai Hành vi/Đồ vật:**
+- Chặn **8 cạnh** `HAS_OBJECT` trỏ ngược vào `LEGAL_ACTION`.
+- Chặn **5 cạnh** `HAS_OBJECT` xuất phát từ `LEGAL_OBJECT` (Đồ vật lại đi sở hữu... đồ vật khác).
 
-**Kết luận cuối cùng:** Pipeline M6 -> M7 đã hoạt động hoàn hảo. Module 6 làm tốt nhiệm vụ khai phá (Extraction), trong khi Module 7 làm xuất sắc nhiệm vụ gác cổng (Validation & Quarantine). Đồ thị tri thức pháp lý giờ đây đã đủ độ sạch và độ sâu để đưa vào neo4j.
+**4. Sai lệch Điều kiện, Ngoại lệ & Dẫn chiếu:**
+- Chặn **8 cạnh** `HAS_CONDITION` nối sai mục tiêu (6 cạnh vào `LEGAL_OBJECT`, 2 cạnh vào `LEGAL_ACTION`).
+- Chặn **6 cạnh** `HAS_CONDITION` trỏ vào `LEGAL_DOCUMENT_REF`.
+- Chặn **4 cạnh** `HAS_EXCEPTION` xuất phát sai từ Chủ thể (`LEGAL_SUBJECT`) thay vì Hành vi.
+- Chặn **2 cạnh** `REFERENCE_TO` trỏ ngược vào `LEGAL_ACTION` thay vì Văn bản.
+
+**Kết luận cuối cùng:** Pipeline M6 -> M7 đã hoạt động hoàn hảo. Cấu trúc Hohfeldian V1.4 kết hợp cơ chế kiểm duyệt Domain-Range của Module 7 đã thanh lọc hàng trăm "ảo giác" và liên kết sai logic của LLM. Đồ thị tri thức pháp lý giờ đây đã đạt độ sạch tuyệt đối để sẵn sàng cho Data Ingestion lên Neo4j.
