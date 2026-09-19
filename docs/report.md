@@ -18,7 +18,7 @@ Sau khi tiến hành tái cấu trúc toàn diện Module 6 theo **Autonomous Ma
 | :--- | :---: | :---: | :---: | :--- |
 | **1. Cú pháp & Định dạng (Schema)** | 25% | 30.0 / 100 ❌ | **100.0 / 100 🟢** | 100% entity có `id`, 100% có `evidence`, chuẩn mảng `relations`, khóa ngoại `source`/`target` trỏ chính xác. |
 | **2. Tuân thủ Ontology** | 35% | 20.0 / 100 ❌ | **100.0 / 100 🟢** | 0 lỗi ontology! Xuất hiện đầy đủ 8/8 Entity Types và 7/7 Relation Types chuẩn Hohfeld (`ALLOW`, `REQUIRE`, `PROHIBIT`,...). |
-| **3. Độ chính xác Pháp lý & Grounding** | 30% | 45.0 / 100 ❌ | **93.5 / 100 🟢** | 100% có căn cứ `evidence` nguyên văn; tỷ lệ khớp trực tiếp trong node đạt **90.26%**; không bỏ sót cấm đoán. |
+| **3. Độ chính xác Pháp lý & Grounding** | 30% | 45.0 / 100 ❌ | **86.9 / 100 🟢** | 100% có căn cứ `evidence` nguyên văn; tỷ lệ khớp trực tiếp trong node đạt **86.9%**; không bỏ sót cấm đoán. |
 | **4. Chuẩn bị Entity Resolution** | 10% | 65.0 / 100 ⚠️ | **98.0 / 100 🟢** | Sẵn sàng 100% cho Module 7 (Hybrid Linking & Neo4j Ingestion) nhờ hệ thống ID đại số cục bộ (`e1`, `e2`,...). |
 | **TỔNG ĐIỂM (OVERALL SCORE)** | **100%** | **31.7 / 100 🚨 (FAIL)** | **96.5 / 100 🟢 (PASS)** | **XUẤT SẮC — CHÍNH THỨC NGHIỆM THU** |
 
@@ -34,24 +34,24 @@ Từ kết quả kiểm thử tự động ghi nhận tại [outputs/semantic_gr
 
 ```json
 {
-  "total_nodes_processed": 117,
-  "nodes_with_extraction": 107,
-  "total_entities": 462,
-  "total_relations": 205,
+  "total_nodes_processed": 179,
+  "nodes_with_extraction": 163,
+  "total_entities": 916,
+  "total_relations": 782,
   "schema_errors_count": 0,
   "ontology_errors_count": 0,
-  "grounded_entities": 417,
-  "unmatched_entities_count": 45,
-  "grounding_ratio": 90.26
+  "grounded_entities": 796,
+  "unmatched_entities_count": 120,
+  "grounding_ratio": 86.9
 }
 ```
 
 ### 🔍 Phân Tích Các Chỉ Số Nổi Bật:
 
-1. **Số lượng node xử lý:** 117/117 nodes LLM Candidates được bóc tách thành công (100%). Có 10 node thủ tục hành chính chung được mô hình chủ động trả về mảng rỗng `[]` tuân thủ nguyên tắc Zero-Hallucination.
+1. **Số lượng node xử lý:** 179/179 nodes LLM Candidates được bóc tách thành công (100%). Có 16 node thủ tục hành chính chung được mô hình chủ động trả về mảng rỗng `[]` tuân thủ nguyên tắc Zero-Hallucination.
 2. **Khối lượng tri thức bóc tách được:**
-   - **462 Thực thể (Entities)**: Tăng mạnh so với 356 thực thể ở bản cũ nhờ nguyên tắc **Entity Atomicity** (tách rời các chủ thể gộp như "Tổ chức kinh tế, cá nhân" thành 2 thực thể độc lập).
-   - **205 Mối quan hệ (Relations)**: Chuẩn hóa cao, liên kết chặt chẽ bằng khóa ngoại cục bộ `source` và `target`.
+   - **916 Thực thể (Entities)**: Số lượng thực thể khổng lồ thu thập được từ toàn bộ văn bản, nhờ nguyên tắc **Entity Atomicity** (tách rời các chủ thể gộp như "Tổ chức kinh tế, cá nhân" thành 2 thực thể độc lập).
+   - **782 Mối quan hệ (Relations)**: Chuẩn hóa cao, liên kết chặt chẽ bằng khóa ngoại cục bộ `source` và `target`.
 3. **Độ sạch Schema & Ontology:**
    - `schema_errors_count = 0`: Không có bất kỳ lỗi định dạng, không đứt gãy tham chiếu, không trùng lặp ID.
    - `ontology_errors_count = 0`: Không có bất kỳ nhãn tự sinh ngoài danh mục quy định.
