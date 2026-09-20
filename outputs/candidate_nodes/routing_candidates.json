@@ -9,7 +9,7 @@
     "config_hash": "1fc46076571977e09f7bb9635f0cce022a2c853d59f9ec80d8b557605bc710ed",
     "input_hash": "b26095a2d0d66be9969fdef417bf4f03acea30eabc75f9960a365d6e96bfff3f",
     "total_evaluated": 222,
-    "total_candidates": 177
+    "total_candidates": 179
   },
   "candidates": [
     {
@@ -33,49 +33,49 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-1_p223",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8959996700286865,
+      "routing_score": 0.8985753059387207,
       "reason": "CONDITION"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-2_p365",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.909955620765686,
+      "routing_score": 0.9144624471664429,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-3_p433",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9269522428512573,
+      "routing_score": 0.9297304153442383,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9301424622535706,
+      "routing_score": 0.9323212504386902,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-5_p602",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9146185517311096,
+      "routing_score": 0.917830765247345,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-6_p692",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8982933759689331,
+      "routing_score": 0.9040364027023315,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-7_p803",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9139916300773621,
+      "routing_score": 0.9189949035644531,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8902847170829773,
+      "routing_score": 0.8953219652175903,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -87,31 +87,31 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-1_p1179",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.910400390625,
+      "routing_score": 0.914379894733429,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_p1405",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8790310025215149,
+      "routing_score": 0.8855257630348206,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-a_p1496",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8914517164230347,
+      "routing_score": 0.8999365568161011,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1814",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9072625637054443,
+      "routing_score": 0.9130492210388184,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.852717399597168,
+      "routing_score": 0.853462815284729,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -123,19 +123,19 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-b_p2794",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8903645873069763,
+      "routing_score": 0.8971289992332458,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-c_p3217",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8982541561126709,
+      "routing_score": 0.9038392901420593,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-d_p3372",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9044162631034851,
+      "routing_score": 0.910063624382019,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -147,7 +147,7 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_p3497",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9074925184249878,
+      "routing_score": 0.9117941856384277,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -159,79 +159,79 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-b_p3646",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9140726327896118,
+      "routing_score": 0.920733630657196,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9190464019775391,
+      "routing_score": 0.9224238991737366,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p3930",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9051923155784607,
+      "routing_score": 0.9088753461837769,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p4064",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.912730872631073,
+      "routing_score": 0.9159624576568604,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p4162",
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-e_p4162",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8856110572814941,
+      "routing_score": 0.8927944302558899,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-g_p4273",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9162575006484985,
+      "routing_score": 0.9206075668334961,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-h_p4356",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8811100721359253,
+      "routing_score": 0.8900339603424072,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9080222845077515,
+      "routing_score": 0.9123948812484741,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5095",
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-k_p5095",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9196746349334717,
+      "routing_score": 0.9237197637557983,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5350",
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8980754017829895,
+      "routing_score": 0.9071179032325745,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p5524",
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9194085597991943,
+      "routing_score": 0.9230834245681763,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6316",
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6316",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8991149663925171,
+      "routing_score": 0.9029388427734375,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-a_p6776",
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9013625383377075,
+      "routing_score": 0.9016842842102051,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -255,7 +255,7 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-29_khoan-1_p7605",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8950942754745483,
+      "routing_score": 0.9044888019561768,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -273,19 +273,19 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9229467511177063,
+      "routing_score": 0.926750659942627,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9207586050033569,
+      "routing_score": 0.9259488582611084,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-3_p9133",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9080697894096375,
+      "routing_score": 0.9140195846557617,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -297,43 +297,43 @@
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9262473583221436,
+      "routing_score": 0.9313623309135437,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-2_p9703",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9088714122772217,
+      "routing_score": 0.9125746488571167,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-3_p9925",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9212630987167358,
+      "routing_score": 0.9224773049354553,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-4_p9994",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9115134477615356,
+      "routing_score": 0.9135170578956604,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-5_p10115",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8878884315490723,
+      "routing_score": 0.8942837715148926,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-6_p10241",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9085044264793396,
+      "routing_score": 0.9132059812545776,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-7_p10310",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9128862023353577,
+      "routing_score": 0.9157711863517761,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -357,7 +357,7 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9255590438842773,
+      "routing_score": 0.9285238981246948,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -369,7 +369,7 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_p11236",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8558282852172852,
+      "routing_score": 0.856512188911438,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -381,31 +381,31 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-b_p11462",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9132904410362244,
+      "routing_score": 0.9165946245193481,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-c_p11543",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8983681797981262,
+      "routing_score": 0.9036062955856323,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p11859",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9201427698135376,
+      "routing_score": 0.923948347568512,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p12187",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8966972827911377,
+      "routing_score": 0.9025071263313293,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p12391",
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-e_p12391",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9194581508636475,
+      "routing_score": 0.9229847192764282,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -417,13 +417,13 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_p12893",
       "route": "REJECT",
-      "routing_score": 0.8175027966499329,
+      "routing_score": 0.8192596435546875,
       "reason": "LOW_CONFIDENCE"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-a_p13127",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8861916065216064,
+      "routing_score": 0.8922206163406372,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -441,7 +441,7 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_p14245",
       "route": "REJECT",
-      "routing_score": 0.8364282846450806,
+      "routing_score": 0.8397725820541382,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -453,7 +453,7 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14466",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9056376218795776,
+      "routing_score": 0.9114317893981934,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -465,19 +465,19 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15135",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.909702718257904,
+      "routing_score": 0.9146376848220825,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15343",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.902918815612793,
+      "routing_score": 0.9086996912956238,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15442",
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-e_p15442",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9028627276420593,
+      "routing_score": 0.9125257730484009,
       "reason": "CONDITION"
     },
     {
@@ -489,19 +489,19 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.885489821434021,
+      "routing_score": 0.8933061361312866,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9077306389808655,
+      "routing_score": 0.9137170910835266,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.915794849395752,
+      "routing_score": 0.9174528121948242,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -525,7 +525,7 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_p17816",
       "route": "REJECT",
-      "routing_score": 0.8290694952011108,
+      "routing_score": 0.8349342942237854,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -549,7 +549,7 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_p18569",
       "route": "REJECT",
-      "routing_score": 0.808384358882904,
+      "routing_score": 0.8147729635238647,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -579,37 +579,37 @@
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.887522280216217,
+      "routing_score": 0.8953100442886353,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-b_p19690",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9089117050170898,
+      "routing_score": 0.9142709374427795,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_p19787",
       "route": "REJECT",
-      "routing_score": 0.8446975946426392,
+      "routing_score": 0.8482577800750732,
       "reason": "LOW_CONFIDENCE"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-a_p19897",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8900989890098572,
+      "routing_score": 0.8988687992095947,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9127297401428223,
+      "routing_score": 0.9161611199378967,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-3_p20984",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.923269510269165,
+      "routing_score": 0.9282651543617249,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -627,7 +627,7 @@
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_p21301",
       "route": "REJECT",
-      "routing_score": 0.8302410840988159,
+      "routing_score": 0.839434027671814,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -639,19 +639,19 @@
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-b_p21698",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9251397848129272,
+      "routing_score": 0.9299604892730713,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-c_p21757",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9062044024467468,
+      "routing_score": 0.9091784954071045,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p21866",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9065341949462891,
+      "routing_score": 0.9112641215324402,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -661,7 +661,7 @@
       "reason": "CROSS_REF"
     },
     {
-      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22461",
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461",
       "route": "LLM_CANDIDATE",
       "routing_score": 1.0,
       "reason": "CROSS_REF"
@@ -669,20 +669,20 @@
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p22984",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8947871327400208,
+      "routing_score": 0.8999381065368652,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.920058012008667,
+      "routing_score": 0.9171773791313171,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_p23381",
-      "route": "REJECT",
-      "routing_score": 0.8487658500671387,
-      "reason": "LOW_CONFIDENCE"
+      "route": "LLM_CANDIDATE",
+      "routing_score": 0.8506190776824951,
+      "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-a_p23477",
@@ -699,31 +699,31 @@
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-c_p24048",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8973472118377686,
+      "routing_score": 0.9010308384895325,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24309",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9097306132316589,
+      "routing_score": 0.9138487577438354,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24415",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9056376218795776,
+      "routing_score": 0.9114317893981934,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24600",
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-e_p24600",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9233660101890564,
+      "routing_score": 0.9273779392242432,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_p24870",
       "route": "REJECT",
-      "routing_score": 0.834952712059021,
+      "routing_score": 0.8371219038963318,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -741,7 +741,7 @@
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-4_p25242",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9156370162963867,
+      "routing_score": 0.9209257960319519,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -765,7 +765,7 @@
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_p26015",
       "route": "REJECT",
-      "routing_score": 0.8203612565994263,
+      "routing_score": 0.8287429809570312,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -795,7 +795,7 @@
     {
       "node_id": "doc_chuong-iii_muc-3_dieu-39_khoan-2_p26765",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9148632287979126,
+      "routing_score": 0.9194502234458923,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -813,7 +813,7 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_p27434",
       "route": "REJECT",
-      "routing_score": 0.836288332939148,
+      "routing_score": 0.8405352234840393,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -825,25 +825,25 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-b_p27606",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9092729091644287,
+      "routing_score": 0.9152224063873291,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-c_p27699",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9221686720848083,
+      "routing_score": 0.9246492385864258,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.903819739818573,
+      "routing_score": 0.911048412322998,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-2_p28006",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9086958169937134,
+      "routing_score": 0.9154788851737976,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -860,9 +860,9 @@
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_p28544",
-      "route": "REJECT",
-      "routing_score": 0.846117377281189,
-      "reason": "LOW_CONFIDENCE"
+      "route": "LLM_CANDIDATE",
+      "routing_score": 0.854562520980835,
+      "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-a_p28714",
@@ -873,13 +873,13 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-b_p28784",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9060085415840149,
+      "routing_score": 0.9118959903717041,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-c_p28899",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9109612703323364,
+      "routing_score": 0.9160221219062805,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -891,20 +891,20 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29572",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.902918815612793,
+      "routing_score": 0.9086996912956238,
       "reason": "EMBEDDING_MATCH"
     },
     {
-      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29670",
+      "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29670",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9031246304512024,
+      "routing_score": 0.9081758260726929,
       "reason": "CONDITION"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_p30039",
-      "route": "REJECT",
-      "routing_score": 0.8448234796524048,
-      "reason": "LOW_CONFIDENCE"
+      "route": "LLM_CANDIDATE",
+      "routing_score": 0.8529679775238037,
+      "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-a_p30338",
@@ -915,25 +915,25 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.915157675743103,
+      "routing_score": 0.919482409954071,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-c_p30516",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9051600098609924,
+      "routing_score": 0.9099626541137695,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-d_p30633",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.900970458984375,
+      "routing_score": 0.9050156474113464,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-d_p30767",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8996303081512451,
+      "routing_score": 0.9026382565498352,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -962,9 +962,9 @@
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_p31859",
-      "route": "LLM_CANDIDATE",
-      "routing_score": 0.8500258922576904,
-      "reason": "EMBEDDING_MATCH"
+      "route": "REJECT",
+      "routing_score": 0.8497922420501709,
+      "reason": "LOW_CONFIDENCE"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-a_p32028",
@@ -1005,7 +1005,7 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_p33912",
       "route": "REJECT",
-      "routing_score": 0.8302183747291565,
+      "routing_score": 0.829025149345398,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -1029,7 +1029,7 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-1_p34692",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8979190587997437,
+      "routing_score": 0.9065643548965454,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -1047,19 +1047,19 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-b_p35116",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.910036563873291,
+      "routing_score": 0.9171513915061951,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-c_p35701",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9004471302032471,
+      "routing_score": 0.9042776823043823,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-d_p35809",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9150377511978149,
+      "routing_score": 0.9180606603622437,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -1071,7 +1071,7 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-a_p36407",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8910478353500366,
+      "routing_score": 0.8970029950141907,
       "reason": "CONDITION"
     },
     {
@@ -1083,7 +1083,7 @@
     {
       "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-c_p36840",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9113932847976685,
+      "routing_score": 0.9154253005981445,
       "reason": "CONDITION"
     },
     {
@@ -1113,7 +1113,7 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_p38579",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8724690675735474,
+      "routing_score": 0.8776931762695312,
       "reason": "CONDITION"
     },
     {
@@ -1125,25 +1125,25 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-b_p39292",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8880003690719604,
+      "routing_score": 0.8948346972465515,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8981322646141052,
+      "routing_score": 0.903883159160614,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39615",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9096825122833252,
+      "routing_score": 0.9087145328521729,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.91221022605896,
+      "routing_score": 0.9168945550918579,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -1179,43 +1179,43 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9107390642166138,
+      "routing_score": 0.9181256890296936,
       "reason": "CONDITION"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-5_p41303",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9164786338806152,
+      "routing_score": 0.9204068183898926,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_p41601",
       "route": "REJECT",
-      "routing_score": 0.813372790813446,
+      "routing_score": 0.8082349300384521,
       "reason": "LOW_CONFIDENCE"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-a_p41826",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9330161809921265,
+      "routing_score": 0.934127926826477,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-b_p41869",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9054234027862549,
+      "routing_score": 0.9042395353317261,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-c_p41912",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8965322375297546,
+      "routing_score": 0.8971267938613892,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-d_p41924",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9282829761505127,
+      "routing_score": 0.9308334589004517,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -1227,7 +1227,7 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_p42362",
       "route": "REJECT",
-      "routing_score": 0.8433343172073364,
+      "routing_score": 0.8493602871894836,
       "reason": "LOW_CONFIDENCE"
     },
     {
@@ -1239,13 +1239,13 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-b_p42694",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9042812585830688,
+      "routing_score": 0.9101901650428772,
       "reason": "EMBEDDING_MATCH"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9336180686950684,
+      "routing_score": 0.9364144802093506,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -1257,13 +1257,13 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_p43343",
       "route": "REJECT",
-      "routing_score": 0.8208879828453064,
+      "routing_score": 0.8209733963012695,
       "reason": "LOW_CONFIDENCE_CONDITION"
     },
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-a_p43572",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9071869254112244,
+      "routing_score": 0.9146789312362671,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -1275,7 +1275,7 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_p44009",
       "route": "REJECT",
-      "routing_score": 0.8212518692016602,
+      "routing_score": 0.8280599117279053,
       "reason": "LOW_CONFIDENCE_CONDITION"
     },
     {
@@ -1287,7 +1287,7 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_diem-b_p44317",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9122515320777893,
+      "routing_score": 0.9167066812515259,
       "reason": "EMBEDDING_MATCH"
     },
     {
@@ -1299,7 +1299,7 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-4_p44769",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.8972274661064148,
+      "routing_score": 0.9036061763763428,
       "reason": "CONDITION"
     },
     {
@@ -1311,7 +1311,7 @@
     {
       "node_id": "doc_chuong-iii_muc-5_dieu-47_p45245",
       "route": "LLM_CANDIDATE",
-      "routing_score": 0.9210758209228516,
+      "routing_score": 0.9256206750869751,
       "reason": "EMBEDDING_MATCH"
     },
     {

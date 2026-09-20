@@ -90,7 +90,8 @@ class EntityNormalizer:
             "CONDITION": "CONDITION",
             "EXCEPTION": "EXCEPTION",
             "REFERENCE": "LEGAL_DOCUMENT_REF",
-            "PENALTY": "PENALTY"
+            "PENALTY": "PENALTY",
+            "OBJECT": "LEGAL_OBJECT",
         }
         mapped_class = m6_to_m7_map.get(fallback_type, fallback_type)
         

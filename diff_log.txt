@@ -1,0 +1,82 @@
+=== PHÂN TÍCH NGUYÊN NHÂN CHÊNH LỆCH KẾT QUẢ ===
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-1_dieu-26_khoan-1_p223
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-e_p4162
+   + CSV Text : 'Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng'...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-k_p5095
+   + CSV Text : 'Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo'...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350
+   + CSV Text : 'Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn g'...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524
+   + CSV Text : 'Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nư'...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6316
+   + CSV Text : 'Cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực th'...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776
+   + CSV Text : 'Tổ chức trong nước là pháp nhân mới được hình thành thông qu'...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-e_p12391
+   + CSV Text : 'Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mìn'...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-e_p15442
+   + CSV Text : 'Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê '...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461
+   + CSV Text : 'Tặng cho quyền sử dụng đất cho Nhà nước; tặng cho quyền sử d'...
+   + Live Text: ''...
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461
+   + CSV Regex Score : 1.0
+   + Live Regex Score: 0.0
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-e_p24600
+   + CSV Text : 'Góp vốn bằng tài sản thuộc sở hữu của mình gắn liền với đất '...
+   + Live Text: ''...
+
+-> [TEXT CHANGED] doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29670
+   + CSV Text : 'Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê '...
+   + Live Text: ''...
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-a_p36407
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-c_p36840
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-5_dieu-45_khoan-1_p38579
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-5_dieu-46_khoan-1_p43343
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-5_dieu-46_khoan-2_p44009
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+
+-> [REGEX CHANGED] doc_chuong-iii_muc-5_dieu-46_khoan-4_p44769
+   + CSV Regex Score : 0.0
+   + Live Regex Score: 0.4
+

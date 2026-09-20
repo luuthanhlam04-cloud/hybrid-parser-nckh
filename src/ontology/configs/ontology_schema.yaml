@@ -6,6 +6,7 @@ classes:
   - EXCEPTION
   - PENALTY
   - LEGAL_DOCUMENT_REF
+  - LEGAL_OBJECT
 
 relations:
   ALLOW:
@@ -37,4 +38,8 @@ relations:
   HAS_PENALTY:
     domain: ["LEGAL_ACTION"]
     range: ["PENALTY"]
+    self_loop: false
+  HAS_OBJECT:
+    domain: ["LEGAL_ACTION", "LEGAL_SUBJECT"]
+    range: ["LEGAL_OBJECT", "LEGAL_SUBJECT"]
     self_loop: false
