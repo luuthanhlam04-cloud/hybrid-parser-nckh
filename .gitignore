@@ -4,4 +4,4 @@ __pycache__/
 *.pyc
 .env
 
-benchmark_m5/
+outputs/benchmark_m5/
