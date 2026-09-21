@@ -23,7 +23,9 @@ LegalSubject:
         Organization:
           description: "Tổ chức kinh tế, đơn vị sự nghiệp trong nước"
         ReligiousOrganization:
-          description: "Cơ sở tôn giáo, cộng đồng dân cư"
+          description: "Tổ chức tôn giáo, cơ sở tôn giáo"
+        ResidentialCommunity:
+          description: "Cộng đồng dân cư"
     Authority:
       description: "Cơ quan nhà nước có thẩm quyền"
       subtypes:
@@ -31,8 +33,10 @@ LegalSubject:
           description: "UBND cấp tỉnh — thẩm quyền giao đất cho tổ chức"
         DistrictAuthority:
           description: "UBND cấp huyện — thẩm quyền giao đất cho cá nhân, hộ gia đình"
+        CommuneAuthority:
+          description: "UBND cấp xã — thẩm quyền quản lý quỹ đất công ích"
         CentralAuthority:
-          description: "Chính phủ, Bộ TNMT, Quốc hội"
+          description: "Chính phủ, Bộ TNMT, Quốc hội (Nhà nước chung)"
     ForeignRelatedEntity:
       description: "Chủ thể có yếu tố nước ngoài"
       subtypes:
@@ -40,6 +44,8 @@ LegalSubject:
           description: "Người gốc Việt Nam định cư ở nước ngoài — quyền ngang công dân trong nước theo LĐĐ 2024"
         FDIEnterprise:
           description: "Tổ chức kinh tế có vốn đầu tư nước ngoài — giới hạn hình thức thuê đất"
+        DiplomaticOrganization:
+          description: "Tổ chức ngoại giao nước ngoài"
 
 LegalAction:
   description: "Hành vi pháp lý — giao dịch, thủ tục, nghĩa vụ"
@@ -52,7 +58,9 @@ LegalAction:
         MortgageAction:
           description: "Thế chấp QSDĐ"
         LeaseAction:
-          description: "Cho thuê, cho thuê lại QSDĐ"
+          description: "Cho thuê quyền sử dụng đất"
+        SubleaseAction:
+          description: "Cho thuê lại quyền sử dụng đất"
         DonationAction:
           description: "Tặng cho QSDĐ"
         InheritanceAction:
@@ -60,18 +68,23 @@ LegalAction:
         CapitalContributionAction:
           description: "Góp vốn bằng QSDĐ"
     AdministrativeProcedure:
-      description: "Thủ tục hành chính, hoạt động nhà nước"
+      description: "Thủ tục hành chính"
       subtypes:
         CertificationAction:
           description: "Công chứng, chứng thực hợp đồng"
-        LandAllocationAction:
-          description: "Giao đất, cho thuê đất, công nhận QSDĐ"
-        LandRevocationAction:
-          description: "Thu hồi đất, trưng dụng đất"
         CertIssuanceAction:
           description: "Cấp Giấy chứng nhận QSDĐ"
         LandRegistrationAction:
           description: "Đăng ký đất đai, đăng ký biến động"
+    StateManagement:
+      description: "Hoạt động quản lý nhà nước"
+      subtypes:
+        LandAllocationAction:
+          description: "Giao đất"
+        LandLeaseAction:
+          description: "Cho thuê đất từ Nhà nước"
+        LandRecoveryAction:
+          description: "Thu hồi đất, trưng dụng đất"
     FinancialObligation:
       description: "Nghĩa vụ tài chính liên quan đến đất"
       subtypes:
@@ -79,8 +92,6 @@ LegalAction:
           description: "Nộp thuế sử dụng đất, thuế thu nhập"
         LandUseFeeAction:
           description: "Nộp tiền sử dụng đất, tiền thuê đất"
-        CompensationAction:
-          description: "Bồi thường thiệt hại, hỗ trợ tái định cư"
 
 LegalObject:
   description: "Khách thể — tài sản, quyền, văn bản là đối tượng của hành vi"
@@ -107,9 +118,11 @@ LegalObject:
         AgriculturalLand:
           description: "Đất nông nghiệp, đất trồng lúa, đất rừng"
         ResidentialLand:
-          description: "Đất ở"
+          description: "Đất ở, đất thổ cư"
+        CommercialLand:
+          description: "Đất thương mại, dịch vụ"
         NonAgriculturalLand:
-          description: "Đất phi nông nghiệp (trừ đất ở)"
+          description: "Đất phi nông nghiệp nói chung"
 
 LegalConsequence:
   description: "Hậu quả pháp lý, chế tài"
@@ -129,4 +142,4 @@ Condition:
 Exception:
   description: "Ngoại lệ của quy phạm — HAS_EXCEPTION thuộc NormAssertion"
 Reference:
-  description: "Dẫn chiếu tới điều/khoản/điểm khác — sẽ resolve thành edge REFERENCES"
+  description: "Dẫn chiếu tới điều/khoản/điểm khác — sẽ được classify (không resolve)"
