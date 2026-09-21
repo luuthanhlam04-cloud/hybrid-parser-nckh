@@ -3,13 +3,13 @@ from typing import List, Literal
 from pydantic import BaseModel, Field, model_validator
 
 EntityType = Literal[
-    "SUBJECT", "ACTION", "CONDITION", "EXCEPTION",
-    "PERMISSION", "OBLIGATION", "REFERENCE", "PENALTY"
+    "SUBJECT", "ACTION", "OBJECT", "CONDITION",
+    "EXCEPTION", "REFERENCE", "PENALTY"
 ]
 
 RelationType = Literal[
     "ALLOW", "PROHIBIT", "REQUIRE", "HAS_CONDITION",
-    "HAS_EXCEPTION", "REFERENCE_TO", "APPLY_TO"
+    "HAS_EXCEPTION", "REFERENCE_TO", "HAS_OBJECT", "HAS_PENALTY"
 ]
 
 class LegalEntity(BaseModel):
