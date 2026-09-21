@@ -24,7 +24,7 @@ mapping_rules:
       - "đồng bào các dân tộc thiểu số"
     negative_triggers: []
     target_subtype: EthnicMinorityIndividual
-    target_concept_id: CONCEPT_ETHNIC_MINORITY_INDIVIDUAL
+    target_concept_id: LO2024.SUBJECT.ETHNIC_MINORITY_INDIVIDUAL
     confidence: HIGH
     action: CORRECT
 
@@ -37,7 +37,7 @@ mapping_rules:
       - "ủy ban nhân dân tỉnh"
     negative_triggers: ["cấp huyện", "cấp xã"]
     target_subtype: ProvincialAuthority
-    target_concept_id: CONCEPT_PROVINCIAL_AUTHORITY
+    target_concept_id: LO2024.SUBJECT.PROVINCIAL_AUTHORITY
     confidence: HIGH
     action: CORRECT
 
@@ -49,7 +49,7 @@ mapping_rules:
       - "ubnd huyện"
     negative_triggers: ["cấp tỉnh", "cấp xã"]
     target_subtype: DistrictAuthority
-    target_concept_id: CONCEPT_DISTRICT_AUTHORITY
+    target_concept_id: LO2024.SUBJECT.DISTRICT_AUTHORITY
     confidence: HIGH
     action: CORRECT
 
@@ -59,7 +59,7 @@ mapping_rules:
       - "nhà nước"
     negative_triggers: []
     target_subtype: CentralAuthority
-    target_concept_id: CONCEPT_STATE
+    target_concept_id: LO2024.SUBJECT.STATE
     confidence: HIGH
     action: CORRECT
 
@@ -71,7 +71,7 @@ mapping_rules:
       - "kiều bào"
     negative_triggers: []
     target_subtype: OverseasVietnamese
-    target_concept_id: CONCEPT_OVERSEAS_VIETNAMESE
+    target_concept_id: LO2024.SUBJECT.OVERSEAS_VIETNAMESE
     confidence: HIGH
     action: CORRECT
 
@@ -83,7 +83,7 @@ mapping_rules:
       - "tổ chức fdi"
     negative_triggers: []
     target_subtype: FDIEnterprise
-    target_concept_id: CONCEPT_FDI_ENTERPRISE
+    target_concept_id: LO2024.SUBJECT.FDI_ENTERPRISE
     confidence: HIGH
     action: CORRECT
 
@@ -94,7 +94,7 @@ mapping_rules:
       - "các đối tượng sử dụng đất"
     negative_triggers: []
     target_subtype: Individual
-    target_concept_id: CONCEPT_LAND_USER
+    target_concept_id: LO2024.SUBJECT.LAND_USER
     confidence: HIGH
     action: CORRECT
 
@@ -106,7 +106,7 @@ mapping_rules:
       - "tổ chức trong nước"
     negative_triggers: ["nước ngoài", "fdi", "vốn đầu tư nước ngoài"]
     target_subtype: Organization
-    target_concept_id: CONCEPT_DOMESTIC_ORGANIZATION
+    target_concept_id: LO2024.SUBJECT.DOMESTIC_ORGANIZATION
     confidence: HIGH
     action: CORRECT
 
@@ -116,12 +116,13 @@ mapping_rules:
     triggers:
       - "hợp đồng"
       - "giấy chứng nhận"
+      - "sổ đỏ"
       - "quyết định"
       - "văn bản"
-    negative_triggers: []
-    target_subtype: null
-    target_concept_id: null
-    confidence: MEDIUM
+    negative_triggers: ["được", "bị", "do", "phải"]
+    target_subtype: LegalDocument
+    target_concept_id: LO2024.OBJECT.LEGAL_DOCUMENT
+    confidence: LOW
     action: FLAG   # → UNRESOLVED, cần review — đây là LegalDocument không phải Subject
 
   # =============================
@@ -135,7 +136,7 @@ mapping_rules:
       - "chuyển nhượng qsdđ"
     negative_triggers: []
     target_subtype: TransferAction
-    target_concept_id: CONCEPT_LAND_TRANSFER
+    target_concept_id: LO2024.ACTION.LAND_TRANSFER
     confidence: HIGH
     action: CORRECT
 
@@ -146,7 +147,7 @@ mapping_rules:
       - "thế chấp quyền sử dụng đất"
     negative_triggers: []
     target_subtype: MortgageAction
-    target_concept_id: CONCEPT_LAND_MORTGAGE
+    target_concept_id: LO2024.ACTION.LAND_MORTGAGE
     confidence: HIGH
     action: CORRECT
 
@@ -159,7 +160,7 @@ mapping_rules:
       - "công chứng, chứng thực"
     negative_triggers: []
     target_subtype: CertificationAction
-    target_concept_id: CONCEPT_CERTIFICATION
+    target_concept_id: LO2024.ACTION.CERTIFICATION
     confidence: HIGH
     action: CORRECT
 
@@ -170,7 +171,7 @@ mapping_rules:
       - "cấp giấy chứng nhận quyền sử dụng đất"
     negative_triggers: []
     target_subtype: CertIssuanceAction
-    target_concept_id: CONCEPT_CERT_ISSUANCE
+    target_concept_id: LO2024.ACTION.CERT_ISSUANCE
     confidence: HIGH
     action: CORRECT
 
@@ -182,7 +183,7 @@ mapping_rules:
       - "đăng ký quyền sử dụng đất"
     negative_triggers: []
     target_subtype: LandRegistrationAction
-    target_concept_id: CONCEPT_LAND_REGISTRATION
+    target_concept_id: LO2024.ACTION.LAND_REGISTRATION
     confidence: HIGH
     action: CORRECT
 
@@ -196,7 +197,7 @@ mapping_rules:
       - "qsdđ"
     negative_triggers: []
     target_subtype: LandUseRight
-    target_concept_id: CONCEPT_LAND_USE_RIGHT
+    target_concept_id: LO2024.OBJECT.LAND_USE_RIGHT
     confidence: HIGH
     action: CORRECT
 
@@ -209,7 +210,7 @@ mapping_rules:
       - "sổ hồng"
     negative_triggers: []
     target_subtype: LandCertificate
-    target_concept_id: CONCEPT_LAND_CERTIFICATE
+    target_concept_id: LO2024.OBJECT.LAND_CERTIFICATE
     confidence: HIGH
     action: CORRECT
 
@@ -221,6 +222,6 @@ mapping_rules:
       - "đất rừng"
     negative_triggers: []
     target_subtype: AgriculturalLand
-    target_concept_id: CONCEPT_AGRICULTURAL_LAND
+    target_concept_id: LO2024.OBJECT.AGRICULTURAL_LAND
     confidence: HIGH
     action: CORRECT
