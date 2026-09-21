@@ -120,6 +120,8 @@ class OntologyValidator:
                 report.valid_mentions += 1
             elif mention.status.value == "CORRECTED":
                 report.corrected_mentions += 1
+            elif mention.status.value == "QUARANTINED":
+                report.quarantined_mentions += 1
             else:  # UNRESOLVED
                 report.unresolved_mentions += 1
 
@@ -132,7 +134,7 @@ class OntologyValidator:
         # =====================================================================
         # TẦNG 2: DOMAIN-RANGE VALIDATION
         # =====================================================================
-        valid_edges: List[SemanticEdge] = []
+        processed_edges: List[SemanticEdge] = []
         report.total_edges = len(graph.edges)
 
         for edge in graph.edges:
@@ -143,21 +145,24 @@ class OntologyValidator:
                 concept_ids=concept_ids,
             )
             if is_valid:
-                valid_edges.append(edge)
+                processed_edges.append(edge)
             else:
-                report.rejected_edges += 1
+                # [QUYẾT ĐỊNH #1]: Giữ lại edge nhưng dán cờ QUARANTINED
+                edge.status = "QUARANTINED"
+                report.quarantined_edges += 1
                 report.rejected_reasons.append({
                     "edge": f"{edge.source_id} --{edge.relation_type}--> {edge.target_id}",
                     "reason": reason,
                     "rule_id": edge.rule_id or "UNKNOWN",
                 })
                 logger.warning(
-                    f"[REJECTED] Edge {edge.source_id} --{edge.relation_type}--> "
+                    f"[QUARANTINED] Edge {edge.source_id} --{edge.relation_type}--> "
                     f"{edge.target_id}: {reason}"
                 )
+                processed_edges.append(edge)
 
-        # Cập nhật graph chỉ giữ valid edges
-        graph.edges = valid_edges
+        # Cập nhật graph với toàn bộ edges (cả VALID và QUARANTINED)
+        graph.edges = processed_edges
 
         # =====================================================================
         # KIỂM TRA CANONICAL CONCEPT INVARIANT
@@ -167,16 +172,12 @@ class OntologyValidator:
         # =====================================================================
         # REFERENCES COUNT
         # =====================================================================
-        for edge in graph.edges:
-            if edge.relation_type == RelationType.REFERENCES:
-                report.total_references += 1
-                report.resolved_references += 1
-
-        for mention in graph.nodes:
-            if mention.semantic_type == SemanticType.REFERENCE:
-                if mention.status.value == "UNRESOLVED":
-                    report.unresolved_references += 1
-                    report.total_references += 1
+        for ref in graph.references:
+            report.total_references += 1
+            if ref.scope == "AMBIGUOUS":
+                report.ambiguous_references += 1
+            else:
+                report.classified_references += 1
 
         graph.validation_report = report
         logger.info(f"Validation complete: {graph.summary()}")
@@ -219,11 +220,7 @@ class OntologyValidator:
                 return False, f"DENOTES source '{edge.source_id}' là NormAssertion — sai kiến trúc"
             return True, ""
 
-        # --- REFERENCES: bất kỳ → Physical Node (string ID) ---
-        if rel == RelationType.REFERENCES:
-            # Physical node ID chỉ là string — không thể validate sâu hơn ở đây
-            # (physical_graph không được load trong validator)
-            return True, ""
+
 
         # --- NormAssertion relations (chỉ áp dụng khi source là NormAssertion) ---
         if rel in _NORM_RELATION_TARGET_TYPES and edge.source_id in norm_ids:

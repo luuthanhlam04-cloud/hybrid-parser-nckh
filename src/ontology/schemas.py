@@ -79,8 +79,6 @@ class RelationType(str, Enum):
     HAS_CONDITION   = "HAS_CONDITION"
     HAS_EXCEPTION   = "HAS_EXCEPTION"
     HAS_CONSEQUENCE = "HAS_CONSEQUENCE"
-    # Reference
-    REFERENCES = "REFERENCES"
     # Canonicalization
     DENOTES = "DENOTES"
     # NormAssertion relations
@@ -90,9 +88,10 @@ class RelationType(str, Enum):
 
 class MentionStatus(str, Enum):
     """Trạng thái sau Semantic Role Audit."""
-    VALID      = "VALID"       # Role hợp lệ
-    CORRECTED  = "CORRECTED"   # Đã sửa tự động bằng rule-based (pattern đủ chắc)
-    UNRESOLVED = "UNRESOLVED"  # Uncertain → giữ nguyên + cắm cờ để review
+    VALID       = "VALID"       # Role hợp lệ
+    CORRECTED   = "CORRECTED"   # Đã sửa tự động bằng rule-based
+    QUARANTINED = "QUARANTINED" # Vi phạm nhưng giữ nguyên raw, có suggested_type
+    UNRESOLVED  = "UNRESOLVED"  # Conflict giữa các signal → giữ nguyên + cắm cờ
 
 
 class NormStatus(str, Enum):
@@ -167,6 +166,19 @@ class LocalMention(BaseModel):
         if not self.evidence or not self.evidence.strip():
             raise ValueError(f"LocalMention {self.id}: evidence không được rỗng!")
         return self
+
+
+class ReferenceMention(BaseModel):
+    """
+    Thông tin phân loại Reference (M7 chỉ phân loại scope, không resolve).
+    """
+    id: str = Field(description="<physical_node_id>#REFERENCE#<index>")
+    raw_text: str = Field(description="Nguyên văn. VD: 'khoản 2 Điều này'")
+    scope: str = Field(description="SAME_ARTICLE / SAME_DOCUMENT / EXTERNAL / AMBIGUOUS")
+    target_hint: Optional[dict] = Field(default=None, description="Gợi ý cho M8. VD: {'clause': '2', 'article': 'SAME'}")
+    provenance_node_id: str
+    evidence: str
+    resolution_status: str = Field(default="PENDING_M8", description="Luôn là PENDING_M8 trong M7")
 
 
 # =============================================================================
@@ -283,6 +295,10 @@ class SemanticEdge(BaseModel):
     relation_type: RelationType
     evidence: Optional[str] = Field(default=None)
     rule_id: Optional[str] = Field(default=None)
+    status: str = Field(
+        default="VALID",
+        description="Trạng thái của edge: VALID hoặc QUARANTINED (vi phạm domain-range nhưng giữ lại)"
+    )
     logic_group: Optional[str] = Field(
         default=None,
         description="Nhóm logic AND/OR cho Condition edges (VD: G1, G2)"
@@ -310,10 +326,12 @@ class ValidationReport(BaseModel):
 
     total_edges: int = 0
     rejected_edges: int = 0
+    quarantined_edges: int = 0
+    quarantined_mentions: int = 0
 
     total_references: int = 0
-    resolved_references: int = 0
-    unresolved_references: int = 0
+    classified_references: int = 0
+    ambiguous_references: int = 0
 
     total_concepts: int = 0
     rejected_reasons: List[Dict[str, Any]] = Field(default_factory=list)
@@ -336,6 +354,7 @@ class CanonicalSemanticGraph(BaseModel):
     """
     metadata: Dict[str, Any] = Field(default_factory=dict)
     nodes: List[LocalMention] = Field(default_factory=list)
+    references: List[ReferenceMention] = Field(default_factory=list)
     norms: List[NormAssertion] = Field(default_factory=list)
     concepts: List[CanonicalConcept] = Field(default_factory=list)
     edges: List[SemanticEdge] = Field(default_factory=list)
@@ -362,6 +381,6 @@ class CanonicalSemanticGraph(BaseModel):
             f"{r.total_norms} norms | "
             f"{r.total_concepts} concepts | "
             f"{r.total_edges} edges "
-            f"(rejected={r.rejected_edges}) | "
-            f"refs {r.resolved_references}/{r.total_references} resolved"
+            f"(quarantined={r.quarantined_edges}, rejected={r.rejected_edges}) | "
+            f"refs {r.classified_references}/{r.total_references} classified"
         )
