@@ -272,11 +272,19 @@ class EntityNormalizer:
                 target_concept_id = rule.get("target_concept_id")
 
                 if action == "FLAG" or confidence == "LOW":
-                    # Semantic role conflict → UNRESOLVED
+                    # Semantic role conflict
+                    if m6_type == "SUBJECT" and target_subtype and "Object" in target_subtype:
+                        note = (
+                            f"[{rule_id}] Anti-auto-cast (QUARANTINED): '{raw_text}' "
+                            f"được gán {m6_type} nhưng match pattern '{triggers[0]}'. "
+                            f"Thực thể mang bản chất {target_subtype} (Object)."
+                        )
+                        logger.warning(note)
+                        return semantic_type, MentionStatus.QUARANTINED, note, target_subtype, target_concept_id
+                    
                     note = (
-                        f"[{rule_id}] Potential role conflict: '{raw_text}' "
-                        f"được gán {m6_type} nhưng match pattern '{triggers[0]}'. "
-                        f"Có thể là LegalObject/Document, không phải {m6_type}."
+                        f"[{rule_id}] Potential role conflict (UNRESOLVED): '{raw_text}' "
+                        f"được gán {m6_type} nhưng match pattern '{triggers[0]}'."
                     )
                     logger.warning(note)
                     return semantic_type, MentionStatus.UNRESOLVED, note, None, None
