@@ -35,7 +35,7 @@ from src.ontology.canonical_mapper import CanonicalMapper
 from src.ontology.entity_normalizer import EntityNormalizer
 from src.ontology.norm_builder import NormBuilder
 from src.ontology.ontology_validator import OntologyValidator
-from src.ontology.reference_resolver import ReferenceResolver
+from src.ontology.reference_classifier import ReferenceClassifier
 from src.ontology.relation_normalizer import RelationNormalizer
 from src.ontology.schemas import (
     CanonicalSemanticGraph,
@@ -63,7 +63,7 @@ class OntologyBuilder:
         self.relation_normalizer  = RelationNormalizer(config_dir)
         self.canonical_mapper     = CanonicalMapper(config_dir)
         self.norm_builder         = NormBuilder(config_dir)
-        self.reference_resolver   = ReferenceResolver(config_dir)
+        self.reference_classifier = ReferenceClassifier(config_dir)
         self.validator            = OntologyValidator()
 
     # -------------------------------------------------------------------------
@@ -110,6 +110,7 @@ class OntologyBuilder:
 
         # Accumulators
         all_mentions:  List[LocalMention]  = []
+        all_references: List[Any]          = []
         all_norms:     List[NormAssertion] = []
         all_edges:     List[SemanticEdge]  = []
         norm_index_counter: Dict[str, int] = {}
@@ -173,15 +174,13 @@ class OntologyBuilder:
             all_norms.extend(norms)
             all_edges.extend(norm_edges)
 
-            # 3e. Reference Resolver
-            ref_edges, updated_mentions = self.reference_resolver.resolve_all(
+            # 3e. Reference Classifier
+            kept_mentions, ref_mentions = self.reference_classifier.classify_all(
                 mentions=mentions,
-                physical_graph=physical_graph,
                 current_provenance_node_id=node_id,
             )
-            all_edges.extend(ref_edges)
-
-            all_mentions.extend(updated_mentions)
+            all_mentions.extend(kept_mentions)
+            all_references.extend(ref_mentions)
 
         # Step 4: Thu thập Canonical Concepts
         concepts = self.canonical_mapper.get_all_concepts()
@@ -201,11 +200,12 @@ class OntologyBuilder:
                     "relation_normalizer",
                     "canonical_mapper",
                     "norm_builder",
-                    "reference_resolver",
+                    "reference_classifier",
                     "ontology_validator",
                 ],
             },
             nodes=all_mentions,
+            references=all_references,
             norms=all_norms,
             concepts=concepts,
             edges=all_edges,
