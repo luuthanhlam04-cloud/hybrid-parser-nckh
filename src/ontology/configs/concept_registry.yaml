@@ -1,0 +1,183 @@
+# concept_registry.yaml
+# Canonical Concept Hub cho Module 7 — Luật Đất đai 2024, Chương III
+#
+# Mỗi CanonicalConcept:
+#   - id: CONCEPT_<TÊN> (global unique, dùng MERGE khi nạp Neo4j)
+#   - preferred_name: tên chuẩn
+#   - alt_labels: các biến thể ngôn ngữ khác nhau xuất hiện trong corpus
+#   - semantic_type: Core Semantic Type (LegalSubject, LegalAction, ...)
+#   - taxonomy_path: vị trí trong Controlled Taxonomy
+#
+# QUY TẮC BẤT BIẾN:
+#   - Normative edges (ALLOW/REQUIRE/PROHIBIT/HAS_CONDITION...) KHÔNG bao giờ
+#     được đặt trên CanonicalConcept node.
+#   - LocalMention ──DENOTES──> CanonicalConcept (chiều mũi tên: Mention trỏ tới Concept)
+
+concepts:
+  # ============================
+  # LEGAL SUBJECTS
+  # ============================
+  - id: CONCEPT_LAND_USER
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject
+    preferred_name: "Người sử dụng đất"
+    alt_labels:
+      - "người sử dụng đất"
+      - "các đối tượng sử dụng đất"
+
+  - id: CONCEPT_INDIVIDUAL_DOMESTIC
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.DomesticEntity.Individual
+    preferred_name: "Cá nhân trong nước"
+    alt_labels:
+      - "cá nhân"
+      - "cá nhân trong nước"
+      - "công dân"
+
+  - id: CONCEPT_ETHNIC_MINORITY_INDIVIDUAL
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.DomesticEntity.EthnicMinorityIndividual
+    preferred_name: "Cá nhân là người dân tộc thiểu số"
+    alt_labels:
+      - "người dân tộc thiểu số"
+      - "đồng bào dân tộc thiểu số"
+      - "cá nhân là người dân tộc thiểu số"
+      - "đồng bào các dân tộc thiểu số"
+
+  - id: CONCEPT_DOMESTIC_ORGANIZATION
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.DomesticEntity.Organization
+    preferred_name: "Tổ chức kinh tế trong nước"
+    alt_labels:
+      - "tổ chức kinh tế"
+      - "tổ chức kinh tế trong nước"
+      - "doanh nghiệp"
+      - "tổ chức"
+
+  - id: CONCEPT_PROVINCIAL_AUTHORITY
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.Authority.ProvincialAuthority
+    preferred_name: "Ủy ban nhân dân cấp tỉnh"
+    alt_labels:
+      - "UBND cấp tỉnh"
+      - "UBND tỉnh"
+      - "ủy ban nhân dân cấp tỉnh"
+      - "Ủy ban nhân dân tỉnh"
+
+  - id: CONCEPT_DISTRICT_AUTHORITY
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.Authority.DistrictAuthority
+    preferred_name: "Ủy ban nhân dân cấp huyện"
+    alt_labels:
+      - "UBND cấp huyện"
+      - "UBND huyện"
+      - "ủy ban nhân dân cấp huyện"
+
+  - id: CONCEPT_STATE
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.Authority.CentralAuthority
+    preferred_name: "Nhà nước"
+    alt_labels:
+      - "Nhà nước"
+      - "nhà nước"
+      - "Chính phủ"
+
+  - id: CONCEPT_OVERSEAS_VIETNAMESE
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.ForeignRelatedEntity.OverseasVietnamese
+    preferred_name: "Người gốc Việt Nam định cư ở nước ngoài"
+    alt_labels:
+      - "người gốc Việt Nam định cư ở nước ngoài"
+      - "người Việt Nam định cư ở nước ngoài"
+      - "kiều bào"
+
+  - id: CONCEPT_FDI_ENTERPRISE
+    semantic_type: LegalSubject
+    taxonomy_path: LegalSubject.ForeignRelatedEntity.FDIEnterprise
+    preferred_name: "Tổ chức kinh tế có vốn đầu tư nước ngoài"
+    alt_labels:
+      - "tổ chức kinh tế có vốn đầu tư nước ngoài"
+      - "doanh nghiệp FDI"
+      - "tổ chức FDI"
+
+  # ============================
+  # LEGAL ACTIONS
+  # ============================
+  - id: CONCEPT_LAND_TRANSFER
+    semantic_type: LegalAction
+    taxonomy_path: LegalAction.RealEstateTransaction.TransferAction
+    preferred_name: "Chuyển nhượng quyền sử dụng đất"
+    alt_labels:
+      - "chuyển nhượng"
+      - "chuyển nhượng quyền sử dụng đất"
+      - "chuyển nhượng QSDĐ"
+      - "chuyển nhượng quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
+
+  - id: CONCEPT_LAND_MORTGAGE
+    semantic_type: LegalAction
+    taxonomy_path: LegalAction.RealEstateTransaction.MortgageAction
+    preferred_name: "Thế chấp quyền sử dụng đất"
+    alt_labels:
+      - "thế chấp"
+      - "thế chấp quyền sử dụng đất"
+
+  - id: CONCEPT_CERTIFICATION
+    semantic_type: LegalAction
+    taxonomy_path: LegalAction.AdministrativeProcedure.CertificationAction
+    preferred_name: "Công chứng hoặc chứng thực"
+    alt_labels:
+      - "công chứng"
+      - "chứng thực"
+      - "công chứng hoặc chứng thực"
+      - "công chứng, chứng thực"
+
+  - id: CONCEPT_CERT_ISSUANCE
+    semantic_type: LegalAction
+    taxonomy_path: LegalAction.AdministrativeProcedure.CertIssuanceAction
+    preferred_name: "Cấp Giấy chứng nhận quyền sử dụng đất"
+    alt_labels:
+      - "cấp Giấy chứng nhận"
+      - "cấp giấy chứng nhận quyền sử dụng đất"
+      - "cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
+
+  - id: CONCEPT_LAND_REGISTRATION
+    semantic_type: LegalAction
+    taxonomy_path: LegalAction.AdministrativeProcedure.LandRegistrationAction
+    preferred_name: "Đăng ký đất đai"
+    alt_labels:
+      - "đăng ký đất đai"
+      - "đăng ký biến động"
+      - "đăng ký quyền sử dụng đất"
+
+  # ============================
+  # LEGAL OBJECTS
+  # ============================
+  - id: CONCEPT_LAND_USE_RIGHT
+    semantic_type: LegalObject
+    taxonomy_path: LegalObject.LandRight.LandUseRight
+    preferred_name: "Quyền sử dụng đất"
+    alt_labels:
+      - "quyền sử dụng đất"
+      - "QSDĐ"
+      - "quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
+
+  - id: CONCEPT_LAND_CERTIFICATE
+    semantic_type: LegalObject
+    taxonomy_path: LegalObject.LandDocument.LandCertificate
+    preferred_name: "Giấy chứng nhận quyền sử dụng đất"
+    alt_labels:
+      - "Giấy chứng nhận"
+      - "Giấy chứng nhận quyền sử dụng đất"
+      - "sổ đỏ"
+      - "sổ hồng"
+      - "Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất"
+
+  - id: CONCEPT_AGRICULTURAL_LAND
+    semantic_type: LegalObject
+    taxonomy_path: LegalObject.PhysicalLand.AgriculturalLand
+    preferred_name: "Đất nông nghiệp"
+    alt_labels:
+      - "đất nông nghiệp"
+      - "đất trồng lúa"
+      - "đất rừng"
+      - "đất trồng cây lâu năm"

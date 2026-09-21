@@ -1,0 +1,132 @@
+# taxonomy_registry.yaml
+# Controlled Taxonomy cho Module 7 — Luật Đất đai 2024, Chương III
+#
+# NGUYÊN TẮC: Chỉ tạo subtype khi sự phân biệt đó thay đổi ít nhất 1 trong 5:
+#   1. Normative relation (quyền/nghĩa vụ/cấm đoán khác nhau)
+#   2. Domain/Range của quan hệ
+#   3. Competency Question mà graph cần trả lời
+#   4. Canonical identity (có thể merge hay không)
+#   5. Retrieval partition (GraphRAG phân vùng)
+# Nếu không: dùng property/facet, không tạo class.
+
+LegalSubject:
+  description: "Chủ thể pháp lý — người, tổ chức, cơ quan có quyền/nghĩa vụ theo luật"
+  subtypes:
+    DomesticEntity:
+      description: "Tổ chức/cá nhân trong nước"
+      subtypes:
+        Individual:
+          description: "Cá nhân phổ thông trong nước"
+        EthnicMinorityIndividual:
+          description: "Cá nhân là người dân tộc thiểu số — có quy phạm đặc thù tại Điều 16, 48 LĐĐ 2024"
+          rationale: "Tách vì Luật ĐĐ 2024 quy định quyền/nghĩa vụ đặc thù (giao đất miễn phí, hạn chế chuyển nhượng)"
+        Organization:
+          description: "Tổ chức kinh tế, đơn vị sự nghiệp trong nước"
+        ReligiousOrganization:
+          description: "Cơ sở tôn giáo, cộng đồng dân cư"
+    Authority:
+      description: "Cơ quan nhà nước có thẩm quyền"
+      subtypes:
+        ProvincialAuthority:
+          description: "UBND cấp tỉnh — thẩm quyền giao đất cho tổ chức"
+        DistrictAuthority:
+          description: "UBND cấp huyện — thẩm quyền giao đất cho cá nhân, hộ gia đình"
+        CentralAuthority:
+          description: "Chính phủ, Bộ TNMT, Quốc hội"
+    ForeignRelatedEntity:
+      description: "Chủ thể có yếu tố nước ngoài"
+      subtypes:
+        OverseasVietnamese:
+          description: "Người gốc Việt Nam định cư ở nước ngoài — quyền ngang công dân trong nước theo LĐĐ 2024"
+        FDIEnterprise:
+          description: "Tổ chức kinh tế có vốn đầu tư nước ngoài — giới hạn hình thức thuê đất"
+
+LegalAction:
+  description: "Hành vi pháp lý — giao dịch, thủ tục, nghĩa vụ"
+  subtypes:
+    RealEstateTransaction:
+      description: "Giao dịch quyền sử dụng đất"
+      subtypes:
+        TransferAction:
+          description: "Chuyển nhượng QSDĐ"
+        MortgageAction:
+          description: "Thế chấp QSDĐ"
+        LeaseAction:
+          description: "Cho thuê, cho thuê lại QSDĐ"
+        DonationAction:
+          description: "Tặng cho QSDĐ"
+        InheritanceAction:
+          description: "Thừa kế QSDĐ"
+        CapitalContributionAction:
+          description: "Góp vốn bằng QSDĐ"
+    AdministrativeProcedure:
+      description: "Thủ tục hành chính, hoạt động nhà nước"
+      subtypes:
+        CertificationAction:
+          description: "Công chứng, chứng thực hợp đồng"
+        LandAllocationAction:
+          description: "Giao đất, cho thuê đất, công nhận QSDĐ"
+        LandRevocationAction:
+          description: "Thu hồi đất, trưng dụng đất"
+        CertIssuanceAction:
+          description: "Cấp Giấy chứng nhận QSDĐ"
+        LandRegistrationAction:
+          description: "Đăng ký đất đai, đăng ký biến động"
+    FinancialObligation:
+      description: "Nghĩa vụ tài chính liên quan đến đất"
+      subtypes:
+        TaxPaymentAction:
+          description: "Nộp thuế sử dụng đất, thuế thu nhập"
+        LandUseFeeAction:
+          description: "Nộp tiền sử dụng đất, tiền thuê đất"
+        CompensationAction:
+          description: "Bồi thường thiệt hại, hỗ trợ tái định cư"
+
+LegalObject:
+  description: "Khách thể — tài sản, quyền, văn bản là đối tượng của hành vi"
+  subtypes:
+    LandRight:
+      description: "Quyền về đất đai"
+      subtypes:
+        LandUseRight:
+          description: "Quyền sử dụng đất (QSDĐ)"
+        AssetAttachedRight:
+          description: "Quyền sở hữu tài sản gắn liền với đất"
+    LandDocument:
+      description: "Giấy tờ, văn bản pháp lý về đất"
+      subtypes:
+        LandCertificate:
+          description: "Giấy chứng nhận QSDĐ (Sổ đỏ, Sổ hồng)"
+        LandContract:
+          description: "Hợp đồng chuyển nhượng, thế chấp, tặng cho"
+        LandDecision:
+          description: "Quyết định giao đất, thu hồi đất"
+    PhysicalLand:
+      description: "Đất đai thực địa"
+      subtypes:
+        AgriculturalLand:
+          description: "Đất nông nghiệp, đất trồng lúa, đất rừng"
+        ResidentialLand:
+          description: "Đất ở"
+        NonAgriculturalLand:
+          description: "Đất phi nông nghiệp (trừ đất ở)"
+
+LegalConsequence:
+  description: "Hậu quả pháp lý, chế tài"
+  subtypes:
+    LandLossConsequence:
+      description: "Mất QSDĐ, thu hồi đất không bồi thường"
+    FinancialPenalty:
+      description: "Phạt tiền, truy thu nghĩa vụ tài chính"
+    AdministrativePenalty:
+      description: "Xử phạt hành chính, đình chỉ hoạt động"
+    CompensationRemedy:
+      description: "Bồi thường, hỗ trợ, tái định cư"
+
+# Modifier types — giữ phẳng (không subtype vì không cần phân vùng retrieval)
+Condition:
+  description: "Điều kiện áp dụng quy phạm — HAS_CONDITION thuộc NormAssertion"
+Exception:
+  description: "Ngoại lệ của quy phạm — HAS_EXCEPTION thuộc NormAssertion"
+Reference:
+  description: "Dẫn chiếu tới điều/khoản/điểm khác — sẽ resolve thành edge REFERENCES"
