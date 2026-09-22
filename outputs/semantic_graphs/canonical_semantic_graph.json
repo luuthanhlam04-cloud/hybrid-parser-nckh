@@ -3,7 +3,7 @@
     "ontology_version": "1.3",
     "domain": "Luật Đất đai 2024",
     "generated_by": "M7_Builder",
-    "execution_time_seconds": 2.57
+    "execution_time_seconds": 1.1
   },
   "entities": [
     {
@@ -39,12 +39,6 @@
       ]
     },
     {
-      "canonical_id": "unassigned.quyền_sở_hữu_tài_sản_gắn_liền_với_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền sở hữu tài sản gắn liền với đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.điều_kiện",
       "ontology_class": "CONDITION",
       "canonical_text": "Điều kiện",
@@ -72,12 +66,6 @@
       ]
     },
     {
-      "canonical_id": "unassigned.hưởng_các_lợi_ích",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Hưởng các lợi ích",
-      "aliases": []
-    },
-    {
       "canonical_id": "subject.asset.physical_land",
       "ontology_class": "LEGAL_SUBJECT",
       "canonical_text": "Đất đai (Khách thể vật lý)",
@@ -91,42 +79,6 @@
         "đất có thu tiền sử dụng đất",
         "diện tích đất thu hồi"
       ]
-    },
-    {
-      "canonical_id": "unassigned.hướng_dẫn",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Hướng dẫn",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.giúp_đỡ",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Giúp đỡ",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.cải_tạo,_phục_hồi_đất_nông_nghiệp",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Cải tạo, phục hồi đất nông nghiệp",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.người_khác",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Người khác",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.bảo_hộ",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Bảo hộ",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền,_lợi_ích_hợp_pháp_về_đất_đai",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền, lợi ích hợp pháp về đất đai",
-      "aliases": []
     },
     {
       "canonical_id": "unassigned.chuyển_mục_đích_sử_dụng_đất",
@@ -169,18 +121,6 @@
         "tố cáo",
         "khởi kiện"
       ]
-    },
-    {
-      "canonical_id": "unassigned.hành_vi_vi_phạm_quyền_sử_dụng_đất_hợp_pháp",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Hành vi vi phạm quyền sử dụng đất hợp pháp",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.hành_vi_khác_vi_phạm_pháp_luật_về_đất_đai",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Hành vi khác vi phạm pháp luật về đất đai",
-      "aliases": []
     },
     {
       "canonical_id": "unassigned.chuyển_đổi",
@@ -285,24 +225,6 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.đăng_ký_biến_động",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Đăng ký biến động",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tách_thửa",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Tách thửa",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_của_người_sử_dụng_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Quyền và nghĩa vụ của người sử dụng đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.ủy_quyền",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Ủy quyền",
@@ -319,27 +241,9 @@
       ]
     },
     {
-      "canonical_id": "unassigned.hợp_đồng",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Hợp đồng",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.văn_bản",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Văn bản",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.quyền",
       "ontology_class": "LEGAL_OBJECT",
       "canonical_text": "Quyền",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.hợp_đồng_chuyển_nhượng",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Hợp đồng chuyển nhượng",
       "aliases": []
     },
     {
@@ -359,18 +263,6 @@
       ]
     },
     {
-      "canonical_id": "unassigned.trừ_trường_hợp_quy_định_tại_điểm_b_khoản_này",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Trừ trường hợp quy định tại điểm b khoản này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.hợp_đồng_chuyển_đổi_quyền_sử_dụng_đất_nông_nghiệp",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp",
-      "aliases": []
-    },
-    {
       "canonical_id": "action.transaction.capital_contribution",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Góp vốn",
@@ -378,12 +270,6 @@
         "góp vốn bằng quyền sử dụng đất",
         "quyền góp vốn bằng tài sản gắn liền với đất"
       ]
-    },
-    {
-      "canonical_id": "unassigned.điểm_b_khoản_1_điều_37",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Điểm b khoản 1 Điều 37",
-      "aliases": []
     },
     {
       "canonical_id": "subject.land_user.foreign.fdi_enterprise",
@@ -414,12 +300,6 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.vốn_đầu_tư",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Vốn đầu tư",
-      "aliases": []
-    },
-    {
       "canonical_id": "subject.asset.money",
       "ontology_class": "LEGAL_SUBJECT",
       "canonical_text": "Nghĩa vụ tài chính (Tiền)",
@@ -433,12 +313,6 @@
         "thuế thu nhập",
         "lệ phí trước bạ"
       ]
-    },
-    {
-      "canonical_id": "unassigned.quy_định_của_chính_phủ",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Quy định của Chính phủ",
-      "aliases": []
     },
     {
       "canonical_id": "subject.land_user.community",
@@ -459,15 +333,6 @@
         "quyền để thừa kế",
         "quyền thừa kế quyền sử dụng đất",
         "hồ sơ về việc nhận thừa kế"
-      ]
-    },
-    {
-      "canonical_id": "subject.land_user.domestic_org.religion",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Tổ chức tôn giáo",
-      "aliases": [
-        "tổ chức tôn giáo",
-        "tổ chức tôn giáo trực thuộc"
       ]
     },
     {
@@ -493,66 +358,6 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.kết_quả_hòa_giải_thành_về_tranh_chấp_đất_đai",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Kết quả hòa giải thành về tranh chấp đất đai",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thỏa_thuận_trong_hợp_đồng_thế_chấp_để_xử_lý_nợ",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Thỏa thuận trong hợp đồng thế chấp để xử lý nợ",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyết_định_của_cơ_quan_nhà_nước_có_thẩm_quyền_về_giải_quyết_tranh_chấp_đất_đai",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyết định của cơ quan nhà nước có thẩm quyền về giải quyết tranh chấp đất đai",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.bản_án,_quyết_định_của_tòa_án",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Bản án, quyết định của Tòa án",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyết_định_thi_hành_án_của_cơ_quan_thi_hành_án",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyết định thi hành án của cơ quan thi hành án",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyết_định_hoặc_phán_quyết_của_trọng_tài_thương_mại_việt_nam",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyết định hoặc phán quyết của Trọng tài thương mại Việt Nam",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.văn_bản_công_nhận_kết_quả_đấu_giá_quyền_sử_dụng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Văn bản công nhận kết quả đấu giá quyền sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.văn_bản_về_việc_chia,_tách_quyền_sử_dụng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Văn bản về việc chia, tách quyền sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.ủy_ban_nhân_dân_cấp_có_thẩm_quyền",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Ủy ban nhân dân cấp có thẩm quyền",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trừ_trường_hợp_quy_định_tại_khoản_8_điều_45_và_điều_48",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "trừ trường hợp quy định tại khoản 8 Điều 45 và Điều 48",
-      "aliases": []
-    },
-    {
       "canonical_id": "reference.internal.articles",
       "ontology_class": "LEGAL_DOCUMENT_REF",
       "canonical_text": "Điều khoản tham chiếu nội bộ",
@@ -571,147 +376,9 @@
       ]
     },
     {
-      "canonical_id": "unassigned.khu_vực_hạn_chế_tiếp_cận_đất_đai",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Khu vực hạn chế tiếp cận đất đai",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trình_tự,_thủ_tục",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Trình tự, thủ tục",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_đối_với_thửa_đất_liền_kề",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền đối với thửa đất liền kề",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.lối_đi",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "lối đi",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.cấp_nước",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "cấp nước",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thoát_nước",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "thoát nước",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tưới_nước",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "tưới nước",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tiêu_nước",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "tiêu nước",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.cấp_khí_ga",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "cấp khí ga",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.lắp_đường_dây_tải_điện",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "lắp đường dây tải điện",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thông_tin_liên_lạc",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "thông tin liên lạc",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.các_nhu_cầu_cần_thiết_khác",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "các nhu cầu cần thiết khác",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đăng_ký",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Đăng ký",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.chuyển_sang_thuê_đất_trả_tiền_thuê_đất_một_lần",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Chuyển sang thuê đất trả tiền thuê đất một lần",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.giá_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Giá đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thời_gian_thuê_đất_còn_lại",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Thời gian thuê đất còn lại",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.chuyển_sang_hình_thức_nhà_nước_cho_thuê_đất_thu_tiền_thuê_đất_hằng_năm",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Chuyển sang hình thức Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.phần_diện_tích_đó",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Phần diện tích đó",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.sử_dụng_đất",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.mục_đích",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Mục đích",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.ranh_giới_thửa_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Ranh giới thửa đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quy_định_về_sử_dụng_độ_sâu_trong_lòng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quy định về sử dụng độ sâu trong lòng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.chiều_cao_trên_không",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Chiều cao trên không",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.công_trình_công_cộng_trong_lòng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Công trình công cộng trong lòng đất",
       "aliases": []
     },
     {
@@ -735,48 +402,6 @@
       ]
     },
     {
-      "canonical_id": "unassigned.thủ_tục",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Thủ tục",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thực_hiện_nghĩa_vụ_tài_chính_về_đất_đai",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Thực hiện nghĩa vụ tài chính về đất đai",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thực_hiện_biện_pháp_bảo_vệ_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Thực hiện biện pháp bảo vệ đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.khu_vực_đất_bị_ô_nhiễm,_thoái_hóa",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Khu vực đất bị ô nhiễm, thoái hóa",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tuân_thủ_quy_định_về_bảo_vệ_môi_trường",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Tuân thủ quy định về bảo vệ môi trường",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tài_sản_và_lợi_ích_hợp_pháp",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Tài sản và lợi ích hợp pháp",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.bàn_giao_lại_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Bàn giao lại đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.tổ_chức_trong_nước,_tổ_chức_tôn_giáo,_tổ_chức_tôn_giáo_trực_thuộc",
       "ontology_class": "LEGAL_SUBJECT",
       "canonical_text": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc",
@@ -789,21 +414,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.quyền_chuyển_đổi,_chuyển_nhượng,_tặng_cho,_cho_thuê_quyền_sử_dụng_đất,_thế_chấp,_góp_vốn_bằng_quyền_sử_dụng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.giao_đất",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Giao đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.một_lần_cho_cả_thời_gian_thuê",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Một lần cho cả thời gian thuê",
       "aliases": []
     },
     {
@@ -823,39 +436,15 @@
       ]
     },
     {
-      "canonical_id": "unassigned.thuê_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Thuê đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.thời_gian_thuê",
       "ontology_class": "CONDITION",
       "canonical_text": "Thời gian thuê",
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.điều_202",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Điều 202",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.miễn_hoặc_giảm_tiền_sử_dụng_đất",
-      "ontology_class": "CONDITION",
-      "canonical_text": "miễn hoặc giảm tiền sử dụng đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.miễn,_giảm_tiền_sử_dụng_đất,_tiền_thuê_đất",
       "ontology_class": "CONDITION",
       "canonical_text": "Miễn, giảm tiền sử dụng đất, tiền thuê đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trừ_trường_hợp_pháp_luật_có_liên_quan_có_quy_định_khác",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Trừ trường hợp pháp luật có liên quan có quy định khác",
       "aliases": []
     },
     {
@@ -871,21 +460,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.người_mua_tài_sản_gắn_liền_với_đất_và_quyền_thuê_trong_hợp_đồng_thuê_đất",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Người mua tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.tiếp_tục_thuê_đất",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Tiếp tục thuê đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.các_quyền_và_nghĩa_vụ_của_người_sử_dụng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Các quyền và nghĩa vụ của người sử dụng đất",
       "aliases": []
     },
     {
@@ -900,12 +477,6 @@
       ]
     },
     {
-      "canonical_id": "unassigned.tiếp_tục_cho_thuê_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Tiếp tục cho thuê đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "condition.compliance.right_purpose",
       "ontology_class": "CONDITION",
       "canonical_text": "Đúng mục đích sử dụng",
@@ -916,69 +487,9 @@
       ]
     },
     {
-      "canonical_id": "unassigned.cho_thuê_tài_sản_thuộc_sở_hữu_của_mình_gắn_liền_với_đất_và_quyền_thuê_trong_hợp_đồng_thuê_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Cho thuê tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.nghĩa_vụ_tài_chính",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Nghĩa vụ tài chính",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_góp_vốn",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Quyền góp vốn",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_thuê",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Quyền thuê",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.mục_đích_khác",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Mục đích khác",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.khai_thác,_sử_dụng",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Khai thác, sử dụng",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.phương_án_được_cơ_quan_chủ_quản_phê_duyệt",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Phương án được cơ quan chủ quản phê duyệt",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.pháp_luật_về_xây_dựng",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Pháp luật về xây dựng",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tài_sản_công",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Tài sản công",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đề_án_sử_dụng_tài_sản_công",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Đề án sử dụng tài sản công",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.mục_đích_cho_thuê,_liên_doanh,_liên_kết",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Mục đích cho thuê, liên doanh, liên kết",
       "aliases": []
     },
     {
@@ -1004,111 +515,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.không_chuyển_mục_đích_sử_dụng_đất",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Không chuyển mục đích sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_1_và_khoản_3_điều_33",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.cho_thuê_đất_thu_tiền_thuê_đất_một_lần_cho_cả_thời_gian_thuê",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thuê_đất_thu_tiền_thuê_đất_hằng_năm",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Thuê đất thu tiền thuê đất hằng năm",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.khoản_1_điều_34",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "khoản 1 Điều 34",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_điều_33_của_luật_này",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền và nghĩa vụ quy định tại Điều 33 của Luật này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trong_các_trường_hợp_sau_đây",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Trong các trường hợp sau đây",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.thu_hồi_đất",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Thu hồi đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.hợp_tác_xã",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Hợp tác xã",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_lệ_của_hợp_tác_xã",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Điều lệ của hợp tác xã",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.nghị_quyết_của_đại_hội_thành_viên",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Nghị quyết của đại hội thành viên",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.giải_thể",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "giải thể",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.phá_sản",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "phá sản",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thuê",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Thuê",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.giá_trị_của_phần_thừa_kế_đó",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Giá trị của phần thừa kế đó",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.nhà_tình_nghĩa,_nhà_tình_thương,_nhà_đại_đoàn_kết",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Nhà tình nghĩa, nhà tình thương, nhà đại đoàn kết",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tổ_chức_kinh_tế_khác_hoặc_cá_nhân",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "tổ chức kinh tế khác hoặc cá nhân",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.kế_thừa_các_quyền_và_nghĩa_vụ_của_người_sử_dụng_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Kế thừa các quyền và nghĩa vụ của người sử dụng đất",
       "aliases": []
     },
     {
@@ -1123,18 +532,6 @@
       ]
     },
     {
-      "canonical_id": "unassigned.người_được_tặng_cho_tài_sản",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Người được tặng cho tài sản",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thời_hạn",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Thời hạn",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.cá_nhân_thuê_lại_đất",
       "ontology_class": "LEGAL_SUBJECT",
       "canonical_text": "Cá nhân thuê lại đất",
@@ -1147,117 +544,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_1_điều_này",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền và nghĩa vụ quy định tại khoản 1 Điều này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trong_khu_công_nghiệp,_cụm_công_nghiệp,_khu_công_nghệ_cao",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.khoản_2_điều_này",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "khoản 2 Điều này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.không_được_miễn,_không_được_giảm_tiền_sử_dụng_đất,_tiền_thuê_đất",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Không được miễn, không được giảm tiền sử dụng đất, tiền thuê đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tổ_chức,_cá_nhân",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Tổ chức, cá nhân",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đất_được_nhà_nước_giao_đất_không_thu_tiền_sử_dụng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Đất được Nhà nước giao đất không thu tiền sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đất_được_nhà_nước_giao_đất_có_thu_tiền_sử_dụng_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Đất được Nhà nước giao đất có thu tiền sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_1_điều_37_của_luật_này",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền và nghĩa vụ quy định tại khoản 1 Điều 37 của Luật này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trường_hợp",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Trường hợp",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.khoản_2_điều_37",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "khoản 2 Điều 37",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.xây_dựng",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Xây dựng",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.giấy_phép",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "giấy phép",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.cơ_quan_nhà_nước_việt_nam_có_thẩm_quyền",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "cơ quan nhà nước Việt Nam có thẩm quyền",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.sở_hữu_công_trình_do_mình_xây_dựng_trên_đất_thuê_trong_thời_hạn_thuê_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Sở hữu công trình do mình xây dựng trên đất thuê trong thời hạn thuê đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đất_thuê",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "đất thuê",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trả_lại_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Trả lại đất",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.điều_ước_quốc_tế",
       "ontology_class": "LEGAL_OBJECT",
       "canonical_text": "Điều ước quốc tế",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thỏa_thuận_quốc_tế",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Thỏa thuận quốc tế",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_ước_quốc_tế_đó",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Điều ước quốc tế đó",
       "aliases": []
     },
     {
@@ -1267,45 +556,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.người_nhận_góp_vốn_bằng_tài_sản",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Người nhận góp vốn bằng tài sản",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_kiện_quy_định_tại_điều_46_của_luật_này",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Điều kiện quy định tại Điều 46 của Luật này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tài_sản_thuộc_sở_hữu_của_mình_gắn_liền_với_đất_và_quyền_thuê_trong_hợp_đồng_thuê_đất",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đất_đã_được_xây_dựng_xong_kết_cấu_hạ_tầng",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Đất đã được xây dựng xong kết cấu hạ tầng",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.sử_dụng_đất_đúng_mục_đích",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Sử dụng đất đúng mục đích",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.thực_hiện_nghĩa_vụ_tài_chính",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Thực hiện nghĩa vụ tài chính",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đất_khu_công_nghiệp,_cụm_công_nghiệp,_khu_công_nghệ_cao",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Đất khu công nghiệp, cụm công nghiệp, khu công nghệ cao",
       "aliases": []
     },
     {
@@ -1315,45 +568,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_3_điều_33",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền và nghĩa vụ quy định tại khoản 3 Điều 33",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_3_điều_41",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Quyền và nghĩa vụ quy định tại khoản 3 Điều 41",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.nghĩa_vụ",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Nghĩa vụ",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trả_tiền_thuê_lại_đất_một_lần_cho_cả_thời_gian_thuê_lại",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Trả tiền thuê lại đất một lần cho cả thời gian thuê lại",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trả_tiền_thuê_đất,_thuê_lại_đất_hằng_năm",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Trả tiền thuê đất, thuê lại đất hằng năm",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_1_điều_34_của_luật_này",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.nhập_cảnh_vào_việt_nam",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Nhập cảnh vào Việt Nam",
       "aliases": []
     },
     {
@@ -1363,79 +580,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.người_được_tặng_cho",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Người được tặng cho",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điểm_e_khoản_1_điều_37",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Điểm e khoản 1 Điều 37",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tổ_chức_đăng_ký_đất_đai",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Tổ chức đăng ký đất đai",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.sổ_địa_chính",
       "ontology_class": "LEGAL_OBJECT",
       "canonical_text": "Sổ địa chính",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trong_trường_hợp_chưa_chuyển_nhượng_hoặc_chưa_tặng_cho_quyền_sử_dụng_đất",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Trong trường hợp chưa chuyển nhượng hoặc chưa tặng cho quyền sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.nhà_ở",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Nhà ở",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.phân_chia_thừa_kế",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Phân chia thừa kế",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.người_đại_diện_theo_ủy_quyền",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Người đại diện theo ủy quyền",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trông_nom_hoặc_tạm_sử_dụng_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Trông nom hoặc tạm sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "exception.consolidation",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Trường hợp dồn điền đổi thửa",
-      "aliases": [
-        "chuyển đổi đất nông nghiệp khi dồn điền, đổi thửa"
-      ]
-    },
-    {
-      "canonical_id": "exception.donation_to_state",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Tặng cho quyền sử dụng đất cho Nhà nước",
-      "aliases": [
-        "tặng cho quyền sử dụng đất cho nhà nước, cộng đồng dân cư"
-      ]
-    },
-    {
-      "canonical_id": "unassigned.khoản_7_điều_124",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "khoản 7 Điều 124",
       "aliases": []
     },
     {
@@ -1447,42 +594,6 @@
         "không có tranh chấp",
         "đất không có tranh chấp hoặc tranh chấp đã được giải quyết bởi cơ quan nhà nước có thẩm quyền, bản án, quyết định của tòa án, quyết định hoặc phán quyết của trọng tài đã có hiệu lực pháp luật"
       ]
-    },
-    {
-      "canonical_id": "unassigned.tranh_chấp_đã_được_giải_quyết",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Tranh chấp đã được giải quyết",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.không_bị_kê_biên",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Không bị kê biên",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.biện_pháp_khẩn_cấp_tạm_thời",
-      "ontology_class": "CONDITION",
-      "canonical_text": "biện pháp khẩn cấp tạm thời",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_kiện_khác",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Điều kiện khác",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.mua,_bán_tài_sản_gắn_liền_với_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Mua, bán tài sản gắn liền với đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.chuyển_đổi_quyền_sử_dụng_đất_nông_nghiệp",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Chuyển đổi quyền sử dụng đất nông nghiệp",
-      "aliases": []
     },
     {
       "canonical_id": "subject.land_user.individual.ethnic_minority",
@@ -1500,165 +611,9 @@
       "aliases": []
     },
     {
-      "canonical_id": "unassigned.chậm_thực_hiện",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Chậm thực hiện",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.ghi_nợ",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Ghi nợ",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.các_quyền_chuyển_đổi,_chuyển_nhượng,_cho_thuê,_cho_thuê_lại,_tặng_cho_quyền_sử_dụng_đất,_thế_chấp,_góp_vốn_bằng_quyền_sử_dụng_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "Các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, tặng cho quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.cá_nhân_không_trực_tiếp_sản_xuất_nông_nghiệp",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Cá nhân không trực tiếp sản xuất nông nghiệp",
-      "aliases": []
-    },
-    {
       "canonical_id": "unassigned.nhận_tặng_cho",
       "ontology_class": "LEGAL_ACTION",
       "canonical_text": "Nhận tặng cho",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quá_hạn_mức_quy_định_tại_điều_176",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Quá hạn mức quy định tại Điều 176",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trừ_trường_hợp_người_nhận_tặng_cho_là_người_thuộc_hàng_thừa_kế",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Trừ trường hợp người nhận tặng cho là người thuộc hàng thừa kế",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_176",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "Điều 176",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quyền_sử_dụng_đất_rừng_phòng_hộ,_đất_rừng_đặc_dụng",
-      "ontology_class": "LEGAL_OBJECT",
-      "canonical_text": "Quyền sử dụng đất rừng phòng hộ, đất rừng đặc dụng",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trừ_trường_hợp_được_chuyển_mục_đích_sử_dụng_đất_theo_quy_hoạch,_kế_hoạch_sử_dụng_đất_đã_được_cơ_quan_có_thẩm_quyền_phê_duyệt",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Trừ trường hợp được chuyển mục đích sử dụng đất theo quy hoạch, kế hoạch sử dụng đất đã được cơ quan có thẩm quyền phê duyệt",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.chuyển_mục_đích_sử_dụng_đất_theo_quy_hoạch,_kế_hoạch_sử_dụng_đất_đã_được_cơ_quan_có_thẩm_quyền_phê_duyệt",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Chuyển mục đích sử dụng đất theo quy hoạch, kế hoạch sử dụng đất đã được cơ quan có thẩm quyền phê duyệt",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.khu_vực_rừng_phòng_hộ",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Khu vực rừng phòng hộ",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tổ_chức,_cá_nhân,_cộng_đồng_dân_cư,_tổ_chức_tôn_giáo,_tổ_chức_tôn_giáo_trực_thuộc,_người_gốc_việt_nam_định_cư_ở_nước_ngoài,_tổ_chức_kinh_tế_có_vốn_đầu_tư_nước_ngoài",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Tổ chức, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.pháp_luật_không_cho_phép",
-      "ontology_class": "CONDITION",
-      "canonical_text": "pháp luật không cho phép",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.tổ_chức_kinh_tế,_cá_nhân,_người_gốc_việt_nam_định_cư_ở_nước_ngoài,_tổ_chức_kinh_tế_có_vốn_đầu_tư_nước_ngoài",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "Tổ chức kinh tế, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.được_tạo_lập_hợp_pháp_và_đã_được_đăng_ký_theo_quy_định_của_pháp_luật",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Được tạo lập hợp pháp và đã được đăng ký theo quy định của pháp luật",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.đã_hoàn_thành_việc_xây_dựng_theo_đúng_quy_hoạch_xây_dựng_chi_tiết_và_dự_án_đầu_tư_đã_được_phê_duyệt,_chấp_thuận_(nếu_có)",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Đã hoàn thành việc xây dựng theo đúng quy hoạch xây dựng chi tiết và dự án đầu tư đã được phê duyệt, chấp thuận (nếu có)",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trừ_trường_hợp_phải_thực_hiện_theo_bản_án,_quyết_định_của_tòa_án_đã_có_hiệu_lực_thi_hành,_quyết_định_cưỡng_chế_của_cơ_quan_thi_hành_án_dân_sự_hoặc_kết_luận_của_cơ_quan_nhà_nước_có_thẩm_quyền_về_thanh_tra,_kiểm_tra",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Trừ trường hợp phải thực hiện theo bản án, quyết định của Tòa án đã có hiệu lực thi hành, quyết định cưỡng chế của cơ quan thi hành án dân sự hoặc kết luận của cơ quan nhà nước có thẩm quyền về thanh tra, kiểm tra",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_kiện_tách_thửa",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Điều kiện tách thửa",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_kiện_quy_định_tại_khoản_1_điều_45_của_luật_này",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Điều kiện quy định tại khoản 1 Điều 45 của Luật này",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.điều_kiện_khác_theo_quy_định_của_luật_kinh_doanh_bất_động_sản",
-      "ontology_class": "CONDITION",
-      "canonical_text": "Điều kiện khác theo quy định của Luật Kinh doanh bất động sản",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.không_phải_nộp_thuế_thu_nhập",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Không phải nộp thuế thu nhập",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.bồi_thường_tài_sản_gắn_liền_với_đất",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "bồi thường tài sản gắn liền với đất",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.người_có_đất_thu_hồi",
-      "ontology_class": "LEGAL_SUBJECT",
-      "canonical_text": "người có đất thu hồi",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.trừ_trường_hợp_quy_định_tại_khoản_1_và_khoản_2",
-      "ontology_class": "EXCEPTION",
-      "canonical_text": "Trừ trường hợp quy định tại khoản 1 và khoản 2",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.quản_lý",
-      "ontology_class": "LEGAL_ACTION",
-      "canonical_text": "quản lý",
-      "aliases": []
-    },
-    {
-      "canonical_id": "unassigned.theo_quy_định_tại_khoản_1_điều_này",
-      "ontology_class": "LEGAL_DOCUMENT_REF",
-      "canonical_text": "theo quy định tại khoản 1 Điều này",
       "aliases": []
     }
   ],
@@ -1671,96 +626,6 @@
       "target": "unassigned.quy_định_của_pháp_luật_về_đất_đai",
       "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai.",
       "rule_id": "RULE_M7_REL_0004",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0005",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-3_p433",
-      "source": "subject.state",
-      "target": "unassigned.hưởng_các_lợi_ích",
-      "evidence": "Hưởng các lợi ích khi Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp.",
-      "rule_id": "RULE_M7_REL_0005",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0006",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-3_p433",
-      "source": "unassigned.hưởng_các_lợi_ích",
-      "target": "subject.asset.physical_land",
-      "evidence": "Hưởng các lợi ích khi Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp.",
-      "rule_id": "RULE_M7_REL_0006",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0007",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
-      "source": "subject.state",
-      "target": "unassigned.hướng_dẫn",
-      "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp.",
-      "rule_id": "RULE_M7_REL_0007",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0008",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
-      "source": "subject.state",
-      "target": "unassigned.giúp_đỡ",
-      "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp.",
-      "rule_id": "RULE_M7_REL_0008",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0009",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
-      "source": "unassigned.hướng_dẫn",
-      "target": "unassigned.cải_tạo,_phục_hồi_đất_nông_nghiệp",
-      "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp.",
-      "rule_id": "RULE_M7_REL_0009",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0010",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
-      "source": "unassigned.giúp_đỡ",
-      "target": "unassigned.cải_tạo,_phục_hồi_đất_nông_nghiệp",
-      "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp.",
-      "rule_id": "RULE_M7_REL_0010",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0011",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-5_p602",
-      "source": "subject.state",
-      "target": "unassigned.bảo_hộ",
-      "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình.",
-      "rule_id": "RULE_M7_REL_0011",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0012",
-      "relation_type": "PROHIBIT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-5_p602",
-      "source": "unassigned.người_khác",
-      "target": "unassigned.bảo_hộ",
-      "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình.",
-      "rule_id": "RULE_M7_REL_0012",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0013",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-5_p602",
-      "source": "unassigned.bảo_hộ",
-      "target": "unassigned.quyền,_lợi_ích_hợp_pháp_về_đất_đai",
-      "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình.",
-      "rule_id": "RULE_M7_REL_0013",
       "assertion_status": "ASSERTED"
     },
     {
@@ -1841,66 +706,6 @@
       "target": "action.administrative.complaint",
       "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
       "rule_id": "RULE_M7_REL_0022",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0023",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
-      "source": "action.administrative.complaint",
-      "target": "unassigned.hành_vi_vi_phạm_quyền_sử_dụng_đất_hợp_pháp",
-      "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
-      "rule_id": "RULE_M7_REL_0023",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0024",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
-      "source": "action.administrative.complaint",
-      "target": "unassigned.hành_vi_vi_phạm_quyền_sử_dụng_đất_hợp_pháp",
-      "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
-      "rule_id": "RULE_M7_REL_0024",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0025",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
-      "source": "action.administrative.complaint",
-      "target": "unassigned.hành_vi_vi_phạm_quyền_sử_dụng_đất_hợp_pháp",
-      "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
-      "rule_id": "RULE_M7_REL_0025",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0026",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
-      "source": "action.administrative.complaint",
-      "target": "unassigned.hành_vi_khác_vi_phạm_pháp_luật_về_đất_đai",
-      "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
-      "rule_id": "RULE_M7_REL_0026",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0027",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
-      "source": "action.administrative.complaint",
-      "target": "unassigned.hành_vi_khác_vi_phạm_pháp_luật_về_đất_đai",
-      "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
-      "rule_id": "RULE_M7_REL_0027",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0028",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
-      "source": "action.administrative.complaint",
-      "target": "unassigned.hành_vi_khác_vi_phạm_pháp_luật_về_đất_đai",
-      "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
-      "rule_id": "RULE_M7_REL_0028",
       "assertion_status": "ASSERTED"
     },
     {
@@ -2104,36 +909,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0050",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1814",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.đăng_ký_biến_động",
-      "evidence": "nếu từng thành viên của nhóm muốn thực hiện quyền đối với phần quyền sử dụng đất của mình thì phải thực hiện đăng ký biến động",
-      "rule_id": "RULE_M7_REL_0050",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0051",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1814",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.tách_thửa",
-      "evidence": "nếu từng thành viên của nhóm muốn thực hiện quyền đối với phần quyền sử dụng đất của mình thì phải thực hiện tách thửa",
-      "rule_id": "RULE_M7_REL_0051",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0053",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1814",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.quyền_và_nghĩa_vụ_của_người_sử_dụng_đất",
-      "evidence": "được thực hiện quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này",
-      "rule_id": "RULE_M7_REL_0053",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0054",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1814",
@@ -2151,26 +926,6 @@
       "target": "action.procedural.notarization",
       "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:",
       "rule_id": "RULE_M7_REL_0055",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0056",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476",
-      "source": "action.procedural.notarization",
-      "target": "unassigned.hợp_đồng",
-      "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:",
-      "rule_id": "RULE_M7_REL_0056",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0057",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476",
-      "source": "action.procedural.notarization",
-      "target": "unassigned.văn_bản",
-      "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:",
-      "rule_id": "RULE_M7_REL_0057",
       "assertion_status": "ASSERTED"
     },
     {
@@ -2324,16 +1079,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0082",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-a_p3549",
-      "source": "unassigned.chuyển_đổi",
-      "target": "unassigned.điểm_b_khoản_1_điều_37",
-      "evidence": "Cá nhân được nhận chuyển đổi quyền sử dụng đất quy định tại điểm b khoản 1 Điều 37 của Luật này",
-      "rule_id": "RULE_M7_REL_0082",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0083",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-b_p3646",
@@ -2404,16 +1149,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0090",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p3930",
-      "source": "action.transaction.transfer",
-      "target": "unassigned.vốn_đầu_tư",
-      "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ",
-      "rule_id": "RULE_M7_REL_0090",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0091",
       "relation_type": "HAS_OBJECT",
       "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p3930",
@@ -2421,16 +1156,6 @@
       "target": "subject.asset.money",
       "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ",
       "rule_id": "RULE_M7_REL_0091",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0092",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p3930",
-      "source": "action.transaction.transfer",
-      "target": "unassigned.quy_định_của_chính_phủ",
-      "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ",
-      "rule_id": "RULE_M7_REL_0092",
       "assertion_status": "ASSERTED"
     },
     {
@@ -2614,106 +1339,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0180",
-      "relation_type": "HAS_EXCEPTION",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-2_p7178",
-      "source": "action.transaction.transfer",
-      "target": "unassigned.trừ_trường_hợp_quy_định_tại_khoản_8_điều_45_và_điều_48",
-      "evidence": "Tổ chức trong nước, cá nhân được nhận chuyển nhượng quyền sử dụng đất theo quy định của pháp luật không phụ thuộc vào nơi cư trú, nơi đóng trụ sở, trừ trường hợp quy định tại khoản 8 Điều 45 và Điều 48 của Luật này.",
-      "rule_id": "RULE_M7_REL_0180",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0184",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-3_p7394",
-      "source": "subject.state",
-      "target": "unassigned.trình_tự,_thủ_tục",
-      "evidence": "thực hiện theo trình tự, thủ tục do Chính phủ quy định",
-      "rule_id": "RULE_M7_REL_0184",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0185",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-3_p7394",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.khu_vực_hạn_chế_tiếp_cận_đất_đai",
-      "evidence": "việc nhận quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0185",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0188",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-29_khoan-2_p7834",
-      "source": "unassigned.đăng_ký",
-      "target": "reference.internal.articles",
-      "evidence": "đồng thời phải thực hiện đăng ký theo quy định tại Điều 133 của Luật này đối với trường hợp quyền về lối đi; cấp nước, thoát nước; tưới nước, tiêu nước trong canh tác.",
-      "rule_id": "RULE_M7_REL_0188",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0189",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171",
-      "source": "subject.land_user.domestic_org.economic",
-      "target": "unassigned.chuyển_sang_thuê_đất_trả_tiền_thuê_đất_một_lần",
-      "evidence": "được lựa chọn chuyển sang thuê đất trả tiền thuê đất một lần cho thời gian thuê đất còn lại",
-      "rule_id": "RULE_M7_REL_0189",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0190",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171",
-      "source": "subject.state",
-      "target": "unassigned.chuyển_sang_thuê_đất_trả_tiền_thuê_đất_một_lần",
-      "evidence": "được lựa chọn chuyển sang thuê đất trả tiền thuê đất một lần cho thời gian thuê đất còn lại",
-      "rule_id": "RULE_M7_REL_0190",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0191",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171",
-      "source": "unassigned.chuyển_sang_thuê_đất_trả_tiền_thuê_đất_một_lần",
-      "target": "unassigned.giá_đất",
-      "evidence": "phải xác định lại giá đất để tính tiền thuê đất tại thời điểm có quyết định cho phép chuyển sang thuê đất theo hình thức trả tiền thuê đất một lần cho cả thời gian thuê theo quy định của Luật này.",
-      "rule_id": "RULE_M7_REL_0191",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0192",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171",
-      "source": "unassigned.chuyển_sang_thuê_đất_trả_tiền_thuê_đất_một_lần",
-      "target": "unassigned.thời_gian_thuê_đất_còn_lại",
-      "evidence": "cho thời gian thuê đất còn lại",
-      "rule_id": "RULE_M7_REL_0192",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0198",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-3_p9133",
-      "source": "subject.land_user.domestic_org.public_service",
-      "target": "unassigned.chuyển_sang_hình_thức_nhà_nước_cho_thuê_đất_thu_tiền_thuê_đất_hằng_năm",
-      "evidence": "Đơn vị sự nghiệp công lập được Nhà nước giao đất không thu tiền sử dụng đất mà có nhu cầu sử dụng một phần hoặc toàn bộ diện tích được giao để sản xuất, kinh doanh, cung cấp dịch vụ thì được lựa chọn chuyển sang hình thức Nhà nước cho thuê đất thu tiền thuê đất hằng năm đối với phần diện tích đó.",
-      "rule_id": "RULE_M7_REL_0198",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0199",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-3_p9133",
-      "source": "unassigned.chuyển_sang_hình_thức_nhà_nước_cho_thuê_đất_thu_tiền_thuê_đất_hằng_năm",
-      "target": "unassigned.phần_diện_tích_đó",
-      "evidence": "Đơn vị sự nghiệp công lập được Nhà nước giao đất không thu tiền sử dụng đất mà có nhu cầu sử dụng một phần hoặc toàn bộ diện tích được giao để sản xuất, kinh doanh, cung cấp dịch vụ thì được lựa chọn chuyển sang hình thức Nhà nước cho thuê đất thu tiền thuê đất hằng năm đối với phần diện tích đó.",
-      "rule_id": "RULE_M7_REL_0199",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0200",
       "relation_type": "REQUIRE",
       "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
@@ -2724,56 +1349,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0201",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
-      "source": "unassigned.sử_dụng_đất",
-      "target": "unassigned.mục_đích",
-      "evidence": "Sử dụng đất đúng mục đích, đúng ranh giới thửa đất, đúng quy định về sử dụng độ sâu trong lòng đất và chiều cao trên không, bảo vệ các công trình công cộng trong lòng đất và tuân thủ quy định khác của pháp luật có liên quan.",
-      "rule_id": "RULE_M7_REL_0201",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0202",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
-      "source": "unassigned.sử_dụng_đất",
-      "target": "unassigned.ranh_giới_thửa_đất",
-      "evidence": "Sử dụng đất đúng mục đích, đúng ranh giới thửa đất, đúng quy định về sử dụng độ sâu trong lòng đất và chiều cao trên không, bảo vệ các công trình công cộng trong lòng đất và tuân thủ quy định khác của pháp luật có liên quan.",
-      "rule_id": "RULE_M7_REL_0202",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0203",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
-      "source": "unassigned.sử_dụng_đất",
-      "target": "unassigned.quy_định_về_sử_dụng_độ_sâu_trong_lòng_đất",
-      "evidence": "Sử dụng đất đúng mục đích, đúng ranh giới thửa đất, đúng quy định về sử dụng độ sâu trong lòng đất và chiều cao trên không, bảo vệ các công trình công cộng trong lòng đất và tuân thủ quy định khác của pháp luật có liên quan.",
-      "rule_id": "RULE_M7_REL_0203",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0204",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
-      "source": "unassigned.sử_dụng_đất",
-      "target": "unassigned.chiều_cao_trên_không",
-      "evidence": "Sử dụng đất đúng mục đích, đúng ranh giới thửa đất, đúng quy định về sử dụng độ sâu trong lòng đất và chiều cao trên không, bảo vệ các công trình công cộng trong lòng đất và tuân thủ quy định khác của pháp luật có liên quan.",
-      "rule_id": "RULE_M7_REL_0204",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0205",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9477",
-      "source": "unassigned.sử_dụng_đất",
-      "target": "unassigned.công_trình_công_cộng_trong_lòng_đất",
-      "evidence": "Sử dụng đất đúng mục đích, đúng ranh giới thửa đất, đúng quy định về sử dụng độ sâu trong lòng đất và chiều cao trên không, bảo vệ các công trình công cộng trong lòng đất và tuân thủ quy định khác của pháp luật có liên quan.",
-      "rule_id": "RULE_M7_REL_0205",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0207",
       "relation_type": "REQUIRE",
       "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-2_p9703",
@@ -2781,106 +1356,6 @@
       "target": "action.procedural.registration",
       "evidence": "Thực hiện kê khai đăng ký đất đai",
       "rule_id": "RULE_M7_REL_0207",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0208",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-2_p9703",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.thủ_tục",
-      "evidence": "thực hiện đầy đủ thủ tục khi chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0208",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0209",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-2_p9703",
-      "source": "unassigned.thủ_tục",
-      "target": "subject.asset.land_rights",
-      "evidence": "thực hiện đầy đủ thủ tục khi chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0209",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0218",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-3_p9925",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.thực_hiện_nghĩa_vụ_tài_chính_về_đất_đai",
-      "evidence": "Thực hiện nghĩa vụ tài chính về đất đai theo quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0218",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0219",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-3_p9925",
-      "source": "unassigned.thực_hiện_nghĩa_vụ_tài_chính_về_đất_đai",
-      "target": "reference.law.other_laws",
-      "evidence": "theo quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0219",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0220",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-4_p9994",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.thực_hiện_biện_pháp_bảo_vệ_đất",
-      "evidence": "Thực hiện biện pháp bảo vệ đất; xử lý, cải tạo và phục hồi đất đối với khu vực đất bị ô nhiễm, thoái hóa do mình gây ra.",
-      "rule_id": "RULE_M7_REL_0220",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0221",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-4_p9994",
-      "source": "unassigned.thực_hiện_biện_pháp_bảo_vệ_đất",
-      "target": "unassigned.khu_vực_đất_bị_ô_nhiễm,_thoái_hóa",
-      "evidence": "Thực hiện biện pháp bảo vệ đất; xử lý, cải tạo và phục hồi đất đối với khu vực đất bị ô nhiễm, thoái hóa do mình gây ra.",
-      "rule_id": "RULE_M7_REL_0221",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0222",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-5_p10115",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.tuân_thủ_quy_định_về_bảo_vệ_môi_trường",
-      "evidence": "Tuân thủ quy định về bảo vệ môi trường",
-      "rule_id": "RULE_M7_REL_0222",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0223",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-5_p10115",
-      "source": "unassigned.tuân_thủ_quy_định_về_bảo_vệ_môi_trường",
-      "target": "unassigned.tài_sản_và_lợi_ích_hợp_pháp",
-      "evidence": "không làm tổn hại đến tài sản và lợi ích hợp pháp",
-      "rule_id": "RULE_M7_REL_0223",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0224",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-7_p10310",
-      "source": "subject.state",
-      "target": "unassigned.bàn_giao_lại_đất",
-      "evidence": "Bàn giao lại đất khi Nhà nước có quyết định thu hồi đất theo quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0224",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0225",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-7_p10310",
-      "source": "unassigned.bàn_giao_lại_đất",
-      "target": "subject.asset.physical_land",
-      "evidence": "Bàn giao lại đất khi Nhà nước có quyết định thu hồi đất theo quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0225",
       "assertion_status": "ASSERTED"
     },
     {
@@ -3214,26 +1689,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0268",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-2_p12614",
-      "source": "unassigned.thuê_đất",
-      "target": "subject.asset.money",
-      "evidence": "Đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê để đầu tư xây dựng kinh doanh kết cấu hạ tầng khu công nghiệp, cụm công nghiệp quy định tại khoản 2 Điều 202 của Luật này thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này.",
-      "rule_id": "RULE_M7_REL_0268",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0269",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-2_p12614",
-      "source": "unassigned.thuê_đất",
-      "target": "unassigned.thời_gian_thuê",
-      "evidence": "Đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê để đầu tư xây dựng kinh doanh kết cấu hạ tầng khu công nghiệp, cụm công nghiệp quy định tại khoản 2 Điều 202 của Luật này thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này.",
-      "rule_id": "RULE_M7_REL_0269",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0271",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-a_p13127",
@@ -3251,16 +1706,6 @@
       "target": "unassigned.quyền_và_nghĩa_vụ",
       "evidence": "Trường hợp được Nhà nước giao đất để thực hiện dự án đầu tư xây dựng nhà ở xã hội, nhà ở cho lực lượng vũ trang nhân dân, dự án đầu tư cải tạo, xây dựng lại nhà chung cư mà được miễn hoặc giảm tiền sử dụng đất thì có quyền và nghĩa vụ như trường hợp không được miễn hoặc không được giảm tiền sử dụng đất;",
       "rule_id": "RULE_M7_REL_0272",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0273",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-a_p13127",
-      "source": "unassigned.quyền_và_nghĩa_vụ",
-      "target": "unassigned.miễn_hoặc_giảm_tiền_sử_dụng_đất",
-      "evidence": "Trường hợp được Nhà nước giao đất để thực hiện dự án đầu tư xây dựng nhà ở xã hội, nhà ở cho lực lượng vũ trang nhân dân, dự án đầu tư cải tạo, xây dựng lại nhà chung cư mà được miễn hoặc giảm tiền sử dụng đất thì có quyền và nghĩa vụ như trường hợp không được miễn hoặc không được giảm tiền sử dụng đất;",
-      "rule_id": "RULE_M7_REL_0273",
       "assertion_status": "ASSERTED"
     },
     {
@@ -3334,16 +1779,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0281",
-      "relation_type": "HAS_EXCEPTION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-b_p13433",
-      "source": "unassigned.giao_đất",
-      "target": "unassigned.trừ_trường_hợp_pháp_luật_có_liên_quan_có_quy_định_khác",
-      "evidence": "trường hợp chuyển nhượng, góp vốn bằng quyền sử dụng đất thì phải nộp cho Nhà nước một khoản tiền tương ứng với số tiền sử dụng đất, tiền thuê đất đã được miễn, giảm tại thời điểm giao đất, cho thuê đất, trừ trường hợp pháp luật có liên quan có quy định khác",
-      "rule_id": "RULE_M7_REL_0281",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0282",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
@@ -3414,26 +1849,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0291",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-c_p14648",
-      "source": "unassigned.người_mua_tài_sản_gắn_liền_với_đất_và_quyền_thuê_trong_hợp_đồng_thuê_đất",
-      "target": "unassigned.tiếp_tục_thuê_đất",
-      "evidence": "Người mua tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất được tiếp tục thuê đất theo mục đích đã được xác định và thời hạn sử dụng đất còn lại,",
-      "rule_id": "RULE_M7_REL_0291",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0296",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15135",
-      "source": "subject.state",
-      "target": "unassigned.tiếp_tục_cho_thuê_đất",
-      "evidence": "người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định trong thời hạn còn lại;",
-      "rule_id": "RULE_M7_REL_0296",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0297",
       "relation_type": "HAS_OBJECT",
       "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15135",
@@ -3441,56 +1856,6 @@
       "target": "subject.asset.physical_land",
       "evidence": "Góp vốn bằng tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn thuê đất;",
       "rule_id": "RULE_M7_REL_0297",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0298",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15135",
-      "source": "unassigned.tiếp_tục_cho_thuê_đất",
-      "target": "condition.temporal.within_term",
-      "evidence": "người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định trong thời hạn còn lại;",
-      "rule_id": "RULE_M7_REL_0298",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0299",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15135",
-      "source": "unassigned.tiếp_tục_cho_thuê_đất",
-      "target": "condition.compliance.right_purpose",
-      "evidence": "người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định trong thời hạn còn lại;",
-      "rule_id": "RULE_M7_REL_0299",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0300",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15135",
-      "source": "unassigned.tiếp_tục_cho_thuê_đất",
-      "target": "condition.temporal.within_term",
-      "evidence": "người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định trong thời hạn còn lại;",
-      "rule_id": "RULE_M7_REL_0300",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0301",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15343",
-      "source": "unassigned.tổ_chức_kinh_tế,_tổ_chức_tôn_giáo,_tổ_chức_tôn_giáo_trực_thuộc",
-      "target": "unassigned.cho_thuê_tài_sản_thuộc_sở_hữu_của_mình_gắn_liền_với_đất_và_quyền_thuê_trong_hợp_đồng_thuê_đất",
-      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây:",
-      "rule_id": "RULE_M7_REL_0301",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0302",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15343",
-      "source": "unassigned.cho_thuê_tài_sản_thuộc_sở_hữu_của_mình_gắn_liền_với_đất_và_quyền_thuê_trong_hợp_đồng_thuê_đất",
-      "target": "subject.asset.physical_land",
-      "evidence": "Cho thuê tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất;",
-      "rule_id": "RULE_M7_REL_0302",
       "assertion_status": "ASSERTED"
     },
     {
@@ -3551,76 +1916,6 @@
       "target": "action.transaction.mortgage",
       "evidence": "Đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thu tiền thuê đất hằng năm không thuộc trường hợp sử dụng đất để đầu tư xây dựng kinh doanh kết cấu hạ tầng khu công nghiệp, cụm công nghiệp quy định tại khoản 2 Điều 202 của Luật này thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này, trừ quyền bán, quyền thế chấp và quyền góp vốn bằng tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất",
       "rule_id": "RULE_M7_REL_0308",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0309",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_p15825",
-      "source": "subject.land_user.domestic_org.public_service",
-      "target": "unassigned.quyền_góp_vốn",
-      "evidence": "Đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thu tiền thuê đất hằng năm không thuộc trường hợp sử dụng đất để đầu tư xây dựng kinh doanh kết cấu hạ tầng khu công nghiệp, cụm công nghiệp quy định tại khoản 2 Điều 202 của Luật này thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này, trừ quyền bán, quyền thế chấp và quyền góp vốn bằng tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất",
-      "rule_id": "RULE_M7_REL_0309",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0310",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_p15825",
-      "source": "subject.land_user.domestic_org.public_service",
-      "target": "unassigned.quyền_thuê",
-      "evidence": "Đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thu tiền thuê đất hằng năm không thuộc trường hợp sử dụng đất để đầu tư xây dựng kinh doanh kết cấu hạ tầng khu công nghiệp, cụm công nghiệp quy định tại khoản 2 Điều 202 của Luật này thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này, trừ quyền bán, quyền thế chấp và quyền góp vốn bằng tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất",
-      "rule_id": "RULE_M7_REL_0310",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0311",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_p15825",
-      "source": "subject.land_user.domestic_org.public_service",
-      "target": "unassigned.mục_đích_khác",
-      "evidence": "Việc khai thác, sử dụng quỹ đất đã được Nhà nước cho thuê đất kết hợp vào mục đích khác thực hiện theo quy định sau đây",
-      "rule_id": "RULE_M7_REL_0311",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0312",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355",
-      "source": "subject.land_user.domestic_org.public_service",
-      "target": "unassigned.khai_thác,_sử_dụng",
-      "evidence": "Đối với đất đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thì được phép chủ động khai thác, sử dụng kết hợp đa mục đích theo phương án được cơ quan chủ quản phê duyệt phù hợp với quy định của Luật này và pháp luật có liên quan",
-      "rule_id": "RULE_M7_REL_0312",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0313",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355",
-      "source": "unassigned.khai_thác,_sử_dụng",
-      "target": "subject.asset.physical_land",
-      "evidence": "Đối với đất đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thì được phép chủ động khai thác, sử dụng kết hợp đa mục đích theo phương án được cơ quan chủ quản phê duyệt phù hợp với quy định của Luật này và pháp luật có liên quan",
-      "rule_id": "RULE_M7_REL_0313",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0314",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355",
-      "source": "unassigned.khai_thác,_sử_dụng",
-      "target": "unassigned.phương_án_được_cơ_quan_chủ_quản_phê_duyệt",
-      "evidence": "Đối với đất đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thì được phép chủ động khai thác, sử dụng kết hợp đa mục đích theo phương án được cơ quan chủ quản phê duyệt phù hợp với quy định của Luật này và pháp luật có liên quan",
-      "rule_id": "RULE_M7_REL_0314",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0315",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355",
-      "source": "unassigned.khai_thác,_sử_dụng",
-      "target": "unassigned.pháp_luật_về_xây_dựng",
-      "evidence": "trường hợp có đầu tư xây dựng công trình trên đất phải phù hợp với pháp luật về xây dựng",
-      "rule_id": "RULE_M7_REL_0315",
       "assertion_status": "ASSERTED"
     },
     {
@@ -3724,16 +2019,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0330",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-a_p17947",
-      "source": "unassigned.nhận_chuyển_nhượng",
-      "target": "unassigned.không_chuyển_mục_đích_sử_dụng_đất",
-      "evidence": "Trường hợp nhận chuyển nhượng và không chuyển mục đích sử dụng đất thì có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này;",
-      "rule_id": "RULE_M7_REL_0330",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0332",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-b_p18093",
@@ -3754,16 +2039,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0337",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-b_p18093",
-      "source": "unassigned.chuyển_mục_đích_sử_dụng_đất",
-      "target": "unassigned.cho_thuê_đất_thu_tiền_thuê_đất_một_lần_cho_cả_thời_gian_thuê",
-      "evidence": "Trường hợp nhận chuyển nhượng và chuyển mục đích sử dụng đất mà thuộc trường hợp được Nhà nước giao đất có thu tiền sử dụng đất hoặc cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này;",
-      "rule_id": "RULE_M7_REL_0337",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0339",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-c_p18366",
@@ -3781,26 +2056,6 @@
       "target": "unassigned.quyền_và_nghĩa_vụ",
       "evidence": "Trường hợp nhận chuyển nhượng và chuyển mục đích sử dụng đất mà thuộc trường hợp được Nhà nước cho thuê đất thu tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này.",
       "rule_id": "RULE_M7_REL_0340",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0343",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-c_p18366",
-      "source": "action.transaction.transfer",
-      "target": "unassigned.thuê_đất_thu_tiền_thuê_đất_hằng_năm",
-      "evidence": "Trường hợp nhận chuyển nhượng và chuyển mục đích sử dụng đất mà thuộc trường hợp được Nhà nước cho thuê đất thu tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này.",
-      "rule_id": "RULE_M7_REL_0343",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0344",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-c_p18366",
-      "source": "unassigned.chuyển_mục_đích_sử_dụng_đất",
-      "target": "unassigned.thuê_đất_thu_tiền_thuê_đất_hằng_năm",
-      "evidence": "Trường hợp nhận chuyển nhượng và chuyển mục đích sử dụng đất mà thuộc trường hợp được Nhà nước cho thuê đất thu tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này.",
-      "rule_id": "RULE_M7_REL_0344",
       "assertion_status": "ASSERTED"
     },
     {
@@ -3854,16 +2109,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0353",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_diem-b_p19014",
-      "source": "unassigned.quyền_và_nghĩa_vụ",
-      "target": "unassigned.khoản_1_điều_34",
-      "evidence": "quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này",
-      "rule_id": "RULE_M7_REL_0353",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0354",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_p19302",
@@ -3871,26 +2116,6 @@
       "target": "action.transaction.capital_contribution",
       "evidence": "Tổ chức kinh tế nhận góp vốn bằng quyền sử dụng đất của cá nhân, tổ chức kinh tế khác thì có quyền và nghĩa vụ quy định tại Điều 33 của Luật này trong các trường hợp sau đây",
       "rule_id": "RULE_M7_REL_0354",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0356",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_p19302",
-      "source": "action.transaction.capital_contribution",
-      "target": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_điều_33_của_luật_này",
-      "evidence": "có quyền và nghĩa vụ quy định tại Điều 33 của Luật này",
-      "rule_id": "RULE_M7_REL_0356",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0357",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_p19302",
-      "source": "action.transaction.capital_contribution",
-      "target": "unassigned.trong_các_trường_hợp_sau_đây",
-      "evidence": "trong các trường hợp sau đây",
-      "rule_id": "RULE_M7_REL_0357",
       "assertion_status": "ASSERTED"
     },
     {
@@ -3911,36 +2136,6 @@
       "target": "subject.asset.physical_land",
       "evidence": "Nhà nước thu hồi đất đó theo quy định của Luật này và pháp luật về hợp tác xã;",
       "rule_id": "RULE_M7_REL_0363",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0366",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
-      "source": "unassigned.hợp_tác_xã",
-      "target": "subject.asset.land_rights",
-      "evidence": "quyền sử dụng đất đó là của hợp tác xã, liên hiệp hợp tác xã",
-      "rule_id": "RULE_M7_REL_0366",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0367",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
-      "source": "unassigned.hợp_tác_xã",
-      "target": "unassigned.điều_lệ_của_hợp_tác_xã",
-      "evidence": "được xử lý theo điều lệ của hợp tác xã",
-      "rule_id": "RULE_M7_REL_0367",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0368",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
-      "source": "unassigned.hợp_tác_xã",
-      "target": "unassigned.nghị_quyết_của_đại_hội_thành_viên",
-      "evidence": "được xử lý theo nghị quyết của đại hội thành viên",
-      "rule_id": "RULE_M7_REL_0368",
       "assertion_status": "ASSERTED"
     },
     {
@@ -4034,46 +2229,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0380",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p21866",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.thuê",
-      "evidence": "Cá nhân sử dụng đất nông nghiệp được Nhà nước giao trong hạn mức",
-      "rule_id": "RULE_M7_REL_0380",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0381",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p21866",
-      "source": "unassigned.thuê",
-      "target": "subject.asset.land_rights",
-      "evidence": "Cho tổ chức, cá nhân khác, người gốc Việt Nam định cư ở nước ngoài đầu tư tại Việt Nam thuê quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0381",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0382",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p21866",
-      "source": "unassigned.thuê",
-      "target": "subject.asset.property",
-      "evidence": "Cho tổ chức, cá nhân khác, người gốc Việt Nam định cư ở nước ngoài đầu tư tại Việt Nam thuê quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất",
-      "rule_id": "RULE_M7_REL_0382",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0383",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p21866",
-      "source": "subject.state",
-      "target": "unassigned.thuê",
-      "evidence": "Cá nhân sử dụng đất nông nghiệp được Nhà nước giao trong hạn mức",
-      "rule_id": "RULE_M7_REL_0383",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0384",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22025",
@@ -4124,16 +2279,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0394",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p22984",
-      "source": "action.transaction.mortgage",
-      "target": "unassigned.tổ_chức_kinh_tế_khác_hoặc_cá_nhân",
-      "evidence": "tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
-      "rule_id": "RULE_M7_REL_0394",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0399",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_p23381",
@@ -4174,16 +2319,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0404",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-b_p23547",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.kế_thừa_các_quyền_và_nghĩa_vụ_của_người_sử_dụng_đất",
-      "evidence": "được kế thừa các quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này và pháp luật có liên quan;",
-      "rule_id": "RULE_M7_REL_0404",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0406",
       "relation_type": "HAS_CONDITION",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-b_p23547",
@@ -4201,16 +2336,6 @@
       "target": "unassigned.cho_thuê_đất",
       "evidence": "người nhận thừa kế, người được tặng cho tài sản và quyền thuê trong hợp đồng thuê đất được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định",
       "rule_id": "RULE_M7_REL_0408",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0409",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-c_p24048",
-      "source": "unassigned.người_được_tặng_cho_tài_sản",
-      "target": "unassigned.cho_thuê_đất",
-      "evidence": "người nhận thừa kế, người được tặng cho tài sản và quyền thuê trong hợp đồng thuê đất được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định",
-      "rule_id": "RULE_M7_REL_0409",
       "assertion_status": "ASSERTED"
     },
     {
@@ -4334,16 +2459,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0424",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-e_p24600",
-      "source": "unassigned.góp_vốn",
-      "target": "unassigned.thời_hạn",
-      "evidence": "trong thời hạn thuê đất với tổ chức, cá nhân, người gốc Việt Nam định cư ở nước ngoài;",
-      "rule_id": "RULE_M7_REL_0424",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0427",
       "relation_type": "HAS_CONDITION",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-a_p24987",
@@ -4364,16 +2479,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0429",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-b_p25125",
-      "source": "unassigned.cá_nhân_thuê_lại_đất",
-      "target": "unassigned.trong_khu_công_nghiệp,_cụm_công_nghiệp,_khu_công_nghệ_cao",
-      "evidence": "Cá nhân thuê lại đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao thì có các quyền và nghĩa vụ sau đây:",
-      "rule_id": "RULE_M7_REL_0429",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0430",
       "relation_type": "HAS_OBJECT",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-b_p25125",
@@ -4381,16 +2486,6 @@
       "target": "subject.asset.money",
       "evidence": "Trường hợp thuê đất, thuê lại đất trả tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 2 Điều này.",
       "rule_id": "RULE_M7_REL_0430",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0431",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-b_p25125",
-      "source": "unassigned.quyền_và_nghĩa_vụ",
-      "target": "unassigned.khoản_2_điều_này",
-      "evidence": "Trường hợp thuê đất, thuê lại đất trả tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 2 Điều này.",
-      "rule_id": "RULE_M7_REL_0431",
       "assertion_status": "ASSERTED"
     },
     {
@@ -4454,16 +2549,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0439",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-5_p25444",
-      "source": "unassigned.tổ_chức,_cá_nhân",
-      "target": "unassigned.quyền_và_nghĩa_vụ",
-      "evidence": "Cá nhân sử dụng đất thuê của tổ chức, cá nhân không thuộc trường hợp quy định tại khoản 3 Điều này thì có quyền và nghĩa vụ theo quy định của pháp luật về dân sự.",
-      "rule_id": "RULE_M7_REL_0439",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0440",
       "relation_type": "REFERENCE_TO",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-5_p25444",
@@ -4481,26 +2566,6 @@
       "target": "unassigned.chuyển_mục_đích_sử_dụng_đất",
       "evidence": "Cá nhân được phép chuyển mục đích sử dụng đất từ đất được Nhà nước giao đất không thu tiền sử dụng đất sang đất được Nhà nước giao đất có thu tiền sử dụng đất hoặc Nhà nước cho thuê đất có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
       "rule_id": "RULE_M7_REL_0441",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0442",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-1_p25756",
-      "source": "unassigned.chuyển_mục_đích_sử_dụng_đất",
-      "target": "unassigned.đất_được_nhà_nước_giao_đất_không_thu_tiền_sử_dụng_đất",
-      "evidence": "Cá nhân được phép chuyển mục đích sử dụng đất từ đất được Nhà nước giao đất không thu tiền sử dụng đất sang đất được Nhà nước giao đất có thu tiền sử dụng đất hoặc Nhà nước cho thuê đất có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
-      "rule_id": "RULE_M7_REL_0442",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0443",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-1_p25756",
-      "source": "unassigned.chuyển_mục_đích_sử_dụng_đất",
-      "target": "unassigned.đất_được_nhà_nước_giao_đất_có_thu_tiền_sử_dụng_đất",
-      "evidence": "Cá nhân được phép chuyển mục đích sử dụng đất từ đất được Nhà nước giao đất không thu tiền sử dụng đất sang đất được Nhà nước giao đất có thu tiền sử dụng đất hoặc Nhà nước cho thuê đất có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
-      "rule_id": "RULE_M7_REL_0443",
       "assertion_status": "ASSERTED"
     },
     {
@@ -4564,16 +2629,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0454",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-a_p26278",
-      "source": "unassigned.chuyển_mục_đích_sử_dụng_đất",
-      "target": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_1_điều_37_của_luật_này",
-      "evidence": "có quyền và nghĩa vụ quy định tại khoản 1 Điều 37 của Luật này",
-      "rule_id": "RULE_M7_REL_0454",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0455",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-b_p26470",
@@ -4584,16 +2639,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0456",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-b_p26470",
-      "source": "subject.state",
-      "target": "unassigned.trường_hợp",
-      "evidence": "Trường hợp được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
-      "rule_id": "RULE_M7_REL_0456",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0457",
       "relation_type": "HAS_OBJECT",
       "source_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-b_p26470",
@@ -4601,16 +2646,6 @@
       "target": "subject.asset.physical_land",
       "evidence": "có quyền và nghĩa vụ quy định tại khoản 2 Điều 37 của Luật này",
       "rule_id": "RULE_M7_REL_0457",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0458",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-b_p26470",
-      "source": "unassigned.quyền_và_nghĩa_vụ",
-      "target": "unassigned.khoản_2_điều_37",
-      "evidence": "quyền và nghĩa vụ quy định tại khoản 2 Điều 37 của Luật này",
-      "rule_id": "RULE_M7_REL_0458",
       "assertion_status": "ASSERTED"
     },
     {
@@ -4684,76 +2719,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0469",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-b_p27606",
-      "source": "subject.land_user.foreign.diplomatic",
-      "target": "unassigned.xây_dựng",
-      "evidence": "Tổ chức nước ngoài có chức năng ngoại giao sử dụng đất tại Việt Nam có các quyền và nghĩa vụ sau đây: Xây dựng các công trình trên đất theo giấy phép của cơ quan nhà nước Việt Nam có thẩm quyền;",
-      "rule_id": "RULE_M7_REL_0469",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0470",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-b_p27606",
-      "source": "unassigned.xây_dựng",
-      "target": "subject.asset.property",
-      "evidence": "Xây dựng các công trình trên đất theo giấy phép của cơ quan nhà nước Việt Nam có thẩm quyền;",
-      "rule_id": "RULE_M7_REL_0470",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0471",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-b_p27606",
-      "source": "unassigned.xây_dựng",
-      "target": "unassigned.giấy_phép",
-      "evidence": "Xây dựng các công trình trên đất theo giấy phép của cơ quan nhà nước Việt Nam có thẩm quyền;",
-      "rule_id": "RULE_M7_REL_0471",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0473",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-c_p27699",
-      "source": "subject.land_user.foreign.diplomatic",
-      "target": "unassigned.sở_hữu_công_trình_do_mình_xây_dựng_trên_đất_thuê_trong_thời_hạn_thuê_đất",
-      "evidence": "Tổ chức nước ngoài có chức năng ngoại giao sử dụng đất tại Việt Nam có các quyền và nghĩa vụ sau đây: Sở hữu công trình do mình xây dựng trên đất thuê trong thời hạn thuê đất;",
-      "rule_id": "RULE_M7_REL_0473",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0474",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-c_p27699",
-      "source": "unassigned.sở_hữu_công_trình_do_mình_xây_dựng_trên_đất_thuê_trong_thời_hạn_thuê_đất",
-      "target": "unassigned.đất_thuê",
-      "evidence": "Sở hữu công trình do mình xây dựng trên đất thuê trong thời hạn thuê đất;",
-      "rule_id": "RULE_M7_REL_0474",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0475",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-c_p27699",
-      "source": "unassigned.sở_hữu_công_trình_do_mình_xây_dựng_trên_đất_thuê_trong_thời_hạn_thuê_đất",
-      "target": "condition.temporal.within_term",
-      "evidence": "Sở hữu công trình do mình xây dựng trên đất thuê trong thời hạn thuê đất;",
-      "rule_id": "RULE_M7_REL_0475",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0476",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
-      "source": "subject.land_user.foreign.diplomatic",
-      "target": "unassigned.trả_lại_đất",
-      "evidence": "Việc trả lại đất, chuyển quyền sử dụng đất của tổ chức nước ngoài có chức năng ngoại giao khi không còn nhu cầu sử dụng vào mục đích đã được thuê đất thì thực hiện theo điều ước quốc tế, thỏa thuận quốc tế và quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0476",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0477",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
@@ -4764,26 +2729,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0478",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
-      "source": "unassigned.trả_lại_đất",
-      "target": "unassigned.điều_ước_quốc_tế",
-      "evidence": "thực hiện theo điều ước quốc tế, thỏa thuận quốc tế và quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0478",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0479",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
-      "source": "unassigned.trả_lại_đất",
-      "target": "unassigned.thỏa_thuận_quốc_tế",
-      "evidence": "thực hiện theo điều ước quốc tế, thỏa thuận quốc tế và quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0479",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0481",
       "relation_type": "HAS_OBJECT",
       "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
@@ -4791,16 +2736,6 @@
       "target": "unassigned.điều_ước_quốc_tế",
       "evidence": "thực hiện theo điều ước quốc tế, thỏa thuận quốc tế và quy định của pháp luật.",
       "rule_id": "RULE_M7_REL_0481",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0482",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27773",
-      "source": "action.transaction.transfer",
-      "target": "unassigned.thỏa_thuận_quốc_tế",
-      "evidence": "thực hiện theo điều ước quốc tế, thỏa thuận quốc tế và quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0482",
       "assertion_status": "ASSERTED"
     },
     {
@@ -4944,16 +2879,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0504",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-c_p28899",
-      "source": "unassigned.người_nhận_góp_vốn_bằng_tài_sản",
-      "target": "unassigned.cho_thuê_đất",
-      "evidence": "người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo đúng mục đích đã được xác định trong thời hạn còn lại;",
-      "rule_id": "RULE_M7_REL_0504",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0506",
       "relation_type": "HAS_CONDITION",
       "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-c_p28899",
@@ -4994,16 +2919,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0515",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29572",
-      "source": "action.transaction.lease",
-      "target": "unassigned.tài_sản_thuộc_sở_hữu_của_mình_gắn_liền_với_đất_và_quyền_thuê_trong_hợp_đồng_thuê_đất",
-      "evidence": "Cho thuê tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất;",
-      "rule_id": "RULE_M7_REL_0515",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0516",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29670",
@@ -5024,16 +2939,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0518",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29670",
-      "source": "action.transaction.lease",
-      "target": "unassigned.đất_đã_được_xây_dựng_xong_kết_cấu_hạ_tầng",
-      "evidence": "Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê đất hằng năm đối với đất đã được xây dựng xong kết cấu hạ tầng trong trường hợp được phép đầu tư xây dựng kinh doanh kết cấu hạ tầng đối với đất khu công nghiệp, cụm công nghiệp, khu công nghệ cao;",
-      "rule_id": "RULE_M7_REL_0518",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0519",
       "relation_type": "REQUIRE",
       "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29670",
@@ -5051,26 +2956,6 @@
       "target": "unassigned.sử_dụng_đất_đúng_mục_đích",
       "evidence": "người thuê lại quyền sử dụng đất phải sử dụng đất đúng mục đích và thực hiện nghĩa vụ tài chính theo quy định.",
       "rule_id": "RULE_M7_REL_0520",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0521",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29670",
-      "source": "subject.land_user.foreign.overseas_vietnamese",
-      "target": "unassigned.thực_hiện_nghĩa_vụ_tài_chính",
-      "evidence": "người thuê lại quyền sử dụng đất phải sử dụng đất đúng mục đích và thực hiện nghĩa vụ tài chính theo quy định.",
-      "rule_id": "RULE_M7_REL_0521",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0522",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29670",
-      "source": "subject.land_user.foreign.fdi_enterprise",
-      "target": "unassigned.thực_hiện_nghĩa_vụ_tài_chính",
-      "evidence": "người thuê lại quyền sử dụng đất phải sử dụng đất đúng mục đích và thực hiện nghĩa vụ tài chính theo quy định.",
-      "rule_id": "RULE_M7_REL_0522",
       "assertion_status": "ASSERTED"
     },
     {
@@ -5354,16 +3239,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0560",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-1_p31581",
-      "source": "subject.land_user.foreign.fdi_enterprise",
-      "target": "unassigned.quyền_và_nghĩa_vụ_quy_định_tại_khoản_3_điều_41",
-      "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất có nguồn gốc được Nhà nước giao có thu tiền sử dụng đất, quyền sử dụng đất được thuê trả tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 3 Điều 41 của Luật này.",
-      "rule_id": "RULE_M7_REL_0560",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0561",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-a_p32028",
@@ -5441,16 +3316,6 @@
       "target": "reference.internal.articles",
       "evidence": "Người gốc Việt Nam định cư ở nước ngoài nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này.",
       "rule_id": "RULE_M7_REL_0582",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0591",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-1_p34692",
-      "source": "subject.land_user.foreign.overseas_vietnamese",
-      "target": "unassigned.nhập_cảnh_vào_việt_nam",
-      "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam",
-      "rule_id": "RULE_M7_REL_0591",
       "assertion_status": "ASSERTED"
     },
     {
@@ -5674,16 +3539,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0619",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-b_p36548",
-      "source": "unassigned.người_được_tặng_cho",
-      "target": "subject.asset.land_rights",
-      "evidence": "Trong trường hợp tặng cho quyền sử dụng đất thì người được tặng cho phải là đối tượng được quy định tại điểm e khoản 1 Điều 37 của Luật này và phù hợp với quy định của pháp luật về nhà ở, trong đó người nhận thừa kế được đứng tên là bên tặng cho trong hợp đồng hoặc văn bản cam kết tặng cho;",
-      "rule_id": "RULE_M7_REL_0619",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0621",
       "relation_type": "REQUIRE",
       "source_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-c_p36840",
@@ -5691,26 +3546,6 @@
       "target": "action.transaction.inheritance",
       "evidence": "người nhận thừa kế hoặc người đại diện theo ủy quyền bằng văn bản nộp hồ sơ về việc nhận thừa kế",
       "rule_id": "RULE_M7_REL_0621",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0622",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-c_p36840",
-      "source": "action.transaction.inheritance",
-      "target": "unassigned.tổ_chức_đăng_ký_đất_đai",
-      "evidence": "nộp hồ sơ về việc nhận thừa kế tại tổ chức đăng ký đất đai",
-      "rule_id": "RULE_M7_REL_0622",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0623",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-c_p36840",
-      "source": "action.transaction.inheritance",
-      "target": "unassigned.trong_trường_hợp_chưa_chuyển_nhượng_hoặc_chưa_tặng_cho_quyền_sử_dụng_đất",
-      "evidence": "Trong trường hợp chưa chuyển nhượng hoặc chưa tặng cho quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0623",
       "assertion_status": "ASSERTED"
     },
     {
@@ -5731,16 +3566,6 @@
       "target": "action.transaction.inheritance",
       "evidence": "Những người nhận thừa kế hoặc người đại diện theo ủy quyền bằng văn bản nộp hồ sơ về việc nhận thừa kế tại tổ chức đăng ký đất đai",
       "rule_id": "RULE_M7_REL_0626",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0627",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-4_p37072",
-      "source": "unassigned.phân_chia_thừa_kế",
-      "target": "subject.asset.land_rights",
-      "evidence": "Sau khi giải quyết xong việc phân chia thừa kế",
-      "rule_id": "RULE_M7_REL_0627",
       "assertion_status": "ASSERTED"
     },
     {
@@ -6104,16 +3929,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0679",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.không_bị_kê_biên",
-      "evidence": "Quyền sử dụng đất không bị kê biên, áp dụng biện pháp khác để bảo đảm thi hành án theo quy định của pháp luật thi hành án dân sự;",
-      "rule_id": "RULE_M7_REL_0679",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0680",
       "relation_type": "HAS_CONDITION",
       "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39615",
@@ -6121,16 +3936,6 @@
       "target": "condition.temporal.within_term",
       "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất khi có đủ các điều kiện sau đây:",
       "rule_id": "RULE_M7_REL_0680",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0682",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
-      "source": "subject.asset.land_rights",
-      "target": "unassigned.biện_pháp_khẩn_cấp_tạm_thời",
-      "evidence": "Quyền sử dụng đất không bị áp dụng biện pháp khẩn cấp tạm thời theo quy định của pháp luật.",
-      "rule_id": "RULE_M7_REL_0682",
       "assertion_status": "ASSERTED"
     },
     {
@@ -6151,36 +3956,6 @@
       "target": "subject.asset.land_rights",
       "evidence": "Chủ đầu tư chuyển nhượng quyền sử dụng đất đã có hạ tầng kỹ thuật trong dự án bất động sản",
       "rule_id": "RULE_M7_REL_0684",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0685",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-2_p39738",
-      "source": "subject.land_user.domestic_org.economic",
-      "target": "unassigned.điều_kiện_khác",
-      "evidence": "còn phải đáp ứng điều kiện khác theo quy định của Luật Kinh doanh bất động sản, Luật Nhà ở",
-      "rule_id": "RULE_M7_REL_0685",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0686",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-2_p39738",
-      "source": "unassigned.điều_kiện_khác",
-      "target": "reference.law.real_estate",
-      "evidence": "theo quy định của Luật Kinh doanh bất động sản",
-      "rule_id": "RULE_M7_REL_0686",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0687",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-2_p39738",
-      "source": "unassigned.điều_kiện_khác",
-      "target": "reference.law.real_estate",
-      "evidence": "theo quy định của Luật Nhà ở",
-      "rule_id": "RULE_M7_REL_0687",
       "assertion_status": "ASSERTED"
     },
     {
@@ -6314,26 +4089,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0701",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-a_p40271",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.mua,_bán_tài_sản_gắn_liền_với_đất",
-      "evidence": "Người sử dụng đất khi thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0701",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0704",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-b_p40472",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.chuyển_đổi_quyền_sử_dụng_đất_nông_nghiệp",
-      "evidence": "Người sử dụng đất khi thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0704",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0708",
       "relation_type": "HAS_OBJECT",
       "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-c_p40594",
@@ -6354,56 +4109,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0714",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-5_p41303",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.các_quyền_chuyển_đổi,_chuyển_nhượng,_cho_thuê,_cho_thuê_lại,_tặng_cho_quyền_sử_dụng_đất,_thế_chấp,_góp_vốn_bằng_quyền_sử_dụng_đất",
-      "evidence": "Trường hợp người sử dụng đất được chậm thực hiện nghĩa vụ tài chính hoặc được ghi nợ nghĩa vụ tài chính thì phải thực hiện xong nghĩa vụ tài chính trước khi thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, tặng cho quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0714",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0717",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-5_p41303",
-      "source": "unassigned.các_quyền_chuyển_đổi,_chuyển_nhượng,_cho_thuê,_cho_thuê_lại,_tặng_cho_quyền_sử_dụng_đất,_thế_chấp,_góp_vốn_bằng_quyền_sử_dụng_đất",
-      "target": "unassigned.nghĩa_vụ_tài_chính",
-      "evidence": "phải thực hiện xong nghĩa vụ tài chính trước khi thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, tặng cho quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
-      "rule_id": "RULE_M7_REL_0717",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0718",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-7_p41970",
-      "source": "unassigned.cá_nhân_không_trực_tiếp_sản_xuất_nông_nghiệp",
-      "target": "unassigned.nhận_chuyển_nhượng",
-      "evidence": "Cá nhân không trực tiếp sản xuất nông nghiệp nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất trồng lúa quá hạn mức quy định tại Điều 176 của Luật này thì phải thành lập tổ chức kinh tế và có phương án sử dụng đất trồng lúa bao gồm các nội dung theo quy định tại khoản 6 Điều này và được Ủy ban nhân dân cấp huyện phê duyệt, trừ trường hợp người nhận tặng cho là người thuộc hàng thừa kế.",
-      "rule_id": "RULE_M7_REL_0718",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0719",
-      "relation_type": "ALLOW",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-7_p41970",
-      "source": "unassigned.cá_nhân_không_trực_tiếp_sản_xuất_nông_nghiệp",
-      "target": "unassigned.nhận_tặng_cho",
-      "evidence": "Cá nhân không trực tiếp sản xuất nông nghiệp nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất trồng lúa quá hạn mức quy định tại Điều 176 của Luật này thì phải thành lập tổ chức kinh tế và có phương án sử dụng đất trồng lúa bao gồm các nội dung theo quy định tại khoản 6 Điều này và được Ủy ban nhân dân cấp huyện phê duyệt, trừ trường hợp người nhận tặng cho là người thuộc hàng thừa kế.",
-      "rule_id": "RULE_M7_REL_0719",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0721",
-      "relation_type": "HAS_EXCEPTION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-7_p41970",
-      "source": "unassigned.quá_hạn_mức_quy_định_tại_điều_176",
-      "target": "unassigned.trừ_trường_hợp_người_nhận_tặng_cho_là_người_thuộc_hàng_thừa_kế",
-      "evidence": "Cá nhân không trực tiếp sản xuất nông nghiệp nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất trồng lúa quá hạn mức quy định tại Điều 176 của Luật này thì phải thành lập tổ chức kinh tế và có phương án sử dụng đất trồng lúa bao gồm các nội dung theo quy định tại khoản 6 Điều này và được Ủy ban nhân dân cấp huyện phê duyệt, trừ trường hợp người nhận tặng cho là người thuộc hàng thừa kế.",
-      "rule_id": "RULE_M7_REL_0721",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0723",
       "relation_type": "PROHIBIT",
       "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-a_p42458",
@@ -6411,36 +4116,6 @@
       "target": "unassigned.nhận_chuyển_nhượng",
       "evidence": "Tổ chức kinh tế không được nhận chuyển nhượng quyền sử dụng đất rừng phòng hộ, đất rừng đặc dụng của cá nhân",
       "rule_id": "RULE_M7_REL_0723",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0724",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-a_p42458",
-      "source": "unassigned.nhận_chuyển_nhượng",
-      "target": "unassigned.quyền_sử_dụng_đất_rừng_phòng_hộ,_đất_rừng_đặc_dụng",
-      "evidence": "Tổ chức kinh tế không được nhận chuyển nhượng quyền sử dụng đất rừng phòng hộ, đất rừng đặc dụng của cá nhân",
-      "rule_id": "RULE_M7_REL_0724",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0725",
-      "relation_type": "HAS_EXCEPTION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-a_p42458",
-      "source": "unassigned.nhận_chuyển_nhượng",
-      "target": "unassigned.trừ_trường_hợp_được_chuyển_mục_đích_sử_dụng_đất_theo_quy_hoạch,_kế_hoạch_sử_dụng_đất_đã_được_cơ_quan_có_thẩm_quyền_phê_duyệt",
-      "evidence": "trừ trường hợp được chuyển mục đích sử dụng đất theo quy hoạch, kế hoạch sử dụng đất đã được cơ quan có thẩm quyền phê duyệt",
-      "rule_id": "RULE_M7_REL_0725",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0726",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-a_p42458",
-      "source": "unassigned.nhận_chuyển_nhượng",
-      "target": "unassigned.chuyển_mục_đích_sử_dụng_đất_theo_quy_hoạch,_kế_hoạch_sử_dụng_đất_đã_được_cơ_quan_có_thẩm_quyền_phê_duyệt",
-      "evidence": "trừ trường hợp được chuyển mục đích sử dụng đất theo quy hoạch, kế hoạch sử dụng đất đã được cơ quan có thẩm quyền phê duyệt",
-      "rule_id": "RULE_M7_REL_0726",
       "assertion_status": "ASSERTED"
     },
     {
@@ -6484,46 +4159,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0731",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-b_p42694",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.khu_vực_rừng_phòng_hộ",
-      "evidence": "Cá nhân không sinh sống trong khu vực rừng phòng hộ, rừng đặc dụng thì không được nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất ở và đất khác trong khu vực rừng phòng hộ, trong phân khu bảo vệ nghiêm ngặt, phân khu phục hồi sinh thái thuộc rừng đặc dụng đó;",
-      "rule_id": "RULE_M7_REL_0731",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0736",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-a_p43572",
-      "source": "subject.asset.property",
-      "target": "unassigned.được_tạo_lập_hợp_pháp_và_đã_được_đăng_ký_theo_quy_định_của_pháp_luật",
-      "evidence": "Tài sản gắn liền với đất thuê được tạo lập hợp pháp và đã được đăng ký theo quy định của pháp luật;",
-      "rule_id": "RULE_M7_REL_0736",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0739",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-b_p43672",
-      "source": "subject.asset.property",
-      "target": "unassigned.đã_hoàn_thành_việc_xây_dựng_theo_đúng_quy_hoạch_xây_dựng_chi_tiết_và_dự_án_đầu_tư_đã_được_phê_duyệt,_chấp_thuận_(nếu_có)",
-      "evidence": "Đã hoàn thành việc xây dựng theo đúng quy hoạch xây dựng chi tiết và dự án đầu tư đã được phê duyệt, chấp thuận (nếu có), trừ trường hợp phải thực hiện theo bản án, quyết định của Tòa án đã có hiệu lực thi hành, quyết định cưỡng chế của cơ quan thi hành án dân sự hoặc kết luận của cơ quan nhà nước có thẩm quyền về thanh tra, kiểm tra.",
-      "rule_id": "RULE_M7_REL_0739",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0740",
-      "relation_type": "HAS_EXCEPTION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-b_p43672",
-      "source": "unassigned.đã_hoàn_thành_việc_xây_dựng_theo_đúng_quy_hoạch_xây_dựng_chi_tiết_và_dự_án_đầu_tư_đã_được_phê_duyệt,_chấp_thuận_(nếu_có)",
-      "target": "unassigned.trừ_trường_hợp_phải_thực_hiện_theo_bản_án,_quyết_định_của_tòa_án_đã_có_hiệu_lực_thi_hành,_quyết_định_cưỡng_chế_của_cơ_quan_thi_hành_án_dân_sự_hoặc_kết_luận_của_cơ_quan_nhà_nước_có_thẩm_quyền_về_thanh_tra,_kiểm_tra",
-      "evidence": "Đã hoàn thành việc xây dựng theo đúng quy hoạch xây dựng chi tiết và dự án đầu tư đã được phê duyệt, chấp thuận (nếu có), trừ trường hợp phải thực hiện theo bản án, quyết định của Tòa án đã có hiệu lực thi hành, quyết định cưỡng chế của cơ quan thi hành án dân sự hoặc kết luận của cơ quan nhà nước có thẩm quyền về thanh tra, kiểm tra.",
-      "rule_id": "RULE_M7_REL_0740",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0741",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-3_p44416",
@@ -6554,46 +4189,6 @@
       "assertion_status": "ASSERTED"
     },
     {
-      "relation_id": "REL_REL_0744",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-4_p44769",
-      "source": "subject.asset.property",
-      "target": "unassigned.điều_kiện_tách_thửa",
-      "evidence": "Trường hợp bán tài sản gắn liền với đất là công trình xây dựng mà đủ điều kiện tách thửa thì được tách thửa để cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất.",
-      "rule_id": "RULE_M7_REL_0744",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0745",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-4_p44769",
-      "source": "subject.asset.property",
-      "target": "unassigned.điều_kiện_tách_thửa",
-      "evidence": "Trường hợp bán tài sản gắn liền với đất là công trình xây dựng mà đủ điều kiện tách thửa thì được tách thửa để cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất.",
-      "rule_id": "RULE_M7_REL_0745",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0749",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-5_p44959",
-      "source": "subject.asset.property",
-      "target": "unassigned.điều_kiện_quy_định_tại_khoản_1_điều_45_của_luật_này",
-      "evidence": "Trường hợp được Nhà nước cho thuê đất trả tiền thuê đất hằng năm để thực hiện dự án xây dựng kinh doanh kết cấu hạ tầng thì được bán tài sản gắn liền với đất khi có đủ điều kiện quy định tại khoản 1 Điều 45 của Luật này và điều kiện khác theo quy định của Luật Kinh doanh bất động sản.",
-      "rule_id": "RULE_M7_REL_0749",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0750",
-      "relation_type": "HAS_CONDITION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-5_p44959",
-      "source": "subject.asset.property",
-      "target": "unassigned.điều_kiện_khác_theo_quy_định_của_luật_kinh_doanh_bất_động_sản",
-      "evidence": "Trường hợp được Nhà nước cho thuê đất trả tiền thuê đất hằng năm để thực hiện dự án xây dựng kinh doanh kết cấu hạ tầng thì được bán tài sản gắn liền với đất khi có đủ điều kiện quy định tại khoản 1 Điều 45 của Luật này và điều kiện khác theo quy định của Luật Kinh doanh bất động sản.",
-      "rule_id": "RULE_M7_REL_0750",
-      "assertion_status": "ASSERTED"
-    },
-    {
       "relation_id": "REL_REL_0751",
       "relation_type": "ALLOW",
       "source_node_id": "doc_chuong-iii_muc-5_dieu-47_p45245",
@@ -6611,16 +4206,6 @@
       "target": "subject.asset.land_rights",
       "evidence": "chuyển đổi quyền sử dụng đất nông nghiệp trong cùng đơn vị hành chính cấp tỉnh cho cá nhân khác",
       "rule_id": "RULE_M7_REL_0752",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0753",
-      "relation_type": "HAS_EXCEPTION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-47_p45245",
-      "source": "unassigned.chuyển_đổi",
-      "target": "unassigned.không_phải_nộp_thuế_thu_nhập",
-      "evidence": "không phải nộp thuế thu nhập từ việc chuyển đổi quyền sử dụng đất và lệ phí trước bạ",
-      "rule_id": "RULE_M7_REL_0753",
       "assertion_status": "ASSERTED"
     },
     {
@@ -6661,16 +4246,6 @@
       "target": "unassigned.thu_hồi_đất",
       "evidence": "trường hợp người sử dụng đất chết mà không có người thừa kế thuộc hàng thừa kế là đối tượng quy định tại khoản 2 Điều 16 của Luật này thì Nhà nước thu hồi đất và bồi thường tài sản gắn liền với đất cho người thừa kế theo quy định của pháp luật;",
       "rule_id": "RULE_M7_REL_0757",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0758",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-1_p45727",
-      "source": "subject.land_user.individual.citizen",
-      "target": "unassigned.bồi_thường_tài_sản_gắn_liền_với_đất",
-      "evidence": "trường hợp người sử dụng đất chết mà không có người thừa kế thuộc hàng thừa kế là đối tượng quy định tại khoản 2 Điều 16 của Luật này thì Nhà nước thu hồi đất và bồi thường tài sản gắn liền với đất cho người thừa kế theo quy định của pháp luật;",
-      "rule_id": "RULE_M7_REL_0758",
       "assertion_status": "ASSERTED"
     },
     {
@@ -6822,50 +4397,25 @@
       "evidence": "Cá nhân là người dân tộc thiểu số được Nhà nước giao đất, cho thuê đất theo quy định tại khoản 3 Điều 16 của Luật này không được chuyển nhượng, góp vốn, tặng cho, thừa kế, thế chấp quyền sử dụng đất, trừ trường hợp quy định tại khoản 1 và khoản 2 Điều này.",
       "rule_id": "RULE_M7_REL_0777",
       "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0778",
-      "relation_type": "HAS_EXCEPTION",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-3_p46954",
-      "source": "action.transaction.transfer",
-      "target": "unassigned.trừ_trường_hợp_quy_định_tại_khoản_1_và_khoản_2",
-      "evidence": "Cá nhân là người dân tộc thiểu số được Nhà nước giao đất, cho thuê đất theo quy định tại khoản 3 Điều 16 của Luật này không được chuyển nhượng, góp vốn, tặng cho, thừa kế, thế chấp quyền sử dụng đất, trừ trường hợp quy định tại khoản 1 và khoản 2 Điều này.",
-      "rule_id": "RULE_M7_REL_0778",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0780",
-      "relation_type": "REQUIRE",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-4_p47212",
-      "source": "subject.state",
-      "target": "unassigned.quản_lý",
-      "evidence": "Ủy ban nhân dân cấp xã có trách nhiệm quản lý diện tích đất thu hồi theo quy định tại khoản 1 Điều này.",
-      "rule_id": "RULE_M7_REL_0780",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0781",
-      "relation_type": "HAS_OBJECT",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-4_p47212",
-      "source": "unassigned.quản_lý",
-      "target": "subject.asset.physical_land",
-      "evidence": "Ủy ban nhân dân cấp xã có trách nhiệm quản lý diện tích đất thu hồi theo quy định tại khoản 1 Điều này.",
-      "rule_id": "RULE_M7_REL_0781",
-      "assertion_status": "ASSERTED"
-    },
-    {
-      "relation_id": "REL_REL_0782",
-      "relation_type": "REFERENCE_TO",
-      "source_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-4_p47212",
-      "source": "unassigned.quản_lý",
-      "target": "unassigned.theo_quy_định_tại_khoản_1_điều_này",
-      "evidence": "Ủy ban nhân dân cấp xã có trách nhiệm quản lý diện tích đất thu hồi theo quy định tại khoản 1 Điều này.",
-      "rule_id": "RULE_M7_REL_0782",
-      "assertion_status": "ASSERTED"
     }
   ],
   "validation_report": {
     "rejected_edges_count": 262,
-    "quarantined_entities_count": 324
+    "quality_rejected_edges_count": 0,
+    "quality_rejection_breakdown": {},
+    "quarantined_entities_count": 324,
+    "filtered_nodes_count": 16,
+    "orphan_entities_count": 173,
+    "min_quarantine_occurrences": 2,
+    "low_frequency_quarantine_count": 163,
+    "relations_removed_with_low_frequency_quarantine": 142,
+    "ontology_rejection_breakdown": {
+      "RANGE_VIOLATION": 229,
+      "DOMAIN_VIOLATION": 30,
+      "SELF_LOOP": 3
+    },
+    "node_quality_rejection_breakdown": {
+      "empty_after_filter": 16
+    }
   }
 }

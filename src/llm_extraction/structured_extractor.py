@@ -33,6 +33,7 @@ class StructuredExtractor:
             openai.OpenAI(
                 base_url="https://openrouter.ai/api/v1",
                 api_key=api_key,
+                timeout=60.0,
             ),
             mode=instructor.Mode.JSON
         )
