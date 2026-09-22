@@ -15,7 +15,8 @@
 - 102 NormAssertions
 - 13 CanonicalConcepts (được sử dụng từ 32 concepts trong registry)
 - 1141 Edges (32 QUARANTINED edges, 0 REJECTED)
-- 0 bugs đang mở
+- 0 bugs đang mở. 3 known limitations (xem §13).
+- Validation: Gate 1 (entity-level) + Gate 2 (graph-level)
 
 **Người làm:** Lâm
 **Người review:** [2 team members]
@@ -92,34 +93,26 @@ Vấn đề cốt lõi M7 phải giải quyết là phân biệt Type-Token. N�
 # TẦNG C — WORKING NOTES (Đọc để làm việc)
 
 ## §7. Kiến trúc hiện tại (Reference)
-Kiến trúc 6 lớp, không lớp nào thay thế lớp khác:
+Kiến trúc 4 tầng logic (thay thế mô hình 6 lớp cũ):
 
 ```
-Layer 1: SEMANTIC VOCABULARY
-         LegalSubject | LegalAction | LegalObject
-         LegalConsequence | Condition | Exception | Reference
-         (ALLOW/REQUIRE/PROHIBIT là modality, không phải entity class)
+TẦNG A: SEMANTIC MODEL (Lớp 1 & Lớp 3 cũ)
+        Định nghĩa các LegalSubject, LegalAction, LegalObject...
+        Mỗi node là một LocalMention đại diện cho 1 token trong text.
+        (ALLOW/REQUIRE/PROHIBIT là modality, không phải entity class)
               ↓
-Layer 2: CONTROLLED TAXONOMY
-         Subtype theo Granularity Test — không hard-code depth
-         Lưu trong configs/taxonomy_registry.yaml
+TẦNG B: CONTEXT MODEL (Lớp 5 cũ)
+        Dùng NormAssertion để giữ đúng normative context.
+        Condition/Exception/Consequence thuộc về NormAssertion, không phải Action.
               ↓
-Layer 3: LOCAL SEMANTIC MENTION
-         ID: <physical_node_id>#<MENTION_TYPE>#<index>
-         Chứa: raw_text, semantic_type, subtype, provenance_node_id, evidence
+TẦNG C: QUALITY / GROUNDING (Lớp 2 cũ + 2 Gates mới)
+        Controlled Taxonomy (Granularity Test).
+        Gate 1 (Pre-build): Semantic Role Audit (lọc rác entity).
+        Gate 2 (Post-build): Domain-Range + Invariant checks.
               ↓
-Layer 4: CANONICAL CONCEPT HUB
-         MERGE semantics — mỗi canonical concept có một ID duy nhất
-         LocalMention ──DENOTES──> CanonicalConcept
-         CanonicalConcept KHÔNG chứa normative edges
-              ↓
-Layer 5: NORM / ASSERTION
-         NormAssertion giữ đúng normative context
-         Condition/Exception/Consequence thuộc NormAssertion, không phải Action
-              ↓
-Layer 6: NEO4J PROJECTION
-         Multi-label chỉ là query layer
-         (:LegalSubject:DomesticEntity:EthnicMinority)
+TẦNG D: OUTPUT CONTRACT (Lớp 4 & Lớp 6 cũ)
+        Canonical Concept Hub (MERGE semantics). LocalMention ──DENOTES──> Concept.
+        Neo4j Projection Layer (Multi-label query layer).
 ```
 
 ## §8. Pipeline & File Structure
@@ -135,6 +128,9 @@ M6 semantic_extraction.json
 [ relation_normalizer ]       ALLOW/REQUIRE/PROHIBIT → NormativeModality context
         │
         ▼
+[ semantic_quality_gate ]     GATE 1: Tiền kiểm tra role conflict, semantic amplification
+        │
+        ▼
 [ canonical_mapper ]          DENOTES edges, MERGE semantics cho Concept Hub
         │
         ▼
@@ -144,7 +140,7 @@ M6 semantic_extraction.json
 [ reference_classifier ]      Phân loại 4 scopes, PENDING_M8
         │
         ▼
-[ ontology_validator ]        Domain-Range matrix, QUARANTINED + log (không âm thầm xóa data)
+[ ontology_validator ]        GATE 2: Domain-Range matrix, QUARANTINED + log (không âm thầm xóa data)
         │
         ▼
 canonical_semantic_graph.json
@@ -156,6 +152,7 @@ src/ontology/
 ├── schemas.py                  Pydantic models (LocalMention, NormAssertion, ...)
 ├── entity_normalizer.py        Semantic Role Audit + taxonomy lookup
 ├── relation_normalizer.py      Modality normalization
+├── semantic_quality_gate.py    Gate 1: Pre-build validation
 ├── canonical_mapper.py         DENOTES edges + Concept Hub management
 ├── norm_builder.py             NormAssertion construction
 ├── reference_classifier.py     Phân loại 4 scopes cho References
@@ -173,14 +170,14 @@ src/ontology/
 > **Lưu ý đọc bảng:** Các node semantic thực tế trong graph là **LocalMention**. Neo4j mới materialize chúng thành labels.
 
 ### Simple norm (direct edge)
-| Relation | Source | Target |
-|----------|--------|--------|
-| `ALLOW` | `LocalMention [LegalSubject]` | `LocalMention [LegalAction]` |
-| `REQUIRE` | `LocalMention [LegalSubject]` | `LocalMention [LegalAction]` |
-| `PROHIBIT` | `LocalMention [LegalSubject]` | `LocalMention [LegalAction]` |
-| `HAS_OBJECT` | `LocalMention [LegalAction]` hoặc `NormAssertion` | `LocalMention [LegalObject]` |
-| `DENOTES` | `LocalMention` | `CanonicalConcept` |
-| `PROVENANCE` | `LocalMention` / `NormAssertion` | `Physical Node ID` |
+| Relation | Source | Target | object_binding |
+|----------|--------|--------|----------------|
+| `ALLOW` | `LocalMention [LegalSubject]` | `LocalMention [LegalAction]` | |
+| `REQUIRE` | `LocalMention [LegalSubject]` | `LocalMention [LegalAction]` | |
+| `PROHIBIT` | `LocalMention [LegalSubject]` | `LocalMention [LegalAction]` | |
+| `HAS_OBJECT` | `LocalMention [LegalAction]` hoặc `NormAssertion` | `LocalMention [LegalObject]` | `INTRINSIC / NORM_ARGUMENT / UNRESOLVED` |
+| `DENOTES` | `LocalMention` | `CanonicalConcept` | |
+| `PROVENANCE` | `LocalMention` / `NormAssertion` | `Physical Node ID` | |
 
 ### Complex norm (NormAssertion)
 | Relation | Source | Target |
@@ -192,25 +189,50 @@ src/ontology/
 | `HAS_EXCEPTION` | `NormAssertion` | `LocalMention [Exception]` |
 | `HAS_CONSEQUENCE` | `NormAssertion` | `LocalMention [LegalConsequence]` |
 
-## §10. Semantic Contract (R1-R9)
-| Rule | Phát biểu | Trạng thái |
-|------|-----------|----------|
-| **R1** | `CanonicalConcept` không mang normative edges (`ALLOW/REQUIRE/PROHIBIT/HAS_CONDITION...`) | ✅ |
-| **R2** | Mọi `LocalMention` phải có `provenance_node_id` trỏ về một `PhysicalNode` cụ thể | ✅ |
-| **R3** | `LocalMention` chỉ được DENOTES tới `CanonicalConcept`, không dùng INSTANCE_OF | ✅ |
-| **R4** | Normative context không được đặt trên `CanonicalConcept` | ✅ |
-| **R5** | `Condition/Exception/Consequence` thuộc `NormAssertion` khi chúng là modifiers của một specific norm | ✅ |
-| **R6** | M7 chỉ phân loại scope reference, không resolve tới Physical Node | ✅ |
-| **R7** | Neo4j labels là projection layer, không phải canonical ontology definition | ✅ |
-| **R8** | M6 extraction labels phải qua Semantic Role Audit, sai role → QUARANTINED | ✅ |
-| **R9** | Unresolved semantic/reference cases phải được giữ trạng thái `UNRESOLVED` hoặc `QUARANTINED` + logged; không được silently drop | ✅ |
+## §10. Semantic Contract (R1-R12)
+| Rule | Phát biểu | Nguồn |
+|------|-----------|-------|
+| **R1** | `CanonicalConcept` không mang normative edges (`ALLOW/REQUIRE/PROHIBIT/HAS_CONDITION...`) | Note cũ |
+| **R2** | Mọi `LocalMention` phải có `provenance_node_id` trỏ về một `PhysicalNode` cụ thể | Note cũ |
+| **R3** | `LocalMention` chỉ được DENOTES tới `CanonicalConcept`, không dùng INSTANCE_OF | Note cũ |
+| **R4** | Normative context không được đặt trên `CanonicalConcept` | Note cũ |
+| **R5** | `Condition/Exception/Consequence` thuộc `NormAssertion` khi chúng là modifiers của một specific norm | Note cũ |
+| **R6** | M7 chỉ phân loại scope reference, không resolve tới Physical Node | Note cũ |
+| **R7** | Neo4j labels là projection layer, không phải canonical ontology definition | Note cũ |
+| **R8** | M6 extraction labels phải qua Semantic Role Audit, sai role → QUARANTINED | Note cũ |
+| **R9** | Unresolved semantic/reference cases phải được giữ trạng thái `UNRESOLVED` hoặc `QUARANTINED` + logged; không được silently drop | Note cũ |
+| **R10** | **No Semantic Amplification** — M7 không tự tạo fact ngoài evidence | Thêm ngày 2026-09-21 |
+| **R11** | **Quarantine Isolation** — Quarantine data tách khỏi Active data | Thêm ngày 2026-09-21 |
+| **R12** | **Provenance ≠ Reference** — 2 relation khác nhau, không thay thế | Thêm ngày 2026-09-21 |
 
 ## §11. Run Results
+
+### §11.1 Số liệu qua các version
 | Ngày | Version | Mentions | Norms | Concepts | Edges | Notes |
 |------|---------|----------|-------|----------|-------|-------|
 | 2026-09-19 | v0.5 | 916 | 102 | 13 | 1182 (32 REJECTED) | Bản đầu |
 | 2026-09-21 | v1.0 | 846+70 | 102 | 13 | 1141 (32Q) | Fix Bug 2 (QUARANTINED edges) |
-| 2026-09-21 | v1.0-fix | 846+70 | 102 | 13 | 1141 (32Q) | Fix Bug 1 (mapping rules), 7 nodes QUARANTINED |
+| 2026-09-21 | v1.0-fix | 846+70 | 102 | 13 | 1141 (32Q) | Fix Bug 1 (mapping rules), 1 node QUARANTINED, 32 edges QUARANTINED |
+
+### §11.2 Verification Log (2026-09-21)
+- **Verify 1:** 1 quarantined mention (text rỗng)
+- **Verify 2:** 19/32 concepts match — OK, do corpus Ch3-LDD chưa phủ hết (như Giao đất, Thu hồi đất).
+- **Verify 3:** INTRINSIC = 0, UNRESOLVED = 48
+- **Verify 4:** 331 CORRECTED, 100% là CONCEPT_MAP (sạch, không có role fix bẻ cong semantics)
+- **Verify 5:** Gate 1 vs Gate 2 boundary rõ ràng, không duplicate.
+
+### §11.3 3 Insights từ Verify
+**Insight V1 — Gate 1 bắt được role conflict ở entity level qua keyword.**
+> Khi verify bằng sample 20 active SUBJECT mentions, 100% là LegalSubject chuẩn. Case "hợp đồng as SUBJECT" bị bắt bởi Gate 1 rule-based (keyword `hợp đồng`) → set UNRESOLVED → Gate 2 đẩy vào Quarantine.
+> **Ý nghĩa:** M7 v1 thực sự bảo vệ active graph khỏi grammatical-subject confusion, dù cơ chế là keyword-based, không phải semantic reasoning.
+
+**Insight V2 — INTRINSIC wrapped in UNRESOLVED.**
+> Khi sample 20 UNRESOLVED edges, nhiều case thực chất là INTRINSIC (VD: `Chuyển nhượng → QSDĐ`). Heuristic V1 quá conservative nên gom hết vào UNRESOLVED.
+> **Ý nghĩa:** V1 an toàn (không suy diễn sai), nhưng M8 sẽ cần heuristic riêng để phân biệt INTRINSIC vs ambiguous.
+
+**Insight V3 — 1 UNRESOLVED mention = Bug 1 đã được fix.**
+> Mention UNRESOLVED duy nhất (text là "Người mua tài sản... trong hợp đồng thuê đất") chính là case Bug 1 — M6 gán SUBJECT cho grammatical subject. Gate 1 bắt đúng.
+> **Ý nghĩa:** Bug 1 fix thực sự, không phải bug bị miss. Chỉ có 1 case trong corpus Ch3-LDD → không phải systemic issue.
 
 ## §12. Bug Log
 
@@ -231,12 +253,26 @@ src/ontology/
 **Fix:** Update mapping_rules.yaml, thêm FLAG rules cho SUBJECT→OBJECT với negative_triggers hợp lý
 **Trạng thái:** ✅ Fixed
 
-## §13. Open Problems (Chưa giải quyết)
+## §13. Known Limitations (Báo cáo hội đồng)
+
+**Limitation 1: M7 hiện chỉ bắt semantic role conflict ở edge level và rule-based entity level.**
+- Dù đã có Gate 1 (rule-based) để lọc các "hợp đồng as SUBJECT", nhưng bản chất Gate 1 vẫn bị phụ thuộc vào danh sách từ khóa cố định (`hợp đồng`, `giấy chứng nhận`...). Case M6 gán SUBJECT sai từ một từ khóa lạ mà không sinh edge vi phạm domain-range sẽ không bị bắt.
+- *Hướng giải quyết cho v2:* Cần rule entity-level role check thông minh hơn (dùng embedding) hoặc kết hợp context check chéo từ M8.
+
+**Limitation 2: object_binding INTRINSIC chưa fire.**
+- Do V1 heuristic quá conservative (thận trọng), mọi object nằm ngoài `NormAssertion` đều bị ép xuống trạng thái `UNRESOLVED` thay vì `INTRINSIC`, kể cả các quan hệ nội tại hiển nhiên như `Chuyển nhượng` -> `Quyền sử dụng đất`.
+- *Hướng giải quyết cho v2:* Xây dựng một classifier phụ hoặc bảng từ điển quy định cặp động từ - tân ngữ nào là intrinsic.
+
+**Limitation 3: 19/32 concepts chưa match.**
+- Sự chênh lệch này là do corpus thử nghiệm (Chương 3 LĐĐ 2024) không cover hết toàn bộ các nhóm đối tượng (ví dụ: Giao đất, thu hồi đất là của Nhà nước - nằm ở các chương quản lý).
+- *Hướng giải quyết cho v2:* Chấp nhận trong V1. Khi mở rộng sang toàn bộ luật, các concept này sẽ match đầy đủ.
+
+## §14. Open Problems (Chưa giải quyết)
 - **Tiêu chí NormAssertion:** Hiện dùng "có condition/exception/consequence". Cần thực nghiệm xem có trường hợp simple norm nhưng vẫn cần NormAssertion để giữ context không?
 - **PERMISSION/OBLIGATION trong M6:** M6 fix của Minh đã bổ sung `HAS_OBJECT` và Hohfeldian relations. Cần kiểm tra kỹ lại các entity type `PERMISSION` và `OBLIGATION` có thực sự chỉ là modality hay đôi khi cần là first-class entity (normative position).
 - **Joint norm:** Khi A và B cùng liên đới nghĩa vụ (joint and several liability) — hai mũi tên `REQUIRE` cùng trỏ vào Norm chưa đủ để biểu diễn; cần cơ chế `JOINT/COLLECTIVE`.
 
-## §14. Idea Backlog (Ý tưởng cho v2)
+## §15. Idea Backlog (Ý tưởng cho v2)
 ### Idea 1: Hybrid Lexicon (embedding + rule-based)
 **Nguồn:** Gemini đề xuất, ChatGPT phản biện, chưa implement
 **Mô tả:** Dùng LLM/Embedding để match alias khi rule-based không hit
@@ -249,10 +285,14 @@ src/ontology/
 **Tại sao chưa làm:** Chưa gặp case thực tế trong Ch3-LDD
 **Khi nào làm:** Khi mở rộng sang luật khác
 
-## §15. Evolution Log
-*(Timeline tiến hóa của schema - Cần bổ sung thêm)*
+## §16. Evolution Log
+- **2026-09-15:** Prototype v0.1 (3 module cơ bản)
+- **2026-09-17:** v0.5 (thêm NormAssertion, 3 status)
+- **2026-09-19:** v1.0 (freeze schema, 4 status, 32 concept)
+- **2026-09-21:** v1.0-fix (fix 2 bugs, 3 known limitations)
+- **2026-09-21:** v1.0-frozen (verify 5 điểm, chính thức freeze)
 
-## §16. Liên kết & Tài nguyên
+## §17. Liên kết & Tài nguyên
 - **M6 Output (Input của M7):** `outputs/semantic_graphs/semantic_extraction.json`
 - **M7 Output:** `outputs/canonical_graphs/canonical_semantic_graph.json`
 - **Log:** `outputs/m7_run.log`
