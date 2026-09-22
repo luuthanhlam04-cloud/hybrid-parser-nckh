@@ -192,12 +192,14 @@ class NormBuilder:
                     RelationType.HAS_EXCEPTION,
                     RelationType.HAS_CONSEQUENCE,
                 ):
+                    object_binding = "UNRESOLVED" if rel.relation_type == RelationType.HAS_OBJECT else None
                     edges.append(SemanticEdge(
                         source_id=rel.source_mention_id,
                         target_id=rel.target_mention_id,
                         relation_type=rel.relation_type,
                         evidence=rel.evidence,
                         rule_id=rel.rule_id,
+                        object_binding=object_binding
                     ))
 
         return norms, edges
@@ -288,7 +290,8 @@ class NormBuilder:
             edges.append(SemanticEdge(
                 source_id=norm.id, target_id=oid,
                 relation_type=RelationType.HAS_OBJECT, evidence=evidence,
-                rule_id="RULE_NORM_HAS_OBJECT"
+                rule_id="RULE_NORM_HAS_OBJECT",
+                object_binding="NORM_ARGUMENT"  # V1 Heuristic
             ))
         for cid in norm.condition_ids:
             edges.append(SemanticEdge(
