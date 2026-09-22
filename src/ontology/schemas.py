@@ -2,19 +2,18 @@
 """
 schemas.py — Data Contracts cho Module 7 (Ontology / Semantic Canonicalization)
 
-Kiến trúc 6 lớp:
-  Layer 1: Core Semantic Types (LegalSubject, LegalAction, ...)
-  Layer 2: Controlled Taxonomy (subtype, qua taxonomy_registry.yaml)
-  Layer 3: Local Semantic Mention (mỗi lần xuất hiện của entity trong corpus)
-  Layer 4: Canonical Concept Hub (khái niệm dùng chung, không chứa normative edges)
-  Layer 5: Norm / Assertion (giữ đúng normative context)
-  Layer 6: Neo4j Projection (output labels cho downstream)
+Kiến trúc 4 tầng logic:
+  TẦNG A: SEMANTIC MODEL (Định nghĩa LocalMention, LegalSubject, Action...)
+  TẦNG B: CONTEXT MODEL (Dùng NormAssertion để giữ normative context)
+  TẦNG C: QUALITY / GROUNDING (Gate 1, Gate 2, Controlled Taxonomy)
+  TẦNG D: OUTPUT CONTRACT (Canonical Concept Hub, Neo4j Projection)
 
-QUY TẮC BẤT BIẾN:
+QUY TẮC BẤT BIẾN CHÍNH (R1-R12):
   1. Normative edges (ALLOW/REQUIRE/...) KHÔNG bao giờ đặt trên CanonicalConcept.
   2. Condition/Exception/Consequence thuộc NormAssertion, không thuộc LegalAction.
   3. Mọi LocalMention phải có provenance_node_id ≠ None.
   4. DENOTES: LocalMention → CanonicalConcept (không phải INSTANCE_OF).
+  (Xem thêm R5-R12 trong research note, đặc biệt No Semantic Amplification & Quarantine Isolation)
 
 ID Formula:
   LocalMention  : <physical_node_id>#<MENTION_TYPE>#<local_index>
@@ -30,7 +29,7 @@ Ví dụ:
 from __future__ import annotations
 
 from enum import Enum
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Literal
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -179,6 +178,14 @@ class ReferenceMention(BaseModel):
     provenance_node_id: str
     evidence: str
     resolution_status: str = Field(default="PENDING_M8", description="Luôn là PENDING_M8 trong M7")
+    owner_mention_id: Optional[str] = Field(default=None, description="ID của LocalMention chứa reference này")
+    owner_norm_id: Optional[str] = Field(default=None, description="ID của NormAssertion chứa reference này")
+
+    @model_validator(mode='after')
+    def validate_owner(self) -> 'ReferenceMention':
+        if not self.owner_mention_id and not self.owner_norm_id:
+            raise ValueError(f"ReferenceMention {self.id} mồ côi, bắt buộc phải có owner_mention_id hoặc owner_norm_id!")
+        return self
 
 
 # =============================================================================
@@ -307,6 +314,10 @@ class SemanticEdge(BaseModel):
         default=None,
         description="AND hoặc OR cho nhóm logic_group"
     )
+    object_binding: Optional[Literal["INTRINSIC", "NORM_ARGUMENT", "UNRESOLVED"]] = Field(
+        default=None,
+        description="Chỉ dùng cho HAS_OBJECT: đánh dấu đối tượng nội tại hay đối số quy phạm (V1 Heuristic)"
+    )
 
 
 # =============================================================================
@@ -341,27 +352,34 @@ class ValidationReport(BaseModel):
 # CANONICAL SEMANTIC GRAPH (OUTPUT)
 # =============================================================================
 
+class QuarantineStore(BaseModel):
+    mentions: List[Dict[str, Any]] = Field(default_factory=list, description="Chứa reason, rule_id, suggested_type, original_source, và entity data")
+    edges: List[Dict[str, Any]] = Field(default_factory=list, description="Chứa reason, rule_id, suggested_type, original_source, và edge data")
+
+
 class CanonicalSemanticGraph(BaseModel):
     """
     Output chính của Module 7 — đầu vào của Module 8 (Fusion Engine).
 
     Cấu trúc:
-      - nodes:      List[LocalMention]   — mọi semantic entity
-      - norms:      List[NormAssertion]  — mọi normative assertion
-      - concepts:   List[CanonicalConcept] — Concept Hub nodes
-      - edges:      List[SemanticEdge]   — tất cả cạnh
+      - active_nodes: List[LocalMention]   — mọi semantic entity (hợp lệ)
+      - norms:        List[NormAssertion]  — mọi normative assertion
+      - concepts:     List[CanonicalConcept] — Concept Hub nodes
+      - active_edges: List[SemanticEdge]   — tất cả cạnh (hợp lệ)
+      - quarantine:   QuarantineStore
       - validation_report: ValidationReport
     """
     metadata: Dict[str, Any] = Field(default_factory=dict)
-    nodes: List[LocalMention] = Field(default_factory=list)
+    active_nodes: List[LocalMention] = Field(default_factory=list)
     references: List[ReferenceMention] = Field(default_factory=list)
     norms: List[NormAssertion] = Field(default_factory=list)
     concepts: List[CanonicalConcept] = Field(default_factory=list)
-    edges: List[SemanticEdge] = Field(default_factory=list)
+    active_edges: List[SemanticEdge] = Field(default_factory=list)
+    quarantine: QuarantineStore = Field(default_factory=QuarantineStore)
     validation_report: ValidationReport = Field(default_factory=ValidationReport)
 
     def get_mention_by_id(self, mention_id: str) -> Optional[LocalMention]:
-        for node in self.nodes:
+        for node in self.active_nodes:
             if node.id == mention_id:
                 return node
         return None
@@ -375,12 +393,10 @@ class CanonicalSemanticGraph(BaseModel):
     def summary(self) -> str:
         r = self.validation_report
         return (
-            f"M7 Output: {r.total_mentions} mentions "
-            f"(valid={r.valid_mentions}, corrected={r.corrected_mentions}, "
-            f"unresolved={r.unresolved_mentions}) | "
-            f"{r.total_norms} norms | "
-            f"{r.total_concepts} concepts | "
-            f"{r.total_edges} edges "
-            f"(quarantined={r.quarantined_edges}, rejected={r.rejected_edges}) | "
-            f"refs {r.classified_references}/{r.total_references} classified"
+            f"M7 Output: {len(self.active_nodes)} active nodes, "
+            f"{len(self.norms)} norms, "
+            f"{len(self.concepts)} concepts, "
+            f"{len(self.active_edges)} active edges | "
+            f"Quarantine: {len(self.quarantine.mentions)} mentions, {len(self.quarantine.edges)} edges | "
+            f"Refs {r.classified_references}/{r.total_references} classified"
         )
