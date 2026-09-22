@@ -103,27 +103,38 @@ class OntologyValidator:
             CanonicalSemanticGraph đã được annotate với validation_report
         """
         report = ValidationReport()
-        mention_by_id: Dict[str, LocalMention] = {n.id: n for n in graph.nodes}
+        mention_by_id: Dict[str, LocalMention] = {n.id: n for n in graph.active_nodes}
         norm_ids: Set[str] = {n.id for n in graph.norms}
         concept_ids: Set[str] = {c.id for c in graph.concepts}
 
         # =====================================================================
         # TẦNG 1: STRUCTURAL INVARIANTS
         # =====================================================================
-        report.total_mentions = len(graph.nodes)
+        report.total_mentions = len(graph.active_nodes)
         report.total_norms = len(graph.norms)
         report.total_concepts = len(graph.concepts)
 
-        for mention in graph.nodes:
+        active_nodes_filtered = []
+        for mention in graph.active_nodes:
             self._validate_mention_invariants(mention, report)
             if mention.status.value == "VALID":
                 report.valid_mentions += 1
+                active_nodes_filtered.append(mention)
             elif mention.status.value == "CORRECTED":
                 report.corrected_mentions += 1
+                active_nodes_filtered.append(mention)
             elif mention.status.value == "QUARANTINED":
                 report.quarantined_mentions += 1
+                q_dict = mention.model_dump()
+                q_dict["quarantine_reason"] = mention.audit_note or "Quarantined by Gate 1"
+                graph.quarantine.mentions.append(q_dict)
             else:  # UNRESOLVED
                 report.unresolved_mentions += 1
+                q_dict = mention.model_dump()
+                q_dict["quarantine_reason"] = mention.audit_note or "Unresolved by Gate 1"
+                graph.quarantine.mentions.append(q_dict)
+        
+        graph.active_nodes = active_nodes_filtered
 
         for norm in graph.norms:
             if norm.status.value == "VALID":
@@ -134,22 +145,27 @@ class OntologyValidator:
         # =====================================================================
         # TẦNG 2: DOMAIN-RANGE VALIDATION
         # =====================================================================
-        processed_edges: List[SemanticEdge] = []
-        report.total_edges = len(graph.edges)
+        active_edges_filtered = []
+        report.total_edges = len(graph.active_edges)
 
-        for edge in graph.edges:
+        for edge in graph.active_edges:
             is_valid, reason = self._validate_edge(
                 edge=edge,
                 mention_by_id=mention_by_id,
                 norm_ids=norm_ids,
                 concept_ids=concept_ids,
             )
-            if is_valid:
-                processed_edges.append(edge)
+            if is_valid and edge.status == "VALID":
+                active_edges_filtered.append(edge)
             else:
-                # [QUYẾT ĐỊNH #1]: Giữ lại edge nhưng dán cờ QUARANTINED
+                # [QUYẾT ĐỊNH #1]: Giữ lại edge nhưng dán cờ QUARANTINED và move sang quarantine store
                 edge.status = "QUARANTINED"
                 report.quarantined_edges += 1
+                
+                q_dict = edge.model_dump()
+                q_dict["quarantine_reason"] = reason or "Quarantined by Gate 1/2"
+                graph.quarantine.edges.append(q_dict)
+                
                 report.rejected_reasons.append({
                     "edge": f"{edge.source_id} --{edge.relation_type}--> {edge.target_id}",
                     "reason": reason,
@@ -159,10 +175,9 @@ class OntologyValidator:
                     f"[QUARANTINED] Edge {edge.source_id} --{edge.relation_type}--> "
                     f"{edge.target_id}: {reason}"
                 )
-                processed_edges.append(edge)
 
-        # Cập nhật graph với toàn bộ edges (cả VALID và QUARANTINED)
-        graph.edges = processed_edges
+        # Cập nhật graph với chỉ edges VALID
+        graph.active_edges = active_edges_filtered
 
         # =====================================================================
         # KIỂM TRA CANONICAL CONCEPT INVARIANT
@@ -300,7 +315,7 @@ class OntologyValidator:
             RelationType.ALLOW, RelationType.REQUIRE, RelationType.PROHIBIT,
             RelationType.HAS_CONDITION, RelationType.HAS_EXCEPTION, RelationType.HAS_CONSEQUENCE,
         }
-        for edge in graph.edges:
+        for edge in graph.active_edges:
             if edge.source_id in concept_ids and edge.relation_type in normative_types:
                 msg = (
                     f"[INVARIANT VIOLATION] CanonicalConcept '{edge.source_id}' có normative edge "
