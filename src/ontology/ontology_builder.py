@@ -37,6 +37,7 @@ from src.ontology.norm_builder import NormBuilder
 from src.ontology.ontology_validator import OntologyValidator
 from src.ontology.reference_classifier import ReferenceClassifier
 from src.ontology.relation_normalizer import RelationNormalizer
+from src.ontology.semantic_quality_gate import SemanticQualityGate
 from src.ontology.schemas import (
     CanonicalSemanticGraph,
     LocalMention,
@@ -61,6 +62,7 @@ class OntologyBuilder:
         # Khởi tạo các components
         self.entity_normalizer    = EntityNormalizer(config_dir)
         self.relation_normalizer  = RelationNormalizer(config_dir)
+        self.quality_gate         = SemanticQualityGate()
         self.canonical_mapper     = CanonicalMapper(config_dir)
         self.norm_builder         = NormBuilder(config_dir)
         self.reference_classifier = ReferenceClassifier(config_dir)
@@ -159,6 +161,12 @@ class OntologyBuilder:
                 mention_map=mention_map,
             )
 
+            # 3b-2. Semantic Quality Gate (Gate 1)
+            mentions, normalized_relations = self.quality_gate.evaluate(
+                mentions=mentions,
+                normalized_relations=normalized_relations,
+            )
+
             # 3c. Canonical Mapper: DENOTES → CanonicalConcept
             denotes_edges = self.canonical_mapper.map_mentions(mentions)
             all_edges.extend(denotes_edges)
@@ -177,6 +185,9 @@ class OntologyBuilder:
             # 3e. Reference Classifier
             kept_mentions, ref_mentions = self.reference_classifier.classify_all(
                 mentions=mentions,
+                m6_relations_raw=m6_relations_raw,
+                mention_map=mention_map,
+                norms=norms,
                 current_provenance_node_id=node_id,
             )
             all_mentions.extend(kept_mentions)
@@ -204,11 +215,11 @@ class OntologyBuilder:
                     "ontology_validator",
                 ],
             },
-            nodes=all_mentions,
+            active_nodes=all_mentions,
             references=all_references,
             norms=all_norms,
             concepts=concepts,
-            edges=all_edges,
+            active_edges=all_edges,
         )
 
         # Step 6: Validate
