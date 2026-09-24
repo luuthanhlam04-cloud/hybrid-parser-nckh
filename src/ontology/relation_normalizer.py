@@ -173,6 +173,14 @@ class RelationNormalizer:
 
         # Map relation type
         canonical_rel_str = self._modality_map.get(m6_relation, m6_relation)
+
+        # REFERENCE_TO / REFERENCES: được xử lý riêng bởi reference_classifier.py
+        # (dùng string match trực tiếp trên m6_relations_raw trước khi vào đây)
+        # relation_normalizer KHÔNG cần xử lý — explicit skip để tránh ValueError noise.
+        if canonical_rel_str in ("REFERENCES", "REFERENCE_TO"):
+            logger.debug(f"Skip '{m6_relation}' — handled by reference_classifier.py")
+            return None
+
         try:
             canonical_rel = RelationType(canonical_rel_str)
         except ValueError:

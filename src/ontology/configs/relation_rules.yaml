@@ -16,8 +16,9 @@ modality_normalization:
   HAS_EXCEPTION:  HAS_EXCEPTION
   HAS_OBJECT:     HAS_OBJECT
   HAS_PENALTY:    HAS_CONSEQUENCE   # đổi tên để nhất quán với NormAssertion schema
-  REFERENCE_TO:   REFERENCES        # đổi sang REFERENCES cho rõ ràng
   APPLY_TO:       HAS_OBJECT        # map APPLY_TO → HAS_OBJECT (cùng semantic)
+  # NOTE: REFERENCE_TO không map ở đây — được xử lý bởi reference_classifier.py
+  #       (dùng string match trên raw M6 relations để tìm owner → tạo ReferenceMention)
 
 # Domain-Range constraints
 # Simple norm (direct edge):
