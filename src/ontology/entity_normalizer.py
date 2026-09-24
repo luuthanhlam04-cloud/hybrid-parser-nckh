@@ -115,6 +115,27 @@ class EntityNormalizer:
                 data = yaml.safe_load(f)
             self._mapping_rules = data.get("mapping_rules", [])
             logger.info(f"Đã load {len(self._mapping_rules)} mapping rules từ {rules_path}")
+
+            # v1.2 — Boot-time alias collision detection (học từ Minh)
+            # Phát hiện trigger trùng lặp map sang các concept_id khác nhau
+            trigger_to_rules: Dict[str, List[str]] = {}
+            for rule in self._mapping_rules:
+                rid = rule.get("id", "?")
+                cid = rule.get("target_concept_id", "")
+                for trig in rule.get("triggers", []):
+                    norm = _normalize_text(trig)
+                    if norm not in trigger_to_rules:
+                        trigger_to_rules[norm] = []
+                    trigger_to_rules[norm].append(f"{rid}→{cid}")
+            collisions = {t: rules for t, rules in trigger_to_rules.items() if len(rules) > 1}
+            if collisions:
+                for trigger, rules in collisions.items():
+                    logger.warning(
+                        f"[ALIAS COLLISION] trigger='{trigger}' xuất hiện trong "
+                        f"{len(rules)} rules: {rules}"
+                    )
+            else:
+                logger.debug("Boot-time alias collision check: không phát hiện collision")
         else:
             logger.warning(f"Không tìm thấy {rules_path} — chạy với 0 mapping rules")
 
@@ -126,6 +147,8 @@ class EntityNormalizer:
             logger.info(f"Đã load taxonomy tree từ {tax_path}")
         else:
             logger.warning(f"Không tìm thấy {tax_path} — type_hierarchy sẽ chỉ có core label")
+
+
 
     # -------------------------------------------------------------------------
     # PUBLIC API
