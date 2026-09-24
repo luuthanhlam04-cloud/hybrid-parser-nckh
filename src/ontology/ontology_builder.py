@@ -33,6 +33,7 @@ from typing import Any, Dict, List, Optional
 
 from src.ontology.canonical_mapper import CanonicalMapper
 from src.ontology.entity_normalizer import EntityNormalizer
+from src.ontology.node_quality_filter import NodeQualityFilter
 from src.ontology.norm_builder import NormBuilder
 from src.ontology.ontology_validator import OntologyValidator
 from src.ontology.reference_classifier import ReferenceClassifier
@@ -60,6 +61,7 @@ class OntologyBuilder:
         self.config_dir = Path(config_dir)
 
         # Khởi tạo các components
+        self.node_quality_filter  = NodeQualityFilter()          # v1.2: bước lọc đầu vào
         self.entity_normalizer    = EntityNormalizer(config_dir)
         self.relation_normalizer  = RelationNormalizer(config_dir)
         self.quality_gate         = SemanticQualityGate()
@@ -119,13 +121,10 @@ class OntologyBuilder:
 
         # Step 3: Xử lý từng extraction node
         for item in extracted_nodes:
-            node_id = item.get("node_id", "")
-            extraction = item.get("extraction", {})
-            m6_entities_raw = extraction.get("entities", [])
-            m6_relations_raw = extraction.get("relations", [])
-
-            if not m6_entities_raw and not m6_relations_raw:
-                logger.debug(f"Skip empty node: {node_id}")
+            # v1.2 — NodeQualityFilter: lọc garbage đầu vào trước khi normalize
+            node_id, m6_entities_raw, m6_relations_raw = self.node_quality_filter.filter_node(item)
+            if node_id is None:
+                logger.debug(f"NodeQualityFilter: skip garbage node")
                 continue
 
             logger.debug(f"Processing: {node_id} ({len(m6_entities_raw)} entities, {len(m6_relations_raw)} relations)")
@@ -201,19 +200,23 @@ class OntologyBuilder:
         )
 
         # Step 5: Assemble graph
+        nqf_summary = self.node_quality_filter.summary()
         graph = CanonicalSemanticGraph(
             metadata={
                 "m6_source": str(m6_path),
                 "physical_graph_source": str(physical_graph_path) if physical_graph_path else None,
-                "m7_version": "1.0.0",
+                "m7_version": "1.2.0",
                 "pipeline": [
+                    "node_quality_filter",   # v1.2: mới thêm
                     "entity_normalizer",
                     "relation_normalizer",
                     "canonical_mapper",
                     "norm_builder",
                     "reference_classifier",
                     "ontology_validator",
+                    "orphan_quarantine",      # v1.2: mới thêm
                 ],
+                "node_quality_filter_report": nqf_summary,
             },
             active_nodes=all_mentions,
             references=all_references,
@@ -226,13 +229,42 @@ class OntologyBuilder:
         logger.info("Running ontology validation...")
         graph = self.validator.validate(graph)
 
-        # Step 7: Export
+        # Step 7: Orphan → Quarantine (v1.2)
+        # Tìm mention không có bất kỳ active edge nào → quarantine, không xóa
+        # Tuân thủ R2: preserve data, không delete
+        active_mention_ids = set()
+        for edge in graph.active_edges:
+            active_mention_ids.add(edge.source_id)
+            active_mention_ids.add(edge.target_id)
+
+        orphan_nodes: List[LocalMention] = []
+        non_orphan_nodes: List[LocalMention] = []
+        for mention in graph.active_nodes:
+            if mention.id not in active_mention_ids:
+                orphan_nodes.append(mention)
+            else:
+                non_orphan_nodes.append(mention)
+
+        if orphan_nodes:
+            logger.info(f"Orphan → Quarantine: {len(orphan_nodes)} mentions không có active edge")
+            for orphan in orphan_nodes:
+                q_dict = orphan.model_dump()
+                q_dict["quarantine_reason"] = "ORPHAN_NO_ACTIVE_EDGE"
+                graph.quarantine.mentions.append(q_dict)
+            graph.active_nodes = non_orphan_nodes
+
+
+        # Step 8: Export
         if output_path:
             self._export(graph, output_path)
 
         logger.info("=" * 60)
         logger.info(f"MODULE 7 DONE: {graph.summary()}")
         logger.info("=" * 60)
+        if nqf_summary["filtered_nodes"] > 0 or nqf_summary["filtered_entities"] > 0:
+            logger.info(f"NodeQualityFilter: {nqf_summary}")
+        if orphan_nodes:
+            logger.info(f"Orphan quarantine: {len(orphan_nodes)} nodes")
 
         return graph
 
