@@ -253,6 +253,47 @@ src/ontology/
 **Fix:** Update mapping_rules.yaml, thêm FLAG rules cho SUBJECT→OBJECT với negative_triggers hợp lý
 **Trạng thái:** ✅ Fixed
 
+### Bug B03: `neo4j_labels` hardcoded — architectural gap và DB coupling
+**Phát hiện:** 2026-09-23
+**Mức độ:** Design smell nghiêm trọng (không phải runtime bug, nhưng là silent inconsistency trap)
+
+**Triệu chứng:**
+- Output JSON có field `neo4j_labels` — nghe như M7 biết về Neo4j (DB coupling).
+- Cụ thể hơn: `entity_normalizer.py` chứa dict hardcode `_TAXONOMY_TO_NEO4J_LABELS` với 16 entries, là bản copy thủ công của cây taxonomy.
+- `taxonomy_registry.yaml` **chưa bao giờ được load** vào `EntityNormalizer` — file chỉ được load ở nơi khác, không phải nơi sinh labels.
+
+**Root cause (3 tầng):**
+
+*Tầng 1 — Tên field sai:*
+`neo4j_labels` nghe như "nhãn dành riêng cho Neo4j" → M7 bị coi là coupling với database. Nhưng bản chất thông tin này là semantic path (đường dẫn phân cấp), không phải DB-specific.
+
+*Tầng 2 — Architectural gap:*
+`taxonomy_registry.yaml` định nghĩa cây phân cấp nhưng `entity_normalizer.py` không load file này. Người code biết phải dùng thông tin từ cây, nhưng thay vì load file, họ copy-paste thủ công vào dict Python → tạo ra 2 nguồn sự thật song song.
+
+*Tầng 3 — Silent inconsistency trap:*
+Khi thêm subtype mới vào `taxonomy_registry.yaml`, dict Python không tự update → type_hierarchy của subtype mới sẽ fallback về core label duy nhất, không có hierarchy. Không có warning, không có error. Chỉ phát hiện khi verify output kỹ.
+
+**Phân tích: Ai chịu trách nhiệm sinh `type_hierarchy`?**
+- M7 lo semantic canonicalization → M7 biết taxonomy → M7 nên output semantic path.
+- M9 lo database → M9 đọc path → M9 quyết định dùng làm gì (Neo4j label, ArangoDB collection...).
+- **Vậy M7 PHẢI output path, nhưng với tên semantic, không phải tên DB.**
+
+**Insight từ bug này — Nguyên tắc "Single Source of Truth" trong kiến trúc:**
+Đây là ví dụ điển hình của "shotgun surgery" anti-pattern: một quyết định thiết kế (taxonomy hierarchy) phải được thay đổi ở nhiều chỗ đồng thời (`taxonomy_registry.yaml` + `_TAXONOMY_TO_NEO4J_LABELS` dict). Nguyên tắc fix: bất kỳ thông tin nào chỉ được sống ở 1 chỗ — mọi nơi khác phải derive từ chỗ đó.
+
+**Fix (2026-09-23):**
+1. Xóa `_TAXONOMY_TO_NEO4J_LABELS` dict khỏi `entity_normalizer.py`.
+2. Thêm load `taxonomy_registry.yaml` vào `_load_configs()` — `EntityNormalizer` lần đầu tiên thực sự đọc file taxonomy.
+3. Thêm `_build_type_hierarchy()` + `_find_path_in_tree()` — DFS walk cây động.
+4. Rename field `neo4j_labels` → `type_hierarchy` trong `schemas.py` và toàn bộ pipeline.
+5. Chạy lại → số liệu giữ nguyên (845 nodes, 1109 edges, 102 norms). Output mới:
+   - `"Nhà nước"` → `type_hierarchy: ["LegalSubject", "Authority", "CentralAuthority"]`
+   - `"Đất nông nghiệp"` → `type_hierarchy: ["LegalObject", "PhysicalLand", "AgriculturalLand"]`
+
+**Trạng thái:** ✅ Fixed
+**Bài học:** Đừng trust field name nếu chưa đọc code. "neo4j_labels" nghe như coupling nhưng root cause là architectural gap (taxonomy_registry.yaml bị bypass). Fix tên field mà không fix cơ chế là chữa triệu chứng, không chữa bệnh.
+
+
 ## §13. Known Limitations (Báo cáo hội đồng)
 
 **Limitation 1: M7 hiện chỉ bắt semantic role conflict ở edge level và rule-based entity level.**
@@ -291,6 +332,24 @@ src/ontology/
 - **2026-09-19:** v1.0 (freeze schema, 4 status, 32 concept)
 - **2026-09-21:** v1.0-fix (fix 2 bugs, 3 known limitations)
 - **2026-09-21:** v1.0-frozen (verify 5 điểm, chính thức freeze)
+- **2026-09-23:** v1.1 (Bug B03: xóa hardcoded dict, thêm DFS walk tree, rename `neo4j_labels` → `type_hierarchy` — single source of truth)
+- **2026-09-24:** v1.1 — Fix Bug B04: REFERENCE_TO dead code trong relation_normalizer. Thêm explicit skip, xóa dead config. **Tạm freeze v1.1.**
+
+### §16.1 Trạng thái Freeze v1.1 (2026-09-24)
+
+**Số liệu chốt:**
+- 846 LocalMentions, 70 ReferenceMentions, 102 NormAssertions, 13 CanonicalConcepts
+- 1141 Edges (1109 active + 32 QUARANTINED)
+- 58/70 References classified (12 AMBIGUOUS)
+
+**Đã fix trong v1.1 (so với v1.0-frozen):**
+- Bug B03: `neo4j_labels` → `type_hierarchy` (single source of truth từ taxonomy_registry.yaml)
+- Bug B04: Dead code `REFERENCE_TO` trong relation_normalizer
+
+**Tạm freeze để chờ:**
+1. Nâng cấp mô hình M6 (GPT-4o-mini → model tốt hơn khi có ngân sách) — sẽ giảm số edges QUARANTINED do LLM skip tắt SUBJECT→OBJECT.
+2. Tích hợp các cải tiến từ bản M7 của Dương (NodeQualityFilter, orphan pruning, evidence validation) và Minh (Fuzzy Matching, alias collision detection) — làm sau khi M8 ổn định.
+3. Mở rộng corpus sang toàn bộ Luật Đất đai 2024 để đo số liệu chính thức cho luận văn.
 
 ## §17. Liên kết & Tài nguyên
 - **M6 Output (Input của M7):** `outputs/semantic_graphs/semantic_extraction.json`
