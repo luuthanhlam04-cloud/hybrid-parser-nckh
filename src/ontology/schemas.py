@@ -152,10 +152,13 @@ class LocalMention(BaseModel):
         description="Ghi chú từ semantic role audit (rule_id, lý do CORRECTED/UNRESOLVED)"
     )
 
-    # Neo4j labels (Layer 6 projection)
-    neo4j_labels: List[str] = Field(
+    # Taxonomy hierarchy path (Layer C — Tầng Quality/Grounding)
+    # Được build bằng cách walk taxonomy_registry.yaml — single source of truth.
+    # M9 đọc field này để project sang Neo4j multi-label (hoặc DB khác).
+    # M7 KHÔNG biết về Neo4j — đây là semantic path, không phải DB label.
+    type_hierarchy: List[str] = Field(
         default_factory=list,
-        description="Labels sẽ gán khi nạp Neo4j. VD: [LegalSubject, DomesticEntity, EthnicMinority]"
+        description="Đường dẫn phân cấp từ root đến subtype trong taxonomy. VD: [LegalSubject, DomesticEntity, EthnicMinorityIndividual]"
     )
 
     @model_validator(mode='after')
