@@ -59,8 +59,8 @@ _M6_TO_SEMANTIC_TYPE: Dict[str, SemanticType] = {
     "OBLIGATION": None,
 }
 
-# Neo4j Core label mapping
-_SEMANTIC_TO_NEO4J: Dict[SemanticType, str] = {
+# Semantic type → core label (dùng khi không có subtype)
+_SEMANTIC_TO_CORE_LABEL: Dict[SemanticType, str] = {
     SemanticType.LEGAL_SUBJECT:     "LegalSubject",
     SemanticType.LEGAL_ACTION:      "LegalAction",
     SemanticType.LEGAL_OBJECT:      "LegalObject",
@@ -69,26 +69,8 @@ _SEMANTIC_TO_NEO4J: Dict[SemanticType, str] = {
     SemanticType.EXCEPTION:         "Exception",
     SemanticType.REFERENCE:         "Reference",
 }
-
-# Taxonomy path → Neo4j labels (từ taxonomy_registry)
-_TAXONOMY_TO_NEO4J_LABELS: Dict[str, List[str]] = {
-    "LegalSubject.DomesticEntity.Individual": ["LegalSubject", "DomesticEntity", "Individual"],
-    "LegalSubject.DomesticEntity.EthnicMinorityIndividual": ["LegalSubject", "DomesticEntity", "EthnicMinority"],
-    "LegalSubject.DomesticEntity.Organization": ["LegalSubject", "DomesticEntity", "Organization"],
-    "LegalSubject.Authority.ProvincialAuthority": ["LegalSubject", "Authority", "ProvincialAuthority"],
-    "LegalSubject.Authority.DistrictAuthority": ["LegalSubject", "Authority", "DistrictAuthority"],
-    "LegalSubject.Authority.CentralAuthority": ["LegalSubject", "Authority", "CentralAuthority"],
-    "LegalSubject.ForeignRelatedEntity.OverseasVietnamese": ["LegalSubject", "ForeignRelatedEntity", "OverseasVietnamese"],
-    "LegalSubject.ForeignRelatedEntity.FDIEnterprise": ["LegalSubject", "ForeignRelatedEntity", "FDIEnterprise"],
-    "LegalAction.RealEstateTransaction.TransferAction": ["LegalAction", "Transaction", "TransferAction"],
-    "LegalAction.RealEstateTransaction.MortgageAction": ["LegalAction", "Transaction", "MortgageAction"],
-    "LegalAction.AdministrativeProcedure.CertificationAction": ["LegalAction", "AdminProcedure", "CertificationAction"],
-    "LegalAction.AdministrativeProcedure.CertIssuanceAction": ["LegalAction", "AdminProcedure", "CertIssuanceAction"],
-    "LegalAction.AdministrativeProcedure.LandRegistrationAction": ["LegalAction", "AdminProcedure", "LandRegistration"],
-    "LegalObject.LandRight.LandUseRight": ["LegalObject", "LandRight", "LandUseRight"],
-    "LegalObject.LandDocument.LandCertificate": ["LegalObject", "LandDocument", "LandCertificate"],
-    "LegalObject.PhysicalLand.AgriculturalLand": ["LegalObject", "PhysicalLand", "AgriculturalLand"],
-}
+# NOTE: _TAXONOMY_TO_NEO4J_LABELS dict đã bị xoá (refactor 2026-09-23).
+# type_hierarchy nay được walk động từ taxonomy_registry.yaml bởi _build_type_hierarchy().
 
 
 # =============================================================================
@@ -123,6 +105,7 @@ class EntityNormalizer:
             config_dir = Path(__file__).parent / "configs"
         self.config_dir = Path(config_dir)
         self._mapping_rules: List[Dict[str, Any]] = []
+        self._taxonomy_tree: Dict[str, Any] = {}   # raw tree từ taxonomy_registry.yaml
         self._load_configs()
 
     def _load_configs(self) -> None:
@@ -134,6 +117,15 @@ class EntityNormalizer:
             logger.info(f"Đã load {len(self._mapping_rules)} mapping rules từ {rules_path}")
         else:
             logger.warning(f"Không tìm thấy {rules_path} — chạy với 0 mapping rules")
+
+        # Load taxonomy tree — single source of truth cho type_hierarchy
+        tax_path = self.config_dir / "taxonomy_registry.yaml"
+        if tax_path.exists():
+            with open(tax_path, "r", encoding="utf-8") as f:
+                self._taxonomy_tree = yaml.safe_load(f) or {}
+            logger.info(f"Đã load taxonomy tree từ {tax_path}")
+        else:
+            logger.warning(f"Không tìm thấy {tax_path} — type_hierarchy sẽ chỉ có core label")
 
     # -------------------------------------------------------------------------
     # PUBLIC API
@@ -218,8 +210,8 @@ class EntityNormalizer:
             raw_text=raw_text,
         )
 
-        # Neo4j labels
-        neo4j_labels = self._build_neo4j_labels(audited_type, subtype)
+        # Taxonomy hierarchy path (single source of truth: taxonomy_registry.yaml)
+        type_hierarchy = self._build_type_hierarchy(audited_type, subtype)
 
         return LocalMention(
             id=mention_id,
@@ -233,7 +225,7 @@ class EntityNormalizer:
             evidence=evidence if evidence else raw_text,  # fallback evidence = raw_text
             status=status,
             audit_note=audit_note,
-            neo4j_labels=neo4j_labels,
+            type_hierarchy=type_hierarchy,
         )
 
     def _audit_and_map(
@@ -310,21 +302,58 @@ class EntityNormalizer:
         # Không match rule nào → VALID với subtype=None
         return semantic_type, MentionStatus.VALID, None, None, None
 
-    def _build_neo4j_labels(
+    def _build_type_hierarchy(
         self,
         semantic_type: SemanticType,
         subtype: Optional[str],
     ) -> List[str]:
         """
-        Xây dựng Neo4j labels cho Layer 6 projection.
-        Chỉ gán labels có giá trị truy vấn thực tế.
-        """
-        if subtype:
-            # Tìm taxonomy path từ subtype
-            for path, labels in _TAXONOMY_TO_NEO4J_LABELS.items():
-                if path.endswith(subtype):
-                    return labels
+        Walk taxonomy_registry.yaml từ subtype lên root để xây dựng type hierarchy path.
+        Single source of truth — không còn hardcode dict.
 
-        # Fallback: chỉ core label
-        core_label = _SEMANTIC_TO_NEO4J.get(semantic_type, str(semantic_type.value))
-        return [core_label]
+        VD: subtype=EthnicMinorityIndividual →
+            ["LegalSubject", "DomesticEntity", "EthnicMinorityIndividual"]
+        """
+        core_label = _SEMANTIC_TO_CORE_LABEL.get(semantic_type, str(semantic_type.value))
+
+        if not subtype or not self._taxonomy_tree:
+            return [core_label]
+
+        # Walk cây: tìm đường dẫn từ root đến subtype
+        path = self._find_path_in_tree(self._taxonomy_tree, subtype, [])
+        if path:
+            return path
+
+        # Fallback: subtype tồn tại nhưng không tìm thấy trong cây
+        logger.warning(f"Subtype '{subtype}' không tìm thấy trong taxonomy_registry.yaml")
+        return [core_label, subtype]
+
+    def _find_path_in_tree(
+        self,
+        tree: Dict[str, Any],
+        target_subtype: str,
+        current_path: List[str],
+    ) -> List[str]:
+        """
+        DFS walk cây taxonomy. Trả về path từ root đến target_subtype (inclusive).
+        Trả về [] nếu không tìm thấy.
+        """
+        for node_name, node_data in tree.items():
+            if not isinstance(node_data, dict):
+                continue
+            # Bỏ qua các key metadata (description, rationale, ...)
+            if node_name in ("description", "rationale"):
+                continue
+
+            new_path = current_path + [node_name]
+
+            if node_name == target_subtype:
+                return new_path
+
+            subtypes = node_data.get("subtypes", {})
+            if subtypes:
+                result = self._find_path_in_tree(subtypes, target_subtype, new_path)
+                if result:
+                    return result
+
+        return []
