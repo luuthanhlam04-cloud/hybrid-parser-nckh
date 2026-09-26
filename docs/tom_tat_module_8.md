@@ -136,23 +136,66 @@ Lần chạy trên dữ liệu Chương III Luật Đất đai 2024 (`Luat_dat_d
 | **Phân giải dẫn chiếu** | Trích xuất từ `fusion_report` | **27** quan hệ dẫn chiếu | **10** quan hệ giải quyết (sinh 7 cạnh `RESOLVES_TO`), **17** quan hệ bị từ chối tạo cạnh nội bộ (10 ngoài chương, 4 quy định chung, 3 ngoài luật) |
 | **Bộ khung đánh giá vàng** | `outputs/evaluation/*.csv` | **80** mẫu confidence<br>**135** mẫu quality | Đã chia `train` / `test` nhóm theo node vật lý nguồn để chống rò rỉ dữ liệu (Quality gồm 80 support, 34 reference, 21 conflict) |
 
-#### Chi tiết phân tầng cấu trúc đồ thị
+#### Chi tiết các bảng phân tầng cấu trúc đồ thị
 
-1. **Phân bố Node và Cạnh Vật lý (M4 - 222 nodes, 551 edges):**
-   - **Nodes theo cấp bậc:** 1 `CHAPTER` (Chương III), 5 `SECTION` (Mục), 23 `ARTICLE` (Điều 26–48), 84 `CLAUSE` (Khoản), 109 `POINT` (Điểm).
-   - **Cạnh cấu trúc:** 221 `BELONG_TO` (cây phả hệ phân cấp), 165 `NEXT` (liền kề tiếp theo), 165 `PREVIOUS` (liền kề trước).
+##### 1. Phân tầng Đồ thị Vật lý (Physical Graph - Module 4)
+*File nguồn: `outputs/physical_graphs/physical_graph.json`*
 
-2. **Phân bố Thực thể và Quan hệ Ngữ nghĩa (M7 - 71 entities, 378 relations):**
-   - **Thực thể theo Ontology:** 29 `LEGAL_ACTION`, 19 `LEGAL_SUBJECT`, 10 `LEGAL_DOCUMENT_REF`, 8 `CONDITION`, 5 `LEGAL_OBJECT`.
-   - **Quan hệ quy phạm:** 157 `ALLOW`, 125 `HAS_OBJECT`, 39 `REQUIRE`, 27 `REFERENCE_TO`, 22 `HAS_CONDITION`, 8 `PROHIBIT`.
+| Nhóm chỉ số | Chi tiết phân loại | Số lượng | Tỷ lệ (%) |
+|---|---|---:|---:|
+| **Tổng số Node vật lý** | | **222** | **100%** |
+| *Phân bố cấp bậc* | `CHAPTER` (Chương III) | 1 | 0,45% |
+| | `SECTION` (Mục) | 5 | 2,25% |
+| | `ARTICLE` (Điều: từ Điều 26 đến 48) | 23 | 10,36% |
+| | `CLAUSE` (Khoản) | 84 | 37,84% |
+| | `POINT` (Điểm) | 109 | 49,10% |
+| **Tổng số Cạnh vật lý** | | **551** | **100%** |
+| *Phân bố loại cạnh* | `BELONG_TO` (Cây phân cấp cha - con) | 221 | 40,11% |
+| | `NEXT` (Thứ tự điều khoản kế tiếp) | 165 | 29,95% |
+| | `PREVIOUS` (Thứ tự điều khoản liền trước) | 165 | 29,95% |
 
-3. **Cơ cấu Đồ thị Hợp nhất (M8 UKG - 294 nodes, 1.371 edges):**
-   - **Nodes (294):** 222 `PHYSICAL` + 71 `SEMANTIC` + 1 `DOCUMENT` (`document_59_2024_qh15`).
-   - **Edges (1.371):** 551 cạnh vật lý + 378 cạnh ngữ nghĩa + 435 cạnh `MENTIONS` + 7 cạnh `RESOLVES_TO`.
+##### 2. Phân tầng Đồ thị Ngữ nghĩa (Canonical Semantic Graph - Module 7)
+*File nguồn: `outputs/semantic_graphs/canonical_semantic_graph.json`*
 
-4. **Bộ mẫu đánh giá thẩm định:**
-   - `fusion_confidence_gold_template.csv`: 80 dòng (65 train, 15 test). Gồm 42 `ALLOW`, 23 `REQUIRE`, 8 `PROHIBIT`, 7 `RESOLVES_TO`.
-   - `fusion_quality_gold_template.csv`: 135 dòng (108 train, 27 test). Gồm 80 ca `relation_support`, 34 ca `reference_resolution`, 21 ca `deontic_conflict`.
+| Nhóm chỉ số | Chi tiết phân loại | Số lượng | Tỷ lệ (%) |
+|---|---|---:|---:|
+| **Tổng số Thực thể ngữ nghĩa** | | **71** | **100%** |
+| *Phân bố theo Ontology* | `LEGAL_ACTION` (Hành vi pháp lý) | 29 | 40,85% |
+| | `LEGAL_SUBJECT` (Chủ thể pháp lý) | 19 | 26,76% |
+| | `LEGAL_DOCUMENT_REF` (Thực thể dẫn chiếu) | 10 | 14,08% |
+| | `CONDITION` (Điều kiện áp dụng) | 8 | 11,27% |
+| | `LEGAL_OBJECT` (Khách thể / Đối tượng) | 5 | 7,04% |
+| **Tổng số Quan hệ ngữ nghĩa** | | **378** | **100%** |
+| *Phân bố loại quan hệ* | `ALLOW` (Quyền được phép làm) | 157 | 41,53% |
+| | `HAS_OBJECT` (Tác động lên đối tượng) | 125 | 33,07% |
+| | `REQUIRE` (Nghĩa vụ bắt buộc) | 39 | 10,32% |
+| | `REFERENCE_TO` (Quan hệ dẫn chiếu quy định) | 27 | 7,14% |
+| | `HAS_CONDITION` (Ràng buộc điều kiện) | 22 | 5,82% |
+| | `PROHIBIT` (Hành vi bị cấm) | 8 | 2,12% |
+
+##### 3. Đồ thị Tri thức Hợp nhất (Unified Knowledge Graph - Module 8)
+*File nguồn: `outputs/unified_graphs/unified_knowledge_graph.json`*
+
+| Chỉ số tổng hợp | Giá trị | Cơ cấu thành phần |
+|---|---:|---|
+| **Tổng số Nodes trong UKG** | **294** | = 222 (Vật lý) + 71 (Ngữ nghĩa) + 1 (Node ảo `DOCUMENT`) |
+| **Tổng số Cạnh trong UKG** | **1.371** | = 551 (Vật lý) + 378 (Ngữ nghĩa) + 435 (`MENTIONS`) + 7 (`RESOLVES_TO`) |
+| **Cạnh truy vết MENTIONS** | **435** | Neo trực tiếp thực thể ngữ nghĩa về Điều/Khoản xuất hiện |
+| **Cạnh phân giải RESOLVES_TO** | **7** | 5 cạnh trỏ về Điều cụ thể + 2 cạnh trỏ về node neo Luật |
+| **Cảnh báo xung đột quy phạm** | **1** | Cặp `REQUIRE_PROHIBIT` giữa `subject.state` và `action.transaction.mortgage` |
+| **Quan hệ dẫn chiếu bị từ chối** | **17** | 10 `UNRESOLVED` + 4 `GENERAL_LEGAL_SCOPE` + 3 `EXTERNAL_SCOPE` |
+
+##### 4. Chỉ số Thẩm định & Bộ dữ liệu Đánh giá (Evaluation & Performance)
+*File nguồn: `outputs/evaluation/*.csv` và báo cáo SHACL*
+
+| Chỉ số | Giá trị đo lường | Ghi chú kỹ thuật |
+|---|---:|---|
+| **Kiểm định SHACL W3C** | `conforms: true` | Đạt 100% ràng buộc mô hình RDF, 0 lỗi hình thức |
+| **Thời gian chạy SHACL** | **2,76 giây** | Đo trực tiếp qua module `ShaclValidator` |
+| **Thời gian chạy toàn bộ M8** | **4,40 giây** | Bao gồm nạp file, hợp nhất, SHACL và ghi disk |
+| **Mẫu đánh giá Confidence** | **80 dòng** | File `fusion_confidence_gold_template.csv` (65 train / 15 test) |
+| **Mẫu đánh giá Quality** | **135 dòng** | File `fusion_quality_gold_template.csv` (108 train / 27 test) |
+| *-- Phân rã theo Task:* | | • `relation_support`: 80 mẫu<br>• `reference_resolution`: 34 mẫu<br>• `deontic_conflict`: 21 mẫu |
 
 ---
 
