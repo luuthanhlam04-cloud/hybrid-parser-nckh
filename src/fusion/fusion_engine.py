@@ -46,7 +46,6 @@ class FusionEngine:
             self.policy.semantic_node(entity)
             for entity in entities if entity.get("canonical_id")
         )
-        document_anchors: dict[str, Dict[str, Any]] = {}
         entities_by_id = {
             entity["canonical_id"]: entity
             for entity in entities if entity.get("canonical_id")
@@ -56,7 +55,7 @@ class FusionEngine:
         rejected_relations = list(semantic.get("rejected_relations", []))
         mentions = set()
         resolved_reference_edges = set()
-        reference_outcomes: list[str] = []
+        reference_reports: list[Dict[str, Any]] = []
         denotes_edges = semantic.get("denotes_edges", [])
         for denotes_edge in denotes_edges:
             source_node_id = denotes_edge.get("properties", {}).get("source_node_id")
@@ -91,9 +90,15 @@ class FusionEngine:
             target_entity = entities_by_id.get(relation.get("target"), {})
             reference_text = str(target_entity.get("canonical_text", ""))
             is_reference = relation.get("relation_type") == "REFERENCE_TO"
-            reference_scope = str(relation.get("reference_scope", "")).upper()
+            raw_reference_scope = relation.get("reference_scope")
+            reference_scope = str(raw_reference_scope or "").strip().upper()
             reference_ids = []
-            if is_reference and reference_scope not in {"EXTERNAL", "AMBIGUOUS"}:
+            known_internal_scopes = {"SAME_ARTICLE", "SAME_DOCUMENT"}
+            should_resolve = (
+                not reference_scope
+                or reference_scope in known_internal_scopes
+            )
+            if is_reference and should_resolve:
                 reference_ids = mapper.resolve_reference_hint(
                     relation.get("target_hint"), source_node_id
                 )
@@ -101,37 +106,37 @@ class FusionEngine:
                     reference_ids = mapper.resolve_reference_text(
                         reference_text, source_node_id
                     )
-            if is_reference and not reference_ids:
+            if is_reference and should_resolve and not reference_ids:
                 if reference_scope not in {"EXTERNAL", "AMBIGUOUS"}:
                     reference_ids = mapper.resolve_anaphoric_reference(
                         reference_text, source_node_id
                     )
-            reference_outcome = ""
-            if is_reference and not reference_ids:
-                reference_outcome = mapper.classify_reference_scope(
-                    reference_text, reference_scope, source_node_id
-                )
-                if reference_outcome == "DOCUMENT_LEVEL_REF":
-                    anchor = mapper.document_anchor(source_node_id)
-                    if anchor is not None:
-                        document_anchors[anchor["id"]] = anchor
-                        reference_ids = [anchor["id"]]
+            if is_reference and reference_ids:
+                resolution_status = "RESOLVED_IN_M4"
+            elif is_reference and reference_scope == "EXTERNAL":
+                resolution_status = "OUT_OF_SCOPE_PER_M7"
+            elif is_reference and reference_scope == "AMBIGUOUS":
+                resolution_status = "AMBIGUOUS_PER_M7"
+            elif is_reference and reference_scope and not should_resolve:
+                resolution_status = "NOT_ATTEMPTED_PER_M7_SCOPE"
             elif is_reference:
-                reference_outcome = "RESOLVED_INTERNAL"
+                resolution_status = "TARGET_NOT_FOUND_IN_M4"
+            else:
+                resolution_status = ""
             if is_reference:
-                reference_outcomes.append(reference_outcome)
+                reference_reports.append({
+                    "relation_id": relation.get("relation_id"),
+                    "m7_scope": raw_reference_scope or None,
+                    "resolution_status": resolution_status,
+                    "target_hint": relation.get("target_hint"),
+                    "resolved_physical_node_ids": reference_ids,
+                })
             mapped = self.edge_mapper.semantic(
                 relation, {"source_confidence": 1.0},
-                mapper.scope_for_text(source_node_id, str(relation.get("evidence", ""))),
+                None,
                 reference_ids if relation.get("relation_type") == "REFERENCE_TO" else None,
             )
             if is_reference:
-                if reference_ids:
-                    resolution_status = reference_outcome or "RESOLVED_INTERNAL"
-                else:
-                    resolution_status = (
-                        reference_outcome or "UNRESOLVED_REFERENCE"
-                    )
                 mapped["properties"]["reference_resolution_status"] = resolution_status
             if mapped["source"] not in semantic_ids or mapped["target"] not in semantic_ids:
                 rejected_relations.append({
@@ -151,12 +156,6 @@ class FusionEngine:
                             relation.get("relation_id"),
                         ))
                         resolved_reference_edges.add(key)
-            elif is_reference:
-                rejected_relations.append({
-                    "relation_id": relation.get("relation_id"),
-                    "reason": reference_outcome or "UNRESOLVED_REFERENCE",
-                    "reference_text": reference_text,
-                })
             for entity_id in (mapped["source"], mapped["target"]):
                 key = (source_node_id, entity_id)
                 if key not in mentions:
@@ -165,7 +164,6 @@ class FusionEngine:
                     ))
                     mentions.add(key)
 
-        nodes.extend(document_anchors.values())
         conflicts = self.conflict_resolver.detect_deontic_conflicts(semantic_edges)
         conflicts.extend(self.conflict_resolver.validate_endpoints(
             edges, {node["id"] for node in nodes}
@@ -192,6 +190,31 @@ class FusionEngine:
             "fusion_report": {
                 "rejected_relations": rejected_relations,
                 "rejected_relation_count": len(rejected_relations),
+                "reference_resolution": {
+                    "total": len(reference_reports),
+                    "scope_counts": {
+                        scope: sum(
+                            report.get("m7_scope") == scope
+                            for report in reference_reports
+                        )
+                        for scope in sorted({
+                            report["m7_scope"]
+                            for report in reference_reports
+                            if report.get("m7_scope")
+                        })
+                    },
+                    "status_counts": {
+                        status: sum(
+                            report["resolution_status"] == status
+                            for report in reference_reports
+                        )
+                        for status in sorted({
+                            report["resolution_status"]
+                            for report in reference_reports
+                        })
+                    },
+                    "items": reference_reports,
+                },
                 "deontic_conflict_count": sum(
                     conflict.get("conflict_type") in {
                         "ALLOW_PROHIBIT",
@@ -200,21 +223,9 @@ class FusionEngine:
                     }
                     for conflict in conflicts
                 ),
-                "unresolved_reference_count": sum(
-                    rejection.get("reason") == "UNRESOLVED_REFERENCE"
-                    for rejection in rejected_relations
-                ),
-                "document_level_reference_count": reference_outcomes.count(
-                    "DOCUMENT_LEVEL_REF"
-                ),
-                "external_scope_reference_count": reference_outcomes.count(
-                    "EXTERNAL_SCOPE"
-                ),
-                "general_legal_scope_reference_count": reference_outcomes.count(
-                    "GENERAL_LEGAL_SCOPE"
-                ),
-                "ambiguous_reference_count": reference_outcomes.count(
-                    "AMBIGUOUS_REFERENCE"
+                "reference_targets_not_found_in_m4_count": sum(
+                    report["resolution_status"] == "TARGET_NOT_FOUND_IN_M4"
+                    for report in reference_reports
                 ),
             },
         }

@@ -51,18 +51,6 @@ class NodeMapper:
             current = self._parent.get(current)
         return None
 
-    def scope_for_text(self, source_node_id: str, text: str) -> Optional[str]:
-        lowered = text.casefold()
-        for phrase, label in (
-            ("điều này", "ARTICLE"),
-            ("khoản này", "CLAUSE"),
-            ("mục này", "SECTION"),
-            ("chương này", "CHAPTER"),
-        ):
-            if phrase in lowered:
-                return self.ancestor(source_node_id, label)
-        return None
-
     def resolve_anaphoric_reference(
         self, reference_text: str, source_node_id: str
     ) -> list[str]:
@@ -219,63 +207,6 @@ class NodeMapper:
                 if len(chapter_ids) == 1:
                     resolved.extend(chapter_ids)
         return list(dict.fromkeys(resolved))
-
-    def classify_reference_scope(
-        self, text: str, reference_scope: str = "", source_node_id: str = ""
-    ) -> str:
-        """Classify references that cannot be resolved to an in-scope node."""
-        explicit_scope = reference_scope.strip().upper()
-        if explicit_scope in {"EXTERNAL", "EXTERNAL_SCOPE"}:
-            return "EXTERNAL_SCOPE"
-        normalized = self._normalize(text)
-        if any(phrase in normalized for phrase in (
-            "quy dinh cua phap luat",
-            "theo quy dinh phap luat",
-            "phap luat ve ",
-            "theo phap luat",
-        )):
-            return "GENERAL_LEGAL_SCOPE"
-        if explicit_scope == "AMBIGUOUS":
-            return "AMBIGUOUS_REFERENCE"
-        source = self.nodes.get(source_node_id)
-        law_code = source.get("properties", {}).get("law_code") if source else None
-        has_location = re.search(r"\b(dieu|khoan|muc|chuong)\s+\d+\b", normalized)
-        if (
-            not has_location
-            and self._is_local_statute_reference(text, law_code)
-            and any(term in normalized for term in (
-                "luat", "nghi dinh", "thong tu", "bo luat",
-            ))
-        ):
-            return "DOCUMENT_LEVEL_REF"
-        if any(term in normalized for term in (
-            "luat ", "nghi dinh ", "thong tu ", "bo luat ",
-        )):
-            return "EXTERNAL_SCOPE"
-        return "UNRESOLVED_REFERENCE"
-
-    def document_anchor(self, source_node_id: str) -> Optional[Dict[str, Any]]:
-        source = self.nodes.get(source_node_id)
-        if source is None:
-            return None
-        properties = source.get("properties", {})
-        law_code = properties.get("law_code")
-        source_doc = properties.get("source_doc")
-        identity = str(law_code or source_doc or "").strip()
-        if not identity:
-            return None
-        slug = re.sub(r"[^a-z0-9]+", "_", self._normalize(identity)).strip("_")
-        anchor_id = f"document_{slug or 'current'}"
-        return {
-            "id": anchor_id,
-            "node_kind": "DOCUMENT",
-            "labels": ["DOCUMENT"],
-            "properties": {
-                "law_code": law_code,
-                "source_doc": source_doc,
-                "title": str(source_doc).rsplit(".", 1)[0] if source_doc else str(law_code),
-            },
-        }
 
     def _is_local_statute_reference(self, text: str, law_code: Any) -> bool:
         normalized = self._normalize(text)

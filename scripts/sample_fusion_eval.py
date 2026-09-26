@@ -126,7 +126,7 @@ def sample_fusion_eval(
             "split": split,
             "reviewer": "",
             "annotation": "",
-            "notes": f"{edge.get('type', '')}: {evidence}",
+            "notes": f"{edge.get('type', '')}: {evidence}".rstrip(),
         })
 
         if edge.get("type") == "RESOLVES_TO":

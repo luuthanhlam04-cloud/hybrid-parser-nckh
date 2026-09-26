@@ -1,320 +1,240 @@
-# Tóm tắt Module 8 — Unified Knowledge Graph Fusion
+# Tóm tắt Module 8 — Hợp nhất đồ thị M4 và M7
 
-Tài liệu này tóm tắt kiến trúc, luồng xử lý và kết quả hiện tại của
-**Module 8 (M8)**. M8 kết hợp Đồ thị vật lý từ Module 4 (M4) với Đồ thị ngữ
-nghĩa chuẩn hóa từ Module 7 (M7) để tạo **Unified Knowledge Graph (UKG)**.
-M8 bảo toàn cấu trúc điều khoản của văn bản, bổ sung quan hệ ngữ nghĩa, liên
-kết quan hệ về vị trí nguồn và cung cấp các kiểm tra chất lượng đồ thị.
+## 1. Nhiệm vụ và ranh giới trách nhiệm
 
----
+Nhiệm vụ cốt lõi của **Module 8 (M8)** là kết nối:
 
-## 1. Vị trí của M8 trong toàn pipeline
+- **Physical Graph từ M4**: cấu trúc vật lý của văn bản pháp luật và vị trí
+  nguồn của từng đoạn.
+- **Canonical Semantic Graph từ M7**: các mention, concept, quy phạm, quan hệ
+  và thông tin dẫn chiếu đã được M7 chuẩn hóa/phân loại.
 
-```text
-Văn bản pháp luật
-    ├── M1–M4: cấu trúc vật lý của văn bản và Physical Graph
-    └── M5–M7: định tuyến, trích xuất và chuẩn hóa ngữ nghĩa
-                         ↓
-                  M8 Graph Fusion
-                         ↓
-             Unified Knowledge Graph (UKG)
-```
+M8 tạo **Unified Knowledge Graph (UKG)** để truy vấn được cả cấu trúc văn bản
+lẫn ngữ nghĩa, đồng thời giữ đường dẫn truy vết về nguồn.
 
-M8 không thay thế M4 hoặc M7:
+**M8 không phải module trích xuất hoặc phân loại ngữ nghĩa mới.** Cụ thể:
 
-- **M4 là nguồn có thẩm quyền** cho cây cấu trúc văn bản như Chương, Mục,
-  Điều, Khoản và Điểm.
-- **M7 bổ sung ngữ nghĩa**: chủ thể, hành vi, đối tượng, quy phạm, điều kiện,
-  ngoại lệ và dẫn chiếu.
-- **M8 chịu trách nhiệm hợp nhất**, tạo các cạnh liên kết giữa ngữ nghĩa và
-  node văn bản nguồn, kiểm tra hợp đồng dữ liệu, phát hiện xung đột tiềm tàng
-  và kiểm định graph.
+- Các node và quan hệ `ALLOW`, `REQUIRE`, `PROHIBIT`, `HAS_CONDITION`,
+  `HAS_EXCEPTION`, `REFERENCE_TO` được M8 **tích hợp/chiếu** từ dữ liệu M7;
+  M8 không tự trích xuất hoặc sáng tạo các quan hệ pháp lý này.
+- Việc một tham chiếu là cùng Điều, cùng văn bản, ngoài phạm vi hay mơ hồ
+  thuộc phân loại của **M7**. M8 giữ nguyên nhãn M7 nếu nhãn đó có trong input.
+- Công việc của M8 đối với tham chiếu là tìm đích trong cây vật lý M4 theo
+  hint/nội dung mà M7 cung cấp và tạo `RESOLVES_TO` nếu ghép được. Nếu không
+  tìm thấy node tương ứng trong graph đầu vào, M8 ghi nhận trạng thái
+  `TARGET_NOT_FOUND_IN_M4`; M8 không đổi nó thành một nhãn ngữ nghĩa mới.
+- M8 không tự tạo node `DOCUMENT`. Nếu M4 không có node gốc văn bản để nối tới,
+  tham chiếu cấp văn bản được báo là chưa tìm thấy đích trong M4. Muốn nối
+  loại tham chiếu đó, hợp đồng M4 cần cung cấp node văn bản tương ứng.
 
----
-
-## 2. Thành phần và vai trò của các file
-
-### Động cơ hợp nhất
-
-- **`src/fusion/fusion_engine.py`**: Điều phối M8. Đọc Physical Graph và M7
-  graph, kiểm tra đầu vào, chuẩn hóa dữ liệu M7, hợp nhất node/cạnh, gắn
-  `MENTIONS` và `RESOLVES_TO`, gọi phát hiện xung đột và tạo báo cáo.
-- **`src/fusion/m7_adapter.py`**: Chuyển đổi schema M7 về dạng M8 dùng chung.
-  Hỗ trợ schema `entities`/`relations` cũ và schema M7 mới gồm
-  `active_nodes`/`concepts`/`norms`/`active_edges`.
-- **`src/fusion/merge_policy.py`**: Giữ phân biệt node vật lý (`PHYSICAL`) và
-  node ngữ nghĩa (`SEMANTIC`); không làm mất thẩm quyền của cấu trúc M4.
-- **`src/fusion/edge_mapper.py`**: Chuẩn hóa cạnh, lưu provenance và tính điểm
-  confidence từ các tín hiệu hiện có; nếu có calibrator đã fit thì áp dụng
-  hiệu chuẩn.
-- **`src/fusion/node_mapper.py`**: Tra cứu node vật lý, tổ tiên/phạm vi của
-  node, hồi chỉ như “Điều này”, “Khoản này”, dẫn chiếu cụ thể và phạm vi văn
-  bản. Dẫn chiếu toàn văn bản như “Luật này” được liên kết tới node
-  `DOCUMENT` tổng hợp, không gán nhầm vào node Chương.
-- **`src/fusion/graph_contract.py`**: Fail-fast khi dữ liệu có ID trùng, node
-  cha không tồn tại, cạnh mồ côi, relation sai kiểu, thiếu evidence hoặc
-  confidence ngoài khoảng `[0, 1]`.
-
-### Kiểm tra chất lượng và xung đột
-
-- **`src/fusion/conflict_resolver.py`**: Phát hiện xung đột quy phạm trên cùng
-  cặp chủ thể–hành vi. `ALLOW` hoặc `REQUIRE` đối nghịch với `PROHIBIT` được
-  gắn cờ `POTENTIAL_LEGAL_CONFLICT` nếu không có ngoại lệ liên kết phù hợp.
-  Kết quả là cảnh báo cần chuyên gia xem xét, không phải kết luận pháp lý.
-- **`src/fusion/shacl_validator.py`** và **`src/fusion/shapes.ttl`**: Chuyển UKG
-  sang RDF và kiểm tra bằng SHACL. Các đặc trưng cấu trúc cần kiểm tra được
-  tính trước theo các lượt tuyến tính; SHACL kiểm tra các giá trị bằng property
-  shapes thay vì chạy truy vấn SPARQL lặp cho từng cạnh. Không bật RDFS
-  inference.
-- **`src/fusion/delta_engine.py`**: So sánh hai phiên bản UKG theo ID node và
-  khóa cạnh ổn định để tạo danh sách thêm, sửa, xóa. `Neo4jDeltaApplier` áp
-  dụng delta trong một transaction qua Neo4j driver.
-- **`src/fusion/confidence_calibration.py`**: Isotonic calibration theo PAV và
-  các metric như Brier score, ECE, precision/recall tại ngưỡng.
-- **`src/fusion/quality_evaluation.py`**: Đánh giá nhãn chuyên gia cho hỗ trợ
-  quan hệ, xung đột quy phạm và phân giải dẫn chiếu; có tính pairwise Cohen's
-  kappa khi có nhiều reviewer.
-
-### CLI, đánh giá và kiểm thử
-
-- **`run_fusion.py`**: Chạy riêng M8, ghi UKG, danh sách xung đột và báo cáo
-  SHACL.
-- **`run_fusion_delta.py`**: Tính và áp dụng chênh lệch UKG vào Neo4j.
-- **`run_fusion_confidence_eval.py`** và
-  **`run_fusion_quality_eval.py`**: Fit/đánh giá confidence và chất lượng theo
-  CSV đã được gán nhãn.
-- **`scripts/sample_fusion_eval.py`**: Lấy mẫu phân tầng có seed cố định để
-  chuyên gia gán nhãn; giữ split theo node nguồn để giảm rò rỉ train/test.
-- **`scripts/sample_m6_candidates.py`**: Xếp hạng các M5 candidate phức tạp để
-  chuẩn bị thử nghiệm M6 mà không tự gọi API.
-- **`run_pipeline.py`**: Điều phối pipeline từ M1/M2 đến M8. M6 cần opt-in rõ
-  ràng bằng `--allow-llm` và một `--m6-limit` dương vì có thể phát sinh chi
-  phí API.
-- **`tests/unit/test_fusion_engine.py`**: Kiểm tra hợp nhất, contract đầu vào,
-  phát hiện xung đột, dẫn chiếu, SHACL, delta và đánh giá.
+Các kiểm tra SHACL, báo cáo xung đột tiềm tàng và cập nhật delta là các tiện
+ích/quality gates chạy trên hoặc sau graph hợp nhất; chúng không thay đổi quyền
+sở hữu phân loại ngữ nghĩa của M7.
 
 ---
 
-## 3. Luồng xử lý M8
+## 2. Kiến trúc và công nghệ
 
-1. **Đọc graph đầu vào**: nạp M4 Physical Graph và M7 Canonical Semantic Graph.
-2. **Chuẩn hóa hợp đồng**: adapter chuyển schema M7 về entities/relations và
-   graph contract kiểm tra các khóa, endpoint, evidence và confidence.
-3. **Giữ node và cạnh vật lý**: các node/cạnh M4 được giữ nguyên vai trò
-   `PHYSICAL`; quan hệ cấu trúc không bị thay thế bởi ngữ nghĩa.
-4. **Bổ sung graph ngữ nghĩa**: thêm các entity chuẩn hóa cùng quan hệ như
-   `ALLOW`, `REQUIRE`, `PROHIBIT`, `HAS_EXCEPTION`, `HAS_CONDITION` và
-   `REFERENCE_TO`.
-5. **Neo ngữ nghĩa vào văn bản**: tạo `MENTIONS` từ node vật lý nguồn tới các
-   entity được trích xuất tại đó. Dẫn chiếu chỉ tạo `RESOLVES_TO` khi phân
-   giải được duy nhất trong phạm vi graph; “Luật này” có thể trỏ tới node
-   `DOCUMENT`.
-6. **Phân loại dẫn chiếu chưa giải quyết**: tách các trường hợp
-   `EXTERNAL_SCOPE`, `GENERAL_LEGAL_SCOPE`, `AMBIGUOUS_REFERENCE`,
-   `DOCUMENT_LEVEL_REF` và `UNRESOLVED_REFERENCE` trong báo cáo.
-7. **Phát hiện xung đột quy phạm**: so sánh các modality trên cùng cặp
-   subject/action; lưu relation IDs, loại xung đột và ngữ cảnh để truy vết.
-8. **Kiểm định SHACL và xuất kết quả**: kiểm tra tính toàn vẹn endpoint, số
-   Điều, quan hệ cấu trúc, thứ tự và domain/range ngữ nghĩa. Nếu SHACL không
-   conform, runner báo lỗi thay vì coi pipeline thành công.
+### Thành phần chính
+
+- **`src/fusion/fusion_engine.py`**: điều phối hợp nhất, bảo toàn node/cạnh M4,
+  thêm dữ liệu ngữ nghĩa M7, gắn `MENTIONS`, phân giải tham chiếu về node vật
+  lý và tạo báo cáo.
+- **`src/fusion/m7_adapter.py`**: chuyển đổi hợp đồng M7 về dạng mà M8 có thể
+  hợp nhất. Hỗ trợ schema `entities`/`relations` và schema mới hơn gồm
+  `active_nodes`, `concepts`, `norms`, `active_edges` và `references`.
+- **`src/fusion/node_mapper.py`**: tra cứu cây vật lý M4, dùng hint hoặc chuỗi
+  dẫn chiếu của M7 để tìm node đích. Đây là thao tác **link dữ liệu**, không
+  phải bộ phân loại scope.
+- **`src/fusion/merge_policy.py`**: giữ phân biệt node `PHYSICAL` và
+  `SEMANTIC`, tránh làm mất vai trò nguồn của M4/M7.
+- **`src/fusion/graph_contract.py`**: kiểm tra ID, endpoint, kiểu quan hệ,
+  evidence và các điều kiện hợp đồng trước khi hợp nhất.
+
+### Công nghệ
+
+| Công nghệ/kỹ thuật | Mục đích |
+|---|---|
+| Python | Fusion, mapping, kiểm tra đầu vào và tạo báo cáo |
+| JSON | Hợp đồng trao đổi giữa M4, M7 và UKG |
+| RDFLib | Biểu diễn graph dưới dạng RDF |
+| pySHACL và SHACL/Turtle | Xác thực các constraint của graph hợp nhất |
+| Quy tắc Python | Phát hiện cảnh báo xung đột quy phạm tiềm tàng |
+| Isotonic regression (PAV) | Hiệu chuẩn confidence nếu có nhãn chuyên gia |
+| Neo4j Python driver | Adapter hỗ trợ ghi graph delta vào Neo4j |
+| pytest | Kiểm thử hợp nhất, dẫn chiếu, SHACL và delta |
+
+SHACL chạy với `inference="none"`. Các thuộc tính kiểm tra cấu trúc được tính
+trước theo các lượt tuyến tính rồi kiểm tra bằng SHACL property shapes, tránh
+truy vấn SPARQL lặp trên toàn bộ các cạnh.
+Các điều kiện cụ thể và giới hạn của chúng được tổng hợp trong bảng kiểm định
+SHACL ở phần kết quả bên dưới.
+
+### Công cụ và file chạy
+
+- `run_fusion.py`: chạy M8 độc lập và xuất UKG, conflict report, SHACL report.
+- `run_fusion_delta.py`: tính và áp dụng thay đổi graph lên Neo4j.
+- `run_fusion_confidence_eval.py` và `run_fusion_quality_eval.py`: đánh giá
+  trên CSV có nhãn.
+- `scripts/sample_fusion_eval.py`: lấy mẫu quan hệ để chuyên gia gán nhãn;
+  script không tự tạo gold labels.
+- `run_pipeline.py`: điều phối các stage; M6 yêu cầu opt-in vì có thể phát
+  sinh chi phí API.
+- `tests/unit/test_fusion_engine.py`: test hợp nhất, contract, tham chiếu,
+  SHACL, conflict, calibration và delta.
 
 ---
 
-## 4. Kết quả chạy và Phân tích đánh giá định lượng
+## 3. Luồng hợp nhất
 
-### 4.1. Bảng tổng hợp và Đối soát số liệu định lượng
+1. Nạp Physical Graph M4 và Semantic Graph M7.
+2. Dùng adapter để biểu diễn dữ liệu M7 theo hợp đồng nội bộ của M8; các giá
+   trị semantic được chuyển tiếp từ M7, không được M8 phân loại lại.
+3. Giữ lại cấu trúc và cạnh vật lý M4; đưa node và quan hệ M7 vào UKG.
+4. Tạo cạnh `MENTIONS` để liên kết node văn bản nguồn của M4 với các entity/
+   mention M7.
+5. Với `REFERENCE_TO`, M8 dùng scope/hint M7 để quyết định có nên tìm đích
+   trong graph M4 hay không. Khi tìm được node, tạo `RESOLVES_TO`; nếu không,
+   vẫn giữ quan hệ semantic M7 và báo trạng thái liên kết.
+6. Tạo báo cáo UKG; tùy chọn chạy các kiểm tra xung đột, SHACL hoặc delta.
 
-Lần chạy trên dữ liệu Chương III Luật Đất đai 2024 (`Luat_dat_dai_chuong_3.docx`) trong repository:
+Báo cáo tham chiếu phân biệt hai loại thông tin:
 
-| Hạng mục đầu ra | File kết quả | Chỉ số định lượng | Đánh giá sơ bộ & Đối soát |
+- `m7_scope`: scope do M7 cung cấp; có thể là `SAME_ARTICLE`,
+  `SAME_DOCUMENT`, `EXTERNAL`, `AMBIGUOUS`, hoặc `null` nếu schema M7 đầu vào
+  không có trường scope.
+- `resolution_status`: kết quả nối sang M4 do M8 thực hiện:
+  `RESOLVED_IN_M4`, `TARGET_NOT_FOUND_IN_M4`, `OUT_OF_SCOPE_PER_M7` hoặc
+  `AMBIGUOUS_PER_M7`. Với scope không rỗng mà M8 không có quy tắc nối, trạng
+  thái là `NOT_ATTEMPTED_PER_M7_SCOPE`; M8 giữ nguyên scope đó, không tự diễn
+  giải nó thành loại khác.
+
+Như vậy, `EXTERNAL`/`AMBIGUOUS` là nhãn nguồn M7; `TARGET_NOT_FOUND_IN_M4` là
+kết quả tra cứu cấu trúc của M8. Chúng không phải các nhãn phân loại cạnh
+tranh của cùng một tầng.
+
+---
+
+## 4. Đánh giá kết quả đầu ra thực tế
+
+Dữ liệu chạy là graph Chương III Luật Đất đai 2024 đang có trong repository.
+Các số liệu dưới đây được đọc từ UKG và báo cáo SHACL sau lần chạy M8:
+
+### Quy mô đồ thị hợp nhất
+
+| Nhóm đầu ra | Loại | Số lượng | Đánh giá |
 |---|---|---:|---|
-| **Đồ thị vật lý (M4)** | `physical_graph.json` | **222** nodes, **551** edges | Cấu trúc cây hoàn chỉnh (Chương → Mục → Điều → Khoản → Điểm), 0 chu trình lặp |
-| **Đồ thị ngữ nghĩa (M7)** | `canonical_semantic_graph.json` | **71** entities, **378** relations | Chuẩn hóa ontology đầy đủ, bao phủ chủ thể, hành vi, khách thể, điều kiện, quy phạm |
-| **Đồ thị hợp nhất (M8 UKG)** | `unified_knowledge_graph.json` | **294** nodes, **1.371** edges | Dung nạp 100% hai đồ thị, sinh thêm 1 node `DOCUMENT`, **435** cạnh `MENTIONS` và **7** cạnh `RESOLVES_TO` |
-| **Kiểm định SHACL** | `fusion_shacl_report.json` | `conforms: true` | Đạt 100% ràng buộc hình thức W3C RDF/SHACL, thời gian chạy ~2,76s |
-| **Xung đột quy phạm** | `fusion_conflicts.json` | **1** xung đột tiềm năng | Cặp `REQUIRE_PROHIBIT` giữa `subject.state` và `action.transaction.mortgage` |
-| **Phân giải dẫn chiếu** | Trích xuất từ `fusion_report` | **27** quan hệ dẫn chiếu | **10** quan hệ giải quyết (sinh 7 cạnh `RESOLVES_TO`), **17** quan hệ bị từ chối tạo cạnh nội bộ (10 ngoài chương, 4 quy định chung, 3 ngoài luật) |
-| **Bộ khung đánh giá vàng** | `outputs/evaluation/*.csv` | **80** mẫu confidence<br>**135** mẫu quality | Đã chia `train` / `test` nhóm theo node vật lý nguồn để chống rò rỉ dữ liệu (Quality gồm 80 support, 34 reference, 21 conflict) |
+| Node | Vật lý từ M4 | 222 | Được giữ trong UKG |
+| Node | Ngữ nghĩa từ M7 | 71 | Được tích hợp vào UKG |
+| Node | Tổng UKG | 293 | Bằng tổng node M4 và M7 |
+| Cạnh | Vật lý từ M4 | 551 | Gồm `BELONG_TO`, `NEXT`, `PREVIOUS` |
+| Cạnh | Ngữ nghĩa từ M7 | 378 | Được giữ trong UKG |
+| Cạnh | `MENTIONS` | 435 | Nối node vật lý với entity ngữ nghĩa |
+| Cạnh | `RESOLVES_TO` | 5 | Nối target tham chiếu tìm được trong M4 |
+| Quan hệ | Bị từ chối do lỗi hợp đồng/endpoint | 0 | Không có relation nào bị loại trong lần chạy |
 
-#### Chi tiết các bảng phân tầng cấu trúc đồ thị
+### Phân bố quan hệ ngữ nghĩa M7 được tích hợp
 
-##### 1. Phân tầng Đồ thị Vật lý (Physical Graph - Module 4)
-*File nguồn: `outputs/physical_graphs/physical_graph.json`*
+| Loại quan hệ | Số lượng |
+|---|---:|
+| `ALLOW` | 157 |
+| `REQUIRE` | 39 |
+| `PROHIBIT` | 8 |
+| `HAS_CONDITION` | 22 |
+| `HAS_OBJECT` | 125 |
+| `REFERENCE_TO` | 27 |
+| **Tổng quan hệ ngữ nghĩa** | **378** |
 
-| Nhóm chỉ số | Chi tiết phân loại | Số lượng | Tỷ lệ (%) |
-|---|---|---:|---:|
-| **Tổng số Node vật lý** | | **222** | **100%** |
-| *Phân bố cấp bậc* | `CHAPTER` (Chương III) | 1 | 0,45% |
-| | `SECTION` (Mục) | 5 | 2,25% |
-| | `ARTICLE` (Điều: từ Điều 26 đến 48) | 23 | 10,36% |
-| | `CLAUSE` (Khoản) | 84 | 37,84% |
-| | `POINT` (Điểm) | 109 | 49,10% |
-| **Tổng số Cạnh vật lý** | | **551** | **100%** |
-| *Phân bố loại cạnh* | `BELONG_TO` (Cây phân cấp cha - con) | 221 | 40,11% |
-| | `NEXT` (Thứ tự điều khoản kế tiếp) | 165 | 29,95% |
-| | `PREVIOUS` (Thứ tự điều khoản liền trước) | 165 | 29,95% |
+### Kết quả kiểm tra và đánh giá chất lượng
 
-##### 2. Phân tầng Đồ thị Ngữ nghĩa (Canonical Semantic Graph - Module 7)
-*File nguồn: `outputs/semantic_graphs/canonical_semantic_graph.json`*
-
-| Nhóm chỉ số | Chi tiết phân loại | Số lượng | Tỷ lệ (%) |
-|---|---|---:|---:|
-| **Tổng số Thực thể ngữ nghĩa** | | **71** | **100%** |
-| *Phân bố theo Ontology* | `LEGAL_ACTION` (Hành vi pháp lý) | 29 | 40,85% |
-| | `LEGAL_SUBJECT` (Chủ thể pháp lý) | 19 | 26,76% |
-| | `LEGAL_DOCUMENT_REF` (Thực thể dẫn chiếu) | 10 | 14,08% |
-| | `CONDITION` (Điều kiện áp dụng) | 8 | 11,27% |
-| | `LEGAL_OBJECT` (Khách thể / Đối tượng) | 5 | 7,04% |
-| **Tổng số Quan hệ ngữ nghĩa** | | **378** | **100%** |
-| *Phân bố loại quan hệ* | `ALLOW` (Quyền được phép làm) | 157 | 41,53% |
-| | `HAS_OBJECT` (Tác động lên đối tượng) | 125 | 33,07% |
-| | `REQUIRE` (Nghĩa vụ bắt buộc) | 39 | 10,32% |
-| | `REFERENCE_TO` (Quan hệ dẫn chiếu quy định) | 27 | 7,14% |
-| | `HAS_CONDITION` (Ràng buộc điều kiện) | 22 | 5,82% |
-| | `PROHIBIT` (Hành vi bị cấm) | 8 | 2,12% |
-
-##### 3. Đồ thị Tri thức Hợp nhất (Unified Knowledge Graph - Module 8)
-*File nguồn: `outputs/unified_graphs/unified_knowledge_graph.json`*
-
-| Chỉ số tổng hợp | Giá trị | Cơ cấu thành phần |
+| Tiêu chí | Kết quả | Nhận xét |
 |---|---:|---|
-| **Tổng số Nodes trong UKG** | **294** | = 222 (Vật lý) + 71 (Ngữ nghĩa) + 1 (Node ảo `DOCUMENT`) |
-| **Tổng số Cạnh trong UKG** | **1.371** | = 551 (Vật lý) + 378 (Ngữ nghĩa) + 435 (`MENTIONS`) + 7 (`RESOLVES_TO`) |
-| **Cạnh truy vết MENTIONS** | **435** | Neo trực tiếp thực thể ngữ nghĩa về Điều/Khoản xuất hiện |
-| **Cạnh phân giải RESOLVES_TO** | **7** | 5 cạnh trỏ về Điều cụ thể + 2 cạnh trỏ về node neo Luật |
-| **Cảnh báo xung đột quy phạm** | **1** | Cặp `REQUIRE_PROHIBIT` giữa `subject.state` và `action.transaction.mortgage` |
-| **Quan hệ dẫn chiếu bị từ chối** | **17** | 10 `UNRESOLVED` + 4 `GENERAL_LEGAL_SCOPE` + 3 `EXTERNAL_SCOPE` |
+| Unit tests M8 | 20/20 PASS | Bao phủ hợp nhất, tham chiếu, SHACL, conflict, calibration và delta |
+| SHACL | `conforms: true` | UKG đạt các constraint SHACL được cấu hình |
+| Relation bị từ chối | 0 | Không phát hiện relation lỗi endpoint/hợp đồng trong lần chạy |
+| Cảnh báo xung đột quy phạm | 1 | Cảnh báo heuristic `REQUIRE_PROHIBIT`, cần chuyên gia xem xét |
+| Confidence | `heuristic_uncalibrated` | Chưa thể diễn giải là xác suất đã hiệu chuẩn |
 
-##### 4. Chỉ số Thẩm định & Bộ dữ liệu Đánh giá (Evaluation & Performance)
-*File nguồn: `outputs/evaluation/*.csv` và báo cáo SHACL*
+### Chi tiết kiểm định SHACL
 
-| Chỉ số | Giá trị đo lường | Ghi chú kỹ thuật |
-|---|---:|---|
-| **Kiểm định SHACL W3C** | `conforms: true` | Đạt 100% ràng buộc mô hình RDF, 0 lỗi hình thức |
-| **Thời gian chạy SHACL** | **2,76 giây** | Đo trực tiếp qua module `ShaclValidator` |
-| **Thời gian chạy toàn bộ M8** | **4,40 giây** | Bao gồm nạp file, hợp nhất, SHACL và ghi disk |
-| **Mẫu đánh giá Confidence** | **80 dòng** | File `fusion_confidence_gold_template.csv` (65 train / 15 test) |
-| **Mẫu đánh giá Quality** | **135 dòng** | File `fusion_quality_gold_template.csv` (108 train / 27 test) |
-| *-- Phân rã theo Task:* | | • `relation_support`: 80 mẫu<br>• `reference_resolution`: 34 mẫu<br>• `deontic_conflict`: 21 mẫu |
+| Nhóm kiểm tra | Điều kiện được kiểm tra | Kết quả lần chạy | Giới hạn cần lưu ý |
+|---|---|---|---|
+| Endpoint cạnh | Mỗi cạnh có loại cạnh và source/target tồn tại trong UKG | Đạt; `conforms: true` | Không đánh giá cạnh có đúng về mặt pháp lý hay không |
+| Số Điều | Node `ARTICLE` phải có số nguyên dương | Đạt; `conforms: true` | Không kiểm tra số Điều có đầy đủ/liên tục so với toàn văn luật |
+| Quan hệ cấu trúc | `BELONG_TO` tuân theo cặp cấp cha-con được cấu hình; cây không có chu trình | Đạt; `conforms: true` | Chỉ áp dụng cho các cấp cấu trúc đã khai báo |
+| Quan hệ thứ tự | `NEXT`/`PREVIOUS` phải nối node cùng cấp cấu trúc | Đạt; `conforms: true` | Chưa xác nhận thứ tự số/vị trí tăng dần hoặc tính đối ứng giữa `NEXT` và `PREVIOUS` |
+| Domain/range ngữ nghĩa | Khi cả hai đầu mút có ontology class, cặp lớp phải thuộc miền/đích được cấu hình cho loại quan hệ | Đạt; `conforms: true` | Nếu thiếu ontology class ở một đầu mút, kiểm tra hiện tại chưa đánh dấu vi phạm; kết quả không thay thế thẩm định ngữ nghĩa bởi chuyên gia |
+
+Các điều kiện trên được tính thành thuộc tính kiểm tra rồi SHACL xác thực.
+Runner `run_pipeline.py` và `run_fusion.py` ghi báo cáo SHACL; nếu
+`conforms: false`, runner phát sinh lỗi và không ghi UKG mới như một lần chạy
+thành công. Kết quả `conforms: true` xác nhận graph đạt các constraint hiện
+được cấu hình, không đồng nghĩa toàn bộ nội dung pháp lý đã chính xác.
+
+### Kết quả liên kết tham chiếu
+
+| Trạng thái liên kết | Số quan hệ | Tỷ lệ trên 27 tham chiếu |
+|---|---:|---:|
+| `RESOLVED_IN_M4` | 6 | 22,2% |
+| `TARGET_NOT_FOUND_IN_M4` | 21 | 77,8% |
+| **Tổng `REFERENCE_TO`** | **27** | **100%** |
+
+Trong graph M7 legacy hiện dùng cho lần chạy này, các relation không mang
+`reference_scope` hoặc `target_hint`; bởi vậy report ghi `m7_scope: null`.
+Tỷ lệ trên chỉ mô tả khả năng liên kết vào lát cắt M4 hiện có, không phải độ
+chính xác phân loại tham chiếu. Sáu là số relation được ghép về M4; một
+relation có thể chứa nhiều target và tạo nhiều cạnh. Vì vậy số relation đã
+resolve và số cạnh `RESOLVES_TO` không nhất thiết bằng nhau.
+
+`TARGET_NOT_FOUND_IN_M4` chỉ có nghĩa là chưa tìm được node đích trong graph
+đầu vào; không thể kết luận tham chiếu là ngoài phạm vi hay M7 phân loại sai.
+
+Cảnh báo xung đột hiện có là `REQUIRE_PROHIBIT`, IDs
+`REL_REL_0765` và `REL_REL_0777`. Đây là cảnh báo heuristic để người có chuyên
+môn xem xét điều kiện/ngoại lệ, không phải phán quyết về mâu thuẫn pháp luật.
+Các số liệu trên đánh giá cấu trúc và kết quả chạy; độ chính xác pháp lý cần
+được đo riêng bằng gold dataset đã được chuyên gia gán nhãn.
 
 ---
 
-### 4.2. Phân tích và Đánh giá chuyên sâu kết quả đầu ra
-
-#### 1. Mật độ kết nối & Khả năng truy vết nguồn gốc (Traceability & Provenance)
-- Đồ thị hợp nhất đạt mật độ **4,66 cạnh/node** (1.371 cạnh / 294 node).
-- **435 cạnh `MENTIONS`** được thiết lập tự động cho 378 quan hệ ngữ nghĩa (trung bình 1,15 liên kết neo vết/quan hệ). Mỗi thực thể và quy phạm đều được liên kết trực tiếp về đúng Khoản/Điều nguồn, đảm bảo tính minh bạch, có thể giải thích được (Explainable AI) và loại bỏ hoàn toàn hiện tượng ảo giác (hallucination).
-- 100% cạnh mang trường `provenance: ["M4"]`, `["M7"]` hoặc `["M8"]`.
-
-#### 2. Chất lượng phân giải dẫn chiếu (Reference Resolution)
-Tổng cộng có **27 quan hệ `REFERENCE_TO`**, được xử lý rành mạch:
-- **Dẫn chiếu nội bộ giải quyết thành công (6 quan hệ):** Tạo thành 5 cạnh `RESOLVES_TO` trỏ chính xác về node Điều tương ứng trong Chương III (ví dụ: `REL_REL_0324` và `REL_REL_0549` trỏ về Điều 31 và Điều 41).
-- **Dẫn chiếu toàn văn cấp văn bản (4 quan hệ):** Nhận diện cụm từ *"Luật này"*, tự động tạo 2 cạnh `RESOLVES_TO` nối về node ảo `document_59_2024_qh15` đại diện toàn bộ đạo luật, khắc phục triệt để lỗi gán nhầm vào node Chương.
-- **17 quan hệ bị từ chối tạo cạnh nội bộ (`rejected_relations`):**
-  - **4 `GENERAL_LEGAL_SCOPE`:** Quy phạm mở, mang tính nguyên tắc chung (*"theo quy định của pháp luật về đất đai"*, *"pháp luật về kinh doanh bất động sản"*).
-  - **3 `EXTERNAL_SCOPE`:** Dẫn chiếu tường minh sang văn bản pháp luật khác (*"Quy định pháp luật khác"*).
-  - **10 `UNRESOLVED_REFERENCE`:** Điển hình là `REL_REL_0767` trích dẫn *"khoản 3 Điều 16"*. Do tập dữ liệu thử nghiệm chỉ gồm **Chương III (Điều 26–48)** trong khi Điều 16 nằm ở Chương II, việc không tìm thấy node đích phản ánh đúng **giới hạn cắt lát dữ liệu đầu vào (data slice limitation)**, không phải lỗi thuật toán regex. Việc tách riêng nhóm này giúp tránh phạt oan độ chính xác của mô hình.
-
-#### 3. Phân tích ca xung đột Deontic điển hình (Quality Gate Case Study)
-Báo cáo xung đột ghi nhận 1 cảnh báo:
-- **Xung đột:** `REQUIRE_PROHIBIT` giữa quan hệ `REL_REL_0765` và `REL_REL_0777` trên cặp `(subject.state, action.transaction.mortgage)`.
-- **Bằng chứng văn bản:**
-  - `REL_REL_0765`: *"Cá nhân là người dân tộc thiểu số được Nhà nước giao đất... thì **được** thế chấp quyền sử dụng đất tại ngân hàng chính sách."*
-  - `REL_REL_0777`: *"Cá nhân là người dân tộc thiểu số được Nhà nước giao đất... **không được** chuyển nhượng, góp vốn, tặng cho, thừa kế, thế chấp... **trừ trường hợp quy định tại khoản 1 và khoản 2 Điều này**."*
-- **Đánh giá bản chất:**
-  - **Về thuật toán M8:** `ConflictResolver` hoạt động hoàn toàn chính xác theo logic quy phạm (Deontic Logic): khi phát hiện 1 quan hệ bắt buộc/cho phép đối kháng trực tiếp với quan hệ cấm trên cùng cặp chủ thể–hành vi mà thiếu cạnh `HAS_EXCEPTION`, hệ thống lập tức gắn cờ `POTENTIAL_LEGAL_CONFLICT`.
-  - **Về tầng trích xuất M6/M7:** Cảnh báo này đã bộc lộ điểm yếu của tầng trích xuất NLP/LLM thượng nguồn khi xử lý câu bị động tiếng Việt (*"Cá nhân... được Nhà nước giao đất..."* bị hiểu nhầm chủ thể là "Nhà nước" thay vì cá nhân người dân tộc thiểu số, nhầm lẫn modality `ALLOW` thành `REQUIRE`, và bỏ sót cạnh ngoại lệ `HAS_EXCEPTION`).
-  - **Ý nghĩa:** Module 8 đóng vai trò xuất sắc như một **bộ lọc kiểm định chất lượng (Quality Gate)**, hỗ trợ phát hiện sớm sai số của các mô hình trích xuất thượng nguồn.
-
-#### 4. Hiệu năng thực thi và Khả năng mở rộng
-- Thời gian kiểm định SHACL đạt **~2,76 giây** (với W3C SHACL không bật RDFS inference).
-- Toàn bộ thời gian chạy `run_fusion.py` đạt **~4,40 giây**.
-- Việc tối ưu hóa bằng các lượt duyệt tuyến tính trong Python để kiểm tra chu trình và thứ tự cấp bậc trước khi nạp vào SHACL đã giúp giảm thời gian kiểm định từ hàng chục giây xuống dưới 3 giây, hoàn toàn khả thi cho việc vận hành trong pipeline thời gian thực.
-
-
----
-
-## 5. Cách chạy và kiểm thử
-
-Chạy riêng M8:
+## 5. Cách chạy
 
 ```powershell
 python run_fusion.py
-```
-
-Chạy riêng bước M8 thông qua master pipeline:
-
-```powershell
-python run_pipeline.py --from-stage M8 --to-stage M8
-```
-
-Chạy bộ kiểm thử M8:
-
-```powershell
 python -m pytest tests/unit/test_fusion_engine.py -q
 ```
 
-Lấy mẫu CSV để chuyên gia gán nhãn:
+Sinh mẫu CSV đánh giá:
 
 ```powershell
 python scripts/sample_fusion_eval.py --size 80 --seed 42
 ```
 
-Chuẩn bị 10 M6 candidates phức tạp để xem xét:
-
-```powershell
-python scripts/sample_m6_candidates.py --limit 10
-```
-
-Lệnh lấy mẫu M6 không gọi API. Chỉ chạy trích xuất LLM sau khi đã xem xét
-danh sách và chấp nhận chi phí; với master pipeline phải truyền rõ
-`--allow-llm --m6-limit N`.
+Confidence hiện là heuristic chưa hiệu chuẩn cho đến khi có nhãn chuyên gia
+đủ tin cậy. Không xem các template chưa được gán nhãn là gold dataset.
 
 ---
 
-## 6. Đầu ra chính
+## 6. Giới hạn và hướng hoàn thiện
 
-- `outputs/unified_graphs/unified_knowledge_graph.json`: UKG gồm metadata,
-  nodes, edges, conflicts và fusion report.
-- `outputs/unified_graphs/fusion_conflicts.json`: các cảnh báo xung đột và
-  relation IDs liên quan.
-- `outputs/unified_graphs/fusion_shacl_report.json`: trạng thái conform cùng
-  nội dung báo cáo SHACL.
-- `outputs/evaluation/fusion_confidence_gold_template.csv`: mẫu quan hệ và
-  confidence; cột `label` để trống cho người đánh giá.
-- `outputs/evaluation/fusion_quality_gold_template.csv`: mẫu đánh giá chất
-  lượng, xung đột và dẫn chiếu; nhãn gold do reviewer cung cấp.
-- `outputs/evaluation/m6_complex_candidate_sample.json`: danh sách M6
-  candidates được xếp hạng theo dấu hiệu độ phức tạp.
+- M8 chỉ phân giải được tham chiếu về những node thực sự có trong M4. Nếu graph
+  đầu vào chỉ là một chương, dẫn chiếu tới Điều ở chương khác sẽ có trạng thái
+  `TARGET_NOT_FOUND_IN_M4`; cần nạp phạm vi văn bản rộng hơn nếu muốn nối đích.
+- Schema M7 legacy không có scope/hint thì M8 báo `m7_scope: null`; muốn phân
+  biệt rõ tham chiếu nội bộ, ngoài phạm vi và mơ hồ thì cần M7 xuất các nhãn
+  đó theo contract.
+- Muốn resolve “Luật này” về toàn văn, M4 cần cung cấp node `DOCUMENT` cùng ID
+  ổn định và quy tắc nối rõ ràng. M8 không tự bịa node văn bản.
+- Confidence chưa được kiểm định/hiệu chuẩn bằng gold labels chuyên gia.
+- Conflict detection mới tạo cảnh báo theo luật; chưa thay thế phân tích pháp
+  lý toàn diện.
+- Adapter Neo4j có kiểm thử đơn vị nhưng chưa được xác nhận trên server Neo4j
+  mục tiêu.
 
----
+## 7. Kết luận
 
-## 7. Giới hạn và việc còn cần làm
-
-- **Chưa có gold labels đã được chuyên gia xác nhận.** Confidence hiện tại là
-  heuristic, có trạng thái `heuristic_uncalibrated`; không được diễn giải
-  thành xác suất pháp lý đã hiệu chuẩn. Chỉ fit calibrator sau khi hoàn thành
-  train split và giữ nguyên test split.
-- **Xung đột là “potential”**: so khớp subject/action cùng modality và các
-  ngoại lệ đã nối được; hệ thống chưa thay chuyên gia đánh giá khác biệt về
-  phạm vi, thời điểm, điều kiện hoặc hiệu lực văn bản.
-- **Neo4j delta chưa được xác nhận trên server thực tế.** Cần cấu hình
-  credentials, kiểm thử trên database phù hợp và xác nhận backup trước khi
-  áp dụng dữ liệu thật.
-- **Chưa thực hiện M6 với prompt mới trong lần nghiệm thu này.** Cần chọn các
-  candidate, chấp nhận chi phí API, chạy mẫu có giới hạn và rà soát evidence,
-  chủ thể ẩn, điều kiện và ngoại lệ.
-- Kết quả trên một chương luật chỉ xác nhận pipeline với tập dữ liệu này;
-  đánh giá độ chính xác tổng quát cần gold set từ nhiều văn bản và kết quả
-  held-out có ghi nhận mức đồng thuận reviewer.
-
----
-
-## 8. Kết luận
-
-M8 hiện đã có đường đi từ M4/M7 tới UKG, phát hiện xung đột tiềm tàng, xử lý
-một số dạng dẫn chiếu, kiểm định SHACL, tạo mẫu đánh giá và hỗ trợ delta cho
-Neo4j. Trên dữ liệu đang có, 21/21 test M8 pass và SHACL conform. Có thể xem
-đây là **bản triển khai kỹ thuật sẵn sàng cho demo và đánh giá tiếp theo**;
-chưa nên tuyên bố production/legal-ready cho tới khi có đánh giá chuyên gia,
-held-out gold set và kiểm chứng Neo4j trên môi trường mục tiêu.
+M8 thực hiện vai trò **tích hợp và liên kết M4–M7**: giữ cấu trúc M4, đưa dữ
+liệu ngữ nghĩa M7 vào UKG, neo dữ liệu về vị trí nguồn và tìm đích dẫn chiếu
+trong graph vật lý. M7 vẫn là nguồn chịu trách nhiệm phân loại ngữ nghĩa và
+scope dẫn chiếu. Trên bộ dữ liệu hiện tại, kiểm thử M8 và SHACL pass; đánh giá
+độ chính xác pháp lý vẫn cần gold set do chuyên gia gán nhãn.

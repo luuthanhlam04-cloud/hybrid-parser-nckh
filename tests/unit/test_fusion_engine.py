@@ -15,32 +15,14 @@ from src.fusion.shacl_validator import ShaclValidator
 from scripts.sample_fusion_eval import sample_fusion_eval
 
 
-def test_context_stack_resolves_article():
+def test_anaphoric_reference_uses_m7_reference_and_m4_hierarchy():
     nodes = [
         {"id": "article", "labels": ["ARTICLE"], "properties": {"parent_id": None}},
         {"id": "clause", "labels": ["CLAUSE"], "properties": {"parent_id": "article"}},
     ]
-    assert NodeMapper(nodes).scope_for_text("clause", "theo quy định tại Điều này") == "article"
-
-
-def test_reference_scope_classifies_document_general_and_external_scopes():
-    mapper = NodeMapper([{
-        "id": "article",
-        "labels": ["ARTICLE"],
-        "properties": {
-            "law_code": "59/2024/QH15",
-            "source_doc": "Luat_dat_dai_2024.docx",
-        },
-    }])
-    assert mapper.classify_reference_scope(
-        "Luật này", "SAME_DOCUMENT", "article"
-    ) == "DOCUMENT_LEVEL_REF"
-    assert mapper.classify_reference_scope(
-        "theo quy định của pháp luật về đất đai", "", "article"
-    ) == "GENERAL_LEGAL_SCOPE"
-    assert mapper.classify_reference_scope(
-        "Luật 12/2023/QH15", "", "article"
-    ) == "EXTERNAL_SCOPE"
+    assert NodeMapper(nodes).resolve_anaphoric_reference(
+        "Điều này", "clause"
+    ) == ["article"]
 
 
 def test_deontic_conflict_is_reported_without_exception():
@@ -330,8 +312,10 @@ def test_fuses_norm_based_m7_output_and_resolves_reference(tmp_path):
         edge["type"] == "RESOLVES_TO" and edge["source"] == "ref.2"
         for edge in result["edges"]
     )
-    assert result["fusion_report"]["unresolved_reference_count"] == 0
-    assert result["fusion_report"]["external_scope_reference_count"] == 1
+    assert result["fusion_report"]["reference_resolution"]["status_counts"] == {
+        "OUT_OF_SCOPE_PER_M7": 1,
+        "RESOLVED_IN_M4": 1,
+    }
     assert ShaclValidator().validate(result)[0]
 
 
@@ -416,7 +400,7 @@ def test_shacl_rejects_belong_to_cycle():
     assert "acyclic" in report_text
 
 
-def test_document_level_reference_creates_document_anchor(tmp_path):
+def test_reference_resolution_preserves_m7_scope_without_creating_nodes(tmp_path):
     physical_path = tmp_path / "physical-document-ref.json"
     semantic_path = tmp_path / "semantic-document-ref.json"
     physical_path.write_text(json.dumps({
@@ -434,32 +418,92 @@ def test_document_level_reference_creates_document_anchor(tmp_path):
         "entities": [
             {"canonical_id": "action", "ontology_class": "LEGAL_ACTION"},
             {
-                "canonical_id": "ref-law",
+                "canonical_id": "ref-local",
                 "ontology_class": "LEGAL_DOCUMENT_REF",
                 "canonical_text": "Luật này",
             },
+            {
+                "canonical_id": "ref-external",
+                "ontology_class": "LEGAL_DOCUMENT_REF",
+                "canonical_text": "Luật Doanh nghiệp",
+            },
+            {
+                "canonical_id": "ref-ambiguous",
+                "ontology_class": "LEGAL_DOCUMENT_REF",
+                "canonical_text": "quy định liên quan",
+            },
+            {
+                "canonical_id": "ref-general",
+                "ontology_class": "LEGAL_DOCUMENT_REF",
+                "canonical_text": "quy định của pháp luật về đất đai",
+            },
         ],
-        "relations": [{
-            "relation_id": "r-law",
-            "relation_type": "REFERENCE_TO",
-            "source": "action",
-            "target": "ref-law",
-            "source_node_id": "article",
-            "reference_scope": "SAME_DOCUMENT",
-            "evidence": "theo Luật này",
-        }],
+        "relations": [
+            {
+                "relation_id": "r-local",
+                "relation_type": "REFERENCE_TO",
+                "source": "action",
+                "target": "ref-local",
+                "source_node_id": "article",
+                "reference_scope": "SAME_DOCUMENT",
+                "evidence": "theo Luật này",
+            },
+            {
+                "relation_id": "r-external",
+                "relation_type": "REFERENCE_TO",
+                "source": "action",
+                "target": "ref-external",
+                "source_node_id": "article",
+                "reference_scope": "EXTERNAL",
+                "evidence": "theo Luật Doanh nghiệp",
+            },
+            {
+                "relation_id": "r-ambiguous",
+                "relation_type": "REFERENCE_TO",
+                "source": "action",
+                "target": "ref-ambiguous",
+                "source_node_id": "article",
+                "reference_scope": "AMBIGUOUS",
+                "evidence": "theo quy định liên quan",
+            },
+            {
+                "relation_id": "r-general",
+                "relation_type": "REFERENCE_TO",
+                "source": "action",
+                "target": "ref-general",
+                "source_node_id": "article",
+                "reference_scope": "GENERAL_LEGAL_SCOPE",
+                "evidence": "theo quy định của pháp luật về đất đai",
+            },
+        ],
     }), encoding="utf-8")
 
     result = FusionEngine().fuse(physical_path, semantic_path)
-    anchors = [node for node in result["nodes"] if node["node_kind"] == "DOCUMENT"]
-    assert len(anchors) == 1
-    assert any(
-        edge["type"] == "RESOLVES_TO"
-        and edge["source"] == "ref-law"
-        and edge["target"] == anchors[0]["id"]
-        for edge in result["edges"]
-    )
-    assert result["fusion_report"]["document_level_reference_count"] == 1
+    assert not any(node["node_kind"] == "DOCUMENT" for node in result["nodes"])
+    assert not any(edge["type"] == "RESOLVES_TO" for edge in result["edges"])
+    report = result["fusion_report"]["reference_resolution"]
+    assert report["scope_counts"] == {
+        "AMBIGUOUS": 1,
+        "EXTERNAL": 1,
+        "GENERAL_LEGAL_SCOPE": 1,
+        "SAME_DOCUMENT": 1,
+    }
+    assert report["status_counts"] == {
+        "AMBIGUOUS_PER_M7": 1,
+        "NOT_ATTEMPTED_PER_M7_SCOPE": 1,
+        "OUT_OF_SCOPE_PER_M7": 1,
+        "TARGET_NOT_FOUND_IN_M4": 1,
+    }
+    assert {
+        item["relation_id"]: item["m7_scope"] for item in report["items"]
+    } == {
+        "r-local": "SAME_DOCUMENT",
+        "r-external": "EXTERNAL",
+        "r-ambiguous": "AMBIGUOUS",
+        "r-general": "GENERAL_LEGAL_SCOPE",
+    }
+    assert result["fusion_report"]["reference_targets_not_found_in_m4_count"] == 1
+    assert result["fusion_report"]["rejected_relations"] == []
 
 
 def test_sampler_creates_unlabeled_stratified_rows_and_grouped_splits(tmp_path):

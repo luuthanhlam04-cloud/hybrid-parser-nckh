@@ -29,13 +29,21 @@ To rank complex routed candidates locally without calling the API, run
 `python scripts/sample_m6_candidates.py --limit 10`. Review the generated JSON
 and command before choosing whether to launch the paid extraction.
 
-The fusion output contains a `fusion_report`; potential legal conflicts are
-warnings for expert review, not legal conclusions. A `RESOLVES_TO` edge is
-created only when an explicit or anaphoric citation resolves uniquely within
-the physical graph's document/law scope. Document-wide references such as
-"Luật này" resolve to a synthetic `DOCUMENT` anchor, never to a chapter.
-Out-of-scope citations and general legal scope are reported separately from
-unresolved or ambiguous internal citations. SHACL runs without RDFS inference.
+M8's core job is to integrate M4's structural graph with semantic data supplied
+by M7. It does not independently classify legal-reference meaning or create
+new legal concepts. The adapter projects M7's supplied entities, relations,
+norms, hints, and reference scopes into UKG while retaining their provenance.
+A `RESOLVES_TO` edge is created only when M8 can match an M7 reference hint or
+reference text to a physical node in M4. Reference reports preserve M7's scope
+and separately record the linking outcome (`RESOLVED_IN_M4`,
+`TARGET_NOT_FOUND_IN_M4`, `OUT_OF_SCOPE_PER_M7`, or `AMBIGUOUS_PER_M7`).
+Scopes M8 does not handle are reported as `NOT_ATTEMPTED_PER_M7_SCOPE`, with
+the M7 scope retained unchanged.
+The current M4 sample has no document-root node, so an M7 reference to an entire
+document remains unmatched rather than causing M8 to invent a `DOCUMENT` node.
+Legacy M7 `entities`/`relations` files may not contain `reference_scope`; in
+that case the report records a null scope and does not claim an M7
+classification. SHACL runs without RDFS inference.
 Hierarchy-cycle, hierarchy-level, sequence-level, edge-integrity, article
 number, and semantic domain/range facts are precomputed in linear passes and
 checked by SHACL property shapes; this avoids repeatedly executing expensive

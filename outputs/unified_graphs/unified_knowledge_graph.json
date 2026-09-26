@@ -4,7 +4,7 @@
     "confidence_mode": "heuristic_uncalibrated",
     "physical_node_count": 222,
     "semantic_entity_count": 71,
-    "total_node_count": 294,
+    "total_node_count": 293,
     "physical_edge_count": 551,
     "semantic_edge_count": 378,
     "denotes_edge_count": 0,
@@ -7547,18 +7547,6 @@
       "provenance": [
         "M7"
       ]
-    },
-    {
-      "id": "document_59_2024_qh15",
-      "node_kind": "DOCUMENT",
-      "labels": [
-        "DOCUMENT"
-      ],
-      "properties": {
-        "law_code": "59/2024/QH15",
-        "source_doc": "Luat_dat_dai_chuong_3.docx",
-        "title": "Luat_dat_dai_chuong_3"
-      }
     }
   ],
   "edges": [
@@ -12977,7 +12965,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "GENERAL_LEGAL_SCOPE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -13068,26 +13056,10 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_reference_node_ids": [
-          "document_59_2024_qh15"
-        ],
-        "reference_resolution_status": "DOCUMENT_LEVEL_REF"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
-      ]
-    },
-    {
-      "source": "reference.law.land_law_2024",
-      "target": "document_59_2024_qh15",
-      "type": "RESOLVES_TO",
-      "properties": {
-        "relation_id": "REL_REL_0015",
-        "provenance": "M8",
-        "confidence": 1.0
-      },
-      "provenance": [
-        "M8"
       ]
     },
     {
@@ -13194,26 +13166,10 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_reference_node_ids": [
-          "document_59_2024_qh15"
-        ],
-        "reference_resolution_status": "DOCUMENT_LEVEL_REF"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
-      ]
-    },
-    {
-      "source": "unassigned.quy_định_của_luật_này",
-      "target": "document_59_2024_qh15",
-      "type": "RESOLVES_TO",
-      "properties": {
-        "relation_id": "REL_REL_0019",
-        "provenance": "M8",
-        "confidence": 1.0
-      },
-      "provenance": [
-        "M8"
       ]
     },
     {
@@ -13760,10 +13716,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_reference_node_ids": [
-          "document_59_2024_qh15"
-        ],
-        "reference_resolution_status": "DOCUMENT_LEVEL_REF"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -14013,8 +13966,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -14059,8 +14011,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -14092,8 +14043,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -15010,10 +14960,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_reference_node_ids": [
-          "document_59_2024_qh15"
-        ],
-        "reference_resolution_status": "DOCUMENT_LEVEL_REF"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -15630,7 +15577,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -15663,7 +15610,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -15809,7 +15756,7 @@
           "doc_chuong-iii_muc-1_dieu-26_p180",
           "doc_chuong-iii_muc-1_dieu-31_p9431"
         ],
-        "reference_resolution_status": "RESOLVED_INTERNAL"
+        "reference_resolution_status": "RESOLVED_IN_M4"
       },
       "provenance": [
         "M7"
@@ -16597,8 +16544,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-2_dieu-33_p11077"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -16643,8 +16589,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-2_dieu-33_p11077"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -17059,7 +17004,7 @@
           "doc_chuong-iii_muc-1_dieu-26_p180",
           "doc_chuong-iii_muc-1_dieu-31_p9431"
         ],
-        "reference_resolution_status": "RESOLVED_INTERNAL"
+        "reference_resolution_status": "RESOLVED_IN_M4"
       },
       "provenance": [
         "M7"
@@ -17418,8 +17363,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-2_dieu-34_p14069"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -17464,8 +17408,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-2_dieu-34_p14069"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -17575,7 +17518,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "GENERAL_LEGAL_SCOPE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -17676,7 +17619,7 @@
           "doc_chuong-iii_muc-1_dieu-26_p180",
           "doc_chuong-iii_muc-1_dieu-31_p9431"
         ],
-        "reference_resolution_status": "RESOLVED_INTERNAL"
+        "reference_resolution_status": "RESOLVED_IN_M4"
       },
       "provenance": [
         "M7"
@@ -17844,7 +17787,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -18031,7 +17974,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -18109,7 +18052,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -18405,7 +18348,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "EXTERNAL_SCOPE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -18624,7 +18567,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "EXTERNAL_SCOPE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -19528,8 +19471,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-3_dieu-37_p21250"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -19574,8 +19516,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-3_dieu-37_p21250"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -19767,8 +19708,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-3_dieu-37_p21250"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -19814,8 +19754,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-3_dieu-37_p21250",
-        "reference_resolution_status": "GENERAL_LEGAL_SCOPE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -20213,7 +20152,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -20246,7 +20185,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -20360,7 +20299,7 @@
           "doc_chuong-iii_muc-1_dieu-26_p180",
           "doc_chuong-iii_muc-1_dieu-31_p9431"
         ],
-        "reference_resolution_status": "RESOLVED_INTERNAL"
+        "reference_resolution_status": "RESOLVED_IN_M4"
       },
       "provenance": [
         "M7"
@@ -20720,7 +20659,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -21989,8 +21928,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-41_p28202"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22036,11 +21974,10 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-41_p28202",
         "resolved_reference_node_ids": [
           "doc_chuong-iii_muc-4_dieu-41_p28202"
         ],
-        "reference_resolution_status": "RESOLVED_INTERNAL"
+        "reference_resolution_status": "RESOLVED_IN_M4"
       },
       "provenance": [
         "M7"
@@ -22522,7 +22459,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -22599,8 +22536,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22645,8 +22581,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22696,7 +22631,7 @@
           "doc_chuong-iii_muc-1_dieu-26_p180",
           "doc_chuong-iii_muc-1_dieu-31_p9431"
         ],
-        "reference_resolution_status": "RESOLVED_INTERNAL"
+        "reference_resolution_status": "RESOLVED_IN_M4"
       },
       "provenance": [
         "M7"
@@ -22728,8 +22663,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22806,8 +22740,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22852,8 +22785,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22885,8 +22817,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22918,8 +22849,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -22951,8 +22881,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -23092,8 +23021,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -23446,8 +23374,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -23492,8 +23419,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -23526,8 +23452,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424",
-        "reference_resolution_status": "GENERAL_LEGAL_SCOPE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -23560,8 +23485,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-4_dieu-44_p34424",
-        "reference_resolution_status": "EXTERNAL_SCOPE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -24915,8 +24839,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-45_p38358"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25211,8 +25134,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-46_p43205"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25257,8 +25179,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-46_p43205"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25290,8 +25211,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-46_p43205"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25683,7 +25603,7 @@
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
         "confidence": 0.5,
-        "reference_resolution_status": "UNRESOLVED_REFERENCE"
+        "reference_resolution_status": "TARGET_NOT_FOUND_IN_M4"
       },
       "provenance": [
         "M7"
@@ -25715,8 +25635,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25761,8 +25680,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25794,8 +25712,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25827,8 +25744,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25860,8 +25776,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25893,8 +25808,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25926,8 +25840,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25946,8 +25859,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25966,8 +25878,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -25986,8 +25897,7 @@
         "provenance": "M7",
         "confidence_raw": 0.5,
         "confidence_status": "heuristic_uncalibrated",
-        "confidence": 0.5,
-        "resolved_context_node_id": "doc_chuong-iii_muc-5_dieu-48_p45666"
+        "confidence": 0.5
       },
       "provenance": [
         "M7"
@@ -26014,99 +25924,225 @@
     }
   ],
   "fusion_report": {
-    "rejected_relations": [
-      {
-        "relation_id": "REL_REL_0004",
-        "reason": "GENERAL_LEGAL_SCOPE",
-        "reference_text": "Quy định của pháp luật về đất đai"
+    "rejected_relations": [],
+    "rejected_relation_count": 0,
+    "reference_resolution": {
+      "total": 27,
+      "scope_counts": {},
+      "status_counts": {
+        "RESOLVED_IN_M4": 6,
+        "TARGET_NOT_FOUND_IN_M4": 21
       },
-      {
-        "relation_id": "REL_REL_0230",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0231",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0321",
-        "reason": "GENERAL_LEGAL_SCOPE",
-        "reference_text": "Pháp luật về Kinh doanh Bất động sản"
-      },
-      {
-        "relation_id": "REL_REL_0328",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0345",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0349",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0373",
-        "reason": "EXTERNAL_SCOPE",
-        "reference_text": "Quy định pháp luật khác"
-      },
-      {
-        "relation_id": "REL_REL_0379",
-        "reason": "EXTERNAL_SCOPE",
-        "reference_text": "Quy định pháp luật khác"
-      },
-      {
-        "relation_id": "REL_REL_0440",
-        "reason": "GENERAL_LEGAL_SCOPE",
-        "reference_text": "Pháp luật về Kinh doanh Bất động sản"
-      },
-      {
-        "relation_id": "REL_REL_0461",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0462",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0492",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0582",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "Điều khoản tham chiếu nội bộ"
-      },
-      {
-        "relation_id": "REL_REL_0634",
-        "reason": "GENERAL_LEGAL_SCOPE",
-        "reference_text": "Quy định của pháp luật về đất đai"
-      },
-      {
-        "relation_id": "REL_REL_0635",
-        "reason": "EXTERNAL_SCOPE",
-        "reference_text": "Quy định pháp luật khác"
-      },
-      {
-        "relation_id": "REL_REL_0767",
-        "reason": "UNRESOLVED_REFERENCE",
-        "reference_text": "khoản 3 Điều 16"
-      }
-    ],
-    "rejected_relation_count": 17,
+      "items": [
+        {
+          "relation_id": "REL_REL_0004",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0015",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0019",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0045",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0100",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0230",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0231",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0241",
+          "m7_scope": null,
+          "resolution_status": "RESOLVED_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": [
+            "doc_chuong-iii_muc-1_dieu-26_p180",
+            "doc_chuong-iii_muc-1_dieu-31_p9431"
+          ]
+        },
+        {
+          "relation_id": "REL_REL_0284",
+          "m7_scope": null,
+          "resolution_status": "RESOLVED_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": [
+            "doc_chuong-iii_muc-1_dieu-26_p180",
+            "doc_chuong-iii_muc-1_dieu-31_p9431"
+          ]
+        },
+        {
+          "relation_id": "REL_REL_0321",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0324",
+          "m7_scope": null,
+          "resolution_status": "RESOLVED_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": [
+            "doc_chuong-iii_muc-1_dieu-26_p180",
+            "doc_chuong-iii_muc-1_dieu-31_p9431"
+          ]
+        },
+        {
+          "relation_id": "REL_REL_0328",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0345",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0349",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0373",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0379",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0440",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0461",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0462",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0468",
+          "m7_scope": null,
+          "resolution_status": "RESOLVED_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": [
+            "doc_chuong-iii_muc-1_dieu-26_p180",
+            "doc_chuong-iii_muc-1_dieu-31_p9431"
+          ]
+        },
+        {
+          "relation_id": "REL_REL_0492",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0549",
+          "m7_scope": null,
+          "resolution_status": "RESOLVED_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": [
+            "doc_chuong-iii_muc-4_dieu-41_p28202"
+          ]
+        },
+        {
+          "relation_id": "REL_REL_0582",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0598",
+          "m7_scope": null,
+          "resolution_status": "RESOLVED_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": [
+            "doc_chuong-iii_muc-1_dieu-26_p180",
+            "doc_chuong-iii_muc-1_dieu-31_p9431"
+          ]
+        },
+        {
+          "relation_id": "REL_REL_0634",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0635",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        },
+        {
+          "relation_id": "REL_REL_0767",
+          "m7_scope": null,
+          "resolution_status": "TARGET_NOT_FOUND_IN_M4",
+          "target_hint": null,
+          "resolved_physical_node_ids": []
+        }
+      ]
+    },
     "deontic_conflict_count": 1,
-    "unresolved_reference_count": 10,
-    "document_level_reference_count": 4,
-    "external_scope_reference_count": 3,
-    "general_legal_scope_reference_count": 4,
-    "ambiguous_reference_count": 0
+    "reference_targets_not_found_in_m4_count": 21
   }
 }
