@@ -70,14 +70,28 @@ class StructuredExtractor:
         
         return response
 
-    def run_extraction(self, limit: int = 0) -> Dict[str, Any]:
+    def run_extraction(
+        self, limit: int = 0, node_ids: list[str] | None = None
+    ) -> Dict[str, Any]:
         """
         Chạy trích xuất cho các LLM_CANDIDATE.
         limit: Số lượng node tối đa cần trích xuất (để debug). 0 = tất cả.
         """
         candidate_nodes = self.candidates.get("candidates", [])
         llm_candidates = [c for c in candidate_nodes if c.get("route") == "LLM_CANDIDATE"]
-        
+        if node_ids:
+            candidates_by_id = {
+                str(candidate.get("node_id")): candidate
+                for candidate in llm_candidates
+            }
+            missing = [node_id for node_id in node_ids if node_id not in candidates_by_id]
+            if missing:
+                raise ValueError(
+                    "Requested node IDs are not LLM_CANDIDATE entries: "
+                    + ", ".join(missing)
+                )
+            llm_candidates = [candidates_by_id[node_id] for node_id in node_ids]
+
         if limit > 0:
             llm_candidates = llm_candidates[:limit]
             

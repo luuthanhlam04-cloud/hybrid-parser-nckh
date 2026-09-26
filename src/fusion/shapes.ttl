@@ -1,0 +1,79 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix kg: <https://hybrid-parser.example/kg#> .
+
+kg:PhysicalNodeShape
+    a sh:NodeShape ;
+    sh:targetClass kg:PhysicalNode ;
+    sh:property [
+        sh:path kg:nodeId ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path kg:articleNumberValid ;
+        sh:hasValue true ;
+        sh:minCount 1 ;
+        sh:message "ARTICLE nodes must have a positive integer number." ;
+    ] .
+
+kg:PhysicalHierarchyShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf kg:belongsToSource ;
+    sh:property [
+        sh:path kg:hasHierarchyCycle ;
+        sh:minCount 1 ;
+        sh:hasValue false ;
+        sh:message "The BELONG_TO hierarchy must be acyclic." ;
+    ] .
+
+kg:SemanticNodeShape
+    a sh:NodeShape ;
+    sh:targetClass kg:SemanticNode ;
+    sh:property [
+        sh:path kg:nodeId ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path kg:ontologyClass ;
+        sh:minCount 1 ;
+        sh:in (
+            "LEGAL_SUBJECT" "LEGAL_ACTION" "LEGAL_OBJECT"
+            "LEGAL_CONSEQUENCE" "CONDITION" "EXCEPTION"
+            "LEGAL_DOCUMENT_REF" "PENALTY"
+        ) ;
+    ] .
+
+kg:EdgeShape
+    a sh:NodeShape ;
+    sh:targetClass kg:Edge ;
+    sh:property [
+        sh:path kg:edgeStructureValid ;
+        sh:hasValue true ;
+        sh:minCount 1 ;
+        sh:message "Every edge must have a type and existing graph-node endpoints." ;
+    ] .
+
+kg:PhysicalEdgeShape
+    a sh:NodeShape ;
+    sh:targetClass kg:PhysicalEdge ;
+    sh:property [
+        sh:path kg:hierarchyValid ;
+        sh:minCount 1 ;
+        sh:hasValue true ;
+        sh:message "BELONG_TO must follow the legal document hierarchy." ;
+    ] ;
+    sh:property [
+        sh:path kg:sequenceLevelValid ;
+        sh:minCount 1 ;
+        sh:hasValue true ;
+        sh:message "NEXT and PREVIOUS edges must connect nodes of the same structural level." ;
+    ] .
+
+kg:SemanticRelationShape
+    a sh:NodeShape ;
+    sh:targetClass kg:SemanticRelation ;
+    sh:property [
+        sh:path kg:domainRangeValid ;
+        sh:minCount 1 ;
+        sh:hasValue true ;
+        sh:message "Semantic relation violates the configured ontology domain/range." ;
+    ] .

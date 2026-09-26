@@ -1,0 +1,111 @@
+{
+  "selection_method": "rule-based complexity ranking",
+  "limit": 10,
+  "selected_candidates": [
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-3_p46954",
+      "complexity_score": 7.0,
+      "signals": [
+        "anaphoric_reference",
+        "explicit_citation",
+        "condition_or_exception",
+        "multiple_normative_markers"
+      ],
+      "text_length": 256
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-4_p37072",
+      "complexity_score": 6.5,
+      "signals": [
+        "long_provision",
+        "anaphoric_reference",
+        "explicit_citation",
+        "condition_or_exception",
+        "multiple_normative_markers"
+      ],
+      "text_length": 957
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-7_p41970",
+      "complexity_score": 6.0,
+      "signals": [
+        "anaphoric_reference",
+        "explicit_citation",
+        "condition_or_exception",
+        "multiple_normative_markers"
+      ],
+      "text_length": 391
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_p15825",
+      "complexity_score": 5.5,
+      "signals": [
+        "long_provision",
+        "anaphoric_reference",
+        "explicit_citation",
+        "multiple_normative_markers"
+      ],
+      "text_length": 529
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+      "complexity_score": 5.0,
+      "signals": [
+        "long_provision",
+        "explicit_citation",
+        "condition_or_exception"
+      ],
+      "text_length": 506
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22025",
+      "complexity_score": 5.0,
+      "signals": [
+        "explicit_citation",
+        "condition_or_exception",
+        "multiple_normative_markers"
+      ],
+      "text_length": 432
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-a_p2588",
+      "complexity_score": 5.0,
+      "signals": [
+        "anaphoric_reference",
+        "condition_or_exception",
+        "multiple_normative_markers"
+      ],
+      "text_length": 205
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_p39986",
+      "complexity_score": 4.5,
+      "signals": [
+        "anaphoric_reference",
+        "explicit_citation",
+        "condition_or_exception"
+      ],
+      "text_length": 284
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-2_p12614",
+      "complexity_score": 4.5,
+      "signals": [
+        "anaphoric_reference",
+        "explicit_citation",
+        "multiple_normative_markers"
+      ],
+      "text_length": 278
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-1_p45727",
+      "complexity_score": 4.0,
+      "signals": [
+        "long_provision",
+        "explicit_citation",
+        "multiple_normative_markers"
+      ],
+      "text_length": 1046
+    }
+  ]
+}

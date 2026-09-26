@@ -1,0 +1,5 @@
+{
+  "conforms": true,
+  "report_text": "Validation Report\nConforms: True\n",
+  "report_turtle": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n"
+}

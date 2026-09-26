@@ -26,7 +26,8 @@ def get_config_hash(config: Dict[str, Any]) -> str:
 def ensure_routing_candidates(
     input_file: str = "outputs/physical_graphs/physical_graph.json",
     output_file: str = "outputs/candidate_nodes/routing_candidates.json",
-    config: Dict[str, Any] = None
+    config: Dict[str, Any] = None,
+    force: bool = False
 ) -> bool:
     """
     Chạy M5 Semantic Router an toàn với Level 1 Cache.
@@ -55,7 +56,7 @@ def ensure_routing_candidates(
     current_config_hash = get_config_hash(config)
     
     # LEVEL 1 CACHE CHECK
-    if os.path.exists(output_file):
+    if os.path.exists(output_file) and not force:
         try:
             with open(output_file, "r", encoding="utf-8") as f:
                 cached_data = json.load(f)
@@ -65,14 +66,29 @@ def ensure_routing_candidates(
             cached_config_hash = meta.get("config_hash")
             
             if cached_input_hash == current_input_hash and cached_config_hash == current_config_hash:
-                logger.info("Cache Hit! Input Graph và Config không đổi. Bỏ qua chạy thuật toán M5.")
+                logger.info("Cache Hit! Input Graph và Config không đổi.")
+                candidates = cached_data.get("candidates", [])
+                total_evaluated = meta.get("total_evaluated", len(candidates))
+                total_candidates = sum(1 for r in candidates if r.get("route") == "LLM_CANDIDATE")
+                total_rules = sum(1 for r in candidates if r.get("route") == "RULE_ONLY")
+                total_rejects = sum(1 for r in candidates if r.get("route") == "REJECT")
+                
+                print("\n--- BÁO CÁO NHANH (M5 - CACHED) ---")
+                print(f"Total Evaluated: {total_evaluated}")
+                print(f"RULE_ONLY      : {total_rules}")
+                print(f"LLM_CANDIDATE  : {total_candidates}")
+                print(f"REJECT         : {total_rejects}")
+                print("----------------------------------\n")
                 return True
             else:
                 logger.info("Cache Miss! Phát hiện thay đổi trong dữ liệu hoặc cấu hình.")
         except json.JSONDecodeError:
             logger.warning("File cache bị lỗi JSON. Sẽ sinh lại.")
     else:
-        logger.info("Không tìm thấy file candidate cache. Cần sinh mới.")
+        if force:
+            logger.info("Chế độ ép chạy lại (force=True). Bỏ qua cache.")
+        else:
+            logger.info("Không tìm thấy file candidate cache. Cần sinh mới.")
         
     # Chuẩn bị Embeddings
     ensure_embeddings(graph_path=input_file)
@@ -111,4 +127,5 @@ def ensure_routing_candidates(
 
 if __name__ == "__main__":
     print("=== CHẠY MODULE 5 (SEMANTIC ROUTER) ===")
-    ensure_routing_candidates()
+    force_run = "--force" in sys.argv or "-f" in sys.argv
+    ensure_routing_candidates(force=force_run)

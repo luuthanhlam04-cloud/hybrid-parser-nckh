@@ -1,0 +1,19 @@
+[
+  {
+    "flag": "POTENTIAL_LEGAL_CONFLICT",
+    "conflict_type": "REQUIRE_PROHIBIT",
+    "source": "subject.state",
+    "target": "action.transaction.mortgage",
+    "relation_ids": [
+      "REL_REL_0765",
+      "REL_REL_0777"
+    ],
+    "message": "REQUIRE conflict with PROHIBIT for the same subject/action without a linked exception.",
+    "relation_types": [
+      "REQUIRE",
+      "PROHIBIT"
+    ],
+    "conditions": null,
+    "context_status": "SAME_OR_UNSPECIFIED_CONDITIONS"
+  }
+]

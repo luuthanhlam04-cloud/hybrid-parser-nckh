@@ -22,6 +22,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(na
 def main():
     parser = argparse.ArgumentParser(description="Chạy Module 6: LLM Structured Extraction")
     parser.add_argument("--limit", type=int, default=0, help="Số lượng candidate node cần bóc tách (0 = tất cả)")
+    parser.add_argument(
+        "--node-id", action="append", default=[],
+        help="Trích xuất node cụ thể; có thể truyền nhiều lần để chọn mẫu khó",
+    )
     parser.add_argument("--output", type=str, default="outputs/semantic_graphs/semantic_extraction.json", help="Đường dẫn file output JSON")
     args = parser.parse_args()
 
@@ -39,7 +43,9 @@ def main():
         return
         
     print("Khởi tạo Extractor thành công. Đang tiến hành bóc tách các nodes.")
-    output_data = extractor.run_extraction(limit=args.limit)
+    output_data = extractor.run_extraction(
+        limit=args.limit, node_ids=args.node_id or None
+    )
     
     print(f"\n=== HOÀN TẤT BÓC TÁCH {len(output_data.get('extracted_nodes', []))} NODES ===")
     extractor.export(output_data, output_path)

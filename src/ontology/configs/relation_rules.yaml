@@ -1,0 +1,97 @@
+# relation_rules.yaml
+# Rules chuẩn hóa Normative Modality từ M6 relation_type
+#
+# M6 có thể output: ALLOW, REQUIRE, PROHIBIT, HAS_CONDITION, HAS_EXCEPTION,
+#   REFERENCE_TO, HAS_OBJECT, HAS_PENALTY
+# M7 cần normalize và quyết định: simple norm hay NormAssertion?
+
+modality_normalization:
+  # M6 relation → M7 canonical modality
+  ALLOW:       ALLOW
+  REQUIRE:     REQUIRE
+  PROHIBIT:    PROHIBIT
+
+  # Structural/contextual relations (giữ nguyên nhãn)
+  HAS_CONDITION:  HAS_CONDITION
+  HAS_EXCEPTION:  HAS_EXCEPTION
+  HAS_OBJECT:     HAS_OBJECT
+  HAS_PENALTY:    HAS_CONSEQUENCE   # đổi tên để nhất quán với NormAssertion schema
+  APPLY_TO:       HAS_OBJECT        # map APPLY_TO → HAS_OBJECT (cùng semantic)
+  # NOTE: REFERENCE_TO không map ở đây — được xử lý bởi reference_classifier.py
+  #       (dùng string match trên raw M6 relations để tìm owner → tạo ReferenceMention)
+
+# Domain-Range constraints
+# Simple norm (direct edge):
+domain_range:
+  ALLOW:
+    source_types: [LegalSubject]
+    target_types: [LegalAction]
+    reject_message: "ALLOW phải có Source là LegalSubject và Target là LegalAction"
+
+  REQUIRE:
+    source_types: [LegalSubject]
+    target_types: [LegalAction]
+    reject_message: "REQUIRE phải có Source là LegalSubject và Target là LegalAction"
+
+  PROHIBIT:
+    source_types: [LegalSubject]
+    target_types: [LegalAction]
+    reject_message: "PROHIBIT phải có Source là LegalSubject và Target là LegalAction"
+
+  HAS_OBJECT:
+    source_types: [LegalAction]
+    target_types: [LegalObject]
+    reject_message: "HAS_OBJECT phải có Source là LegalAction và Target là LegalObject"
+
+  DENOTES:
+    source_types: [LocalMention]
+    target_types: [CanonicalConcept]
+    reject_message: "DENOTES phải có Source là LocalMention và Target là CanonicalConcept"
+
+  REFERENCES:
+    source_types: [any]
+    target_types: [PhysicalNode]
+    reject_message: "REFERENCES phải có Target là Physical Graph node ID"
+
+# NormAssertion relations (complex norm):
+norm_relations:
+  HAS_SUBJECT:
+    source_types: [NormAssertion]
+    target_types: [LegalSubject]
+
+  HAS_ACTION:
+    source_types: [NormAssertion]
+    target_types: [LegalAction]
+
+  HAS_OBJECT:
+    source_types: [NormAssertion, LegalAction]
+    target_types: [LegalObject]
+
+  HAS_CONDITION:
+    source_types: [NormAssertion]
+    target_types: [Condition]
+    note: "Condition thuộc NormAssertion, KHÔNG thuộc LegalAction trực tiếp"
+
+  HAS_EXCEPTION:
+    source_types: [NormAssertion, Exception]  # Exception có thể đệ quy
+    target_types: [Exception]
+    note: "Exception thuộc NormAssertion. Recursive exception được phép"
+
+  HAS_CONSEQUENCE:
+    source_types: [NormAssertion]
+    target_types: [LegalConsequence]
+    note: "Consequence thuộc NormAssertion, KHÔNG thuộc LegalAction trực tiếp"
+
+# Norm-builder tiêu chí:
+# Tạo NormAssertion khi có ít nhất 1 trong:
+#   - condition_ids không rỗng
+#   - exception_ids không rỗng
+#   - consequence_ids không rỗng
+#   - nhiều hơn 1 subject (joint norm)
+#   - evidence cần chaining cross nhiều relation
+norm_creation_criteria:
+  create_norm_if:
+    - has_condition
+    - has_exception
+    - has_consequence
+    - multiple_subjects
