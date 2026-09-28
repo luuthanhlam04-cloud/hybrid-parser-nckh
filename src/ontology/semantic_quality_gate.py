@@ -71,7 +71,7 @@ class SemanticQualityGate:
         
         valid_relations = []
         for rel in normalized_relations:
-            if rel.source_mention_id in quarantined_ids or rel.target_mention_id in quarantined_ids:
+            if (rel.source_mention_id and rel.source_mention_id in quarantined_ids) or rel.target_mention_id in quarantined_ids:
                 logger.warning(
                     f"Gate 1 Drop Relation {rel.relation_type}: "
                     f"source {rel.source_mention_id} or target {rel.target_mention_id} is quarantined."
