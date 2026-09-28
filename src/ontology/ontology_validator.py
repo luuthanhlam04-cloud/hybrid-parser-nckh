@@ -137,6 +137,11 @@ class OntologyValidator:
         graph.active_nodes = active_nodes_filtered
 
         for norm in graph.norms:
+            if getattr(norm, "subject_status", "RESOLVED") == "RESOLVED":
+                if not norm.subject_ids:
+                    norm.status = NormStatus.FLAGGED
+                    norm.notes = "RESOLVED norm missing subject_ids"
+                    
             if norm.status.value == "VALID":
                 report.valid_norms += 1
             else:
