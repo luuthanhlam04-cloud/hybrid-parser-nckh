@@ -8,41 +8,84 @@ from typing import Any, Dict, Iterable, List
 
 class ConflictResolver:
     def detect_deontic_conflicts(
-        self, semantic_edges: Iterable[Dict[str, Any]]
+        self, nodes: Iterable[Dict[str, Any]], semantic_edges: Iterable[Dict[str, Any]]
     ) -> List[Dict[str, Any]]:
-        grouped: Dict[tuple[str, str], Dict[str, List[Dict[str, Any]]]] = defaultdict(
-            lambda: defaultdict(list)
-        )
-        exception_sources = set()
-        conditions_by_scope: Dict[tuple[str, str], set[str]] = defaultdict(set)
+        # Map norm_id -> subjects, actions, conditions, exceptions
+        norm_subjects: Dict[str, set[str]] = defaultdict(set)
+        norm_actions: Dict[str, set[str]] = defaultdict(set)
+        norm_conditions: Dict[str, set[str]] = defaultdict(set)
+        norm_exceptions: Dict[str, set[str]] = defaultdict(set)
+        
         edges = list(semantic_edges)
         for edge in edges:
-            source_node_id = edge["properties"].get("source_node_id")
-            if edge["type"] == "HAS_EXCEPTION":
-                exception_sources.add(
-                    (edge["source"], source_node_id)
-                )
-            elif edge["type"] == "HAS_CONDITION":
-                conditions_by_scope[(edge["source"], source_node_id)].add(edge["target"])
-            if edge["type"] in {"ALLOW", "PROHIBIT", "REQUIRE"}:
-                grouped[(edge["source"], edge["target"])][edge["type"]].append(edge)
-
-        conflicts = []
-        for (source, target), modalities in grouped.items():
-            positive = modalities.get("ALLOW", []) + modalities.get("REQUIRE", [])
-            if not positive or not modalities.get("PROHIBIT"):
+            source = edge["source"]
+            target = edge["target"]
+            rel_type = edge["type"]
+            if rel_type == "HAS_SUBJECT":
+                norm_subjects[source].add(target)
+            elif rel_type == "HAS_ACTION":
+                norm_actions[source].add(target)
+            elif rel_type == "HAS_CONDITION":
+                norm_conditions[source].add(target)
+            elif rel_type == "HAS_EXCEPTION":
+                norm_exceptions[source].add(target)
+                
+        # Group GLOBAL_NORM nodes by (subject, action) pairs
+        # pair -> modality -> list of norm_ids
+        grouped: Dict[tuple[str, str], Dict[str, List[str]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
+        
+        global_norms = [n for n in nodes if n.get("properties", {}).get("ontology_class") == "GLOBAL_NORM"]
+        
+        for norm in global_norms:
+            norm_id = norm["id"]
+            modality = norm.get("properties", {}).get("modality", "").upper()
+            if not modality:
                 continue
-            explained = any(
-                (subject, edge["properties"].get("source_node_id")) in exception_sources
-                for subject in (source, target)
-                for edge in positive + modalities["PROHIBIT"]
-            )
+                
+            for subj in norm_subjects[norm_id]:
+                for act in norm_actions[norm_id]:
+                    grouped[(subj, act)][modality].append(norm_id)
+                    
+        conflicts = []
+        for (subj, act), modalities in grouped.items():
+            positive_norms = modalities.get("ALLOW", []) + modalities.get("REQUIRE", [])
+            prohibit_norms = modalities.get("PROHIBIT", [])
+            
+            if not positive_norms or not prohibit_norms:
+                continue
+                
+            # If there's an exception, it might explain the conflict
+            # Wait, in V3.0 the logic is: compare their HAS_CONDITION / HAS_EXCEPTION targets.
+            explained = False
+            for p_norm in positive_norms:
+                p_conds = norm_conditions[p_norm]
+                p_excs = norm_exceptions[p_norm]
+                
+                for pr_norm in prohibit_norms:
+                    pr_conds = norm_conditions[pr_norm]
+                    pr_excs = norm_exceptions[pr_norm]
+                    
+                    # If they have disjoint conditions, they might conflict
+                    if p_conds and pr_conds and p_conds.isdisjoint(pr_conds):
+                        incompatible_condition_pair = (p_conds, pr_conds)
+                    else:
+                        incompatible_condition_pair = None
+                        
+                    # If exceptions explain it
+                    if p_excs or pr_excs:
+                        explained = True
+                        break
+                        
+                if explained:
+                    break
+                    
             if not explained:
-                conflicting_edges = positive + modalities["PROHIBIT"]
                 positive_names = sorted(
-                    relation_type
-                    for relation_type in ("ALLOW", "REQUIRE")
-                    if modalities.get(relation_type)
+                    mod
+                    for mod in ("ALLOW", "REQUIRE")
+                    if modalities.get(mod)
                 )
                 conflict_type = (
                     "ALLOW_PROHIBIT"
@@ -51,56 +94,17 @@ class ConflictResolver:
                     if positive_names == ["REQUIRE"]
                     else "ALLOW_REQUIRE_PROHIBIT"
                 )
-                incompatible_condition_pair = None
-                for positive_edge in positive:
-                    positive_scope = positive_edge["properties"].get("source_node_id")
-                    positive_conditions = set().union(
-                        *(
-                            conditions_by_scope.get((endpoint, positive_scope), set())
-                            for endpoint in (source, target)
-                        )
-                    )
-                    if not positive_conditions:
-                        continue
-                    for prohibited_edge in modalities["PROHIBIT"]:
-                        prohibited_scope = prohibited_edge["properties"].get("source_node_id")
-                        prohibited_conditions = set().union(
-                            *(
-                                conditions_by_scope.get((endpoint, prohibited_scope), set())
-                                for endpoint in (source, target)
-                            )
-                        )
-                        if prohibited_conditions and positive_conditions.isdisjoint(
-                            prohibited_conditions
-                        ):
-                            incompatible_condition_pair = (
-                                positive_conditions, prohibited_conditions
-                            )
-                            break
-                    if incompatible_condition_pair:
-                        break
+                conflicting_nodes = positive_norms + prohibit_norms
                 conflicts.append({
                     "flag": "POTENTIAL_LEGAL_CONFLICT",
                     "conflict_type": conflict_type,
-                    "source": source, "target": target,
-                    "relation_ids": [
-                        edge["properties"].get("relation_id")
-                        for edge in conflicting_edges
-                        if edge["properties"].get("relation_id")
-                    ],
+                    "subject": subj, "action": act,
+                    "global_norm_ids": conflicting_nodes,
                     "message": (
                         f"{' and '.join(positive_names)} conflict with PROHIBIT "
                         "for the same subject/action without a linked exception."
                     ),
                     "relation_types": positive_names + ["PROHIBIT"],
-                    "conditions": (
-                        {
-                            "positive": sorted(incompatible_condition_pair[0]),
-                            "prohibited": sorted(incompatible_condition_pair[1]),
-                        }
-                        if incompatible_condition_pair
-                        else None
-                    ),
                     "context_status": (
                         "DISTINCT_EXPLICIT_CONDITIONS_REQUIRES_REVIEW"
                         if incompatible_condition_pair

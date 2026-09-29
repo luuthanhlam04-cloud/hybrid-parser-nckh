@@ -237,8 +237,20 @@ class OntologyValidator:
 
 
 
-        # --- NormAssertion relations (chỉ áp dụng khi source là NormAssertion) ---
-        if rel in _NORM_RELATION_TARGET_TYPES and edge.source_id in norm_ids:
+        # --- NormAssertion & Modifier relations ---
+        if rel in _NORM_RELATION_TARGET_TYPES:
+            # Xác thực source (Bắt buộc là NormAssertion, ngoại trừ HAS_EXCEPTION đệ quy)
+            is_valid_source = False
+            source_mention = mention_by_id.get(edge.source_id)
+            if edge.source_id in norm_ids:
+                is_valid_source = True
+            elif rel == RelationType.HAS_EXCEPTION and source_mention and source_mention.semantic_type == SemanticType.EXCEPTION:
+                is_valid_source = True
+                
+            if not is_valid_source:
+                return False, f"{rel.value} source '{edge.source_id}' phải là NormAssertion (hoặc Exception đệ quy)."
+
+            # Xác thực target
             target_mention = mention_by_id.get(edge.target_id)
             if target_mention is None:
                 return False, f"{rel.value} target '{edge.target_id}' không tìm thấy LocalMention"
