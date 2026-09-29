@@ -826,3 +826,163 @@ Ví dụ: 11 edges `ACTION → ACTION` không đủ evidence để thêm `PROCED
 - **File M7 NormBuilder:** `src/ontology/norm_builder.py`
 - **Output M6:** `outputs/semantic_graphs/semantic_extraction.json`
 - **Output M7:** `outputs/canonical_graphs/canonical_semantic_graph.json`
+
+---
+
+## §12. RESEARCH NOTE — PHIÊN BUILD 2026-09-29
+### "Phân tích 3 Codebase, Tích hợp M6-M7-M8 và Lộ trình Hợp nhất V3.0"
+
+> **Ngày:** 2026-09-29 | **Trạng thái:** Phân tích tĩnh (Static Analysis) — chưa có data LLM thực tế.
+> **Mục đích note này:** Ghi lại sự kiện kỹ thuật quan trọng hôm nay để phục vụ luận văn (Chương Methodology). Ai đọc không cần xem code vẫn hiểu được bối cảnh, vấn đề và quyết định.
+
+---
+
+### 12.1. Bối cảnh — 3 Nhánh Song Song và Một Hệ Thống Phân Mảnh
+
+Tại thời điểm này, codebase hệ thống M6-M7-M8 đang tồn tại ở **3 nhánh song song** với mục tiêu và trạng thái khác nhau:
+
+| Thư mục | Nhánh | Trọng tâm |
+| :--- | :--- | :--- |
+| `hybrid_parser_graphrag` (Lâm) | `lam_m7` | Phát triển M6/M7 mới: tính năng Partial Norm (bảo toàn quy phạm khuyết chủ thể) |
+| `duong_code` (Dương) | `duong-domain` | Xây dựng lõi M8: infrastructure (Anaphora Resolution, SHACL, Delta Engine) trên nền M7 Cũ |
+| `minh` (Minh) | `minh_check_m8` | Hợp nhất Lâm + Dương: vá SHACL, viết NormFuser — nhưng vẫn dùng cả M7 Cũ lẫn M7 Mới |
+
+**Sự cố khởi phát:**  Minh pull code Dương về máy, chạy M8 trên dữ liệu từ M7 của Lâm — hệ thống bị sập ngay tại bước SHACL Validator. Đây là điểm xuất phát của toàn bộ phân tích hôm nay.
+
+---
+
+### 12.2. Giải phẫu Sự Cố — Tại sao M8 Bị Sập?
+
+**Nguyên nhân gốc rễ là một chuỗi nhân quả gồm 3 tầng:**
+
+**Tầng 1 — LLM Ảo giác (M6):**
+LLM khi trích xuất pháp luật thường "sáng tạo" ra các cạnh ngữ nghĩa không hợp logic như:
+- `LegalSubject --HAS_CONDITION--> LegalObject` (Chủ thể có điều kiện là... Đối tượng?)
+- `LegalSubject --ALLOW--> LegalObject` (Cho phép một đối tượng vật lý thay vì một Hành động?)
+
+Đây gọi là ảo giác Ontology (Ontology Hallucination) — LLM không hiểu được ràng buộc Domain-Range của hệ thống.
+
+**Tầng 2 — M7 Cũ bị lọt lưới (Bug trước đây):**
+Hàm `_validate_edge()` của M7 Cũ bắt đúng các cạnh như `ALLOW/REQUIRE/PROHIBIT` nhưng *lại quên không kiểm tra* các cạnh cấu trúc như `HAS_CONDITION`, `HAS_EXCEPTION`. Kết quả: 13 cạnh ảo giác dạng này lọt qua M7 và nằm trong danh sách `active_edges` của file output sạch.
+
+**Tầng 3 — M8 của Dương quá nghiêm ngặt (Đúng về thiết kế):**
+`shacl_validator.py` của Dương tuân thủ tuyệt đối chuẩn W3C SHACL. Khi gặp 13 cạnh rác này, thay vì sinh validation report và tiếp tục, code tích hợp xử lý sai kết quả validation → exception → crash toàn bộ pipeline.
+
+> **Kết luận sự cố:** Không phải M8 bị sập, mà là *implementation xử lý SHACL validation result sai cách*. SHACL bản thân chỉ sinh report, không tự crash.
+
+---
+
+### 12.3. Phân Tích Thiết Kế Của Từng Codebase
+
+**M7 Mới (Lâm — nhánh `lam_m7`):**
+Trọng tâm: Giải quyết vấn đề ép buộc Subject từ LLM (nguyên nhân gây hallucination hoặc Modality Loss).
+- Thiết kế `NormAssertion` chấp nhận `subject_ids=[]` kèm cờ `subject_status="UNRESOLVED"`.
+- Mục đích: Bảo toàn các Modality (`REQUIRE`, `ALLOW`, `PROHIBIT`) của quy phạm dù văn bản khuyết chủ thể.
+
+**M8 Cốt lõi (Dương — nhánh `duong-domain`):**
+Trọng tâm: Cơ sở hạ tầng đồ thị và validation.
+- `node_mapper.py`: Dùng thuật toán lùi cây vật lý (Ancestor Traversal) để giải quyết dẫn chiếu nội văn bản.
+- `delta_engine.py`: Đảm nhiệm cập nhật gia tăng (không xóa toàn bộ DB khi có luật mới).
+- `shacl_validator.py`: Áp dụng W3C SHACL để chặn dữ liệu sai cấu trúc.
+
+**Hợp nhất (Minh — nhánh `minh_check_m8`):**
+Trọng tâm: Giảm thiểu lạm phát đồ thị và tương thích contract.
+- Cập nhật Gate 2: Ép buộc `HAS_CONDITION`, `HAS_EXCEPTION` phải có source là NormAssertion.
+- Xây dựng `norm_fuser.py`: Hash các NormAssertion cùng cấu trúc để gộp thành `GlobalNorm` duy nhất.
+
+---
+
+### 12.4. Các Bug Được Phát Hiện và Vá (Hôm nay)
+
+Toàn bộ là **phân tích tĩnh từ code**. Chưa có confirmation từ data LLM thực tế.
+
+**Bug #1 — Gate 1 lọt `source=None` im lặng** ✅ ĐÃ VÁ
+- **File:** `src/ontology/semantic_quality_gate.py` dòng 74 (cũ)
+- **Cơ chế lỗi:** Short-circuit logic: `(None and None in set)` → `False` → không bị chặn.
+- **Hệ quả:** Bất kỳ `HAS_OBJECT`, `HAS_CONDITION`... nào bị LLM tạo ra với `source=null` đều lọt Gate 1 trót lọt.
+- **Cách vá:** Thêm bảng `MANDATORY_SOURCE_RELATIONS` — không hard-code HAS_OBJECT mà dùng contract chung cho tất cả relation nhóm cấu trúc.
+
+**Bug #2 — NormFuser hash key thiếu exception/consequence** ✅ ĐÃ VÁ (trong nhánh Minh)
+- **File:** `minh/src/fusion/norm_fuser.py` dòng 66 (cũ)
+- **Cơ chế lỗi:** `exception_ids` và `consequence_ids` đã được tính và `sorted()` nhưng không được đưa vào `hash_input`. Lỗi bỏ sót 1 dòng.
+- **Hệ quả:** Hai NormAssertion có cùng Subject/Action/Condition nhưng khác Exception hoặc Consequence sẽ bị gộp nhầm thành một Global Norm → sai về pháp lý.
+- **Cách vá:** Thêm `exception_ids` và `consequence_ids` vào chuỗi hash.
+
+**Bug #3 — m7_adapter.py vứt bỏ Partial Norm** ✅ ĐÃ VÁ
+- **File:** `minh/src/fusion/m7_adapter.py` dòng 160
+- **Cơ chế lỗi:** Vòng lặp `for subject_id in norm.get("subject_ids", []):` bỏ qua toàn bộ body khi list rỗng.
+- **Hệ quả:** Partial Norm của M7 Mới sẽ chết im lặng trước khi đến được NormFuser.
+- **Cách vá:** Thêm nhánh `elif not subject_ids and subject_status=="UNRESOLVED":` → `source=None` + `norm_status="PARTIAL"`.
+- **Lưu ý quan trọng (phát hiện muộn):** KHÔNG dùng string `"UNRESOLVED"` làm giá trị `source`. Lý do: sẽ tạo phantom node `(:Unknown)` trong Neo4j. Contract: `source=None` + cờ `subject_status="UNRESOLVED"`.
+
+**3 điểm sửa đổi bổ sung (phát hiện qua review muộn):**
+
+**Điểm 1 — Gate 1 vs Gate 2 source policy PHẢI tách biệt:**
+Bản ban đầu trộn lẫn 2 tầng: Gate 1 (chạy trước NormBuilder) và Gate 2 (chạy sau NormBuilder). Lỗi logic: tại thời điểm Gate 1, `norm_id` chưa tồn tại nên không thể check `source ∈ norm_ids`. Gate 1 chỉ được phép check `source_mention_id != None` (là LocalMention hợp lệ). Gate 2 mới check `source ∈ norm_ids` (là NormAssertion). `HAS_SUBJECT`, `HAS_ACTION`, `DENOTES` không xuất hiện trong output M6 nên không cần nằm trong Gate 1 policy.
+
+**Điểm 2 — PARTIAL+PARTIAL merge chỉ khi context tương thích:**
+Hai Partial Norm cùng action nhưng khác context (condition/exception) CÓ THỂ là hai quy phạm khác nhau về phạm vi áp dụng (Điều 20 vs Điều 50). Merge policy V1: chỉ merge khi hash key giống nhau hoàn toàn (bao gồm condition, exception, consequence). Điều này được hash tuple tự động đảm bảo.
+
+**Điểm 3 — NormFuser hash dùng tuple thay vì string join:**
+String join có thể gây hash collision (VD: `"A_B" + "_" + "C"` == `"A" + "_" + "B_C"`). Tuple không có rủi ro này. Cũng phù hợp với triết lý: key rõ ràng hơn về mặt kiểu dữ liệu.
+
+---
+
+### 12.5. Các Quyết định Kiến trúc & Đánh giá (Cho Luận văn)
+
+**1. Adapter là ranh giới hợp đồng (Contract Boundary)**
+File `m7_adapter.py` không đơn thuần là script chuyển đổi định dạng, mà là nơi thực thi Contract giữa hai phân hệ. Việc không đồng bộ schema tại đây (ví dụ: vứt bỏ Partial Norm) sẽ phá vỡ logic nghiệp vụ của toàn hệ thống. Mọi thay đổi schema bắt buộc phải đi kèm bản cập nhật Contract (như `m7_m8_adapter_contract.md`).
+
+**2. Nguyên lý Incomplete Semantic Object**
+Một quy phạm pháp luật vẫn mang thông tin có cấu trúc ngay cả khi khuyết chủ thể. Việc thiết kế hệ thống chấp nhận Partial Norm tuân thủ nguyên lý bảo toàn dữ liệu đầu vào. Hệ thống đồ thị xử lý khuyết thiếu (missing node) an toàn hơn việc LLM tự bịa ra thông tin.
+
+**3. Ý nghĩa của Quarantine Log**
+Tỉ lệ Quarantine cao không phản ánh lỗi hệ thống, mà là hệ quả của việc siết chặt Ontology Constraint đối với LLM. Việc duy trì log cách ly (như 52 cạnh hiện tại) tạo ra baseline kỹ thuật để cải thiện prompt M6 sau này.
+
+**4. Rủi ro Over-merge trong NormFuser**
+Thuật toán Deduplication trong pháp luật đòi hỏi Hash Key phải chứa đủ toàn bộ context (Điều kiện, Ngoại lệ, Hệ quả). Bỏ sót bất kỳ trường nào sẽ dẫn đến gộp sai hai quy phạm khác phạm vi áp dụng. Sử dụng cấu trúc dữ liệu `tuple` thay cho `string join` loại bỏ nguy cơ hash collision do token boundary.
+
+---
+
+### 12.6. Phân Tích Kết Quả M8 Hiện Tại và Quyết Định Freeze Kiến Trúc
+
+**Kết quả M8 Master (hiện tại) so với M8 gốc (Dương):**
+- **Output M8 Dương (trước hợp nhất):** 293 nodes, 1369 edges.
+- **Output M8 Master (hiện tại):** 312 nodes (222 physical + 90 semantic), 1010 edges (551 physical + 192 semantic + 267 mentions).
+
+**Đánh giá số liệu:**
+Số lượng edge tổng đã giảm từ 1369 xuống 1010 (giảm ~26%), trong khi số lượng entity ngữ nghĩa tăng lên. Sự sụt giảm edge này là hệ quả trực tiếp của **NormFuser**: thay vì mỗi Điều luật tạo ra một Norm Assertion riêng với cụm cạnh của nó (gây lạm phát), các quy phạm giống nhau đã được gộp thành Global Norm Hubs, giúp đồ thị tinh gọn và chính xác hơn về mặt pháp lý (Deduplication). Đồng thời, việc giữ lại Partial Norm giúp không làm mất thông tin Modality quan trọng.
+
+**Quyết định Freeze (Đóng băng) M6-M7-M8:**
+Với việc luồng M8 đã chạy thông suốt và ổn định trên dữ liệu thực tế của M7 Mới, đồng thời các bug Gate 1, Gate 2, và Adapter đã được vá theo hợp đồng:
+- **Xác nhận Freeze kiến trúc hiện tại của M6, M7, M8.** 
+- Không tiến hành thêm bất kỳ thay đổi schema hay refactor component nào ở các module này.
+- Mọi nỗ lực tiếp theo sẽ chỉ giới hạn ở việc chạy E2E lấy dữ liệu thực và tinh chỉnh prompt M6 (Ablation), hoặc chuyển trọng tâm sang xây dựng Retrieval/RAG (M9/M10).
+
+---
+
+### 12.6. Thuật ngữ Được Chỉnh sửa (Để Nghiên Cứu Sinh Dùng Đúng)
+
+| Thuật ngữ cũ (không nên dùng) | Thuật ngữ chuẩn | Lý do |
+| :--- | :--- | :--- |
+| "Zombie Node" | Incomplete Semantic Object / Partial Norm | "Zombie" ngụ ý vô giá trị — sai về ngữ nghĩa |
+| "M7 là Semantic Source of Truth" | M7 là **Canonicalization Authority** | M7 không tạo ra sự thật mới, chỉ quyết định biểu diễn chuẩn nào được chấp nhận |
+| "SHACL của Dương bị sập" | "Tích hợp SHACL xử lý validation result sai, gây exception runtime" | SHACL là công cụ sinh report — implementation mới crash |
+| "M7 Mới đã fix xong" | "M7 Mới đã vá lỗ hổng Gate 1 & 2 nhưng chưa verify bằng data LLM thực tế" | Phân tích tĩnh ≠ Verification |
+
+---
+
+### 12.7. Trạng thái Hiện tại (Đã Freeze)
+
+| Hạng mục | Trạng thái |
+| :--- | :--- |
+| Contract M7→M8 (`docs/m7_m8_adapter_contract.md`) | ✅ Đã chốt (tách Gate 1 vs Gate 2) |
+| Gate 1 Bug (`source=None`, `GATE1_MANDATORY_SOURCE`) | ✅ Đã vá |
+| Gate 2 Bug (Invariant I1) | ✅ Đã vá |
+| NormFuser Hash (thiếu exception/consequence, dùng tuple) | ✅ Đã vá |
+| m7_adapter.py (Vứt Partial Norm) | ✅ Đã vá (dùng cờ thay vì phantom node) |
+| Test Matrix NormFuser (7 cases) | ✅ Đã hoàn thành (7/7 PASS) |
+| Known Issues Matrix với Confidence column | ✅ Đã hoàn thành |
+| Phân tích & So sánh Kiến trúc (Lâm/Dương/Minh) | ✅ Đã hoàn thành |
+| **Quyết định Kiến trúc** | 🔒 **FREEZE M6-M7-M8** |
+| E2E Test với LLM thực tế | ⏳ Pending (Chờ API Key để đo lường) |

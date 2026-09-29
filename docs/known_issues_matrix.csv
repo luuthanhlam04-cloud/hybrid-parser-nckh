@@ -1,0 +1,18 @@
+# Known Issues Matrix — M6/M7/M8 Integration
+# Phase 4 — Baseline V1 (2026-09-29)
+#
+# Mục đích: Theo dõi các loại lỗi có bằng chứng thực tế.
+# Cột Confidence phân biệt: Confirmed (từ code) vs Hypothesis (cần data LLM)
+# Format: CSV để có thể import vào tool phân tích sau này.
+
+issue_id,issue,v1_handling,v2_plan,metric_name,root_cause,evidence,confidence
+KI-001,NormFuser hash key thiếu exception/consequence fields,Over-merge hai norm khác exception thành một GlobalNorm,Fix hash key sang tuple gồm đủ 6 fields,over_merge_count,Code omission — exception_ids đã tính nhưng không đưa vào hash,norm_fuser.py:66 (cũ),CONFIRMED
+KI-002,Gate 1 lọt silent khi source_mention_id=None,Relation thuộc GATE1_MANDATORY_SOURCE đi qua trót lọt,Thêm GATE1_MANDATORY_SOURCE contract + drop sớm,leaked_null_source_count,Implementation bug — short-circuit logic Python (None and X) = False,semantic_quality_gate.py:74 (cũ),CONFIRMED
+KI-003,m7_adapter vứt bỏ Partial Norm do vòng lặp rỗng,Partial Norm chết im lặng trước khi đến NormFuser,Thêm nhánh xử lý UNRESOLVED norm với source=None,partial_norm_lost_count,Data-contract mismatch — loop không có fallback cho list rỗng,m7_adapter.py:160,CONFIRMED
+KI-004,Gate 1 vs Gate 2 policy bị trộn lẫn (norm_id chưa tồn tại tại Gate 1),Gate 1 không thể check source∈norm_ids vì NormBuilder chưa chạy,Tách GATE1_MANDATORY_SOURCE và GATE2 invariant thành 2 bảng riêng,n/a (design issue),Architecture mismatch — Gate 1 check theo điều kiện Gate 2,m7_m8_adapter_contract.md §3 (bản đầu),CONFIRMED
+KI-005,NormFuser hash dùng string join — nguy cơ collision,Hash "A_B" + "_C" == "A" + "_B_C" → false dedup,Đổi sang tuple key,collision_risk (chưa xảy ra trong test),Hash design flaw — string join không phân biệt token boundary,norm_fuser.py:66,CONFIRMED (chưa xảy ra thực tế)
+KI-006,Subject hallucination — LLM bịa chủ thể không có trong văn bản,Quarantine tại Gate 1 (R1: No Semantic Amplification),Cải thiện prompt M6 + ablation testing,subject_hallucination_count,Prompt/model behavior — LLM tự suy luận chủ thể từ context,Node IDs trong quarantine log,HYPOTHESIS — cần data LLM
+KI-007,HAS_OBJECT role conflict — LLM gán LegalObject làm source,Quarantine tại Gate 2 (Domain-Range violation),Rà lại prompt + contract M6 schema,has_object_role_conflict_count,Prompt không enforce đủ domain-range constraint,Edge IDs bị quarantine,HYPOTHESIS — cần data LLM
+KI-008,HAS_CONDITION khuyết source — LLM tạo cạnh cấu trúc không có NormAssertion parent,Quarantine tại Gate 2 sau khi vá Invariant I1,Đã vá Gate 2 — cần verify bằng LLM data,has_condition_orphan_count,LLM không hiểu HAS_CONDITION phải thuộc NormAssertion,Edge IDs bị reject tại Gate 2,CONFIRMED (bug đã vá) / HYPOTHESIS (tần suất thực tế)
+KI-009,ACTION→ACTION REQUIRE — LLM tạo quan hệ bất hợp lệ (action làm subject),Quarantine,Ablation: sửa prompt rồi re-run — nếu pattern còn mới xét thêm relation,action_to_action_count,Compound phrase parsing / role misclassification,11 edges trong output hiện tại,HYPOTHESIS — cần ablation
+KI-010,Partial Norm phantom node — dùng string UNRESOLVED như source node,Tạo phantom node trong Neo4j — chưa phát sinh trên nhánh Lâm,Vá m7_adapter: source=None + subject_status=UNRESOLVED,phantom_node_count,Design error trong plan Bug #3 bản đầu — phát hiện qua review muộn,m7_adapter.py contract (plan ban đầu),CONFIRMED (ngăn được trước khi code)
