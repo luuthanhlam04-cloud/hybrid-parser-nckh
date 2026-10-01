@@ -35,15 +35,31 @@ class CypherGenerator:
     """
     EDGE_BATCH = """
         UNWIND $rows AS row
-        MATCH (source:UKG_NODE {id: row.source_id})
-        MATCH (target:UKG_NODE {id: row.target_id})
-        MERGE (source)-[r:UKG_EDGE {edge_key: row.edge_key}]->(target)
-        SET r.edge_type = row.edge_type,
-            r.source_id = row.source_id,
-            r.target_id = row.target_id,
-            r.properties_json = row.properties_json,
-            r.provenance_json = row.provenance_json
-        RETURN count(r) AS written
+        OPTIONAL MATCH (source:UKG_NODE {id: row.source_id})
+        OPTIONAL MATCH (target:UKG_NODE {id: row.target_id})
+        WITH row, source, target,
+             (source IS NOT NULL) AS src_exists,
+             (target IS NOT NULL) AS tgt_exists
+        CALL {
+            WITH row, source, target, src_exists, tgt_exists
+            WITH * WHERE src_exists = false OR tgt_exists = false
+            RETURN false AS already_exists, false AS is_created
+            UNION
+            WITH row, source, target, src_exists, tgt_exists
+            WITH * WHERE src_exists = true AND tgt_exists = true
+            OPTIONAL MATCH (source)-[r_old:UKG_EDGE {edge_key: row.edge_key}]->(target)
+            WITH row, source, target, (r_old IS NOT NULL) AS already_exists
+            MERGE (source)-[r:UKG_EDGE {edge_key: row.edge_key}]->(target)
+            SET r.edge_type = row.edge_type,
+                r.source_id = row.source_id,
+                r.target_id = row.target_id,
+                r.properties_json = row.properties_json,
+                r.provenance_json = row.provenance_json
+            RETURN already_exists, NOT already_exists AS is_created
+        }
+        RETURN row.edge_key AS edge_key,
+               src_exists, tgt_exists,
+               already_exists, is_created
     """
     DELETE_GRAPH = "MATCH (n:UKG_NODE) DETACH DELETE n"
 
