@@ -3,12 +3,12 @@
     "schema_version": "fusion.v1",
     "confidence_mode": "heuristic_uncalibrated",
     "physical_node_count": 222,
-    "semantic_entity_count": 90,
-    "total_node_count": 312,
+    "semantic_entity_count": 109,
+    "total_node_count": 331,
     "physical_edge_count": 551,
-    "semantic_edge_count": 192,
+    "semantic_edge_count": 252,
     "denotes_edge_count": 0,
-    "mentions_edge_count": 267,
+    "mentions_edge_count": 339,
     "conflict_count": 1
   },
   "nodes": [
@@ -6663,6 +6663,25 @@
       ]
     },
     {
+      "id": "GNORM_1960da55cd39",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "id": "GNORM_efd352ded1a8",
       "node_kind": "SEMANTIC",
       "labels": [
@@ -6675,6 +6694,82 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-k_p5095"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_07979ad0e920",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_e6b7ff947970",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_f4363afb50b4",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6316"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_93dbc752dc18",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776"
         ]
       },
       "provenance": [
@@ -6713,6 +6808,25 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_3f94eb4bac98",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782"
         ]
       },
       "provenance": [
@@ -6770,6 +6884,25 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-2_dieu-32_khoan-1_p10650"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_5cadee8bd3ef",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "PROHIBIT",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839"
         ]
       },
       "provenance": [
@@ -6891,6 +7024,26 @@
       ]
     },
     {
+      "id": "GNORM_52b8f0645d75",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "id": "GNORM_8d439aa486de",
       "node_kind": "SEMANTIC",
       "labels": [
@@ -6979,6 +7132,44 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_07ed191b1c82",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_e8a74996890c",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074"
         ]
       },
       "provenance": [
@@ -7081,6 +7272,25 @@
       ]
     },
     {
+      "id": "GNORM_a7f048485fbb",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "PROHIBIT",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "id": "GNORM_2eacbaafe17c",
       "node_kind": "SEMANTIC",
       "labels": [
@@ -7112,6 +7322,44 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22025"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_87e2c3486b28",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_05279d92146c",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181"
         ]
       },
       "provenance": [
@@ -7188,6 +7436,25 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-e_p24600"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_a4f66a853261",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-a_p24987"
         ]
       },
       "provenance": [
@@ -7594,6 +7861,26 @@
       ]
     },
     {
+      "id": "GNORM_3410da11da30",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "id": "GNORM_f5906100f1f5",
       "node_kind": "SEMANTIC",
       "labels": [
@@ -7625,6 +7912,26 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-4_dieu-43_khoan-1_p33702"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_147fca875de7",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109",
+          "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304"
         ]
       },
       "provenance": [
@@ -7689,6 +7996,27 @@
       ]
     },
     {
+      "id": "GNORM_db41bdc9e1fa",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "id": "GNORM_ce938d912a55",
       "node_kind": "SEMANTIC",
       "labels": [
@@ -7746,6 +8074,25 @@
       ]
     },
     {
+      "id": "GNORM_354eb11591a4",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "ALLOW",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "id": "GNORM_971c6f6f774b",
       "node_kind": "SEMANTIC",
       "labels": [
@@ -7796,6 +8143,25 @@
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
           "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-b_p42694"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "id": "GNORM_e7f4f22189f3",
+      "node_kind": "SEMANTIC",
+      "labels": [
+        "SemanticEntity",
+        "GLOBAL_NORM"
+      ],
+      "properties": {
+        "ontology_class": "GLOBAL_NORM",
+        "modality": "PROHIBIT",
+        "fusion_kind": "GLOBAL_NORM",
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959"
         ]
       },
       "provenance": [
@@ -13978,6 +14344,131 @@
       ]
     },
     {
+      "source": "GNORM_1960da55cd39",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
+      "target": "GNORM_1960da55cd39",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_1960da55cd39",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_1960da55cd39",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_1960da55cd39",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
       "source": "GNORM_efd352ded1a8",
       "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "type": "HAS_SUBJECT",
@@ -14092,6 +14583,213 @@
     {
       "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-k_p5095",
       "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_07979ad0e920",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
+      "target": "GNORM_07979ad0e920",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_07979ad0e920",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_e6b7ff947970",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+      "target": "GNORM_e6b7ff947970",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_e6b7ff947970",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_e6b7ff947970",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_93dbc752dc18",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776",
+      "target": "GNORM_93dbc752dc18",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "type": "MENTIONS",
       "properties": {
         "evidence": "",
@@ -14229,6 +14927,131 @@
     },
     {
       "source": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_3f94eb4bac98",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782",
+      "target": "GNORM_3f94eb4bac98",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_3f94eb4bac98",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_3f94eb4bac98",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_3f94eb4bac98",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782",
       "target": "LO2024.SUBJECT.STATE",
       "type": "MENTIONS",
       "properties": {
@@ -14380,6 +15203,75 @@
     },
     {
       "source": "doc_chuong-iii_muc-2_dieu-32_khoan-1_p10650",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_5cadee8bd3ef",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
+      "target": "GNORM_5cadee8bd3ef",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_5cadee8bd3ef",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
       "target": "LO2024.SUBJECT.STATE",
       "type": "MENTIONS",
       "properties": {
@@ -14806,6 +15698,116 @@
       ]
     },
     {
+      "source": "GNORM_52b8f0645d75",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 2,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+      "target": "GNORM_52b8f0645d75",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+      "target": "GNORM_52b8f0645d75",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_52b8f0645d75",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 2,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
       "source": "GNORM_8d439aa486de",
       "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "type": "HAS_SUBJECT",
@@ -15056,6 +16058,88 @@
     {
       "source": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16355",
       "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_07ed191b1c82",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777",
+      "target": "GNORM_07ed191b1c82",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_e8a74996890c",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074",
+      "target": "GNORM_e8a74996890c",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074",
+      "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "type": "MENTIONS",
       "properties": {
         "evidence": "",
@@ -15468,6 +16552,47 @@
       ]
     },
     {
+      "source": "GNORM_a7f048485fbb",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
+      "target": "GNORM_a7f048485fbb",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
       "source": "GNORM_2eacbaafe17c",
       "target": "LO2024.SUBJECT.STATE",
       "type": "HAS_SUBJECT",
@@ -15539,6 +16664,116 @@
     {
       "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22025",
       "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_87e2c3486b28",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461",
+      "target": "GNORM_87e2c3486b28",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_05279d92146c",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
+      "target": "GNORM_05279d92146c",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_05279d92146c",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
+      "target": "LO2024.SUBJECT.STATE",
       "type": "MENTIONS",
       "properties": {
         "evidence": "",
@@ -16943,6 +18178,116 @@
       ]
     },
     {
+      "source": "GNORM_3410da11da30",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 2,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "target": "GNORM_3410da11da30",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "target": "GNORM_3410da11da30",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_3410da11da30",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 2,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "target": "LO2024.SUBJECT.STATE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
       "source": "GNORM_f5906100f1f5",
       "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "type": "HAS_SUBJECT",
@@ -17081,6 +18426,116 @@
       ]
     },
     {
+      "source": "GNORM_147fca875de7",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 2,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109",
+          "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109",
+      "target": "GNORM_147fca875de7",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304",
+      "target": "GNORM_147fca875de7",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304",
+      "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_147fca875de7",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 2,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109",
+          "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
       "source": "GNORM_fb6588e8b4d2",
       "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
       "type": "HAS_SUBJECT",
@@ -17180,6 +18635,101 @@
     {
       "source": "doc_chuong-iii_muc-4_dieu-44_khoan-4_p37072",
       "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_db41bdc9e1fa",
+      "target": "LO2024.SUBJECT.LAND_USER",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 3,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+      "target": "GNORM_db41bdc9e1fa",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+      "target": "LO2024.SUBJECT.LAND_USER",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
+      "target": "GNORM_db41bdc9e1fa",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
+      "target": "LO2024.SUBJECT.LAND_USER",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+      "target": "GNORM_db41bdc9e1fa",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+      "target": "LO2024.SUBJECT.LAND_USER",
       "type": "MENTIONS",
       "properties": {
         "evidence": "",
@@ -17566,6 +19116,47 @@
     {
       "source": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-b_p42694",
       "target": "LO2024.ACTION.LAND_TRANSFER",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "GNORM_e7f4f22189f3",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "type": "HAS_SUBJECT",
+      "properties": {
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959",
+      "target": "GNORM_e7f4f22189f3",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959",
+      "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
       "type": "MENTIONS",
       "properties": {
         "evidence": "",
@@ -19328,6 +20919,266 @@
       ]
     },
     {
+      "source": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.STATE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:5:0",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:7",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:8",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:0",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:7",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:8",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:0",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:7",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:8",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776#NORM#1:subject_only_obj:2:0",
+        "source_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "source": "LO2024.ACTION.LAND_TRANSFER",
       "target": "LO2024.OBJECT.LAND_USE_RIGHT",
       "type": "HAS_OBJECT",
@@ -19368,6 +21219,160 @@
         "weight": 1,
         "source_node_ids": [
           "doc_chuong-iii_muc-1_dieu-28_khoan-2_p7178"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.STATE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839#NORM#1:subject_only_obj:1:0",
+        "source_node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10839"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.STATE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.STATE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:1:0",
+        "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.STATE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:1:0",
+        "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:4:0",
+        "source_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181"
         ]
       },
       "provenance": [
@@ -19422,6 +21427,100 @@
       ]
     },
     {
+      "source": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.STATE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355#NORM#1:subject_only_obj:1:0",
+        "source_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.FDI_ENTERPRISE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.STATE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703#NORM#1:subject_only_obj:1:0",
+        "source_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
       "source": "LO2024.ACTION.LAND_TRANSFER",
       "target": "LO2024.OBJECT.LAND_USE_RIGHT",
       "type": "HAS_OBJECT",
@@ -19449,6 +21548,87 @@
       },
       "provenance": [
         "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.LAND_USER",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.LAND_USER",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784#NORM#1:subject_only_obj:0:1",
+        "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.LAND_USER",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784#NORM#1:subject_only_obj:0:2",
+        "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.LAND_USER",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784#NORM#1:subject_only_obj:0:3",
+        "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+        ]
+      },
+      "provenance": [
+        "M8"
       ]
     },
     {
@@ -19496,6 +21676,66 @@
       },
       "provenance": [
         "M8"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.LAND_USER",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.LAND_USER",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
       ]
     },
     {
@@ -19654,6 +21894,36 @@
     },
     {
       "source": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-b_p42694",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "MENTIONS",
+      "properties": {
+        "evidence": "",
+        "provenance": "M7",
+        "confidence": 1.0
+      },
+      "provenance": [
+        "M7"
+      ]
+    },
+    {
+      "source": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+      "target": "LO2024.OBJECT.LAND_USE_RIGHT",
+      "type": "HAS_OBJECT",
+      "properties": {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959#NORM#1:subject_only_obj:0:0",
+        "source_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959",
+        "provenance": "M8",
+        "weight": 1,
+        "source_node_ids": [
+          "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959"
+        ]
+      },
+      "provenance": [
+        "M8"
+      ]
+    },
+    {
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p42959",
       "target": "LO2024.OBJECT.LAND_USE_RIGHT",
       "type": "MENTIONS",
       "properties": {
@@ -20590,6 +22860,218 @@
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:2:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:3:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:4:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:5:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:6:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791#NORM#1:subject_only_obj:7:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:1:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:2:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:2:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:3:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:3:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:4:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:4:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350#NORM#1:subject_only_obj:5:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:3",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:4",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:5",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:0:6",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:3",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:4",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:5",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:6",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:7",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:1:8",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:3",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:4",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:5",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:2:6",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:3",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:4",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:5",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524#NORM#1:subject_only_obj:3:6",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6316#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6316#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6316#NORM#1:subject_only_obj:2:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6316#NORM#1:subject_only_obj:3:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776#NORM#1:subject_only_obj:1:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6776#NORM#1:subject_only_obj:2:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
         "relation_id": "doc_chuong-iii_muc-1_dieu-28_khoan-2_p7178#NORM#1:exception:0:0:0",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
@@ -20611,6 +23093,46 @@
       },
       {
         "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8171#NORM#1:object:1:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:1:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:2:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:2:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:3:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:3:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:4:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8782#NORM#1:subject_only_obj:4:1",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
@@ -20838,6 +23360,14 @@
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
         "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-c_p14648#NORM#1:object:0:0:0",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
@@ -21030,6 +23560,38 @@
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777#NORM#1:subject_only_obj:0:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777#NORM#1:subject_only_obj:1:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16777#NORM#1:subject_only_obj:1:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17074#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
         "relation_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-a_p17947#NORM#1:condition:0:0:0",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
@@ -21126,6 +23688,18 @@
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20347#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
         "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p21866#NORM#1:object:0:0:0",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
@@ -21155,6 +23729,70 @@
       },
       {
         "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22025#NORM#1:object:1:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:0:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:1:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:1:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:2:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:2:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22461#NORM#1:subject_only_obj:2:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:1:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:2:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:2:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:3:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:3:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23181#NORM#1:subject_only_obj:4:1",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
@@ -21251,6 +23889,10 @@
       },
       {
         "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-e_p24600#NORM#1:object:1:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-a_p24987#NORM#1:subject_only_obj:0:0",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
@@ -22002,6 +24644,22 @@
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34109#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34304#NORM#1:subject_only_obj:1:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
         "relation_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-b_p35116#NORM#1:object:0:0:0",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
@@ -22235,6 +24893,22 @@
       },
       {
         "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_p39986#NORM#1:object:0:7:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816#NORM#1:subject_only_obj:0:0",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816#NORM#1:subject_only_obj:0:1",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816#NORM#1:subject_only_obj:0:2",
+        "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
+      },
+      {
+        "relation_id": "doc_chuong-iii_muc-5_dieu-45_khoan-4_p40816#NORM#1:subject_only_obj:0:3",
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       },
       {
@@ -22914,7 +25588,7 @@
         "reason": "UNKNOWN_SEMANTIC_ENDPOINT"
       }
     ],
-    "rejected_relation_count": 749,
+    "rejected_relation_count": 850,
     "reference_resolution": {
       "total": 65,
       "scope_counts": {
