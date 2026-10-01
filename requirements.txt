@@ -28,7 +28,7 @@ pydantic>=2.7.0
 tenacity>=8.3.0
 
 # --- Module 4: Neo4j Ingestion ---
-# neo4j>=5.19.0
+neo4j==6.2.0  # Compatibility Matrix: Neo4j AuraDB 5.x + Python 3.11
 
 # --- Module 5: Đánh giá / Kiểm thử ---
 pytest>=8.2.0
