@@ -1,9 +1,13 @@
 import os
+import sys
+import io
 import json
 import hashlib
 import numpy as np
 from pathlib import Path
 from typing import List, Dict, Any
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def get_input_hash(texts: List[str]) -> str:
     """Tạo mã băm SHA-256 từ toàn bộ văn bản đầu vào để theo dõi thay đổi."""

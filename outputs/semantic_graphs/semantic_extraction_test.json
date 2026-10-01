@@ -1,0 +1,2043 @@
+{
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "total_candidates_processed": 30
+  },
+  "extracted_nodes": [
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-1_p223",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          },
+          {
+            "id": "e2",
+            "text": "Cấp Giấy chứng nhận quyền sử dụng đất",
+            "entity_type": "ACTION",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          },
+          {
+            "id": "e3",
+            "text": "Giấy chứng nhận quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          },
+          {
+            "id": "e4",
+            "text": "Điều kiện",
+            "entity_type": "CONDITION",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          },
+          {
+            "id": "e5",
+            "text": "quy định của pháp luật về đất đai",
+            "entity_type": "REFERENCE",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e3",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_CONDITION",
+            "target": "e4",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          },
+          {
+            "source": "e2",
+            "relation_type": "REFERENCE_TO",
+            "target": "e5",
+            "evidence": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-2_p365",
+      "extraction": {
+        "entities": [],
+        "relations": []
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-3_p433",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Nhà nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp."
+          },
+          {
+            "id": "e2",
+            "text": "Hưởng các lợi ích",
+            "entity_type": "ACTION",
+            "evidence": "Hưởng các lợi ích khi Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp."
+          },
+          {
+            "id": "e3",
+            "text": "Đất nông nghiệp",
+            "entity_type": "OBJECT",
+            "evidence": "Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "HAS_CONDITION",
+            "target": "e2",
+            "evidence": "Hưởng các lợi ích khi Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp."
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e3",
+            "evidence": "Hưởng các lợi ích khi Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Nhà nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          },
+          {
+            "id": "e2",
+            "text": "Hướng dẫn",
+            "entity_type": "ACTION",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          },
+          {
+            "id": "e3",
+            "text": "Giúp đỡ",
+            "entity_type": "ACTION",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          },
+          {
+            "id": "e4",
+            "text": "Cải tạo, phục hồi đất nông nghiệp",
+            "entity_type": "OBJECT",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-5_p602",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Nhà nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình."
+          },
+          {
+            "id": "e2",
+            "text": "Người khác",
+            "entity_type": "SUBJECT",
+            "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình."
+          },
+          {
+            "id": "e3",
+            "text": "Bảo hộ",
+            "entity_type": "ACTION",
+            "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình."
+          },
+          {
+            "id": "e4",
+            "text": "Quyền, lợi ích hợp pháp về đất đai",
+            "entity_type": "OBJECT",
+            "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình."
+          },
+          {
+            "source": "e2",
+            "relation_type": "PROHIBIT",
+            "target": "e3",
+            "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình."
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-6_p692",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Được quyền chuyển mục đích sử dụng đất theo quy định của Luật này và quy định khác của pháp luật có liên quan."
+          },
+          {
+            "id": "e2",
+            "text": "Chuyển mục đích sử dụng đất",
+            "entity_type": "ACTION",
+            "evidence": "Được quyền chuyển mục đích sử dụng đất theo quy định của Luật này và quy định khác của pháp luật có liên quan."
+          },
+          {
+            "id": "e3",
+            "text": "Luật này",
+            "entity_type": "REFERENCE",
+            "evidence": "Được quyền chuyển mục đích sử dụng đất theo quy định của Luật này và quy định khác của pháp luật có liên quan."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Được quyền chuyển mục đích sử dụng đất theo quy định của Luật này và quy định khác của pháp luật có liên quan."
+          },
+          {
+            "source": "e2",
+            "relation_type": "REFERENCE_TO",
+            "target": "e3",
+            "evidence": "Được quyền chuyển mục đích sử dụng đất theo quy định của Luật này và quy định khác của pháp luật có liên quan."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-7_p803",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "id": "e2",
+            "text": "Bồi thường",
+            "entity_type": "ACTION",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "id": "e3",
+            "text": "Hỗ trợ",
+            "entity_type": "ACTION",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "id": "e4",
+            "text": "Tái định cư",
+            "entity_type": "ACTION",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "id": "e5",
+            "text": "Nhà nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "id": "e6",
+            "text": "Đất",
+            "entity_type": "OBJECT",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "id": "e7",
+            "text": "Luật này",
+            "entity_type": "REFERENCE",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "source": "e5",
+            "relation_type": "REQUIRE",
+            "target": "e2",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "source": "e5",
+            "relation_type": "REQUIRE",
+            "target": "e3",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "source": "e5",
+            "relation_type": "REQUIRE",
+            "target": "e4",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_OBJECT",
+            "target": "e6",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e7",
+            "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Quyền chung của người sử dụng đất"
+          },
+          {
+            "id": "e2",
+            "text": "Khiếu nại",
+            "entity_type": "ACTION",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "id": "e3",
+            "text": "Tố cáo",
+            "entity_type": "ACTION",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "id": "e4",
+            "text": "Khởi kiện",
+            "entity_type": "ACTION",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "id": "e5",
+            "text": "Hành vi vi phạm quyền sử dụng đất hợp pháp",
+            "entity_type": "OBJECT",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "id": "e6",
+            "text": "Hành vi khác vi phạm pháp luật về đất đai",
+            "entity_type": "OBJECT",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e4",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e6",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e6",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          },
+          {
+            "source": "e4",
+            "relation_type": "HAS_OBJECT",
+            "target": "e6",
+            "evidence": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-1_p1179",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e2",
+            "text": "Chuyển đổi",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e3",
+            "text": "Chuyển nhượng",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e4",
+            "text": "Cho thuê",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e5",
+            "text": "Cho thuê lại",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e6",
+            "text": "Thừa kế",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e7",
+            "text": "Tặng cho",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e8",
+            "text": "Thế chấp",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e9",
+            "text": "Góp vốn",
+            "entity_type": "ACTION",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e10",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "id": "e11",
+            "text": "Luật này",
+            "entity_type": "REFERENCE",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e6",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e7",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e8",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e4",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e6",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e7",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e8",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e9",
+            "relation_type": "HAS_OBJECT",
+            "target": "e10",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          },
+          {
+            "source": "e1",
+            "relation_type": "REFERENCE_TO",
+            "target": "e11",
+            "evidence": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_p1405",
+      "extraction": {
+        "entities": [],
+        "relations": []
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-a_p1496",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Nhóm người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này."
+          },
+          {
+            "id": "e2",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này."
+          },
+          {
+            "id": "e3",
+            "text": "Tổ chức kinh tế",
+            "entity_type": "SUBJECT",
+            "evidence": "Trường hợp trong nhóm người sử dụng đất có thành viên là tổ chức kinh tế thì có quyền và nghĩa vụ như quyền và nghĩa vụ của tổ chức kinh tế theo quy định của Luật này."
+          },
+          {
+            "id": "e4",
+            "text": "Quyền và nghĩa vụ",
+            "entity_type": "ACTION",
+            "evidence": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này."
+          },
+          {
+            "id": "e5",
+            "text": "Quy định của Luật này",
+            "entity_type": "REFERENCE",
+            "evidence": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này."
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này."
+          },
+          {
+            "source": "e3",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Trường hợp trong nhóm người sử dụng đất có thành viên là tổ chức kinh tế thì có quyền và nghĩa vụ như quyền và nghĩa vụ của tổ chức kinh tế theo quy định của Luật này."
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_EXCEPTION",
+            "target": "e5",
+            "evidence": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này."
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_EXCEPTION",
+            "target": "e5",
+            "evidence": "Trường hợp trong nhóm người sử dụng đất có thành viên là tổ chức kinh tế thì có quyền và nghĩa vụ như quyền và nghĩa vụ của tổ chức kinh tế theo quy định của Luật này."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1814",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Nhóm người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Trường hợp nhóm người sử dụng đất mà quyền sử dụng đất phân chia được theo phần cho từng thành viên trong nhóm"
+          },
+          {
+            "id": "e2",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "quyền sử dụng đất phân chia được theo phần cho từng thành viên trong nhóm"
+          },
+          {
+            "id": "e3",
+            "text": "Đăng ký biến động",
+            "entity_type": "ACTION",
+            "evidence": "thực hiện đăng ký biến động hoặc tách thửa theo quy định"
+          },
+          {
+            "id": "e4",
+            "text": "Tách thửa",
+            "entity_type": "ACTION",
+            "evidence": "thực hiện đăng ký biến động hoặc tách thửa theo quy định"
+          },
+          {
+            "id": "e5",
+            "text": "Giấy chứng nhận quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "làm thủ tục cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
+          },
+          {
+            "id": "e6",
+            "text": "Quyền và nghĩa vụ của người sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "được thực hiện quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này"
+          },
+          {
+            "id": "e7",
+            "text": "Ủy quyền",
+            "entity_type": "ACTION",
+            "evidence": "các thành viên cùng nhau thực hiện hoặc ủy quyền cho người đại diện để thực hiện quyền và nghĩa vụ của nhóm người sử dụng đất"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "HAS_CONDITION",
+            "target": "e2",
+            "evidence": "Trường hợp nhóm người sử dụng đất mà quyền sử dụng đất phân chia được theo phần cho từng thành viên trong nhóm"
+          },
+          {
+            "source": "e1",
+            "relation_type": "REQUIRE",
+            "target": "e3",
+            "evidence": "nếu từng thành viên của nhóm muốn thực hiện quyền đối với phần quyền sử dụng đất của mình thì phải thực hiện đăng ký biến động"
+          },
+          {
+            "source": "e1",
+            "relation_type": "REQUIRE",
+            "target": "e4",
+            "evidence": "nếu từng thành viên của nhóm muốn thực hiện quyền đối với phần quyền sử dụng đất của mình thì phải thực hiện đăng ký biến động hoặc tách thửa theo quy định"
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "làm thủ tục cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e6",
+            "evidence": "được thực hiện quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này"
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e7",
+            "evidence": "các thành viên cùng nhau thực hiện hoặc ủy quyền cho người đại diện để thực hiện quyền và nghĩa vụ của nhóm người sử dụng đất"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2476",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:"
+          },
+          {
+            "id": "e2",
+            "text": "Công chứng",
+            "entity_type": "ACTION",
+            "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:"
+          },
+          {
+            "id": "e3",
+            "text": "Chứng thực hợp đồng, văn bản",
+            "entity_type": "OBJECT",
+            "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:"
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e3",
+            "evidence": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-a_p2588",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Hợp đồng chuyển nhượng",
+            "entity_type": "OBJECT",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e2",
+            "text": "Tặng cho",
+            "entity_type": "ACTION",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e3",
+            "text": "Thế chấp",
+            "entity_type": "ACTION",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e4",
+            "text": "Góp vốn",
+            "entity_type": "ACTION",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e5",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e6",
+            "text": "Tài sản gắn liền với đất",
+            "entity_type": "OBJECT",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e7",
+            "text": "Công chứng",
+            "entity_type": "ACTION",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e8",
+            "text": "Chứng thực",
+            "entity_type": "ACTION",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "id": "e9",
+            "text": "Trừ trường hợp quy định tại điểm b khoản này",
+            "entity_type": "EXCEPTION",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_OBJECT",
+            "target": "e6",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "source": "e4",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_CONDITION",
+            "target": "e7",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_CONDITION",
+            "target": "e8",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_EXCEPTION",
+            "target": "e9",
+            "evidence": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-b_p2794",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Hợp đồng cho thuê",
+            "entity_type": "OBJECT",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          },
+          {
+            "id": "e2",
+            "text": "Hợp đồng chuyển nhượng",
+            "entity_type": "OBJECT",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          },
+          {
+            "id": "e3",
+            "text": "quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          },
+          {
+            "id": "e4",
+            "text": "tài sản gắn liền với đất",
+            "entity_type": "OBJECT",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          },
+          {
+            "id": "e5",
+            "text": "tổ chức hoạt động kinh doanh bất động sản",
+            "entity_type": "SUBJECT",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e1",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          },
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          },
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          },
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-c_p3217",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "id": "e2",
+            "text": "Công chứng",
+            "entity_type": "ACTION",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "id": "e3",
+            "text": "Chứng thực",
+            "entity_type": "ACTION",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "id": "e4",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "id": "e5",
+            "text": "Tài sản gắn liền với đất",
+            "entity_type": "OBJECT",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e5",
+            "evidence": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-d_p3372",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Việc công chứng, chứng thực",
+            "entity_type": "ACTION",
+            "evidence": "Việc công chứng, chứng thực thực hiện theo quy định của pháp luật về công chứng, chứng thực."
+          },
+          {
+            "id": "e2",
+            "text": "quy định của pháp luật về công chứng, chứng thực",
+            "entity_type": "REFERENCE",
+            "evidence": "Việc công chứng, chứng thực thực hiện theo quy định của pháp luật về công chứng, chứng thực."
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "REFERENCE_TO",
+            "target": "e2",
+            "evidence": "Việc công chứng, chứng thực thực hiện theo quy định của pháp luật về công chứng, chứng thực."
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_p3497",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người nhận quyền sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Người nhận quyền sử dụng đất được quy định như sau:"
+          }
+        ],
+        "relations": []
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-a_p3549",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Cá nhân được nhận chuyển đổi quyền sử dụng đất quy định tại điểm b khoản 1 Điều 37 của Luật này"
+          },
+          {
+            "id": "e2",
+            "text": "Chuyển đổi",
+            "entity_type": "ACTION",
+            "evidence": "Cá nhân được nhận chuyển đổi quyền sử dụng đất quy định tại điểm b khoản 1 Điều 37 của Luật này"
+          },
+          {
+            "id": "e3",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Cá nhân được nhận chuyển đổi quyền sử dụng đất quy định tại điểm b khoản 1 Điều 37 của Luật này"
+          },
+          {
+            "id": "e4",
+            "text": "Điều 37",
+            "entity_type": "REFERENCE",
+            "evidence": "quy định tại điểm b khoản 1 Điều 37 của Luật này"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Cá nhân được nhận chuyển đổi quyền sử dụng đất quy định tại điểm b khoản 1 Điều 37 của Luật này"
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e3",
+            "evidence": "Cá nhân được nhận chuyển đổi quyền sử dụng đất quy định tại điểm b khoản 1 Điều 37 của Luật này"
+          },
+          {
+            "source": "e2",
+            "relation_type": "REFERENCE_TO",
+            "target": "e4",
+            "evidence": "quy định tại điểm b khoản 1 Điều 37 của Luật này"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-b_p3646",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức kinh tế",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất"
+          },
+          {
+            "id": "e2",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất"
+          },
+          {
+            "id": "e3",
+            "text": "Chuyển nhượng",
+            "entity_type": "ACTION",
+            "evidence": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất"
+          },
+          {
+            "id": "e4",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất"
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;"
+          },
+          {
+            "id": "e2",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;"
+          },
+          {
+            "id": "e3",
+            "text": "Nhận chuyển nhượng quyền sử dụng đất",
+            "entity_type": "ACTION",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;"
+          },
+          {
+            "id": "e4",
+            "text": "Khu công nghiệp, cụm công nghiệp, khu công nghệ cao",
+            "entity_type": "OBJECT",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;"
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p3930",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ"
+          },
+          {
+            "id": "e2",
+            "text": "Chuyển nhượng",
+            "entity_type": "ACTION",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ"
+          },
+          {
+            "id": "e3",
+            "text": "Giá trị quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ"
+          },
+          {
+            "id": "e4",
+            "text": "Quy định của Chính phủ",
+            "entity_type": "REFERENCE",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e2",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ"
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_OBJECT",
+            "target": "e3",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ"
+          },
+          {
+            "source": "e2",
+            "relation_type": "REFERENCE_TO",
+            "target": "e4",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p4064",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức kinh tế",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất"
+          },
+          {
+            "id": "e2",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất"
+          },
+          {
+            "id": "e3",
+            "text": "Góp vốn",
+            "entity_type": "ACTION",
+            "evidence": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất"
+          },
+          {
+            "id": "e4",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e3",
+            "evidence": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất"
+          },
+          {
+            "source": "e3",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-e_p4162",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức trong nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "id": "e2",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "id": "e3",
+            "text": "Cộng đồng dân cư",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "id": "e4",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "id": "e5",
+            "text": "Tặng cho",
+            "entity_type": "ACTION",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "id": "e6",
+            "text": "Luật này",
+            "entity_type": "REFERENCE",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "source": "e3",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_OBJECT",
+            "target": "e4",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          },
+          {
+            "source": "e5",
+            "relation_type": "REFERENCE_TO",
+            "target": "e6",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-g_p4273",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức trong nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất"
+          },
+          {
+            "id": "e2",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất"
+          },
+          {
+            "id": "e3",
+            "text": "Cộng đồng dân cư",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất"
+          },
+          {
+            "id": "e4",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất"
+          },
+          {
+            "source": "e3",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-h_p4356",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;"
+          },
+          {
+            "id": "e2",
+            "text": "Nhà ở gắn liền với quyền sử dụng đất ở",
+            "entity_type": "OBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;"
+          },
+          {
+            "id": "e3",
+            "text": "Quyền sử dụng đất ở",
+            "entity_type": "OBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;"
+          },
+          {
+            "id": "e4",
+            "text": "Thừa kế quyền sử dụng đất ở",
+            "entity_type": "ACTION",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;"
+          },
+          {
+            "id": "e5",
+            "text": "Tặng cho nhà ở gắn liền với quyền sử dụng đất ở",
+            "entity_type": "ACTION",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e4",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;"
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức trong nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "id": "e2",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "id": "e3",
+            "text": "Cộng đồng dân cư",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "id": "e4",
+            "text": "Tổ chức tôn giáo",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "id": "e5",
+            "text": "Tổ chức tôn giáo trực thuộc",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "id": "e6",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "id": "e7",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước giao đất để thực hiện các dự án đầu tư xây dựng nhà ở để bán hoặc để bán kết hợp cho thuê"
+          },
+          {
+            "id": "e8",
+            "text": "Nhà nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "id": "e9",
+            "text": "Đất",
+            "entity_type": "OBJECT",
+            "evidence": "Nhà nước giao đất"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "source": "e3",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "source": "e4",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "source": "e6",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          },
+          {
+            "source": "e7",
+            "relation_type": "ALLOW",
+            "target": "e9",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước giao đất để thực hiện các dự án đầu tư xây dựng nhà ở để bán hoặc để bán kết hợp cho thuê"
+          },
+          {
+            "source": "e8",
+            "relation_type": "REQUIRE",
+            "target": "e9",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-k_p5095",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức kinh tế",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e2",
+            "text": "Đơn vị sự nghiệp công lập",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e3",
+            "text": "Tổ chức tôn giáo",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e4",
+            "text": "Tổ chức tôn giáo trực thuộc",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e5",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e6",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e7",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e8",
+            "text": "Tổ chức nước ngoài có chức năng ngoại giao",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e9",
+            "text": "Nhà nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "id": "e10",
+            "text": "Cho thuê đất",
+            "entity_type": "ACTION",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e9",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e3",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e4",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e6",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e7",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          },
+          {
+            "source": "e8",
+            "relation_type": "ALLOW",
+            "target": "e10",
+            "evidence": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5350",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức trong nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "id": "e2",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "id": "e3",
+            "text": "Cộng đồng dân cư",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "id": "e4",
+            "text": "Tổ chức tôn giáo",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "id": "e5",
+            "text": "Tổ chức tôn giáo trực thuộc",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "id": "e6",
+            "text": "Nhà nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "id": "e7",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e7",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e7",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "source": "e3",
+            "relation_type": "ALLOW",
+            "target": "e7",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "source": "e4",
+            "relation_type": "ALLOW",
+            "target": "e7",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e7",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          },
+          {
+            "source": "e6",
+            "relation_type": "REQUIRE",
+            "target": "e7",
+            "evidence": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;"
+          }
+        ]
+      }
+    },
+    {
+      "node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5524",
+      "extraction": {
+        "entities": [
+          {
+            "id": "e1",
+            "text": "Tổ chức trong nước",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam"
+          },
+          {
+            "id": "e2",
+            "text": "Cá nhân",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam"
+          },
+          {
+            "id": "e3",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam"
+          },
+          {
+            "id": "e4",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai"
+          },
+          {
+            "id": "e5",
+            "text": "Quyền sử dụng đất",
+            "entity_type": "OBJECT",
+            "evidence": "được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai"
+          },
+          {
+            "id": "e6",
+            "text": "Kết quả hòa giải thành về tranh chấp đất đai",
+            "entity_type": "CONDITION",
+            "evidence": "được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai được Ủy ban nhân dân cấp có thẩm quyền công nhận"
+          },
+          {
+            "id": "e7",
+            "text": "Thỏa thuận trong hợp đồng thế chấp để xử lý nợ",
+            "entity_type": "CONDITION",
+            "evidence": "thỏa thuận trong hợp đồng thế chấp để xử lý nợ"
+          },
+          {
+            "id": "e8",
+            "text": "Quyết định của cơ quan nhà nước có thẩm quyền",
+            "entity_type": "CONDITION",
+            "evidence": "quyết định của cơ quan nhà nước có thẩm quyền về giải quyết tranh chấp đất đai, khiếu nại, tố cáo về đất đai"
+          },
+          {
+            "id": "e9",
+            "text": "Bản án, quyết định của Tòa án",
+            "entity_type": "CONDITION",
+            "evidence": "bản án, quyết định của Tòa án"
+          },
+          {
+            "id": "e10",
+            "text": "Quyết định thi hành án của cơ quan thi hành án",
+            "entity_type": "CONDITION",
+            "evidence": "quyết định thi hành án của cơ quan thi hành án đã được thi hành"
+          },
+          {
+            "id": "e11",
+            "text": "Quyết định hoặc phán quyết của Trọng tài thương mại Việt Nam",
+            "entity_type": "CONDITION",
+            "evidence": "quyết định hoặc phán quyết của Trọng tài thương mại Việt Nam"
+          },
+          {
+            "id": "e12",
+            "text": "Văn bản công nhận kết quả đấu giá quyền sử dụng đất",
+            "entity_type": "CONDITION",
+            "evidence": "văn bản công nhận kết quả đấu giá quyền sử dụng đất phù hợp với pháp luật"
+          },
+          {
+            "id": "e13",
+            "text": "Văn bản về việc chia, tách quyền sử dụng đất",
+            "entity_type": "CONDITION",
+            "evidence": "văn bản về việc chia, tách quyền sử dụng đất phù hợp với pháp luật đối với nhóm người sử dụng đất mà có chung quyền sử dụng đất"
+          }
+        ],
+        "relations": [
+          {
+            "source": "e1",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam, tổ chức kinh tế có vốn đầu tư nước ngoài được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai được Ủy ban nhân dân cấp có thẩm quyền công nhận"
+          },
+          {
+            "source": "e2",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam, tổ chức kinh tế có vốn đầu tư nước ngoài được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai được Ủy ban nhân dân cấp có thẩm quyền công nhận"
+          },
+          {
+            "source": "e3",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam, tổ chức kinh tế có vốn đầu tư nước ngoài được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai được Ủy ban nhân dân cấp có thẩm quyền công nhận"
+          },
+          {
+            "source": "e4",
+            "relation_type": "ALLOW",
+            "target": "e5",
+            "evidence": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e6",
+            "evidence": "được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai được Ủy ban nhân dân cấp có thẩm quyền công nhận"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e7",
+            "evidence": "thỏa thuận trong hợp đồng thế chấp để xử lý nợ"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e8",
+            "evidence": "quyết định của cơ quan nhà nước có thẩm quyền về giải quyết tranh chấp đất đai, khiếu nại, tố cáo về đất đai"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e9",
+            "evidence": "bản án, quyết định của Tòa án"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e10",
+            "evidence": "quyết định thi hành án của cơ quan thi hành án đã được thi hành"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e11",
+            "evidence": "quyết định hoặc phán quyết của Trọng tài thương mại Việt Nam"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e12",
+            "evidence": "văn bản công nhận kết quả đấu giá quyền sử dụng đất phù hợp với pháp luật"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e13",
+            "evidence": "văn bản về việc chia, tách quyền sử dụng đất phù hợp với pháp luật đối với nhóm người sử dụng đất mà có chung quyền sử dụng đất"
+          }
+        ]
+      }
+    }
+  ]
+}

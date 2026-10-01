@@ -235,3 +235,7 @@ M7 (Hybrid Linking & Graph Assembly)  ← [BƯỚC KẾ TIẾP]
 
 Module 6 đã hoàn thành sứ mệnh chuyển hóa văn bản pháp luật bán cấu trúc thành mạng lưới tri thức ngữ nghĩa có tính định lượng, bảo đảm độ chính xác pháp lý tuyệt đối để làm tiền đề cho việc xây dựng đồ thị GraphRAG ở Module 7.
 
+
+---
+
+

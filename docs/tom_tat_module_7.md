@@ -9,7 +9,7 @@ Tài liệu này tóm tắt kiến trúc, luồng xử lý, và các thành ph�
 Hệ thống được chia thành các file rõ ràng, đảm bảo nguyên tắc SOLID và dễ dàng bảo trì:
 
 ### Cấu hình (Configs)
-- **`docs/implementation/ONTOLOGY_SPEC_V1.3.md`**: Bản đặc tả kiến trúc cốt lõi. Khẳng định hệ thống chỉ có 6 Core Classes (`LEGAL_SUBJECT`, `LEGAL_ACTION`, `CONDITION`, `EXCEPTION`, `PENALTY`, `LEGAL_DOCUMENT_REF`) và 7 loại Relations. Đặt ra quy tắc Edge-Level Provenance (Thực thể phải siêu nhẹ, bằng chứng lưu ở cạnh) và Human-in-the-loop (cơ chế cách ly).
+- **`docs/implementation/ONTOLOGY_SPEC_V1.3.md`**: Bản đặc tả kiến trúc cốt lõi. Khẳng định hệ thống có 7 Core Classes (`LEGAL_SUBJECT`, `LEGAL_ACTION`, `LEGAL_OBJECT`, `CONDITION`, `EXCEPTION`, `PENALTY`, `LEGAL_DOCUMENT_REF`) và 8 loại Relations. Đặt ra quy tắc Edge-Level Provenance (Thực thể phải siêu nhẹ, bằng chứng lưu ở cạnh) và Human-in-the-loop (cơ chế cách ly).
 - **`src/ontology/configs/ontology_schema.yaml`**: Lưu trữ ma trận Domain-Range của 7 loại quan hệ (ALLOW, REQUIRE, PROHIBIT...). Ma trận này là "chốt chặn" để loại bỏ các quan hệ phi logic (VD: ALLOW trỏ vào SUBJECT).
 - **`src/ontology/configs/taxonomy_aliases.yaml`**: Từ điển Seed Taxonomy. Định nghĩa các thực thể chuẩn (Canonical Entity) và các từ khóa đồng nghĩa (aliases). Được dùng làm "chân lý" để Normalize các thực thể trích xuất được từ LLM. Hiện đã được nâng cấp lên 361 dòng với rất nhiều từ khóa cho Luật Đất đai.
 
