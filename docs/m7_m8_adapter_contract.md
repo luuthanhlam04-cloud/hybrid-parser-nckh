@@ -141,3 +141,4 @@ I4: NormFuser merge kết quả phải idempotent:
 ## 8. Edge → Norm Ownership
 
 Bất kỳ `HAS_CONDITION`, `HAS_EXCEPTION`, `HAS_CONSEQUENCE` edge nào đều phải có parent Norm. Không có "orphan structural edge". Adapter M8 khi đọc file M7 phải kiểm tra invariant I1 trước khi xử lý.
+I5: M8 KHA"NG &#273;&#432;&#7907;c silently drop cA!c norm cA3 status="VALID" t&#7915; M7. Norm thi&#7871;u action_ids ph&#7843;i &#273;&#432;&#7907;c n&#7841;p vA!o UKG v&#7899;i norm_completeness="PARTIAL".
