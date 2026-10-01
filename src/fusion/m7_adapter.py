@@ -187,6 +187,41 @@ class M7GraphAdapter:
                     })
                 continue  # ← Partial Norm đã được xử lý, bỏ qua vòng lặp subject_ids bên dưới
 
+            # --- I5 Fix: Subject-Only Norm (subject_ids != [], action_ids = []) ---
+            # CONTRACT I5: VALID PARTIAL NormAssertion phải được giữ lại trong UKG.
+            # Dạng "Subject ALLOW Object" (thiếu action) là VALID PARTIAL theo contract.
+            if norm.get("subject_ids") and not norm.get("action_ids"):
+                for subject_index, subject_id in enumerate(norm.get("subject_ids", [])):
+                    subject = canonical_endpoint(subject_id)
+                    if subject not in entity_by_id:
+                        continue
+                    relations.append({
+                        "relation_id": f"{norm_id}:subject_only:{subject_index}",
+                        "norm_id": norm_id,
+                        "relation_type": modality,
+                        "source_node_id": provenance,
+                        "source": subject,
+                        "target": None,              # ← Không có action target
+                        "evidence": norm.get("evidence", ""),
+                        "norm_status": "PARTIAL",
+                        "subject_status": "RESOLVED",
+                        "condition_ids": [canonical_endpoint(c) for c in norm.get("condition_ids", [])],
+                        "exception_ids": [canonical_endpoint(e) for e in norm.get("exception_ids", [])],
+                    })
+                    # Vẫn gán HAS_OBJECT nếu có, dùng subject làm anchor
+                    for obj_index, object_id in enumerate(norm.get("object_ids", [])):
+                        obj_entity = canonical_endpoint(object_id)
+                        if obj_entity in entity_by_id:
+                            relations.append({
+                                "relation_id": f"{norm_id}:subject_only_obj:{subject_index}:{obj_index}",
+                                "relation_type": "HAS_OBJECT",
+                                "source_node_id": provenance,
+                                "source": subject,
+                                "target": obj_entity,
+                                "evidence": norm.get("evidence", ""),
+                            })
+                continue  # ← Subject-Only PARTIAL handled
+
             for subject_index, subject_id in enumerate(norm.get("subject_ids", [])):
                 for action_index, action_id in enumerate(norm.get("action_ids", [])):
                     subject = canonical_endpoint(subject_id)

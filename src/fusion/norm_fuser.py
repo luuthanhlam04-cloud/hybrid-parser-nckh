@@ -48,8 +48,11 @@ class NormFuser:
                 rel_type = r.get("relation_type")
                 if rel_type in {"ALLOW", "PROHIBIT", "REQUIRE"}:
                     modality = rel_type
-                    subject_ids.append(r["source"])
-                    action_ids.append(r["target"])
+                    # I5 Fix: Subject-Only PARTIAL norm has target=None (no action)
+                    if r.get("source") is not None:
+                        subject_ids.append(r["source"])
+                    if r.get("target") is not None:
+                        action_ids.append(r["target"])
                 elif rel_type == "HAS_CONDITION":
                     condition_ids.append(r["target"])
                 elif rel_type == "HAS_EXCEPTION":
