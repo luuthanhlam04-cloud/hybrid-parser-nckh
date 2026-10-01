@@ -110,6 +110,30 @@ preserve arbitrary graph property structures. Verify the target database and
 backup policy before applying production deltas; removed UKG nodes are detached
 and deleted.
 
+## Module 9 full ingestion
+
+The full loader reads the current `outputs/unified_graphs/unified_knowledge_graph.json`
+and writes nodes and edges in batches of 1000. Nodes and relationships use the
+`UKG_NODE` and `UKG_EDGE` labels; the original labels, edge type, properties,
+and provenance are preserved as properties. A unique node-ID constraint,
+relationship-key index, and full-text index on node search text are created.
+
+Set `NEO4J_URI`, `NEO4J_USERNAME`, and `NEO4J_PASSWORD` in the ignored `.env`
+file, then run:
+
+```powershell
+python run_neo4j_ingestion.py
+```
+
+The loader is idempotent for unchanged input and verifies counts, dangling
+endpoints, and structural cycles after writing. Isolated nodes are reported but
+do not fail validation. Each batch commits independently, so a failed run can
+be safely repeated. Existing UKG records are not removed by default; use
+`--replace` only when intentionally rebuilding the UKG data in the selected
+database. This option deletes only nodes labeled `UKG_NODE` and their
+relationships; back up the target first. Without `--database` or
+`NEO4J_DATABASE`, the driver uses the server's home database.
+
 ## Release gate still requiring external evidence
 
 Code tests and SHACL checks cannot substitute for a legal gold set. A release
