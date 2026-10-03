@@ -42,7 +42,6 @@ Trải qua quá trình Audit và tranh luận học thuật sâu sắc (qua 6 v�
 
 ## 4. Luồng Xử Lý & Tổ Chức Mã Nguồn (Workflow)
 
-```mermaid
 graph TD
     A[routing_candidates.json từ M5] --> B(structured_extractor.py)
     B --> C(prompt_builder.py)
@@ -51,10 +50,9 @@ graph TD
     E -->|Valid| F[Export JSON]
     E -->|Lỗi Format / Logic| G(retry_controller.py)
     G -->|< 3 lần| D
-    G -->|>= 3 lần| H[Fallback: Empty []]
+    G -->|">= 3 lần"| H["Fallback: Empty []"]
     H --> F
     F --> I[semantic_extraction.json]
-```
 
 - **`schema_manager.py`:** Định nghĩa Data Contract bằng Pydantic V2. Kiểm soát tính hợp lệ của `source_status` và `source_id = null`.
 - **`prompt_builder.py`:** Lắp ráp ngữ cảnh phân cấp. Dạy LLM xử lý Partial Norm.
