@@ -1,33 +1,50 @@
-# Tổng Kết Module 1: Tiền Xử Lý Văn Bản (Document Preprocessing)
+# TÓM TẮT MODULE 1: TIỀN XỬ LÝ VĂN BẢN PHÁP LUẬT (DOCUMENT PREPROCESSING)
 
-## 1. Tổng quan những gì đã thực hiện
-Module 1 được xây dựng nhằm mục đích chuẩn hóa các văn bản quy phạm pháp luật định dạng `.docx` thô thành định dạng UTF-8 thuần túy (plain text), sạch sẽ và có cấu trúc rõ ràng. Kết quả đầu ra của Module này là dữ liệu đầu vào trực tiếp cho **Module 2 (Rule-based Regex Parser)** để xây dựng Đồ thị Tri thức (Knowledge Graph). 
+## 1. Đánh giá Kiến trúc Hệ thống (System Architecture)
+Kiến trúc của Module 1 được thiết kế rất chuẩn mực theo mô hình **Pipeline (Đường ống xử lý tuyến tính)** kết hợp với **Single Responsibility Principle (Nguyên tắc Đơn trách nhiệm)**. Dữ liệu thô (raw data) sẽ chảy qua các trạm xử lý (components) độc lập để tạo ra văn bản sạch (clean text) cuối cùng.
 
-Điểm nhấn quan trọng nhất trong quá trình phát triển là **giải quyết triệt để vấn đề mất mát số tự động (Auto-numbering)** của MS Word — một bài toán cực kỳ phổ biến nhưng rất khó xử lý trong tài liệu pháp luật Việt Nam.
+Cụ thể, các component được tổ chức thành các file riêng biệt:
+- **`document_loader.py` (Tầng Nạp dữ liệu):** Xử lý giao tiếp với file vật lý (.docx, .txt), đặc biệt giải quyết bài toán hóc búa nhất là bóc tách đánh số tự động (auto-numbering).
+- **`text_cleaner.py` (Tầng Làm sạch):** Bộ lọc rác, loại bỏ khoảng trắng thừa, ký tự ẩn, ngắt dòng sai.
+- **`unicode_normalizer.py` (Tầng Chuẩn hóa):** Bộ kiểm soát bảng mã, ép toàn bộ văn bản về một quy chuẩn tiếng Việt duy nhất (Unicode NFC).
+- **`formatter.py` (Tầng Định dạng):** Cấu trúc lại văn bản, căn chỉnh thống nhất để chuẩn bị cho bước bóc tách (Parsing) tiếp theo.
+- **`clean_document.py` (Bộ Điều phối/Orchestrator):** Đóng vai trò là Pipeline Controller, xâu chuỗi 4 trạm trên lại với nhau, ghi nhận log, đo lường thời gian (elapsed time) và xuất ra file đích (như `clean_Luat_dat_dai_chuong_3.txt`).
 
-## 2. Cấu trúc thư mục và Workflow các file Code
-Toàn bộ logic tiền xử lý được tổ chức theo Pipeline 4 bước khép kín trong thư mục `src/preprocessing/`:
+## 2. Luồng xử lý (Workflow)
 
-- **`clean_document.py`**: Script chạy chính (Main pipeline). Nó điều phối luồng dữ liệu đi qua tuần tự 4 bước, ghi log thời gian thực và quản lý input/output.
-- **`document_loader.py`**: (Bước 1) Đọc file `.docx` và trích xuất toàn bộ nội dung văn bản. Chịu trách nhiệm phân tích mã XML (OOXML) để khôi phục lại các ký tự đánh số tự động (Khoản 1, 2, 3 và Điểm a, b, c) vốn bị các thư viện Python thông thường bỏ qua.
-- **`text_cleaner.py`**: (Bước 2) Làm sạch nhiễu số hóa. Chịu trách nhiệm xóa số trang, tiêu đề đầu/cuối trang, các khoảng trắng thừa, và xử lý các dòng treo (dangling clauses) do lỗi rớt dòng khi soạn thảo.
-- **`unicode_normalizer.py`**: (Bước 3) Chuẩn hóa toàn bộ văn bản về mã Unicode NFC. Đảm bảo chữ tiếng Việt (như `đ`, `ẽ`, `ợ`) được mã hóa đồng nhất, tránh lỗi RegEx không nhận diện được chữ có dấu ở các bước sau.
-- **`formatter.py`**: (Bước 4) Định dạng lại cấu trúc. Sử dụng RegEx chuyên sâu để nhận diện các ranh giới kiến trúc luật (Chương, Mục, Điều, Khoản, Điểm) và tự động chèn khoảng trắng/dòng trống, giúp cấu trúc văn bản trở nên chuẩn mực.
+```mermaid
+graph TD
+    A[Văn bản thô .docx / .txt] -->|document_loader.py| B(1. Load & Khôi phục Đánh số)
+    B -->|raw_lines| C(2. Làm sạch Rác & Nối dòng đứt gãy)
+    C -->|text_cleaner.py| D(3. Chuẩn hóa Unicode NFD -> NFC)
+    D -->|unicode_normalizer.py| E(4. Định dạng Cấu trúc)
+    E -->|formatter.py| F[Văn bản sạch .txt]
 
-## 3. Công nghệ và Thư viện sử dụng
-- **Python Standard Libraries (`zipfile`, `xml.etree.ElementTree`)**: Dùng để mổ xẻ trực tiếp file mã nguồn `.docx` (vốn là một file ZIP chứa XML).
-- **`re` (Regular Expressions)**: Công cụ cốt lõi dùng để nhận diện cấu trúc luật (Pattern matching) và làm sạch văn bản một cách cực kỳ khắt khe.
-- **`logging`**: Quản lý xuất log tiến trình xử lý.
+    classDef input fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#000;
+    classDef process fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000;
+    classDef output fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000;
+    
+    class A input;
+    class B,C,D,E process;
+    class F output;
+```
 
-## 4. Quyết định Kiến trúc: Vì sao loại bỏ `pypandoc` và chỉ dùng Custom XML Parser?
+Văn bản pháp luật thô sẽ đi qua 4 bước tuần tự:
+1. **Load (Tải và Giải mã):** Đọc file Word (`.docx`), can thiệp vào cấu trúc XML bên dưới để lấy cả phần chữ (text) lẫn các con số tự động (Khoản 1, Điểm a).
+2. **Clean (Làm sạch):** Xóa bỏ các ký tự điều khiển (control characters), nối lại các câu bị đứt gãy do lỗi canh lề (layout).
+3. **Normalize (Chuẩn hóa):** Quét toàn bộ văn bản, biến đổi mọi ký tự tiếng Việt gõ theo kiểu tổ hợp (NFD) về kiểu dựng sẵn (NFC).
+4. **Format (Định dạng):** Chỉnh trang lại thụt lề, khoảng cách dòng, tạo ra một bản `clean_text` hoàn hảo, sẵn sàng bàn giao cho Module 2 (Tạo Cây Vật Lý).
 
-Ban đầu, hệ thống dự định dùng `pypandoc` vì nó là một chuẩn quốc tế trong việc convert định dạng. Tuy nhiên, qua quá trình gỡ lỗi thực tế, chúng ta đã quyết định **loại bỏ hoàn toàn pypandoc** và thay bằng trình phân tích **XML OOXML tự code (`_load_via_xml`)** vì các nguyên nhân cốt lõi sau:
+## 3. Các bài toán gặp phải và Cách giải quyết
 
-1. **Bản chất "hack" định dạng của MS Word trong Tiếng Việt:** 
-   MS Word sử dụng mặc định bảng chữ cái tiếng Anh (`a,b,c,d,e,f...`) cho thẻ đánh số `lowerLetter`. Tuy nhiên, văn bản pháp luật Việt Nam yêu cầu thứ tự `a, b, c, d, đ, e, g...`. Vì Word không hỗ trợ tự động chữ `đ)`, người soạn thảo thường áp dụng "thủ thuật": 
-   - Họ tắt đánh số, **gõ tay chữ `đ)`**.
-   - Dòng tiếp theo bật lại đánh số, Word sinh ra chữ `e)` (là phần tử thứ 5 tiếng Anh).
-   - Đến chữ `g)` (phần tử thứ 7 tiếng Anh), họ lại phải tự set giá trị `start=7` trên một List XML mới (`w:numId` mới).
-2. **Sự sai lệch của Pandoc:** Pandoc cố gắng thông minh chuẩn hóa các danh sách này nhưng nó làm mất hoặc biến dạng các vị trí gõ tay và các chỗ đứt gãy cấu trúc danh sách, dẫn đến việc mất hẳn một số khoản/điểm trong văn bản xuất ra.
-3. **Sự kiểm soát tuyệt đối bằng XML:** Việc tự đọc `word/document.xml` và `word/numbering.xml` cho phép chúng ta kiểm soát chính xác từng mã `w:numId`, `w:ilvl`, `w:abstractNumId`. Bằng cách **cố định `_ALPHA_LOWER` của Python về chuẩn tiếng Anh nguyên thủy (`abcdefghijklmnopqrstuvwxyz`)**, bộ XML Parser của chúng ta đã mô phỏng lại *chính xác 100%* thuật toán hiển thị của MS Word. Các chữ gõ tay như `đ)` được giữ nguyên, và các chữ tự động nhảy (như `e`, `g`) được sinh ra khớp hoàn toàn với những gì người dùng nhìn thấy trên màn hình Word.
-4. **Giảm rủi ro triển khai:** Xóa bỏ sự phụ thuộc vào Pandoc giúp phần mềm chạy độc lập (Standalone) hoàn toàn trên môi trường máy chủ mà không cần cài đặt thêm phần mềm binary bên ngoài hệ sinh thái Python. 
+### Bài toán 1: "Tàng hình" đánh số tự động (Auto-numbering Loss)
+- **Vấn đề:** Văn bản quy phạm pháp luật sử dụng chức năng Auto-Numbering rất nhiều cho các Điều, Khoản, Điểm (Ví dụ: tự động đánh số "1.", "a)"). Khi dùng các thư viện Python đọc file Word thông thường (như `python-docx` nguyên bản), các con số này bị "tàng hình" (biến mất). Điều này khiến toàn bộ cấu trúc phân cấp của văn bản bị phá nát (không biết đâu là Khoản 1, đâu là Điểm a).
+- **Cách giải quyết (`document_loader.py`):** Hệ thống được thiết kế để đọc sâu vào cấu trúc XML (`numbering.xml`) của file `.docx`. Nó truy vết từng đoạn văn (paragraph) xem đang liên kết với ID đánh số nào, sau đó tự động khôi phục và "đính" (prefix) con số/chữ cái đó vào lại đầu câu văn trước khi nạp vào bộ nhớ.
+
+### Bài toán 2: Bất đồng bộ Bảng mã Tiếng Việt (Unicode NFD vs NFC)
+- **Vấn đề:** Các file luật thu thập từ nhiều nguồn (đặc biệt là soạn thảo trên máy Mac hoặc copy từ web) thường bị dính lỗi Unicode Tổ hợp (NFD). Trong NFD, chữ `ề` thực chất là 2 ký tự: chữ `e` và dấu `^` `\`. Trong khi đó, hệ thống mặc định hiểu chữ `ề` là 1 ký tự (NFC). Sự sai lệch này khiến các biểu thức chính quy (Regex) ở Module 2 hoàn toàn bị "mù", bắt hụt các từ khóa như "Điều", "Khoản".
+- **Cách giải quyết (`unicode_normalizer.py`):** Khởi tạo một chốt chặn bắt buộc bằng thuật toán `unicodedata.normalize('NFC', text)`. Mọi văn bản chạy qua đây đều bị "ép" về quy chuẩn NFC, triệt tiêu hoàn toàn lỗi so khớp chuỗi về sau.
+
+### Bài toán 3: Rác định dạng và Đứt gãy câu chữ (Noise & Broken Lines)
+- **Vấn đề:** Do thói quen soạn thảo (ấn Tab/Space nhiều lần) hoặc do lỗi convert từ PDF sang Word, văn bản xuất hiện vô số khoảng trắng thừa, dòng trắng, hoặc trầm trọng hơn là **một câu bị ngắt xuống dòng giữa chừng** dù chưa hết ý.
+- **Cách giải quyết (`text_cleaner.py`):** Sử dụng các biểu thức chính quy (Regex) và logic Heuristic để dọn rác. Đặc biệt, hệ thống sẽ tự động phát hiện các dòng kết thúc bất thường (không phải dấu chấm, chấm phẩy, v.v.) và chủ động **nối (merge)** chúng lại với dòng tiếp theo để khôi phục lại câu văn nguyên vẹn. Mọi kết quả đầu ra (như `clean_Luat_dat_dai_chuong_3.txt`) đều có chất lượng chữ (text quality) hoàn hảo.
