@@ -112,3 +112,15 @@ Khi Physical Pipeline đã đóng băng (Frozen), bài toán chuyển từ "Bóc
 1. **Ontology Design:** Trong Luật Đất đai, những Thực thể nào đáng giá nhất? (Cơ quan quản lý, Đối tượng chịu thuế, Hành vi cấm).
 2. **Cross-reference Resolution:** Làm sao nối Edge `REFERENCES` từ cụm từ "Tại khoản 2 Điều này" tới đúng ID trên đồ thị?
 3. **LLM Chunking Strategy:** Cần gộp (Merge) các Điểm nhỏ (Point) lên Khoản (Clause) hay giữ nguyên từng Node vật lý để LLM nhúng?
+
+## 7. Đánh giá Kết quả Đầu ra (Output Evaluation)
+
+Sau khi trực tiếp "soi" 2 file output `validated_nodes.json` và `validation_report.json`, hệ thống bộc lộ những điểm sáng học thuật đáng giá sau:
+
+**1. File `validation_report.json` (Báo cáo Y khoa của Đồ thị):**
+- Báo cáo ghi nhận chính xác `"total_nodes_received": 222` và `"total_nodes_validated": 222`, cùng với điểm `"structural_integrity_score": 100.0`.
+- Đây là **minh chứng bằng số liệu (Empirical Evidence)** cho thấy 100% các node đi qua cửa kiểm duyệt đều "sống sót", không có một Node nào bị cách ly (Quarantine). Điều này một lần nữa vinh danh kiến trúc thuật toán *Hybrid ID* và *Stack-based* ở Module 2 đã làm quá tốt nhiệm vụ xây cây (Tree building), không tạo ra bất kỳ rác cấu trúc (Orphan, Broken Parent) nào.
+
+**2. File `validated_nodes.json` (Mộc chứng nhận "Sạch"):**
+- Dù cấu trúc JSON của file này trông giống hệt `raw_nodes.json`, nhưng về mặt logic hệ thống, nó mang một vị thế hoàn toàn khác. 
+- Nó là một **Tập Dữ Liệu Đã Được "Đóng Dấu Kiểm Định" (Certified Data)**. Nhờ có màng lọc này, Module 4 (Neo4j Ingestion) hay các Module downstream khác có thể "nhắm mắt" thực thi lệnh `MERGE` đẩy dữ liệu thẳng lên Graph Database mà không bao giờ sợ sụp đổ đồ thị (Graph Crash) do đứt gãy cha-con hay bị treo máy do truy vấn lặp vòng vô tận (Cyclic Dependency).
