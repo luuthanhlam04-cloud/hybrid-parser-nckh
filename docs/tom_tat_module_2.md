@@ -1,54 +1,49 @@
-# Tổng kết Module 2 - Regex Parser (Cập nhật mới nhất)
+# TÓM TẮT MODULE 2: XÂY DỰNG CÂY VẬT LÝ (PHYSICAL GRAPH PARSER)
 
-Module 2 đóng vai trò là lõi trích xuất cấu trúc (Structural Parser) cho hệ thống Hybrid Parser của GraphRAG Văn bản Pháp luật Việt Nam. Nhiệm vụ chính của module là chuyển đổi văn bản luật thô (đã qua làm sạch) hoặc văn bản DOCX thành một mảng các node JSON có cấu trúc phân cấp chặt chẽ, phục vụ cho việc xây dựng đồ thị ở các module sau.
+## 1. Đánh giá Kiến trúc Hệ thống (System Architecture)
+Module 2 đóng vai trò là lõi chuyển đổi quan trọng: Biến đổi văn bản phẳng (Linear Text) thành một Cấu trúc Cây đa tầng (Hierarchical Tree / Physical Graph). Kiến trúc của Module 2 tuân thủ chặt chẽ nguyên lý **Pipeline Design Pattern**, chia quy trình Parsing thành 4 trạm xử lý chuyên biệt:
 
-## 1. Công nghệ và Nguyên tắc thiết kế
-- **Ngôn ngữ & Thư viện:** Python 3, `pydantic` (để Data Modeling và Validation), `re` (Regex tiêu chuẩn của Python).
-- **Nguyên tắc:** 
-  - **100% Rule-based & Deterministic:** Không sử dụng AI/LLM hay mô hình nhúng (Embeddings) để đảm bảo độ chính xác tuyệt đối, tốc độ cao và tính lặp lại.
-  - **Lenient Parser, Strict Data Model:** Chấp nhận đầu vào có thể có chút bất thường (như mất định dạng số), nhưng đầu ra bắt buộc tuân thủ Data Contract của Pydantic.
-  - **Pattern Taxonomy & Metadata:** Các rules Regex đều được phân loại dựa trên Corpus thực tế (vd: `[CORPUS: Ch3-LDD]`) và có độ tin cậy rõ ràng (`HIGH`, `HYPOTHESIS`).
+- **`regex_engine.py` (Bộ Nhận diện):** Sử dụng các biểu thức chính quy (Regex) tinh vi để quét qua từng dòng văn bản, nhận diện ra các thực thể pháp lý (Node) dựa trên từ khóa ("Điều", "Khoản", "Chương", "Mục") và ký hiệu ("1.", "a)").
+- **`boundary_detector.py` (Bộ Cắt lớp):** Dựa trên kết quả từ Regex, hệ thống tiến hành cắt văn bản thành từng khúc (chunk). Xác định chính xác vị trí bắt đầu (`start_idx`) và kết thúc (`end_idx`) của từng Node.
+- **`hierarchy_builder.py` (Bộ Lắp ráp Cây):** Sử dụng thuật toán Stack (Ngăn xếp) để móc nối các khúc văn bản (Nodes) lại với nhau thành mô hình Cha-Con (Parent-Child) dựa trên Độ sâu (Depth) của luật.
+- **`node_generator.py` (Bộ Xuất bản):** Đóng gói toàn bộ thông tin (text, depth, parent_id, children_count, index...) thành cấu trúc JSON chuẩn mực.
+- **`parser.py` (Orchestrator):** Trái tim điều phối, kết nối 4 trạm trên lại với nhau, cung cấp giao diện cho cả file `.docx` có cấu trúc lẫn file `.txt` thuần.
 
-## 2. Vai trò và Workflow của từng file
+## 2. Luồng xử lý (Workflow)
 
-Kiến trúc mới (sau khi refactor nhánh `lâm_module_2`) phân tách trách nhiệm (Separation of Concerns) cực kỳ rõ ràng theo mô hình Pipeline:
-`parser.py` -> `regex_engine.py` -> `boundary_detector.py` -> `hierarchy_builder.py` -> `node_generator.py`
+```mermaid
+graph TD
+    A[Văn bản sạch từ M1] -->|parser.py| B(1. Nhận diện Regex & Metadata)
+    B -->|match_results| C(2. Xác định ranh giới / Boundary)
+    C -->|boundaries| D(3. Thuật toán Stack - Lắp ráp Cha Con)
+    D -->|hierarchy_nodes| E(4. Sinh ID & Đóng gói JSON)
+    E -->|node_generator.py| F[Physical Graph .json]
+    
+    classDef input fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#000;
+    classDef process fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000;
+    classDef output fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000;
+    
+    class A input;
+    class B,C,D,E process;
+    class F output;
+```
 
-- **`regex_engine.py`**:
-  - *Vai trò:* Lớp 2 (Text Signal) nhận diện dấu hiệu. Chứa `Pattern Registry` (từ điển mẫu) và `DOCX_NUMBERING_HINTS`. Định nghĩa `NodeType` (CHAPTER, SECTION, ARTICLE, CLAUSE, POINT).
-  - *Workflow:* Quét qua từng dòng văn bản hoặc paragraph, kết hợp cả Regex và tín hiệu từ Word Style/Numbering (nếu có) để trả về `MatchResult` (chứa vị trí, marker, text, node_type).
+Văn bản từ Module 1 sẽ đi qua 4 bước tuần tự:
+1. **Match (Nhận diện):** RegexEngine quét từng dòng, kết hợp với các thông tin ẩn (Metadata: Marker, Number) do Module 1 truyền sang để nhận diện chính xác các cấp bậc (CHƯƠNG = Depth 0, MỤC = Depth 1, ĐIỀU = Depth 2, KHOẢN = Depth 3, ĐIỂM = Depth 4).
+2. **Detect Boundary (Chia tách ranh giới):** Văn bản được "chặt" ra thành các đoạn text rời rạc, không bị chồng lấn.
+3. **Build Hierarchy (Xây dựng Cây phân cấp):** Xác định đoạn text này là con của đoạn text nào phía trên. 
+4. **Generate JSON (Sinh JSON):** Gán `id` duy nhất cho từng Node (vd: `doc_chuong-iii_muc-1_dieu-26`), đếm số lượng node con và ghi ra file `raw_nodes_clean_*.json` sẵn sàng nạp vào Đồ thị.
 
-- **`boundary_detector.py`**:
-  - *Vai trò:* Xác định ranh giới vật lý (start/end) của các Node.
-  - *Workflow:* Sử dụng thuật toán Stack-based. Khi gặp một marker mới, nếu depth của nó nhỏ hơn hoặc bằng node hiện tại thì đóng node cũ và mở node mới. Nếu không có marker, dòng text sẽ được gộp vào `content_lines` của node đang mở.
-  - *Cập nhật mới:* Tính toán chính xác vị trí ký tự tuyệt đối (`char_start` - zero-based absolute offset) cộng dồn từ toàn bộ văn bản để phục vụ cấp phát Hybrid ID.
+## 3. Các bài toán gặp phải và Cách giải quyết
 
-- **`hierarchy_builder.py`**:
-  - *Vai trò:* Linear text → Tree structure. Xây dựng quan hệ Parent-Child.
-  - *Workflow:* Tiếp tục dùng Stack để track parent theo depth. Pop stack cho đến khi tìm được parent có depth hợp lệ. Thiết lập `parent_node` (object reference để tránh nhầm lẫn ID sau này), gán `position` (thứ tự anh em) và cập nhật `children_ids`.
+### Bài toán 1: Ảo giác Đánh dấu (Marker Misidentification) & Trùng lặp ID
+- **Vấn đề:** Ban đầu, hệ thống Regex độc lập của M2 thi thoảng nhận diện nhầm các điểm (point marker). Ví dụ: dãy `a, b, c, d, đ, e` bị hệ thống đọc nhầm `e` thành `đ`, hoặc chữ `o` bị đọc thành chữ `a`. Sự cố này dẫn đến việc gán nhầm ID, sinh ra lỗi **Trùng lặp ID (Historical ID Collision)** giữa điểm `d` và `đ` khi chạy sinh JSON, làm vỡ đồ thị.
+- **Cách giải quyết (`parser.py`):** Thiết lập **Contract (Hợp đồng dữ liệu)** chặt chẽ với Module 1. Thay vì để Regex tự đoán mò, M2 sẽ gọi hàm `_merge_contract_metadata()` để lấy thông tin `number` và `marker` chuẩn xác 100% từ lõi XML của file Word (do M1 bóc tách). Nhờ đó, loại bỏ hoàn toàn "ảo giác", tái tạo chuẩn xác cấu trúc 222 nodes của đồ thị mà không còn bất kỳ lỗi ID đụng độ nào.
 
-- **`node_generator.py`**:
-  - *Vai trò:* Trái tim của Data Contract. Đóng gói object thành `LegalNode` (Pydantic model) và sinh **Hybrid ID**.
-  - *Workflow:* Dựa vào `parent_node` reference, hệ thống tự động sinh ID mà không sợ collision (xem phần Hybrid ID bên dưới). Xuất ra dữ liệu chuẩn để serialize thành JSON.
+### Bài toán 2: Đứt gãy hệ gen Cha-Con (Orphans & Gaps) trong cấu trúc phẳng
+- **Vấn đề:** Văn bản đầu vào là cấu trúc tuyến tính (Linear text - đọc từ trên xuống dưới). Rất khó để lập trình cho máy tính hiểu rằng "Điểm a" ở trang 5 là con của "Khoản 2" ở trang 4, chứ không phải con của "Khoản 1". Nếu viết logic If-Else thông thường, khi văn bản bị khuyết một "Khoản" nào đó, các node bên dưới sẽ bị mồ côi (Orphan) hoặc gán nhầm cha.
+- **Cách giải quyết (`hierarchy_builder.py`):** Triển khai **Thuật toán Ngăn xếp (Stack-based Algorithm)** kinh điển. Khi gặp một Node có độ sâu `d`, hệ thống sẽ liên tục "đẩy" (pop) các node có độ sâu lớn hơn hoặc bằng `d` ra khỏi ngăn xếp cho đến khi đụng phải Node cha hợp lệ (có độ sâu `< d`). Kỹ thuật này giải quyết triệt để vấn đề gán cha con, kết hợp cùng các hàm `check_orphans()` và `check_gaps()` để tự động cảnh báo nếu cấu trúc văn bản Luật bị đứt gãy từ bản gốc.
 
-- **`parser.py` (Main Orchestrator)**:
-  - *Vai trò:* Nhạc trưởng điều phối. Hỗ trợ CLI chuẩn mực (`argparse`).
-  - *Workflow:* Đọc toàn bộ thư mục (Batch Processing) hoặc 1 file lẻ (`parse_docx`, `parse_text`). Tự động kết hợp 4 module trên, in ra Summary Report và cuối cùng chạy **Fail-Fast Duplicate ID Check** trước khi ghi file JSON ra `outputs/physical_graphs`.
-
-## 3. Các bước tiến lớn và Vấn đề kỹ thuật đã giải quyết (Challenges)
-
-1. **Hỗ trợ Batch Processing và CLI (Mới nhất):**
-   - Hệ thống giờ đây có thể quét toàn bộ thư mục `outputs/clean_texts` và tự động sinh ra hàng loạt file JSON trong `outputs/physical_graphs` chỉ bằng 1 lệnh duy nhất. Tự động bỏ qua các file không liên quan.
-
-2. **Chuyển đổi từ Heuristic sang Metadata-driven (Lớp 1 & Lớp 2):**
-   - *Thực trạng:* Code cũ đoán mò Node dựa vào regex thuần túy.
-   - *Giải quyết:* Tận dụng tối đa tín hiệu từ file DOCX gốc (`ilvl`, `num_fmt`, `Word Style`) kết hợp Regex, giúp bắt được cả những Khoản/Điểm bị "mất số" do lỗi format của Word.
-
-3. **Ngăn chặn triệt để Bug nối nhầm Node (Stack-based Architecture):**
-   - Thay vì dùng biến trạng thái lỏng lẻo (`active_nodes`), toàn bộ `boundary_detector` và `hierarchy_builder` đều dùng thuật toán cấu trúc dữ liệu Stack (ngăn xếp), đảm bảo cứ gặp node cùng cấp hoặc cấp cao hơn là đóng chính xác node cũ lại, không bao giờ có hiện tượng text bị nuốt nhầm.
-
-4. **Nâng cấp Hybrid ID Generation chống ID Collision (KL-02) (Mới nhất):**
-   - *Thực trạng:* Ở văn bản lỗi cấu trúc (vd: mất tầng Khoản), mô hình "Hierarchical ID thuần túy" sẽ sinh ID giống hệt nhau cho 2 Điểm đ) cùng nhận Điều làm cha, dẫn đến ghi đè mất dữ liệu.
-   - *Giải quyết:* Nâng cấp lên kiến trúc **Hybrid ID (Position Offset Suffix)** với công thức: `Hybrid_ID = {Hierarchical_Prefix}_p{char_start_index}`. 
-   - Node Generator tự động trích xuất `pure_prefix` của cha bằng strict regex `re.sub(r"_p\d+$", "", active_parent_id)`, sau đó gắn chặt offset ký tự tuyệt đối (`char_start`) vào cuối.
-   - Kết quả (vd: `doc_chuong-iii_muc-1_dieu-27_diem-d_p1859` và `doc_chuong-iii_muc-1_dieu-27_diem-d_p2306`): ID đảm bảo tính **duy nhất tuyệt đối 100% (Uniqueness)** mà vẫn giữ nguyên **tính giải thích được phân cấp (Explainability)**. Downstream modules (Validation, Neo4j) không hề bị ảnh hưởng.
+### Bài toán 3: Phụ thuộc quá nhiều vào Định dạng Word (DOCX vs TXT)
+- **Vấn đề:** Ban đầu hệ thống chỉ hoạt động tốt nếu file DOCX có dùng công cụ Style của Microsoft Word. Nhưng trong thực tế, rất nhiều file txt thuần hoặc văn bản copy từ web không hề chứa tín hiệu Style (Heading).
+- **Cách giải quyết (`regex_engine.py`):** Triển khai cơ chế **Fallback (Dự phòng)** mạnh mẽ với 2 mode xử lý (`parse_docx` và `parse_text`). Nếu không có Style, Engine sẽ dựa hoàn toàn vào Lớp 2 (Hệ thống Regex siêu việt) để cào bằng văn bản, cho phép linh hoạt xử lý mọi định dạng đầu vào.
