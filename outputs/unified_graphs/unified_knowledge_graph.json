@@ -6597,8 +6597,8 @@
         "modality": "ALLOW",
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
-          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
-          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408"
+          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714"
         ]
       },
       "provenance": [
@@ -7035,8 +7035,8 @@
         "modality": "ALLOW",
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
-          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
-          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396"
+          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477"
         ]
       },
       "provenance": [
@@ -7872,8 +7872,8 @@
         "modality": "ALLOW",
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
-          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
-          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703"
         ]
       },
       "provenance": [
@@ -8007,9 +8007,9 @@
         "modality": "ALLOW",
         "fusion_kind": "GLOBAL_NORM",
         "source_node_ids": [
-          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
           "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
-          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485"
         ]
       },
       "provenance": [
@@ -14048,8 +14048,8 @@
         "provenance": "M8",
         "weight": 2,
         "source_node_ids": [
-          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
-          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408"
+          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714"
         ]
       },
       "provenance": [
@@ -14057,7 +14057,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
+      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
       "target": "GNORM_616128075d7d",
       "type": "MENTIONS",
       "properties": {
@@ -14070,7 +14070,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
+      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
       "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
       "type": "MENTIONS",
       "properties": {
@@ -14083,7 +14083,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
       "target": "GNORM_616128075d7d",
       "type": "MENTIONS",
       "properties": {
@@ -14096,7 +14096,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
       "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
       "type": "MENTIONS",
       "properties": {
@@ -14116,8 +14116,8 @@
         "provenance": "M8",
         "weight": 2,
         "source_node_ids": [
-          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
-          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408"
+          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714"
         ]
       },
       "provenance": [
@@ -14125,7 +14125,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
+      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
       "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
       "type": "MENTIONS",
       "properties": {
@@ -14138,7 +14138,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
       "target": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
       "type": "MENTIONS",
       "properties": {
@@ -14158,8 +14158,8 @@
         "provenance": "M8",
         "weight": 2,
         "source_node_ids": [
-          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
-          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408"
+          "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+          "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714"
         ]
       },
       "provenance": [
@@ -14167,7 +14167,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
+      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
       "target": "LO2024.ACTION.LAND_TRANSFER",
       "type": "MENTIONS",
       "properties": {
@@ -14180,7 +14180,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30408",
+      "source": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3714",
       "target": "LO2024.ACTION.LAND_TRANSFER",
       "type": "MENTIONS",
       "properties": {
@@ -15705,8 +15705,8 @@
         "provenance": "M8",
         "weight": 2,
         "source_node_ids": [
-          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
-          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396"
+          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477"
         ]
       },
       "provenance": [
@@ -15714,7 +15714,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
       "target": "GNORM_52b8f0645d75",
       "type": "MENTIONS",
       "properties": {
@@ -15727,7 +15727,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
       "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "type": "MENTIONS",
       "properties": {
@@ -15740,7 +15740,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
       "target": "GNORM_52b8f0645d75",
       "type": "MENTIONS",
       "properties": {
@@ -15753,7 +15753,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
       "target": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "type": "MENTIONS",
       "properties": {
@@ -15773,8 +15773,8 @@
         "provenance": "M8",
         "weight": 2,
         "source_node_ids": [
-          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
-          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396"
+          "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+          "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477"
         ]
       },
       "provenance": [
@@ -15782,7 +15782,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
+      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
       "target": "LO2024.SUBJECT.STATE",
       "type": "MENTIONS",
       "properties": {
@@ -15795,7 +15795,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14396",
+      "source": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19477",
       "target": "LO2024.SUBJECT.STATE",
       "type": "MENTIONS",
       "properties": {
@@ -18185,8 +18185,8 @@
         "provenance": "M8",
         "weight": 2,
         "source_node_ids": [
-          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
-          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703"
         ]
       },
       "provenance": [
@@ -18194,7 +18194,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
       "target": "GNORM_3410da11da30",
       "type": "MENTIONS",
       "properties": {
@@ -18207,7 +18207,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
       "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
       "type": "MENTIONS",
       "properties": {
@@ -18220,7 +18220,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
       "target": "GNORM_3410da11da30",
       "type": "MENTIONS",
       "properties": {
@@ -18233,7 +18233,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
       "target": "LO2024.SUBJECT.FDI_ENTERPRISE",
       "type": "MENTIONS",
       "properties": {
@@ -18253,8 +18253,8 @@
         "provenance": "M8",
         "weight": 2,
         "source_node_ids": [
-          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
-          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355"
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+          "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703"
         ]
       },
       "provenance": [
@@ -18262,7 +18262,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
       "target": "LO2024.SUBJECT.STATE",
       "type": "MENTIONS",
       "properties": {
@@ -18275,7 +18275,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32355",
+      "source": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32703",
       "target": "LO2024.SUBJECT.STATE",
       "type": "MENTIONS",
       "properties": {
@@ -18653,9 +18653,9 @@
         "provenance": "M8",
         "weight": 3,
         "source_node_ids": [
-          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
           "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39643",
-          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784"
+          "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485"
         ]
       },
       "provenance": [
@@ -18663,7 +18663,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
       "target": "GNORM_db41bdc9e1fa",
       "type": "MENTIONS",
       "properties": {
@@ -18676,7 +18676,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
       "target": "LO2024.SUBJECT.LAND_USER",
       "type": "MENTIONS",
       "properties": {
@@ -18715,7 +18715,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
       "target": "GNORM_db41bdc9e1fa",
       "type": "MENTIONS",
       "properties": {
@@ -18728,7 +18728,7 @@
       ]
     },
     {
-      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p38784",
+      "source": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39485",
       "target": "LO2024.SUBJECT.LAND_USER",
       "type": "MENTIONS",
       "properties": {
