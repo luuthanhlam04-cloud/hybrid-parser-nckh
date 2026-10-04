@@ -20,48 +20,30 @@ class CypherGenerator:
         CREATE FULLTEXT INDEX ukg_node_text IF NOT EXISTS
         FOR (n:UKG_NODE) ON EACH [n.search_text]
     """
-    EDGE_KEY_INDEX = """
-        CREATE INDEX ukg_edge_key IF NOT EXISTS
-        FOR ()-[r:UKG_EDGE]-() ON (r.edge_key)
-    """
+    
+    INDEX_ONTOLOGY_CLASS = "CREATE INDEX idx_ontology_class IF NOT EXISTS FOR (n:UKG_NODE) ON (n.ontology_class)"
+    INDEX_MODALITY = "CREATE INDEX idx_modality IF NOT EXISTS FOR (n:GLOBAL_NORM) ON (n.modality)"
+    INDEX_VECTOR = "CREATE VECTOR INDEX legal_node_vector_idx IF NOT EXISTS FOR (n:LegalNode) ON (n.embedding) OPTIONS {indexConfig: {`vector.dimensions`: 768, `vector.similarity_function`: 'cosine'}}"
+
     NODE_BATCH = """
         UNWIND $rows AS row
         MERGE (n:UKG_NODE {id: row.id})
-        SET n.node_kind = row.node_kind,
-            n.labels_json = row.labels_json,
-            n.properties_json = row.properties_json,
-            n.provenance_json = row.provenance_json,
-            n.search_text = row.search_text
+        SET n += row.properties
     """
-    EDGE_BATCH = """
-        UNWIND $rows AS row
-        OPTIONAL MATCH (source:UKG_NODE {id: row.source_id})
-        OPTIONAL MATCH (target:UKG_NODE {id: row.target_id})
-        WITH row, source, target,
-             (source IS NOT NULL) AS src_exists,
-             (target IS NOT NULL) AS tgt_exists
-        CALL {
-            WITH row, source, target, src_exists, tgt_exists
-            WITH * WHERE src_exists = false OR tgt_exists = false
-            RETURN false AS already_exists, false AS is_created
-            UNION
-            WITH row, source, target, src_exists, tgt_exists
-            WITH * WHERE src_exists = true AND tgt_exists = true
-            OPTIONAL MATCH (source)-[r_old:UKG_EDGE {edge_key: row.edge_key}]->(target)
-            WITH row, source, target, (r_old IS NOT NULL) AS already_exists
-            MERGE (source)-[r:UKG_EDGE {edge_key: row.edge_key}]->(target)
-            SET r.edge_type = row.edge_type,
-                r.source_id = row.source_id,
-                r.target_id = row.target_id,
-                r.properties_json = row.properties_json,
-                r.provenance_json = row.provenance_json
-            RETURN already_exists, NOT already_exists AS is_created
-        }
-        RETURN row.edge_key AS edge_key,
-               src_exists, tgt_exists,
-               already_exists, is_created
+    
+    CLEAR_NAMESPACE = """
+        MATCH (n:UKG_NODE {law_code: $law_code})
+        DETACH DELETE n
     """
-    DELETE_GRAPH = "MATCH (n:UKG_NODE) DETACH DELETE n"
+
+    @staticmethod
+    def get_edge_batch_query(edge_type: str) -> str:
+        return f"""
+            UNWIND $rows AS row
+            MATCH (s:UKG_NODE {{id: row.source}}), (t:UKG_NODE {{id: row.target}})
+            MERGE (s)-[r:{edge_type} {{edge_key: row.properties.edge_key}}]->(t)
+            SET r += row.properties
+        """
 
     @classmethod
     def validate_graph(
@@ -98,12 +80,6 @@ class CypherGenerator:
         for index, edge in enumerate(edges):
             if not isinstance(edge, dict):
                 raise ValueError(f"edges[{index}] must be an object.")
-            for endpoint in ("source", "target"):
-                value = edge.get(endpoint)
-                if not isinstance(value, str) or value not in node_ids:
-                    raise ValueError(
-                        f"edges[{index}].{endpoint} references an unknown node: {value!r}"
-                    )
             edge_type = edge.get("type")
             if not isinstance(edge_type, str) or not re.fullmatch(
                 r"[A-Z][A-Z0-9_]*", edge_type
@@ -136,40 +112,35 @@ class CypherGenerator:
         return hashlib.sha256(encoded).hexdigest()
 
     @staticmethod
-    def node_parameters(node: Mapping[str, Any]) -> dict[str, str]:
+    def node_parameters(node: Mapping[str, Any]) -> dict[str, Any]:
         labels = node.get("labels", [])
         properties = node.get("properties", {})
+        # Pre-compute search_text for FULLTEXT index
+        search_text = " ".join(
+            (
+                node["id"],
+                str(node.get("node_kind", "UNKNOWN")),
+                " ".join(labels),
+                json.dumps(properties, ensure_ascii=False, sort_keys=True),
+            )
+        )
         return {
             "id": node["id"],
-            "node_kind": str(node.get("node_kind", "UNKNOWN")),
-            "labels_json": json.dumps(labels, ensure_ascii=False),
-            "properties_json": json.dumps(
-                properties, ensure_ascii=False, sort_keys=True
-            ),
-            "provenance_json": json.dumps(
-                node.get("provenance", []), ensure_ascii=False, sort_keys=True
-            ),
-            "search_text": " ".join(
-                (
-                    node["id"],
-                    str(node.get("node_kind", "UNKNOWN")),
-                    " ".join(labels),
-                    json.dumps(properties, ensure_ascii=False, sort_keys=True),
-                )
-            ),
+            "properties": {
+                "node_kind": str(node.get("node_kind", "UNKNOWN")),
+                "search_text": search_text,
+                **properties # Native unpack all properties
+            }
         }
 
     @classmethod
-    def edge_parameters(cls, edge: Mapping[str, Any]) -> dict[str, str]:
+    def edge_parameters(cls, edge: Mapping[str, Any]) -> dict[str, Any]:
         return {
-            "edge_key": cls.edge_key(edge),
-            "source_id": edge["source"],
-            "target_id": edge["target"],
-            "edge_type": edge["type"],
-            "properties_json": json.dumps(
-                edge.get("properties", {}), ensure_ascii=False, sort_keys=True
-            ),
-            "provenance_json": json.dumps(
-                edge.get("provenance", []), ensure_ascii=False, sort_keys=True
-            ),
+            "source": edge["source"],
+            "target": edge["target"],
+            "type": edge["type"],
+            "properties": {
+                "edge_key": cls.edge_key(edge),
+                **edge.get("properties", {}) # Native unpack all properties
+            }
         }
