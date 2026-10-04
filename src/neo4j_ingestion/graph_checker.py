@@ -21,7 +21,7 @@ class GraphChecker:
     """
     # Cypher query to detect HAS_CONDITION and HAS_EXCEPTION semantic cycles
     SEMANTIC_CYCLES = """
-        MATCH p=(n:UKG_NODE)-[r:HAS_CONDITION|HAS_EXCEPTION*]->(n)
+        MATCH p=(n:UKG_NODE)-[:HAS_CONDITION|HAS_EXCEPTION*]->(n)
         RETURN count(p) AS count
     """
 
