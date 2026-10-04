@@ -424,7 +424,7 @@ Với mỗi boundary trong danh sách:
 
 Để triệt tiêu 100% va chạm ID (ID collision), Module 2 sử dụng thuật toán **Hybrid ID** kết hợp ba thành phần:
 
-$$\text{ID} = \text{law\_prefix} \mathbin\Vert \text{parent\_path} \mathbin\Vert \text{type\_short}\text{-}\text{marker} \mathbin\Vert \text{"\_p"} \mathbin\Vert \text{char\_start}$$
+$$\text{ID} = \text{law\\_prefix} \mathbin\Vert \text{parent\\_path} \mathbin\Vert \text{type\\_short}\text{-}\text{marker} \mathbin\Vert \text{"\\_p"} \mathbin\Vert \text{char\\_start}$$
 
 Ví dụ: `doc_chuong-iii_muc-1_dieu-48_khoan-2_diem-a_p1245`
 
@@ -474,7 +474,7 @@ while cascade_queue:
 
 Điểm chất lượng tổng hợp được tính:
 
-$$\text{Quality Score} = \left(1 - \frac{N_{\text{fatal\_errors}}}{N_{\text{total\_received}}}\right) \times 100$$
+$$\text{Quality Score} = \left(1 - \frac{N_{\text{fatal\\_errors}}}{N_{\text{total\\_received}}}\right) \times 100$$
 
 #### e) Bộ ký tự pháp lý Việt Nam
 
