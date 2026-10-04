@@ -41,7 +41,6 @@ class Neo4jIngestor:
                 CypherGenerator.NODE_TEXT_INDEX,
                 CypherGenerator.INDEX_ONTOLOGY_CLASS,
                 CypherGenerator.INDEX_MODALITY,
-                CypherGenerator.INDEX_VECTOR,
             ):
                 result = session.run(statement)
                 if hasattr(result, "consume"):
@@ -73,7 +72,13 @@ class Neo4jIngestor:
         if replace:
             self.clear_namespace(law_code)
 
-        # Process Nodes
+        # Process Nodes - Guarantee law_code for Idempotency
+        for node in nodes:
+            if "properties" not in node:
+                node["properties"] = {}
+            if "law_code" not in node["properties"] and law_code != "UNKNOWN":
+                node["properties"]["law_code"] = law_code
+                
         node_rows = [CypherGenerator.node_parameters(node) for node in nodes]
         node_batches = 0
         with self.driver.session(database=self.database) as session:
