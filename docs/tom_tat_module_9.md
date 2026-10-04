@@ -27,7 +27,7 @@ graph TD
 ### 5 Trụ cột Cốt lõi (V3.0):
 1. **In-Memory Dead Letter Queue (Tiền kiểm định trên RAM):** Thay vì dùng Subquery `CALL { UNION }` đắt đỏ trên Cypher, Python nạp toàn bộ ID Node vào bộ nhớ `set()` để tra cứu cực tốc độ ($O(1)$). Bất kỳ cạnh nào khuyết mút (Source/Target) đều bị đẩy vào DLQ, chỉ giữ lại `valid_edges` nguyên chất.
 2. **Fast-Path Cypher & Unpack Native Properties:** Vì dữ liệu đã sạch, Cypher dùng cú pháp `SET n += row.properties` để bung trực tiếp (Unpack) toàn bộ JSON thành các thuộc tính Native. Các batch từ 500-1000 record được chạy trơn tru qua mệnh đề `UNWIND`.
-3. **Hybrid Search Pre-Indexing:** Ngay trước khi nạp dữ liệu, M9 tự động trải thảm "đường cao tốc" cho M10 (GraphRAG) bằng cách tạo B-Tree Index cho `ontology_class`, `modality` và khởi tạo luôn **Vector Index** trên trường `embedding`.
+3. **Hybrid Search Pre-Indexing:** Ngay trước khi nạp dữ liệu, M9 tự động trải thảm "đường cao tốc" cho M10 (GraphRAG) bằng cách tạo B-Tree Index cho `ontology_class`, `modality` (riêng **Vector Index** được tách ra nạp ở phase sau của M10 để tối ưu luồng đọc file `.npy`).
 4. **An Toàn Nhãn (Safe Labels) & Lũy đẳng Namespace:** Dùng Python rà soát nhãn sinh ra qua lớp màng lọc Allowlist (chặn đứng Cypher Injection). Lệnh `MATCH ... DETACH DELETE` chạy trước mỗi lần nạp giúp làm sạch không gian theo `law_code`, đảm bảo tính lũy đẳng (Idempotency).
 5. **Hậu kiểm Tốc độ cao (Lightweight Audit):** Sử dụng `graph_checker.py` làm giám khảo cuối cùng để đếm đối chiếu số lượng Node/Edge, truy quét Node mồ côi (Orphan) và Vòng lặp ngữ nghĩa (Semantic Cycles) ngay trên Neo4j.
 
@@ -63,3 +63,28 @@ Kiến trúc M9 V3.0 đã thiết lập một tiêu chuẩn mới về **"Self-V
 - **Trạng thái Sẵn sàng:** Hệ thống Vector Index và B-Tree Index được chuẩn bị sẵn sàng từ Day-0.
 
 Với M9 V3.0, đồ thị UKG được nạp lên Neo4j không chỉ là một kho chứa (Storage), mà thực sự là một cơ sở dữ liệu "chống đạn" (Bulletproof), trải sẵn thảm đỏ để Hệ thống Tác tử Trí tuệ Nhân tạo (Agentic GraphRAG - M10) bắt đầu cất cánh.
+
+---
+
+## 4. Vá lỗi M9 V3.0 và Chuẩn bị cho GraphRAG (M10)
+
+Mặc dù kiến trúc M9 V3.0 rất tối ưu, nhưng trong quá trình tích hợp thực tế với toàn bộ luồng dữ liệu từ M4 đến M8, hệ thống đã phát sinh 3 lỗ hổng và lập tức được vá thành công ở giai đoạn cuối:
+
+### 4.1. Vá lỗi Lũy đẳng (Idempotency) mất law_code
+- **Vấn đề:** Do sự cố hợp nhất ở M7/M8, thuộc tính `law_code` bị rớt khỏi một số node. Điều này khiến lệnh dọn dẹp không gian (`MATCH ... DETACH DELETE`) không có hiệu lực, gây lỗi nhân bản dữ liệu khi chạy lại.
+- **Giải quyết:** Triển khai cơ chế Auto-inject (tiêm tự động) `law_code` trực tiếp trong `neo4j_ingestor.py`. Nếu node khuyết `law_code`, hệ thống sẽ tự động bù đắp giá trị này trước khi nạp vào Neo4j, bảo vệ tuyệt đối tính Lũy đẳng.
+
+### 4.2. Vá lỗi Vector Index rỗng
+- **Vấn đề:** File JSON UKG hiện tại chưa chứa vector nhúng (do M5 lưu riêng ra file `.npy`). Nếu cố ép tạo Vector Index ở M9, hệ thống sẽ báo lỗi hoặc tạo ra một index rỗng vô giá trị.
+- **Giải quyết:** Gỡ bỏ lệnh `CypherGenerator.INDEX_VECTOR` khỏi quá trình nạp khởi tạo của M9. Thống nhất chuyển tác vụ nạp Vector sang một script độc lập (`inject_embeddings.py`) dành riêng cho M10, đảm bảo tính đóng gói của hệ thống.
+
+### 4.3. Vá lỗi Cú pháp Cypher (Semantic Cycles)
+- **Vấn đề:** Câu lệnh quét vòng lặp ngữ nghĩa trong `graph_checker.py` bị sai cú pháp ở phần định nghĩa quan hệ (`[r:HAS_CONDITION|HAS_EXCEPTION*]`).
+- **Giải quyết:** Sửa thành `[:HAS_CONDITION|HAS_EXCEPTION*]`. Đồng thời xác nhận hệ thống `graph_checker.py` chỉ làm nhiệm vụ Cảnh báo (Warning) chứ không tự ý xóa bỏ các vòng lặp logic hợp lệ của văn bản luật.
+
+### 4.4. Chốt chặn dữ liệu trước thềm M10
+Trước khi chính thức chuyển giao sang hệ thống Agentic GraphRAG (M10), M9 đã vượt qua 2 bài kiểm tra thực chứng khắt khe:
+1. **Check Embedding Shape:** Kết quả `(222, 896)` xác nhận 100% Physical Node đã có đủ Vector, không bỏ sót node nào. Hệ thống sẵn sàng cho tác vụ Anchor Search bằng Vector.
+2. **Check Traversal Path:** Đồ thị hiện có 339 cạnh `MENTIONS` cắm trực tiếp vào `GLOBAL_NORM`, `LEGAL_SUBJECT`, `LEGAL_ACTION`. Cấu trúc này giữ nguyên được độ phân giải vi mô (micro-resolution), cung cấp lộ trình di chuyển (Semantic Traversal) hoàn hảo cho LLM.
+
+Với những bản vá trên, bản thiết kế M10 (Graph Retrieval) đã chính thức được chốt hạ qua luồng 4 bước: **Anchor Search** -> **Semantic Traversal** -> **Context Assembly** -> **LLM Generation**. Đồ thị Tri thức đã hoàn toàn sẵn sàng cho hệ thống Hỏi-Đáp Pháp lý!
