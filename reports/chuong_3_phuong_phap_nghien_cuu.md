@@ -38,7 +38,7 @@ Nghiên cứu sử dụng Chương III, Luật Đất đai 2024 làm tập dữ 
 
 ### 3.1.2. Giới hạn phạm vi thực nghiệm và Định hướng mở rộng
 
-Việc lựa chọn Chương III Luật Đất đai 2024 không mang tính ngẫu nhiên mà được chọn làm **Worst-case Pilot (Mẫu thử nghiệm phức tạp đại diện)**. Đoạn văn bản này chứa đầy đủ 5 tầng phân cấp (Chương ➔ Mục ➔ Điều ➔ Khoản ➔ Điểm), mật độ dẫn chiếu chéo cao, và bao hàm đa dạng các loại chủ thể pháp lý. Tuy nhiên, nghiên cứu thừa nhận giới hạn thực nghiệm khi chỉ đánh giá trên một phân đoạn văn bản (222 node vật lý). Kết quả thực nghiệm ở Chương 4 thể hiện tính khả thi của kiến trúc (Proof of Concept). Việc mở rộng đánh giá (benchmark) trên đa văn bản sẽ được đề xuất cho các nghiên cứu tiếp theo.
+Việc lựa chọn Chương III Luật Đất đai 2024 không mang tính ngẫu nhiên mà được chọn làm **Worst-case Pilot (Mẫu thử nghiệm phức tạp đại diện)**. Đoạn văn bản này chứa đầy đủ 5 tầng phân cấp (Chương ➔ Mục ➔ Điều ➔ Khoản ➔ Điểm), mật độ dẫn chiếu chéo cao, và bao hàm đa dạng các loại chủ thể pháp lý (Nguyen và cộng sự, 2024; Phan và cộng sự, 2025). Tuy nhiên, nghiên cứu thừa nhận giới hạn thực nghiệm khi chỉ đánh giá trên một phân đoạn văn bản (222 node vật lý). Kết quả thực nghiệm ở Chương 4 thể hiện tính khả thi của kiến trúc (Proof of Concept). Việc mở rộng đánh giá (benchmark) trên đa văn bản sẽ được đề xuất cho các nghiên cứu tiếp theo.
 
 ### 3.1.3. Quy trình phân chia dữ liệu (Data Split)
 
@@ -116,7 +116,7 @@ Tiến hành chuẩn hóa chuỗi Unicode về dạng chuẩn NFC (Canonical Com
 
 ### 3.4.2. Khớp mẫu và định danh lai (M2)
 
-Thay vì chunking ngây thơ, hệ thống sử dụng thuật toán phân tích cú pháp dựa trên ngăn xếp đơn điệu (Monotonic Stack) kết hợp bộ mẫu định quy (Pattern Registry). Để giảm thiểu tối đa nguy cơ trùng lặp mã định danh, kiến trúc **Hybrid ID** được áp dụng bằng cách kết hợp mã văn bản luật, đường dẫn phân cấp cha, loại node, và **vị trí ký tự tuyệt đối trong văn bản gốc** (`start_idx`).
+Thay vì chunking ngây thơ, hệ thống sử dụng thuật toán phân tích cú pháp dựa trên ngăn xếp đơn điệu (Monotonic Stack) kết hợp bộ mẫu định quy (Yepes và cộng sự, 2024). Để giảm thiểu tối đa nguy cơ trùng lặp mã định danh, kiến trúc **Hybrid ID** được áp dụng bằng cách kết hợp mã văn bản luật, đường dẫn phân cấp cha, loại node, và **vị trí ký tự tuyệt đối trong văn bản gốc** (`start_idx`).
 
 ### 3.4.3. Kiểm định dữ liệu và Xây dựng đồ thị (M3-M4)
 
@@ -126,10 +126,10 @@ Lớp kiểm định tuân thủ nguyên tắc "read-only" (không tự động 
 
 ## 3.5. Semantic Routing (M5)
 
-Để tối ưu chi phí (Cost Optimization), M5 đóng vai trò gác cổng, sàng lọc và chỉ chuyển các node có hàm lượng ngữ nghĩa phức tạp đến LLM lớn.
+Để tối ưu chi phí (Cost Optimization), M5 đóng vai trò gác cổng, lấy cảm hứng từ các chiến lược định tuyến chi phí thấp (GraphRAG-Router, 2026) để sàng lọc và chỉ chuyển các node có hàm lượng ngữ nghĩa phức tạp đến LLM lớn.
 
 **Cơ chế MaxFusion**
-Hệ thống kết hợp biểu thức chính quy tốc độ cao (Regex) và một mô hình ngôn ngữ tinh gọn (Small Language Model - SLM) để tạo ra hai điểm số $S_r$ và $S_e$. Việc sử dụng hàm $MaxFusion = \max(S_r, S_e)$ dựa trên lập luận: chỉ cần một tín hiệu mạnh (ví dụ: phát hiện cụm từ "trừ trường hợp") là đủ để khẳng định sự tồn tại của quy phạm pháp luật.
+Hệ thống kết hợp biểu thức chính quy tốc độ cao (Regex) và một mô hình ngôn ngữ tinh gọn (Small Language Model - SLM) (Qwen Team, 2024) để tạo ra hai điểm số $S_r$ và $S_e$. Việc sử dụng hàm $MaxFusion = \max(S_r, S_e)$ dựa trên lập luận: chỉ cần một tín hiệu mạnh (ví dụ: phát hiện cụm từ "trừ trường hợp") là đủ để khẳng định sự tồn tại của quy phạm pháp luật.
 
 **Bài toán tối ưu ngưỡng**
 Ngưỡng quyết định $\tau$ được tính toán trên Development Set qua hàm mục tiêu tối thiểu hóa chi phí trong khi giới hạn Recall:
@@ -147,41 +147,41 @@ Hệ thống áp dụng nguyên tắc Four Corners Rule: mô hình buộc phải
 - `CONTEXT_INFERRED`: Suy luận logic từ cấu trúc cây (Bắt buộc gắn nhãn cờ).
 - `EXTERNAL`: Từ chối suy luận ngoài luật định.
 
-Quy trình trích xuất được rào chắn bởi **Cơ chế xác thực lược đồ nghiêm ngặt (Strict Schema Validation)**. Lược đồ này không biến xác suất lỗi của LLM thành 0%, mà chỉ đóng vai trò bộ lọc: từ chối các kết quả sai cấu trúc và kích hoạt cơ chế thử lại (retry logic).
+Quy trình trích xuất được rào chắn bởi **Cơ chế xác thực lược đồ nghiêm ngặt (Strict Schema Validation)** (OpenAI, 2024). Lược đồ này không biến xác suất lỗi của LLM thành 0%, mà chỉ đóng vai trò bộ lọc: từ chối các kết quả sai cấu trúc và kích hoạt cơ chế thử lại (retry logic).
 
 ---
 
 ## 3.7. Ontology and NormAssertion (M7)
 
-Mô hình ánh xạ tham chiếu nền tảng lý luận từ các quan hệ pháp lý Hohfeld (Hohfeldian legal relations, 1913). Thay vì áp đặt cứng nhắc, hệ thống tinh chỉnh chúng thành các khái niệm vận hành: Chủ thể, Hành động, Điều kiện.
+Mô hình ánh xạ tham chiếu nền tảng lý luận từ các quan hệ pháp lý Hohfeld (Hohfeld, 1913). Thay vì áp đặt cứng nhắc, hệ thống tinh chỉnh chúng thành các khái niệm vận hành: Chủ thể, Hành động, Điều kiện.
 
 **Bảo vệ Dữ liệu: Preserve Data $\neq$ Participate in Reasoning**
-Khi hệ thống phát hiện một cạnh ngữ nghĩa bị lỗi và đưa vào vùng cách ly (Quarantine), đoạn luật thô tương ứng ở tầng Physical Graph **tuyệt đối không bị xóa**. Việc loại bỏ cạnh sai chỉ nhằm ngăn chặn *ảo giác logic* khi máy truy xuất đồ thị, trong khi người dùng vẫn tìm thấy văn bản gốc qua Vector Search.
+Khi hệ thống phát hiện một cạnh ngữ nghĩa bị lỗi và đưa vào vùng cách ly (Chen và cộng sự, 2023), đoạn luật thô tương ứng ở tầng Physical Graph **tuyệt đối không bị xóa**. Việc loại bỏ cạnh sai chỉ nhằm ngăn chặn *ảo giác logic* khi máy truy xuất đồ thị, trong khi người dùng vẫn tìm thấy văn bản gốc qua Vector Search.
 
 **Kiến trúc NormAssertion**
 Biểu diễn quan hệ nhị phân (Subject $\rightarrow$ Action) làm mất đi ngữ cảnh lồng ghép. Hệ thống thiết kế `NormAssertion` như một hub-node (N-ary frame) liên kết Chủ thể, Hành động, Điều kiện, và Ngoại lệ vào cùng một khung logic cô lập (ngăn chặn context bleeding).
 
 **Human-in-the-loop và Thuật toán so khớp**
-Cơ sở khái niệm (Concept Hub) được ánh xạ qua 3 tầng (Exact Match, So khớp mờ khoảng cách Levenshtein, và Nhúng vector - Embedding Fallback). Các từ điển phân loại (taxonomy) phục vụ quá trình này được rà soát và thẩm định bởi chuyên gia pháp lý (Human-in-the-loop) để đảm bảo độ chính xác.
+Cơ sở khái niệm (Concept Hub) được ánh xạ qua 3 tầng: Exact Match, So khớp mờ khoảng cách Levenshtein, và Nhúng vector - Embedding Fallback (Valente & Breuker, 1994; Hoekstra và cộng sự, 2007). Các từ điển phân loại phục vụ quá trình này được rà soát và thẩm định bởi chuyên gia pháp lý (Human-in-the-loop) để đảm bảo độ chính xác.
 
 ---
 
 ## 3.8. Fusion and Knowledge Graph (M8-M9)
 
 **Physical First Merge và Pointer-based Provenance**
-Quá trình hợp nhất (Fusion) dựa trên nguyên tắc bảo toàn vật lý (Physical First). Đặc biệt, đồ thị ngữ nghĩa không sao chép lại chuỗi văn bản. Thay vào đó, nó sử dụng **Con trỏ định tuyến (Routing Pointers - `source_node_ids`)**. Thiết kế cạnh siêu nhẹ này vừa giảm tải dung lượng lưu trữ trên Database (Neo4j), vừa tiết kiệm không gian ngữ cảnh (Context Window) cho LLM khi thực thi.
+Quá trình hợp nhất (Fusion) dựa trên nguyên tắc bảo toàn vật lý (Physical First). Đồ thị ngữ nghĩa không sao chép lại chuỗi văn bản, thay vào đó sử dụng **Con trỏ định tuyến (Routing Pointers - `source_node_ids`)**. Thiết kế cạnh siêu nhẹ này vừa giảm tải dung lượng lưu trữ trên Database, vừa tiết kiệm không gian ngữ cảnh (Context Window) cho LLM khi thực thi.
 
 **Conflict Detection and Flagging (Phát hiện và Cắm cờ xung đột)**
-Hệ thống không tự động giải quyết mâu thuẫn pháp luật (Conflict Resolution). Thay vào đó, nó định vị các quy phạm tiềm ẩn sự mâu thuẫn (như cho phép và cấm cùng một hành vi) và cắm cờ `PotentialConflict` để chuyên gia tiến hành thẩm định.
+Hệ thống không tự động giải quyết mâu thuẫn pháp luật. Nó định vị các quy phạm tiềm ẩn sự mâu thuẫn (như cho phép và cấm cùng một hành vi) và cắm cờ `PotentialConflict` để chuyên gia tiến hành thẩm định.
 
-Việc nạp dữ liệu (M9) đảm bảo tính tất định (Deterministic and re-runnable) qua lệnh MERGE và cơ chế cô lập không gian tên (namespace isolation). Kích thước không gian vector nhúng ($d$) được cấu hình động dựa trên mô hình thay vì khai báo cứng.
+Việc nạp dữ liệu (M9) đảm bảo tính tất định (Deterministic and re-runnable) qua lệnh MERGE và cơ chế cô lập không gian tên (Neo4j, 2024). Kích thước không gian vector nhúng ($d$) được cấu hình động dựa trên mô hình thay vì khai báo cứng.
 
 ---
 
 ## 3.9. Retrieval and Evaluation Protocol (M10-M11)
 
 **Lớp Truy xuất (M10) đóng vai trò Biến kiểm soát**
-M10 hoạt động như một giao thức truy xuất hộp đen (Black Box Control Variable) bị đóng băng cấu hình (cùng mô hình LLM Reader, cùng top-k, cùng prompt). Mục đích là để đảm bảo mọi độ lệch trong chỉ số đánh giá QA ở M11 đều phản ánh trực tiếp chất lượng của Đồ thị do Hybrid Parser sinh ra, không bị pha tạp bởi các kỹ thuật truy xuất nâng cao.
+M10 hoạt động như một giao thức truy xuất hộp đen (Black Box Control Variable) bị đóng băng cấu hình (cùng mô hình LLM Reader, cùng top-k, cùng prompt). Mục đích là để đảm bảo mọi độ lệch trong chỉ số đánh giá QA ở M11 đều phản ánh trực tiếp chất lượng của Đồ thị (Lan và cộng sự, 2021), không bị pha tạp bởi các kỹ thuật truy xuất nâng cao.
 
 Đánh giá được thực hiện kết hợp giữa phương pháp định lượng và phương pháp LLM-as-a-Judge (Zheng và cộng sự, 2023), chấm điểm dựa trên tính đúng đắn pháp luật, sự đầy đủ và mạch lạc.
 
@@ -196,12 +196,13 @@ Gọi $\mathcal{G}_P = (\mathcal{V}_P, \mathcal{E}_P)$ là tập Đồ thị V�
 - **Token Savings Rate (TSR):** Tỷ lệ tiết kiệm token thực tế dựa trên log API. Hai chỉ số này không đồng nhất do phân bố độ dài node khác nhau.
 
 **2. Chỉ số trích xuất (Extraction Metrics):**
+Sử dụng Precision, Recall, và F1 đo lường trên tập Ground Truth (Manning và cộng sự, 2008).
 - **Precision:** $P = \frac{|\mathcal{V}_S \cap \mathcal{V}_P|}{|\mathcal{V}_S|}$
 - **Recall:** $R = \frac{|\mathcal{V}_S \cap \mathcal{V}_P|}{|\mathcal{V}_P|}$
 - **F1-Score:** $F_1 = \frac{2 \times P \times R}{P + R}$
 
 **3. Chỉ số QA End-to-End (RAGAS):**
-Sử dụng bộ thông số RAGAS (Es và cộng sự, 2023) bao gồm: Context Precision (Tỷ lệ ngữ cảnh truy xuất hợp lệ), Context Recall (Độ phủ ngữ cảnh so với Ground Truth), Faithfulness (Độ trung thực chống ảo giác), và Answer Relevance (Độ liên quan câu trả lời).
+Sử dụng bộ thông số RAGAS (Es và cộng sự, 2023) bao gồm: Context Precision, Context Recall, Faithfulness, và Answer Relevance. Khai báo chi tiết về tham số sẽ được báo cáo tại Chương 4.
 
 ---
 
@@ -209,18 +210,18 @@ Sử dụng bộ thông số RAGAS (Es và cộng sự, 2023) bao gồm: Context
 
 Hệ thống tiến hành Ablation Studies nhằm cô lập và đo lường sự đóng góp của từng cấu phần:
 - **Tối ưu định tuyến:** So sánh hiệu năng của Regex-only, Embedding-only và MaxFusion.
-- **Tối ưu ngữ nghĩa:** Đối chiếu kết quả RAG trên đồ thị biểu diễn theo quan hệ nhị phân (phẳng) và đồ thị tích hợp N-ary NormAssertion.
-- **Giải mã dẫn chiếu:** Đo lường sự thay đổi của RAGAS Context Recall trước và sau khi kích hoạt mô-đun giải mã dẫn chiếu chéo.
+- **Tối ưu ngữ nghĩa:** Đối chiếu kết quả RAG trên đồ thị phẳng và đồ thị tích hợp N-ary NormAssertion.
+- **Giải mã dẫn chiếu:** Đo lường thay đổi của RAGAS Context Recall trước và sau kích hoạt giải mã dẫn chiếu chéo.
 
 ---
 
 ## 3.12. Threats to Validity (Nguy cơ đe dọa giá trị nghiên cứu)
 
 Nghiên cứu nhận diện các rủi ro có thể tác động đến tính khách quan:
-1. **Internal Validity:** Sự thay đổi ngầm từ các API LLM đóng (như OpenAI) có thể sinh ra nhiễu định lượng giữa các chu kỳ thử nghiệm.
-2. **Construct Validity:** Chỉ số Node F1 đo lường sự trùng khớp hình thức (syntactic match), có thể chưa phản ánh trọn vẹn giá trị vận hành của đồ thị trong logic pháp lý. Việc dùng LLM làm giám khảo tiềm ẩn độ lệch so với chuyên gia con người.
-3. **External Validity:** Tập dữ liệu Pilot mới chỉ được minh chứng trên một đạo luật cụ thể (Luật Đất đai) định dạng DOCX. Khả năng mở rộng trên các tài liệu nhiễu (PDF scan, cấu trúc bảng phức tạp) cần kiểm thử bổ sung.
-4. **Human Evaluation Validity:** Tính đồng thuận (inter-rater agreement) giữa các chuyên gia khi tạo tập Ground Truth chịu ảnh hưởng bởi nhận thức chủ quan.
+1. **Internal Validity:** Sự thay đổi ngầm từ các API LLM đóng có thể sinh ra nhiễu định lượng giữa các chu kỳ thử nghiệm.
+2. **Construct Validity:** Chỉ số Node F1 có thể chưa phản ánh trọn vẹn giá trị vận hành của đồ thị trong logic pháp lý. Việc dùng LLM làm giám khảo tiềm ẩn độ lệch so với chuyên gia con người.
+3. **External Validity:** Tập dữ liệu Pilot mới chỉ được minh chứng trên Luật Đất đai ở định dạng DOCX. Khả năng mở rộng trên các tài liệu nhiễu cần kiểm thử bổ sung.
+4. **Human Evaluation Validity:** Tính đồng thuận (inter-rater agreement) khi tạo tập Ground Truth chịu ảnh hưởng bởi nhận thức chủ quan.
 
 ---
 
