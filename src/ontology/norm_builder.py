@@ -158,7 +158,7 @@ class NormBuilder:
                 id=norm_id,
                 modality=modality,
                 subject_ids=[m.id for m in subjects] if not is_unresolved else [],
-                subject_status="UNRESOLVED" if is_unresolved else "RESOLVED",
+                subject_status="UNRESOLVED" if is_unresolved or not subjects else "RESOLVED",
                 action_ids=[m.id for m in actions],
                 object_ids=[m.id for m in objects],
                 condition_ids=[m.id for m in conditions],

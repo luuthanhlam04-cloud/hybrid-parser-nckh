@@ -120,7 +120,6 @@ class Neo4jIngestor:
             for start in range(0, len(node_rows), self.batch_size):
                 batch = node_rows[start : start + self.batch_size]
                 session.run(CypherGenerator.NODE_BATCH, rows=batch)
-                session.execute_write(lambda tx, rows=batch: tx.run(CypherGenerator.NODE_BATCH, rows=rows), batch)
                 node_batches += 1
 
         # Phase 5: Apply native Neo4j labels using Python-loop fallback (Neo4j 5.x safe)
@@ -189,7 +188,6 @@ class Neo4jIngestor:
                     batch = rows[start : start + self.batch_size]
                     try:
                         session.run(query, rows=batch)
-                        session.execute_write(lambda tx, q=query, rows=batch: tx.run(q, rows=rows), batch)
                         edge_accounting["edge_batches"] += 1
                     except Exception as e:
                         print(f"Edge batch execution failed for type {edge_type}: {e}")

@@ -132,6 +132,17 @@ class CypherGenerator:
                 json.dumps(properties, ensure_ascii=False, sort_keys=True),
             )
         )
+        
+        safe_properties = {}
+        for k, v in properties.items():
+            if isinstance(v, (dict, list)):
+                if isinstance(v, list) and all(isinstance(i, (int, float, str, bool)) for i in v):
+                    safe_properties[k] = v
+                else:
+                    safe_properties[k] = json.dumps(v, ensure_ascii=False)
+            else:
+                safe_properties[k] = v
+                
         properties_json = json.dumps(properties, ensure_ascii=False, sort_keys=True)
         return {
             "id": node["id"],
@@ -140,13 +151,25 @@ class CypherGenerator:
             "properties": {
                 "node_kind": str(node.get("node_kind", "UNKNOWN")),
                 "search_text": search_text,
-                **properties,
+                **safe_properties,
             },
         }
 
     @classmethod
     def edge_parameters(cls, edge: Mapping[str, Any]) -> dict[str, Any]:
         edge_key = cls.edge_key(edge)
+        properties = edge.get("properties", {})
+        
+        safe_properties = {}
+        for k, v in properties.items():
+            if isinstance(v, (dict, list)):
+                if isinstance(v, list) and all(isinstance(i, (int, float, str, bool)) for i in v):
+                    safe_properties[k] = v
+                else:
+                    safe_properties[k] = json.dumps(v, ensure_ascii=False)
+            else:
+                safe_properties[k] = v
+                
         return {
             "source": edge["source"],
             "target": edge["target"],
@@ -156,6 +179,6 @@ class CypherGenerator:
             "type": edge["type"],
             "properties": {
                 "edge_key": edge_key,
-                **edge.get("properties", {}),
+                **safe_properties,
             },
         }

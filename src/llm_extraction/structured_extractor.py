@@ -36,7 +36,7 @@ class StructuredExtractor:
             ),
             mode=instructor.Mode.JSON
         )
-        self.model_name = "openai/gpt-4o-mini"
+        self.model_name = "openai/gpt-4o"
         
         self.candidates = self._load_json(self.candidates_path)
         self.physical_graph = self._load_json(self.physical_graph_path)

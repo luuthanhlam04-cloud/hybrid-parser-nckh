@@ -159,6 +159,48 @@ class M7GraphAdapter:
                 continue
             subject_status = _value(norm.get("subject_status", "RESOLVED")).upper()
 
+            # Filter valid subjects and actions (not quarantined)
+            valid_subject_ids = [s for s in norm.get("subject_ids", []) if canonical_endpoint(s) in entity_by_id]
+            valid_action_ids = [a for a in norm.get("action_ids", []) if canonical_endpoint(a) in entity_by_id]
+            
+            if not valid_subject_ids:
+                subject_status = "UNRESOLVED"
+                norm["subject_ids"] = []
+            else:
+                norm["subject_ids"] = valid_subject_ids
+                
+            norm["action_ids"] = valid_action_ids
+
+            # If BOTH are completely empty/quarantined, we must emit a dummy edge so the norm isn't dropped
+            if not valid_subject_ids and not valid_action_ids:
+                condition_ids = list(norm.get("condition_ids", []))
+                for condition_group in norm.get("condition_groups", []):
+                    condition_ids.extend(condition_group.get("condition_ids", []))
+                condition_ids = list(dict.fromkeys(condition_ids))
+                relations.append({
+                    "relation_id": f"{norm_id}:fully_unresolved",
+                    "norm_id": norm_id,
+                    "relation_type": modality,
+                    "source_node_id": provenance,
+                    "source": None,
+                    "target": None,
+                    "evidence": norm.get("evidence", ""),
+                    "norm_status": "PARTIAL",
+                    "subject_status": "UNRESOLVED",
+                    "condition_ids": [canonical_endpoint(c) for c in condition_ids],
+                    "exception_ids": [canonical_endpoint(e) for e in norm.get("exception_ids", [])],
+                    "object_ids": [canonical_endpoint(item) for item in norm.get("object_ids", [])],
+                    "consequence_ids": [canonical_endpoint(item) for item in norm.get("consequence_ids", [])],
+                    "condition_groups": [
+                        {
+                            **group,
+                            "condition_ids": [canonical_endpoint(item) for item in group.get("condition_ids", [])],
+                        }
+                        for group in norm.get("condition_groups", [])
+                    ],
+                })
+                continue
+
             # --- Bug #3 Fix: Xử lý Partial Norm (subject_ids rỗng, UNRESOLVED) ---
             # CONTRACT: source=None + subject_status=UNRESOLVED, KHÔNG dùng "UNRESOLVED" như node ID.
             # Lý do: dùng string "UNRESOLVED" như source tạo ra phantom node trong Neo4j.

@@ -58,6 +58,7 @@ def main() -> None:
         raise RuntimeError(
             f"Unified graph failed SHACL validation. See {SHACL_REPORT}"
         )
+
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(
         json.dumps(result, ensure_ascii=False, indent=2),
