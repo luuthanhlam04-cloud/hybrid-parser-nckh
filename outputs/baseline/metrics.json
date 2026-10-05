@@ -1,0 +1,34 @@
+{
+  "m7_valid_norm_count": 102,
+  "m7_partial_norm_count": 0,
+  "m7_quarantine_count": 2,
+  "ukg_node_count": 312,
+  "ukg_edge_count": 1010,
+  "ukg_global_norm_count": 77,
+  "pre_fix_missing": 102,
+  "pre_fix_unexpected": 78,
+  "edge_distribution": {
+    "BELONG_TO": 221,
+    "NEXT": 165,
+    "PREVIOUS": 165,
+    "HAS_SUBJECT": 109,
+    "MENTIONS": 267,
+    "HAS_ACTION": 25,
+    "ALLOW": 15,
+    "HAS_OBJECT": 40,
+    "REQUIRE": 3
+  },
+  "label_distribution": {
+    "LegalNode": 222,
+    "CHAPTER": 1,
+    "SECTION": 5,
+    "ARTICLE": 23,
+    "CLAUSE": 84,
+    "POINT": 109,
+    "SemanticEntity": 90,
+    "LEGAL_SUBJECT": 6,
+    "LEGAL_ACTION": 5,
+    "LEGAL_OBJECT": 2,
+    "GLOBAL_NORM": 77
+  }
+}

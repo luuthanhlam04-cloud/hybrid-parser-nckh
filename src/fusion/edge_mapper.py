@@ -61,7 +61,7 @@ class EdgeMapper:
     ) -> Dict[str, Any]:
         properties = {
             key: value for key, value in relation.items()
-            if key not in {"source", "target", "relation_type"}
+            if key not in {"source", "target", "relation_type", "evidence"}
         }
         properties["provenance"] = "M7"
         properties["confidence"] = self._confidence(properties, source_node)
@@ -73,6 +73,28 @@ class EdgeMapper:
             "source": relation["source"], "target": relation["target"],
             "type": relation["relation_type"], "properties": properties,
             "provenance": ["M7"],
+        }
+
+    def global_semantic(
+        self, relation: Dict[str, Any], source_node_ids: set[str],
+        resolved_context_node_id: str | None = None,
+        resolved_reference_node_ids: list[str] | None = None,
+    ) -> Dict[str, Any]:
+        properties = {
+            key: value for key, value in relation.items()
+            if key not in {"source", "target", "relation_type", "evidence"}
+        }
+        properties["provenance"] = "M8"
+        properties["weight"] = len(source_node_ids)
+        properties["source_node_ids"] = list(source_node_ids)
+        if resolved_context_node_id:
+            properties["resolved_context_node_id"] = resolved_context_node_id
+        if resolved_reference_node_ids:
+            properties["resolved_reference_node_ids"] = resolved_reference_node_ids
+        return {
+            "source": relation["source"], "target": relation["target"],
+            "type": relation["relation_type"], "properties": properties,
+            "provenance": ["M8"],
         }
 
     def mentions(self, source_node_id: str, entity_id: str, evidence: str = "") -> Dict[str, Any]:

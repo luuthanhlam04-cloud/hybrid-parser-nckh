@@ -137,6 +137,11 @@ class OntologyValidator:
         graph.active_nodes = active_nodes_filtered
 
         for norm in graph.norms:
+            if getattr(norm, "subject_status", "RESOLVED") == "RESOLVED":
+                if not norm.subject_ids:
+                    norm.status = NormStatus.FLAGGED
+                    norm.notes = "RESOLVED norm missing subject_ids"
+                    
             if norm.status.value == "VALID":
                 report.valid_norms += 1
             else:
@@ -237,8 +242,26 @@ class OntologyValidator:
 
 
 
-        # --- NormAssertion relations (chỉ áp dụng khi source là NormAssertion) ---
-        if rel in _NORM_RELATION_TARGET_TYPES and edge.source_id in norm_ids:
+        # --- NormAssertion & Modifier relations ---
+        # CONTRACT (m7_m8_adapter_contract.md §5 Invariant I1):
+        # Mọi HAS_CONDITION, HAS_EXCEPTION, HAS_CONSEQUENCE BẮT BUỘC source ∈ norm_ids.
+        # Không có "orphan structural edge" (cạnh cấu trúc không có parent NormAssertion).
+        if rel in _NORM_RELATION_TARGET_TYPES:
+            # Xác thực source BẮT BUỘC là NormAssertion
+            is_valid_source = False
+            source_mention = mention_by_id.get(edge.source_id)
+            if edge.source_id in norm_ids:
+                is_valid_source = True
+            elif rel == RelationType.HAS_EXCEPTION and source_mention and source_mention.semantic_type == SemanticType.EXCEPTION:
+                # Ngoại lệ đệ quy: Exception có thể có sub-Exception
+                is_valid_source = True
+
+            if not is_valid_source:
+                return False, (
+                    f"{rel.value} source '{edge.source_id}' phải là NormAssertion "
+                    f"(hoặc Exception đệ quy). Vi phạm Invariant I1."
+                )
+
             target_mention = mention_by_id.get(edge.target_id)
             if target_mention is None:
                 return False, f"{rel.value} target '{edge.target_id}' không tìm thấy LocalMention"

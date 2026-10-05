@@ -265,6 +265,7 @@ class NormAssertion(BaseModel):
 
     # LocalMention ID lists (references, không embed trực tiếp để tránh cycle)
     subject_ids: List[str] = Field(default_factory=list)
+    subject_status: Literal["RESOLVED", "UNRESOLVED"] = Field(default="RESOLVED")
     action_ids: List[str] = Field(default_factory=list)
     object_ids: List[str] = Field(default_factory=list)
     condition_ids: List[str] = Field(default_factory=list)
@@ -283,6 +284,14 @@ class NormAssertion(BaseModel):
     # Status
     status: NormStatus = Field(default=NormStatus.VALID)
     notes: Optional[str] = Field(default=None)
+
+    @model_validator(mode='after')
+    def validate_subject_status(self) -> 'NormAssertion':
+        if self.subject_status == "RESOLVED" and not self.subject_ids:
+            raise ValueError("RESOLVED nhưng không có subject_ids")
+        if self.subject_status == "UNRESOLVED" and self.subject_ids:
+            raise ValueError("UNRESOLVED nhưng có subject_ids")
+        return self
 
 
 # =============================================================================
