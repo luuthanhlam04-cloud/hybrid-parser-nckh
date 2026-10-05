@@ -30,17 +30,12 @@ VALID_SEMANTIC_PAIRS = {
     "HAS_CONDITION": {
         ("LEGAL_SUBJECT", "CONDITION"),
         ("LEGAL_ACTION", "CONDITION"),
-        ("GLOBAL_NORM", "CONDITION"),
     },
     "HAS_EXCEPTION": {
         ("LEGAL_ACTION", "EXCEPTION"),
         ("CONDITION", "EXCEPTION"),
-        ("GLOBAL_NORM", "EXCEPTION"),
     },
-    "HAS_CONSEQUENCE": {
-        ("LEGAL_ACTION", "LEGAL_CONSEQUENCE"),
-        ("GLOBAL_NORM", "LEGAL_CONSEQUENCE"),
-    },
+    "HAS_CONSEQUENCE": {("LEGAL_ACTION", "LEGAL_CONSEQUENCE")},
     "REFERENCE_TO": {
         ("LEGAL_SUBJECT", "LEGAL_DOCUMENT_REF"),
         ("LEGAL_ACTION", "LEGAL_DOCUMENT_REF"),
@@ -57,22 +52,12 @@ VALID_SEMANTIC_PAIRS = {
         ("LEGAL_SUBJECT", "LEGAL_OBJECT"),
         ("LEGAL_SUBJECT", "LEGAL_SUBJECT"),
     },
-    "HAS_SUBJECT": {("GLOBAL_NORM", "LEGAL_SUBJECT")},
-    "HAS_ACTION": {("GLOBAL_NORM", "LEGAL_ACTION")},
     "DENOTES": {
         (ontology_class, ontology_class)
         for ontology_class in (
             "LEGAL_SUBJECT", "LEGAL_ACTION", "LEGAL_OBJECT",
             "LEGAL_CONSEQUENCE", "CONDITION", "EXCEPTION",
-            "LEGAL_DOCUMENT_REF", "PENALTY", "GLOBAL_NORM"
-        )
-    },
-    "IS_A": {
-        (ontology_class, ontology_class)
-        for ontology_class in (
-            "LEGAL_SUBJECT", "LEGAL_ACTION", "LEGAL_OBJECT",
-            "LEGAL_CONSEQUENCE", "CONDITION", "EXCEPTION",
-            "LEGAL_DOCUMENT_REF", "PENALTY", "GLOBAL_NORM"
+            "LEGAL_DOCUMENT_REF", "PENALTY",
         )
     },
 }

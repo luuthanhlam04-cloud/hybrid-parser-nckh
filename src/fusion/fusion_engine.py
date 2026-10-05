@@ -12,8 +12,6 @@ from .graph_contract import validate_graph_inputs
 from .m7_adapter import M7GraphAdapter
 from .merge_policy import MergePolicy
 from .node_mapper import NodeMapper
-from .norm_fuser import NormFuser
-from .reference_resolver import ReferenceResolver
 
 
 class FusionEngine:
@@ -42,77 +40,46 @@ class FusionEngine:
 
         mapper = NodeMapper(physical_nodes)
         nodes = [self.policy.physical_node(node) for node in physical_nodes]
-        
-        # 1. STRICT PRUNING OF M7 NODES
-        kept_semantic_nodes = []
-        for entity in entities:
-            # We use merge policy to get the final node structure
-            node = self.policy.semantic_node(entity)
-            props = node.get("properties", {})
-            fusion_kind = props.get("fusion_kind", "")
-            
-            # STRICT KILL RULE: Do not allow LOCAL_MENTION or REFERENCE nodes into the final graph
-            if fusion_kind in ["LOCAL_MENTION", "REFERENCE"]:
-                continue 
-                
-            # STRIP EVIDENCE RULE: Remove raw text from semantic layer
-            if "evidence" in props:
-                del props["evidence"]
-                
-            kept_semantic_nodes.append(node)
-
-        semantic_ids = {node["id"] for node in kept_semantic_nodes}
-        entities_by_id = {node["id"]: node for node in kept_semantic_nodes}
-        
-        # Norm Promotion using relationships from M7 Adapter
-        norm_fuser = NormFuser()
-        global_norms, global_edges, remaining_relations = norm_fuser.fuse(relations)
-        
-        # 2. Add GLOBAL_NORM nodes generated from your norm_fuser.py
-        kept_semantic_nodes.extend(global_norms)
-        
-        for gnorm in global_norms:
-            semantic_ids.add(gnorm["id"])
-            entities_by_id[gnorm["id"]] = gnorm
-
-        nodes.extend(kept_semantic_nodes)
-
+        semantic_ids = {entity.get("canonical_id") for entity in entities}
+        semantic_ids.discard(None)
+        nodes.extend(
+            self.policy.semantic_node(entity)
+            for entity in entities if entity.get("canonical_id")
+        )
+        entities_by_id = {
+            entity["canonical_id"]: entity
+            for entity in entities if entity.get("canonical_id")
+        }
         edges = [self.edge_mapper.physical(edge) for edge in physical_edges]
         semantic_edges = []
         rejected_relations = list(semantic.get("rejected_relations", []))
         mentions = set()
         resolved_reference_edges = set()
         reference_reports: list[Dict[str, Any]] = []
-        
-        # Process global edges
-        for rel in global_edges:
-            gnorm_id = rel["source"]
-            gnorm = entities_by_id[gnorm_id]
-            source_node_ids = set(gnorm.get("properties", {}).get("source_node_ids", []))
-            if not source_node_ids:
-                source_node_ids = {"UNKNOWN"}
-            mapped = self.edge_mapper.global_semantic(rel, source_node_ids)
-            if mapped["target"] not in semantic_ids:
+        denotes_edges = semantic.get("denotes_edges", [])
+        for denotes_edge in denotes_edges:
+            source_node_id = denotes_edge.get("properties", {}).get("source_node_id")
+            if (
+                not source_node_id
+                or not mapper.exists(source_node_id)
+                or denotes_edge.get("source") not in semantic_ids
+                or denotes_edge.get("target") not in semantic_ids
+            ):
+                rejected_relations.append({
+                    "relation_id": None,
+                    "reason": "INVALID_DENOTES_EDGE",
+                })
                 continue
-            semantic_edges.append(mapped)
-            edges.append(mapped)
-            
-            # MENTIONS edges from source_node_ids to GLOBAL_NORM and Concepts
-            for sid in source_node_ids:
-                key = (sid, gnorm_id)
-                if key not in mentions and mapper.exists(sid):
-                    edges.append(self.edge_mapper.mentions(sid, gnorm_id, ""))
-                    mentions.add(key)
-                # Also MENTION the target concepts
-                target_id = mapped["target"]
-                key_tgt = (sid, target_id)
-                if key_tgt not in mentions and mapper.exists(sid):
-                    edges.append(self.edge_mapper.mentions(sid, target_id, ""))
-                    mentions.add(key_tgt)
-
-        ref_resolver = ReferenceResolver(mapper)
-        
-        for relation in remaining_relations:
+            edges.append(denotes_edge)
+            key = (source_node_id, denotes_edge["source"])
+            if key not in mentions:
+                edges.append(self.edge_mapper.mentions(
+                    source_node_id,
+                    denotes_edge["source"],
+                    denotes_edge.get("properties", {}).get("evidence", ""),
+                ))
+                mentions.add(key)
+        for relation in relations:
             source_node_id = relation.get("source_node_id")
             if not source_node_id or not mapper.exists(source_node_id):
                 rejected_relations.append({
@@ -120,44 +87,65 @@ class FusionEngine:
                     "reason": "ORPHAN_SOURCE_NODE",
                 })
                 continue
-            
+            target_entity = entities_by_id.get(relation.get("target"), {})
+            reference_text = str(target_entity.get("canonical_text", ""))
             is_reference = relation.get("relation_type") == "REFERENCE_TO"
+            raw_reference_scope = relation.get("reference_scope")
+            reference_scope = str(raw_reference_scope or "").strip().upper()
             reference_ids = []
-            resolution_status = ""
-            
+            known_internal_scopes = {"SAME_ARTICLE", "SAME_DOCUMENT"}
+            should_resolve = (
+                not reference_scope
+                or reference_scope in known_internal_scopes
+            )
+            if is_reference and should_resolve:
+                reference_ids = mapper.resolve_reference_hint(
+                    relation.get("target_hint"), source_node_id
+                )
+                if not reference_ids:
+                    reference_ids = mapper.resolve_reference_text(
+                        reference_text, source_node_id
+                    )
+            if is_reference and should_resolve and not reference_ids:
+                if reference_scope not in {"EXTERNAL", "AMBIGUOUS"}:
+                    reference_ids = mapper.resolve_anaphoric_reference(
+                        reference_text, source_node_id
+                    )
+            if is_reference and reference_ids:
+                resolution_status = "RESOLVED_IN_M4"
+            elif is_reference and reference_scope == "EXTERNAL":
+                resolution_status = "OUT_OF_SCOPE_PER_M7"
+            elif is_reference and reference_scope == "AMBIGUOUS":
+                resolution_status = "AMBIGUOUS_PER_M7"
+            elif is_reference and reference_scope and not should_resolve:
+                resolution_status = "NOT_ATTEMPTED_PER_M7_SCOPE"
+            elif is_reference:
+                resolution_status = "TARGET_NOT_FOUND_IN_M4"
+            else:
+                resolution_status = ""
             if is_reference:
-                # Use entities_by_id to find canonical_text
-                # Wait, entities_by_id has nodes, so text is in properties
-                ref_node = entities_by_id.get(relation.get("target"), {})
-                reference_text = str(ref_node.get("properties", {}).get("canonical_text", ""))
-                # Mocking entities_by_id dict format expected by ref_resolver
-                mock_entities = {relation.get("target"): {"canonical_text": reference_text}}
-                
-                reference_ids, resolution_status = ref_resolver.resolve(relation, source_node_id, mock_entities)
                 reference_reports.append({
                     "relation_id": relation.get("relation_id"),
-                    "m7_scope": relation.get("reference_scope") or None,
+                    "m7_scope": raw_reference_scope or None,
                     "resolution_status": resolution_status,
                     "target_hint": relation.get("target_hint"),
                     "resolved_physical_node_ids": reference_ids,
                 })
-                
-            mapped = self.edge_mapper.global_semantic(
-                relation, {source_node_id}, None, reference_ids if is_reference else None
+            mapped = self.edge_mapper.semantic(
+                relation, {"source_confidence": 1.0},
+                None,
+                reference_ids if relation.get("relation_type") == "REFERENCE_TO" else None,
             )
             if is_reference:
                 mapped["properties"]["reference_resolution_status"] = resolution_status
-                
             if mapped["source"] not in semantic_ids or mapped["target"] not in semantic_ids:
                 rejected_relations.append({
                     "relation_id": relation.get("relation_id"),
                     "reason": "UNKNOWN_SEMANTIC_ENDPOINT",
                 })
                 continue
-                
             semantic_edges.append(mapped)
             edges.append(mapped)
-            
             if is_reference and reference_ids:
                 for reference_id in reference_ids:
                     key = (str(relation["target"]), reference_id)
@@ -168,16 +156,15 @@ class FusionEngine:
                             relation.get("relation_id"),
                         ))
                         resolved_reference_edges.add(key)
-                        
             for entity_id in (mapped["source"], mapped["target"]):
                 key = (source_node_id, entity_id)
                 if key not in mentions:
                     edges.append(self.edge_mapper.mentions(
-                        source_node_id, entity_id, ""
+                        source_node_id, entity_id, relation.get("evidence", "")
                     ))
                     mentions.add(key)
 
-        conflicts = self.conflict_resolver.detect_deontic_conflicts(nodes, semantic_edges)
+        conflicts = self.conflict_resolver.detect_deontic_conflicts(semantic_edges)
         conflicts.extend(self.conflict_resolver.validate_endpoints(
             edges, {node["id"] for node in nodes}
         ))
@@ -189,7 +176,7 @@ class FusionEngine:
                     else "heuristic_uncalibrated"
                 ),
                 "physical_node_count": len(physical_nodes),
-                "semantic_entity_count": len(kept_semantic_nodes),
+                "semantic_entity_count": len(entities),
                 "total_node_count": len(nodes),
                 "physical_edge_count": len(physical_edges),
                 "semantic_edge_count": len(semantic_edges),

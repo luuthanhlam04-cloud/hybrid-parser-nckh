@@ -3,8 +3,8 @@
 **Đối tượng kiểm tra:** Tệp đầu ra trích xuất ngữ nghĩa `outputs/semantic_graphs/semantic_extraction.json` (Phiên bản V8 - NORM)  
 **Cơ sở đối soát:** Đồ thị vật lý `outputs/physical_graphs/physical_graph.json` & Phân luồng ứng viên `outputs/candidate_nodes/routing_candidates.json`  
 **Vai trò:** Legal Knowledge Graph QA & LLM-as-a-Judge Specialist  
-**Ngày nghiệm thu:** 23/09/2026  
-**Trạng thái nghiệm thu:** 🟢 **PASS (98.5 / 100 Điểm) — ĐỦ ĐIỀU KIỆN SANG MODULE 7**  
+**Ngày nghiệm thu:** 19/09/2026  
+**Trạng thái nghiệm thu:** 🟢 **PASS (96.5 / 100 Điểm) — ĐỦ ĐIỀU KIỆN SANG MODULE 7**  
 
 ---
 

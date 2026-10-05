@@ -1,23 +1,19 @@
 [
   {
     "flag": "POTENTIAL_LEGAL_CONFLICT",
-    "conflict_type": "ALLOW_PROHIBIT",
-    "subject": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
-    "action": "LO2024.ACTION.LAND_TRANSFER",
-    "global_norm_ids": [
-      "GNORM_f67ac37bf048",
-      "GNORM_0ded72c4f58a",
-      "GNORM_13ba21cb4bcc",
-      "GNORM_090893fb9d04",
-      "GNORM_2cc86614c868",
-      "GNORM_2b003e5db76c",
-      "GNORM_641cd578dd29"
+    "conflict_type": "REQUIRE_PROHIBIT",
+    "source": "subject.state",
+    "target": "action.transaction.mortgage",
+    "relation_ids": [
+      "REL_REL_0765",
+      "REL_REL_0777"
     ],
-    "message": "ALLOW conflict with PROHIBIT for the same subject/action without a linked exception.",
+    "message": "REQUIRE conflict with PROHIBIT for the same subject/action without a linked exception.",
     "relation_types": [
-      "ALLOW",
+      "REQUIRE",
       "PROHIBIT"
     ],
+    "conditions": null,
     "context_status": "SAME_OR_UNSPECIFIED_CONDITIONS"
   }
 ]

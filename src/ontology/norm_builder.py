@@ -127,7 +127,6 @@ class NormBuilder:
             exceptions=exceptions,
             consequences=consequences,
             subjects=subjects,
-            normalized_relations=normalized_relations,
         )
 
         norms: List[NormAssertion] = []
@@ -153,12 +152,10 @@ class NormBuilder:
                 normalized_relations=normalized_relations,
             )
 
-            is_unresolved = any(getattr(rel, "source_status", "RESOLVED") == "UNRESOLVED" for rel in normalized_relations)
             norm = NormAssertion(
                 id=norm_id,
                 modality=modality,
-                subject_ids=[m.id for m in subjects] if not is_unresolved else [],
-                subject_status="UNRESOLVED" if is_unresolved else "RESOLVED",
+                subject_ids=[m.id for m in subjects],
                 action_ids=[m.id for m in actions],
                 object_ids=[m.id for m in objects],
                 condition_ids=[m.id for m in conditions],
@@ -217,15 +214,11 @@ class NormBuilder:
         exceptions: List[LocalMention],
         consequences: List[LocalMention],
         subjects: List[LocalMention],
-        normalized_relations: List[NormalizedRelation] = None,
     ) -> bool:
         """
         Quyết định có cần tạo NormAssertion không.
-        Dựa trên norm_creation_criteria từ config và trạng thái UNRESOLVED.
+        Dựa trên norm_creation_criteria từ config.
         """
-        if normalized_relations and any(getattr(rel, "source_status", "RESOLVED") == "UNRESOLVED" for rel in normalized_relations):
-            return True
-            
         criteria = self._norm_creation_criteria
         if "has_condition" in criteria and len(conditions) > 0:
             return True
@@ -281,13 +274,12 @@ class NormBuilder:
         edges = []
         evidence = norm.evidence
 
-        if getattr(norm, "subject_status", "RESOLVED") == "RESOLVED":
-            for sid in norm.subject_ids:
-                edges.append(SemanticEdge(
-                    source_id=norm.id, target_id=sid,
-                    relation_type=RelationType.HAS_SUBJECT, evidence=evidence,
-                    rule_id="RULE_NORM_HAS_SUBJECT"
-                ))
+        for sid in norm.subject_ids:
+            edges.append(SemanticEdge(
+                source_id=norm.id, target_id=sid,
+                relation_type=RelationType.HAS_SUBJECT, evidence=evidence,
+                rule_id="RULE_NORM_HAS_SUBJECT"
+            ))
         for aid in norm.action_ids:
             edges.append(SemanticEdge(
                 source_id=norm.id, target_id=aid,

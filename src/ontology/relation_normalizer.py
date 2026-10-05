@@ -51,12 +51,11 @@ class NormalizedRelation:
     Một relation đã chuẩn hóa giữa hai LocalMentions.
     Dùng bởi norm_builder để xây dựng NormAssertion hoặc simple edge.
     """
-    source_mention_id: Optional[str]       # LocalMention ID hoặc None
+    source_mention_id: str       # LocalMention ID
     target_mention_id: str       # LocalMention ID
     relation_type: RelationType
     evidence: str
     rule_id: str = ""
-    source_status: str = "RESOLVED"
     # Metadata cho Boolean logic
     logic_group: Optional[str] = None
     operator: Optional[str] = None
@@ -167,11 +166,10 @@ class RelationNormalizer:
         Normalize một M6 relation.
         Trả về None nếu relation không thể map (source/target không tồn tại).
         """
-        source_m6_id = raw_rel.get("source")
+        source_m6_id = raw_rel.get("source", "")
         target_m6_id = raw_rel.get("target", "")
         m6_relation   = raw_rel.get("relation_type", "").upper()
         evidence      = raw_rel.get("evidence", "")
-        source_status = raw_rel.get("source_status", "RESOLVED")
 
         # Map relation type
         canonical_rel_str = self._modality_map.get(m6_relation, m6_relation)
@@ -210,15 +208,15 @@ class RelationNormalizer:
             return None
 
         # Nếu source là PERMISSION/OBLIGATION entity → cũng skip
-        if source_m6_id is not None and source_m6_id in perm_oblig_map:
+        if source_m6_id in perm_oblig_map:
             modality_ctx.permission_obligation_ids.append(source_m6_id)
             return None
 
         # Map m6_local_id → LocalMention ID
-        source_mention = mention_map.get(source_m6_id) if source_m6_id is not None else None
+        source_mention = mention_map.get(source_m6_id)
         target_mention = mention_map.get(target_m6_id)
 
-        if source_mention is None and source_status != "UNRESOLVED":
+        if source_mention is None:
             logger.debug(f"Source entity '{source_m6_id}' không có LocalMention (có thể đã skip) → skip relation")
             return None
         if target_mention is None:
@@ -232,12 +230,11 @@ class RelationNormalizer:
                 modality_ctx.suggested_modality = modality
 
         return NormalizedRelation(
-            source_mention_id=source_mention.id if source_mention else None,
+            source_mention_id=source_mention.id,
             target_mention_id=target_mention.id,
             relation_type=canonical_rel,
             evidence=evidence,
             rule_id=f"REL_{m6_relation}",
-            source_status=source_status,
         )
 
     def _rel_to_modality(self, rel: RelationType) -> Optional[NormativeModality]:

@@ -38,7 +38,7 @@ kg:SemanticNodeShape
         sh:in (
             "LEGAL_SUBJECT" "LEGAL_ACTION" "LEGAL_OBJECT"
             "LEGAL_CONSEQUENCE" "CONDITION" "EXCEPTION"
-            "LEGAL_DOCUMENT_REF" "PENALTY" "GLOBAL_NORM"
+            "LEGAL_DOCUMENT_REF" "PENALTY"
         ) ;
     ] .
 

@@ -1,74 +1,148 @@
-# Tổng kết Module 7 - Ontology Normalization & Canonicalization (Knowledge Base)
+# Tóm tắt Module 7: Legal Ontology Builder
 
-Module 7 đóng vai trò là **Canonicalization Authority (Chốt chặn chuẩn hóa)** của hệ thống Hybrid Parser. Nhiệm vụ tối thượng của M7 là chuyển đổi đồ thị ngữ nghĩa cục bộ (phân mảnh) từ Module 6 thành một **Đồ thị Tri thức Pháp lý Chuẩn tắc (Canonical Semantic Graph)**, sẵn sàng để đổ vào Neo4j (Module 8). 
-
-Kiến trúc hiện tại (Pipeline V1.2) là sự hội tụ tinh hoa từ 3 triết lý thiết kế: **Semantic-First** (Tách biệt Type/Token qua NormAssertion), **Coverage-First** (Gom nhóm Alias), và **Quality-First** (Làm sạch đồ thị rác).
+Tài liệu này tóm tắt kiến trúc, luồng xử lý, và các thành phần cốt lõi của **Module 7: Legal Ontology Builder**. Module 7 có nhiệm vụ chuyển đổi đầu ra trích xuất dạng thô từ LLM (Module 6) thành một Đồ thị Tri thức Pháp lý (Canonical Semantic Graph) chuẩn tắc, tuân thủ chặt chẽ theo thiết kế **Hohfeldian V1.3** và triết lý **Edge-Level Provenance** (ngữ cảnh nằm trên cạnh).
 
 ---
 
-## 1. Kiến trúc Hệ thống & Thành phần Cốt lõi
+## 1. Thành phần và Nội dung các file mã nguồn
 
-Hệ thống được cấu trúc thành một Pipeline tuyến tính khép kín, xử lý từng bước (Defense in Depth) để đảm bảo không lọt dữ liệu rác, nhưng cũng tuyệt đối không xóa dữ liệu hợp lệ (Chỉ Quarantine).
+Hệ thống được chia thành các file rõ ràng, đảm bảo nguyên tắc SOLID và dễ dàng bảo trì:
 
-1. **`node_quality_filter.py`**: Lọc rác đầu vào. Block ngay các node có text rỗng, evidence rỗng, thiếu ID. Đảm bảo toàn vẹn cấu trúc.
-2. **`entity_normalizer.py`**: Chuẩn hóa thực thể (Canonicalization) sử dụng từ điển `taxonomy_aliases.yaml`. Đặc biệt tích hợp **Boot-time Alias Collision Detection** để phát cảnh báo ngay khi khởi tạo nếu có 2 từ khóa bị trùng lặp cấu hình.
-3. **`relation_normalizer.py`**: Chuyển đổi các quan hệ cục bộ, định hình lại ngữ cảnh pháp lý.
-4. **`semantic_quality_gate.py` (Gate 1)**: Tiền kiểm tra xung đột vai trò (Role Conflict) và khuếch đại ngữ nghĩa (Semantic Amplification).
-5. **`canonical_mapper.py`**: Cầu nối hợp nhất các `LocalMention` thành các `CanonicalConcept` (Các Hub Nodes trung tâm).
-6. **`norm_builder.py`**: Động cơ lõi biến đổi các quan hệ đơn giản (như ALLOW/REQUIRE) thành **NormAssertion** (Các Node Quy phạm). Hỗ trợ mạnh mẽ cơ chế **Partial Norm** (Quy phạm khuyết chủ thể).
-7. **`reference_classifier.py`**: Phân loại các tham chiếu điều luật (Internal, External, Spatial, v.v.).
-8. **`ontology_validator.py` (Gate 2)**: Chốt chặn cuối cùng kiểm tra ma trận Domain-Range.
-9. **`orphan_quarantine.py`**: Quét các thực thể mồ côi (không có quan hệ) để đẩy vào Quarantine thay vì xóa bỏ.
+### Cấu hình (Configs)
+- **`docs/implementation/ONTOLOGY_SPEC_V1.3.md`**: Bản đặc tả kiến trúc cốt lõi. Khẳng định hệ thống có 7 Core Classes (`LEGAL_SUBJECT`, `LEGAL_ACTION`, `LEGAL_OBJECT`, `CONDITION`, `EXCEPTION`, `PENALTY`, `LEGAL_DOCUMENT_REF`) và 8 loại Relations. Đặt ra quy tắc Edge-Level Provenance (Thực thể phải siêu nhẹ, bằng chứng lưu ở cạnh) và Human-in-the-loop (cơ chế cách ly).
+- **`src/ontology/configs/ontology_schema.yaml`**: Lưu trữ ma trận Domain-Range của 7 loại quan hệ (ALLOW, REQUIRE, PROHIBIT...). Ma trận này là "chốt chặn" để loại bỏ các quan hệ phi logic (VD: ALLOW trỏ vào SUBJECT).
+- **`src/ontology/configs/taxonomy_aliases.yaml`**: Từ điển Seed Taxonomy. Định nghĩa các thực thể chuẩn (Canonical Entity) và các từ khóa đồng nghĩa (aliases). Được dùng làm "chân lý" để Normalize các thực thể trích xuất được từ LLM. Hiện đã được nâng cấp lên 361 dòng với rất nhiều từ khóa cho Luật Đất đai.
+
+### Động cơ lõi (Core Engines)
+- **`src/ontology/canonical_mapper.py`**: Chịu trách nhiệm nạp (load) 2 file YAML cấu hình lên bộ nhớ và cung cấp hàm API nội bộ để truy xuất dữ liệu taxonomy, domain/range constraints.
+- **`src/ontology/entity_normalizer.py`**: Chịu trách nhiệm chuẩn hóa thực thể. Sử dụng kỹ thuật 2-Tier Matching:
+  - *Tier 1 (Exact Match)*: Khớp chính xác hoàn toàn.
+  - *Tier 2 (Fuzzy Match)*: Khớp mờ sử dụng thư viện `thefuzz` (thuật toán Levenshtein).
+  - *Fallback (Quarantine Mode)*: Nếu không khớp, thực thể bị gán ID `unassigned.[tên]` và đẩy vào log cách ly, đồng thời tự động ép kiểu lớp (M6 to M7 mapping) để giữ cho cạnh không bị vứt bỏ.
+- **`src/ontology/relation_normalizer.py`**: Chuẩn hóa quan hệ. Nhận đầu vào là các ID cục bộ (e1, e2) của M6, ánh xạ chúng sang Canonical ID của M7. Đặc biệt, nó **tiêm toàn bộ ngữ cảnh cục bộ** (gồm `source_node_id`, `evidence`) vào cấu trúc của Cạnh để thực thi Edge-Level Provenance.
+- **`src/ontology/ontology_validator.py`**: Bộ kiểm duyệt quan hệ. Đối chiếu Cạnh với ma trận từ `ontology_schema.yaml`. Bất kỳ cạnh nào vi phạm Domain (nguồn sai lớp) hoặc Range (đích sai lớp) đều bị thẳng tay loại bỏ (REJECT).
+
+### Điều phối & Chạy thử
+- **`src/ontology/ontology_builder.py`**: Trái tim của Module 7. Dùng generator (O(1) memory) để duyệt qua các Node đầu vào, reset ID cục bộ, gọi các Normalizer và Validator, sau đó gom nhóm (Aggregate) thực thể, và xuất ra đồ thị Canonical hoàn chỉnh.
+- **`run_ontology_builder.py`**: Script thực thi toàn bộ pipeline, đọc từ `semantic_extraction.json` và xuất ra `canonical_semantic_graph.json`.
+- **`tests/unit/test_ontology_v1_3.py`**: Kịch bản kiểm thử Pytest đảm bảo code tuyệt đối tuân thủ V1.3:
+  - Test 01: Entity siêu nhẹ (không chứa evidence/source_node_id).
+  - Test 02: Không có class rác (Chỉ cho phép 6 Core Classes).
+  - Test 03: Edge-Level Provenance (Quan hệ bắt buộc phải chứa evidence).
+  - Test 04: Domain-Range Matrix hợp lệ.
+  - Test 05: Tính năng Quarantine (phải có các thực thể unassigned).
 
 ---
 
-## 2. Luồng Xử lý (Workflow)
+## 2. Luồng Workflow (Quy trình xử lý)
 
-Workflow của Module 7 tuân thủ nghiêm ngặt nguyên tắc **Single Source of Truth** và bảo toàn gốc ngữ cảnh (Edge-Level Provenance):
+Workflow của Module 7 tuân thủ theo nguyên tắc 100% Rule-based (không gọi LLM), diễn ra như sau:
 
-```mermaid
-graph TD
-    A[M6: semantic_extraction.json] --> B[Node Quality Filter]
-    B --> C[Entity Normalizer]
-    C --> D[Semantic Quality Gate - Gate 1]
-    D --> E[Canonical Mapper & Norm Builder]
-    E --> F[Ontology Validator - Gate 2]
-    F --> G[Orphan Quarantine]
-    G --> H[(M7 Output: canonical_semantic_graph.json)]
+1. **Khởi tạo**: Đọc `ontology_schema.yaml` và `taxonomy_aliases.yaml` vào RAM thông qua `CanonicalMapper`.
+2. **Luồng Streaming**: Đọc file `semantic_extraction.json` theo từng Node. ID mapping cục bộ (`local_to_canonical`) được reset mới mỗi khi bắt đầu một Node để tránh loạn ID.
+3. **Chuẩn hóa Thực thể (Entity)**:
+   - Các thực thể thô được đưa vào `EntityNormalizer`.
+   - Nếu tìm thấy trong Taxonomy -> Lấy Canonical ID chuẩn.
+   - Nếu không tìm thấy -> Gán `unassigned.xxx` (Quarantine), tự động map fallback type sang class của V1.3, và ghi log ra `unresolved_entities.log`.
+   - Các thực thể chuẩn hóa được gom lại. *Chỉ lưu trữ thông tin cơ bản (ID, class, tên)*.
+4. **Chuẩn hóa Quan hệ (Relation) & Bơm Ngữ cảnh**:
+   - `RelationNormalizer` đổi ID nguồn/đích sang Canonical ID.
+   - Tiêm thông tin nguồn gốc (`source_node_id`, `evidence`) vào chính Cạnh đó.
+5. **Kiểm duyệt (Validation)**:
+   - `OntologyValidator` kiểm tra Cạnh. Nếu nguồn và đích không hợp lệ theo `ontology_schema.yaml` -> Loại bỏ và tăng biến đếm `rejected_edges`.
+6. **Tổng hợp & Ghi file**: Xuất ra file `canonical_semantic_graph.json` chứa tập Thực thể phẳng và tập Quan hệ mang ngữ cảnh.
+
+---
+
+## 3. Các Vấn đề Gặp phải & Giải pháp
+
+Trong quá trình triển khai, đã phát sinh 2 vấn đề lớn về kiến trúc và cách giải quyết như sau:
+
+### Vấn đề 1: Đụng độ Type giữa Module 6 (Cũ) và Module 7 (Mới) làm sập cơ chế Quarantine
+- **Tình trạng**: Ở M6, LLM trả về các type tự do như `SUBJECT`, `ACTION`. Khi rơi vào Quarantine, thực thể giữ nguyên type cũ. Kết quả là `OntologyValidator` của M7 (chỉ chấp nhận `LEGAL_SUBJECT`, `LEGAL_ACTION`) đã **từ chối 100%** các Cạnh nối với thực thể Quarantine vì lỗi sai Domain-Range.
+- **Giải pháp**: Tại hàm `_quarantine` trong `entity_normalizer.py`, tôi đã lập tức thiết lập một bộ `m6_to_m7_map` để ngầm ánh xạ type (VD: `SUBJECT` -> `LEGAL_SUBJECT`, `OBLIGATION` -> `LEGAL_ACTION`). Nhờ đó, các thực thể lạ vẫn bị cách ly, nhưng các cạnh hợp logic của chúng không bị loại bỏ oan. Số cạnh Rejected giảm mạnh ngay lập tức.
+
+### Vấn đề 2: Xung đột giữa "Gộp mảng ngữ cảnh" và "Thực thể siêu nhẹ" (Edge-Level Provenance)
+- **Tình trạng**: Ban đầu có sự nhầm lẫn giữa việc gộp ngữ cảnh (`source_node_ids`, `evidences`) vào Entity. Khi code chạy và đưa các mảng này vào Entity, Unit Test `test_01_entity_schema_super_lightweight` đã bắn ra cờ lỗi đỏ chót (Failed), vì nó cấm Entity chứa các trường bằng chứng để giữ Node siêu nhẹ.
+- **Giải pháp**: Xóa bỏ hoàn toàn mảng `source_node_ids` và `evidences` khỏi Entity trong `ontology_builder.py`. Tuân thủ 100% quy tắc V1.3: "Nodes act as Identity Hubs. They DO NOT store source documentation". Mọi thông tin chứng cứ cục bộ chỉ được tiêm vào cạnh (Edge-level) qua `RelationNormalizer`. Sau khi sửa, 5/5 test cases đã PASS Xanh toàn bộ.
+
+### Kết quả mở rộng thực tế
+Khi chạy với Taxonomy cũ (10 items), có tới 616 thực thể bị Quarantine. Tuy nhiên, sau khi mở rộng `taxonomy_aliases.yaml` thành hơn 361 dòng, số lượng thực thể bị Quarantine giảm xuống chỉ còn 214, minh chứng cho sự hiệu quả vượt trội của việc kết hợp Alias Dictionary và Human-in-the-loop.
+
+---
+
+## 4. Tại sao dự án BẮT BUỘC phải có `canonical_id`?
+
+Luật pháp Việt Nam dù rất chuẩn mực nhưng vẫn có sự đa dạng trong cách dùng từ (Biến thể từ vựng - Synonyms).
+Ví dụ, khi đọc Luật Đất đai 2024, bạn sẽ thấy các cụm từ sau nằm rải rác ở các điều khoản khác nhau:
+- "người gốc Việt Nam định cư ở nước ngoài"
+- "người Việt Nam định cư ở nước ngoài"
+- "cá nhân là người gốc Việt Nam định cư ở nước ngoài"
+
+❌ **Nếu KHÔNG có canonical_id (Lỗi của Đồ thị sơ cấp)**:
+Hệ thống sẽ tạo ra 3 Node (3 vòng tròn) khác nhau trên Neo4j. Đồ thị của bạn sẽ bị "bùng nổ" (Entity Explosion). Khi người dùng hỏi: *"Việt kiều có quyền gì?"*, hệ thống tìm kiếm sẽ bị phân tán, có thể chỉ tìm thấy Node 1 mà bỏ sót quyền lợi nằm ở Node 2 và 3.
+
+✅ **Khi CÓ canonical_id (Sức mạnh của Module 7)**:
+Module 7 sẽ nhận diện cả 3 cụm từ này và "gắn" cho chúng chung một mã định danh (như CCCD): `subject.land_user.foreign.overseas_vietnamese`.
+Trên Neo4j, hệ thống sẽ gộp (merge) chúng lại thành DUY NHẤT 1 NODE. Mọi mũi tên quyền/nghĩa vụ từ 3 cụm từ kia đều sẽ trỏ chung về 1 Node khổng lồ này.
+
+---
+
+## 5. Ví dụ Luồng Workflow Thực tế trong Hệ thống
+
+Hãy đi theo vòng đời của một khái niệm từ lúc nó nằm trên mặt giấy cho đến khi trả lời được câu hỏi của người dùng.
+
+### BƯỚC 1: Module 6 bóc tách thô (Raw Extraction)
+Tại Điều 41, M6 bóc ra được:
+- e1: "Người gốc Việt Nam định cư ở nước ngoài"
+- Quan hệ: e1 $\xrightarrow{\text{ALLOW}}$ e2 ("thuê đất")
+
+Tại Điều 43, M6 lại bóc ra được:
+- e8: "Cá nhân là người gốc Việt Nam định cư ở nước ngoài"
+- Quan hệ: e8 $\xrightarrow{\text{ALLOW}}$ e9 ("nhận chuyển nhượng đất trong KCN")
+
+### BƯỚC 2: Module 7 Chuẩn hóa (Canonical Normalization)
+Module 7 đọc file `taxonomy_aliases.yaml` (Từ điển đồng nghĩa) và phát hiện ra e1 và e8 thực chất là một. Nó gán cho cả hai mã CCCD: `subject.land_user.foreign.overseas_vietnamese`.
+M7 xuất ra JSON chuẩn tắc:
+```json
+{
+  "canonical_id": "subject.land_user.foreign.overseas_vietnamese",
+  "ontology_class": "LEGAL_SUBJECT",
+  "canonical_text": "Người gốc Việt Nam định cư ở nước ngoài",
+  "aliases": ["Cá nhân là người gốc Việt Nam định cư ở nước ngoài"]
+}
 ```
 
-### Bước ngoặt trong Workflow: Từ Đồ thị Phẳng sang Đồ thị Tri thức (Type-Token)
-Thay vì tạo ra các Node khổng lồ chứa mọi thứ, M7 tách đồ thị thành 2 tầng:
-- **Tầng Token (LocalMentions)**: Các thực thể "vật lý" bóc ra từ văn bản, siêu nhẹ, giữ lại vị trí gốc (`provenance_node_id`).
-- **Tầng Type (CanonicalConcepts)**: Các điểm tụ (Hub) chuẩn hóa. Ví dụ: *"Người gốc Việt Nam"* và *"Việt Kiều"* (2 LocalMentions) sẽ đồng thời trỏ (`DENOTES`) về một CanonicalConcept là `LO2024.SUBJECT.OVERSEAS_VIETNAMESE`.
-Điều này chống lại hiện tượng "Entity Explosion" trên Neo4j.
+### BƯỚC 3: Đổ vào Neo4j (Graph Ingestion)
+Lúc này, Neo4j tạo đúng 1 Node (1 vòng tròn) có mã là `subject.land_user.foreign.overseas_vietnamese`.
+Và nó vẽ 2 mũi tên `ALLOW` cắm vào 2 Node hành vi (thuê đất và nhận chuyển nhượng). Mỗi mũi tên mang theo `source_node_id` (Dấu vết Điều 41 và Điều 43) nhờ cơ chế Edge-Level Provenance.
 
----
+### BƯỚC 4: Luồng Truy vấn GraphRAG (Retrieval Workflow)
+Giả sử hệ thống chatbot của nhóm bạn nhận được câu hỏi từ một user:
+🗣️ **User hỏi:** *"Tôi là Việt kiều, tôi có được mua đất trong Khu công nghiệp không?"*
 
-## 3. Các Bài Toán Gặp Phải & Cách Giải Quyết
+Luồng xử lý bằng canonical_id sẽ diễn ra mượt mà như sau:
 
-### Bài toán 1: "Modality Loss" (Mất tính quy phạm do khuyết Chủ thể)
-- **Tình trạng:** Trong văn bản luật thường sử dụng thể bị động (VD: *"Hợp đồng phải được công chứng"*). M6 V1 bắt buộc phải có `source_id`, dẫn đến LLM một là phải "bịa" ra chủ thể (Hallucination), hai là bỏ luôn quan hệ `REQUIRE` (Modality Loss). Việc này làm mất hẳn thông tin bắt buộc của luật.
-- **Giải quyết:** Sửa lại Schema từ M6 đến M7 để hỗ trợ **Partial NormAssertion**. Cho phép `source_id = null` với trạng thái `source_status = "UNRESOLVED"`. M7 sẽ nhận diện và tạo ra một Node Quy phạm "Khuyết chủ thể" (Partial Norm), bảo toàn tuyệt đối chữ "phải" (REQUIRE) để phục vụ tra cứu sau này mà không cần bịa dữ liệu.
+**1. Semantic Router / Query Rewriter (Xử lý câu hỏi)**:
+Hệ thống LLM đọc chữ "Việt kiều". Nó dò vào từ điển Ontology và dịch câu hỏi thành tham số hệ thống:
+- Target_Entity = `subject.land_user.foreign.overseas_vietnamese`
+- Target_Action = "nhận chuyển nhượng" (mua đất) / "khu công nghiệp"
 
-### Bài toán 2: Bảo toàn Dữ liệu (Preserve Data) vs Vệ sinh Đồ thị (Graph Hygiene)
-- **Tình trạng:** Khi đồ thị có các thực thể xuất hiện 1 lần nhưng không nối với ai (Orphan nodes, degree = 0), triết lý cũ là "Xóa sổ" (Pruning) để đồ thị sạch. Tuy nhiên điều này vi phạm nguyên tắc bảo toàn chứng cứ pháp lý, đôi khi 1 thực thể hiếm gặp vẫn là 1 dữ kiện hợp lệ.
-- **Giải quyết:** Loại bỏ cơ chế Pruning, thay bằng **Orphan Quarantine**. Đẩy các node mồ côi hoặc vi phạm Domain-Range vào `quarantine_store`. Những node này không tham gia suy luận RAG (Reasoning), nhưng được giữ lại 100% để con người audit, debug và đo lường độ ảo giác của LLM.
+**2. Graph Database Search (Câu lệnh Cypher)**:
+Hệ thống bắn một câu lệnh vào Neo4j tìm đích danh cái "CCCD" đó:
+```cypher
+MATCH (s:CanonicalEntity {canonical_id: "subject.land_user.foreign.overseas_vietnamese"})
+      -[rel:ALLOW]->
+      (a:CanonicalEntity)
+WHERE a.canonical_text CONTAINS "khu công nghiệp"
+RETURN rel.source_node_id, rel.evidence
+```
 
-### Bài toán 3: Xung đột Cấu hình (Config Collision)
-- **Tình trạng:** Khi file `taxonomy_aliases.yaml` phình to lên hàng trăm dòng, việc kỹ sư nhập liệu vô tình gán 1 từ khóa (ví dụ: "sổ đỏ") cho 2 Concept ID khác nhau (Shotgun Surgery) sẽ làm sập quá trình Normalize.
-- **Giải quyết:** Cấy ghép **Boot-time Alias Collision Detection** vào `EntityNormalizer`. Ngay khi script vừa khởi chạy, nó quét toàn bộ YAML và ném ra Exception chặn đứng hệ thống nếu phát hiện xung đột, ép kỹ sư phải sửa config trước khi chạy pipeline.
+**3. Kết quả trả về từ Graph (Siêu tốc và Chính xác tuyệt đối)**:
+Vì chúng ta truy vấn bằng ID (như tìm CCCD) chứ không phải tìm bằng Text rườm rà, Neo4j nhả kết quả trong 1 mili-giây:
+- `source_node_id`: "doc_chuong-iii_dieu-43"
+- `evidence`: "Cá nhân là người gốc Việt Nam định cư ở nước ngoài... được nhận chuyển nhượng đất trong KCN..."
 
----
-
-## 4. Kết Quả Output (canonical_semantic_graph.json)
-
-Output của M7 là một file JSON được cấu trúc thành các mảng rõ rệt, tuân thủ tuyệt đối Contract với Module 8:
-- **`metadata`**: Chứa toàn bộ tracking về pipeline và report từ bộ lọc rác (VD: `filtered_nodes: 16`).
-- **`active_nodes` (Local Mentions)**: Các thực thể cục bộ, đã được gán mã `canonical_concept_id`.
-- **`canonical_concepts`**: Các Hub Node đại diện cho taxonomy.
-- **`active_norms`**: Các Node Quy phạm (NormAssertion) mang modality (ALLOW/REQUIRE/PROHIBIT) và điều hướng luồng logic (gắn với Subject, Action, Object).
-- **`active_edges`**: Các cạnh cấu trúc (`HAS_CONDITION`, `HAS_OBJECT`, `DENOTES`) mang theo bằng chứng pháp lý (Edge-Level Provenance).
-- **`quarantine_store`**: Thùng chứa an toàn cho các thực thể/cạnh rác (Thiếu thông tin, sai domain-range).
-
-Sự chuẩn mực và khắt khe của Module 7 (không thỏa hiệp với dữ liệu lỗi) đã đảm bảo Đồ thị Tri thức cuối cùng nạp vào Neo4j (Module 8) đạt chất lượng Enterprise-grade, sẵn sàng đáp ứng mọi truy vấn RAG phức tạp.
+**4. Khởi tạo câu trả lời cho User (Generation)**:
+Hệ thống nạp evidence vào Prompt và LLM sẽ trả lời tự tin:
+🤖 *"Chào bạn, theo quy định tại Điều 43 Luật Đất đai 2024, Người gốc Việt Nam định cư ở nước ngoài (Việt kiều) ĐƯỢC PHÉP nhận chuyển nhượng quyền sử dụng đất trong Khu công nghiệp."*
