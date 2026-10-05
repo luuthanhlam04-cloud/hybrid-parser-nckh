@@ -37,9 +37,11 @@ class NormFuser:
             modality = "ALLOW"
             subject_ids = []
             action_ids = []
+            object_ids = []
             condition_ids = []
             exception_ids = []
             consequence_ids = []
+            condition_groups = []
             source_node_id = None
             
             for r in rels:
@@ -53,6 +55,13 @@ class NormFuser:
                         subject_ids.append(r["source"])
                     if r.get("target") is not None:
                         action_ids.append(r["target"])
+                    object_ids.extend(r.get("object_ids", []))
+                    condition_ids.extend(r.get("condition_ids", []))
+                    exception_ids.extend(r.get("exception_ids", []))
+                    consequence_ids.extend(r.get("consequence_ids", []))
+                    condition_groups.extend(r.get("condition_groups", []))
+                elif rel_type == "HAS_OBJECT":
+                    object_ids.append(r["target"])
                 elif rel_type == "HAS_CONDITION":
                     condition_ids.append(r["target"])
                 elif rel_type == "HAS_EXCEPTION":
@@ -62,9 +71,24 @@ class NormFuser:
                     
             subject_ids = sorted(list(set([str(s) for s in subject_ids])))
             action_ids = sorted(list(set([str(a) for a in action_ids])))
-            condition_ids = sorted(list(set([str(c) for c in condition_ids])))
-            exception_ids = sorted(list(set([str(e) for e in exception_ids])))
-            consequence_ids = sorted(list(set([str(c) for c in consequence_ids])))
+            object_ids = sorted(list(set(str(item) for item in object_ids if item is not None)))
+            condition_ids = sorted(list(set(str(item) for item in condition_ids if item is not None)))
+            exception_ids = sorted(list(set(str(item) for item in exception_ids if item is not None)))
+            consequence_ids = sorted(list(set(str(item) for item in consequence_ids if item is not None)))
+            normalized_groups = []
+            for group in condition_groups:
+                normalized_groups.append({
+                    **group,
+                    "condition_ids": sorted(set(
+                        str(item) for item in group.get("condition_ids", [])
+                    )),
+                })
+            normalized_groups.sort(key=lambda group: (
+                str(group.get("group_id", "")),
+                str(group.get("operator", "")),
+                tuple(group.get("condition_ids", [])),
+                bool(group.get("is_complex", False)),
+            ))
             
             # Hash key chuẩn — dạng tuple thay vì string join để tránh hash collision.
             # CONTRACT (m7_m8_adapter_contract.md §4):
@@ -76,9 +100,19 @@ class NormFuser:
                 modality,
                 tuple(subject_ids),
                 tuple(action_ids),
+                tuple(object_ids),
                 tuple(condition_ids),
                 tuple(exception_ids),
                 tuple(consequence_ids),
+                tuple(
+                    (
+                        str(group.get("group_id", "")),
+                        str(group.get("operator", "")),
+                        tuple(group.get("condition_ids", [])),
+                        bool(group.get("is_complex", False)),
+                    )
+                    for group in normalized_groups
+                ),
             )
             hash_key = f"GNORM_{hashlib.md5(str(hash_key_tuple).encode('utf-8')).hexdigest()[:12]}"
             
@@ -91,6 +125,11 @@ class NormFuser:
                         "ontology_class": "GLOBAL_NORM",
                         "modality": modality,
                         "fusion_kind": "GLOBAL_NORM",
+                        "object_ids": object_ids,
+                        "condition_ids": condition_ids,
+                        "exception_ids": exception_ids,
+                        "consequence_ids": consequence_ids,
+                        "condition_groups": normalized_groups,
                     },
                     "provenance": ["M8"]
                 }
@@ -100,6 +139,8 @@ class NormFuser:
                     hub_relations.append({"source": hash_key, "target": s, "relation_type": "HAS_SUBJECT"})
                 for a in action_ids:
                     hub_relations.append({"source": hash_key, "target": a, "relation_type": "HAS_ACTION"})
+                for o in object_ids:
+                    hub_relations.append({"source": hash_key, "target": o, "relation_type": "HAS_OBJECT"})
                 for c in condition_ids:
                     hub_relations.append({"source": hash_key, "target": c, "relation_type": "HAS_CONDITION"})
                 for e in exception_ids:
@@ -110,11 +151,13 @@ class NormFuser:
                 grouped_norms[hash_key] = {
                     "norm_node": global_norm,
                     "source_node_ids": set(),
+                    "source_norm_ids": set(),
                     "relations": hub_relations
                 }
             
             if source_node_id:
                 grouped_norms[hash_key]["source_node_ids"].add(source_node_id)
+            grouped_norms[hash_key]["source_norm_ids"].add(norm_id)
 
         global_norms = []
         global_edges = []
@@ -122,6 +165,7 @@ class NormFuser:
         for hash_key, data in grouped_norms.items():
             norm_node = data["norm_node"]
             norm_node["properties"]["source_node_ids"] = list(data["source_node_ids"])
+            norm_node["properties"]["source_norm_ids"] = sorted(data["source_norm_ids"])
             global_norms.append(norm_node)
             global_edges.extend(data["relations"])
             

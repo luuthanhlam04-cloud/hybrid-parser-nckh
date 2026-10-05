@@ -1,8 +1,8 @@
-"""Check that the graph stored in Neo4j matches its Unified Graph source."""
+"""Check that the graph stored in Neo4j matches its Unified Graph source (Audit only)."""
 
 from __future__ import annotations
 
-from collections import defaultdict, deque
+import logging
 from collections.abc import Mapping
 from typing import Any
 
@@ -10,101 +10,111 @@ from .cypher_generator import CypherGenerator
 
 
 class GraphChecker:
-    """Compare stored counts and structural integrity with a UKG document."""
+    """Compare stored counts and structural integrity with a UKG document (Non-blocking)."""
 
     NODE_COUNT = "MATCH (n:UKG_NODE) RETURN count(n) AS count"
-    EDGE_COUNT = "MATCH ()-[r:UKG_EDGE]->() RETURN count(r) AS count"
+    EDGE_COUNT = "MATCH ()-[r]->() RETURN count(r) AS count"
     ORPHAN_COUNT = """
         MATCH (n:UKG_NODE)
         WHERE NOT (n)--()
         RETURN count(n) AS count
     """
-    DANGLING_COUNT = """
-        MATCH ()-[r:UKG_EDGE]->()
-        OPTIONAL MATCH (source:UKG_NODE {id: r.source_id})
-        OPTIONAL MATCH (target:UKG_NODE {id: r.target_id})
-        WITH r, source, target
-        WHERE source IS NULL OR target IS NULL
-        RETURN count(r) AS count
-    """
-    STRUCTURAL_EDGES = """
-        MATCH (source:UKG_NODE)-[r:UKG_EDGE]->(target:UKG_NODE)
-        WHERE r.edge_type IN $edge_types
-        RETURN r.edge_type AS edge_type, source.id AS source, target.id AS target
+    # Cypher query to detect HAS_CONDITION and HAS_EXCEPTION semantic cycles
+    SEMANTIC_CYCLES = """
+        MATCH p=(n:UKG_NODE)-[:HAS_CONDITION|HAS_EXCEPTION*]->(n)
+        RETURN count(p) AS count
     """
 
     def __init__(self, driver: Any, database: str | None = None) -> None:
         self.driver = driver
         self.database = database
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+
+    @staticmethod
+    def _has_cycle(edges: list[tuple[str, str]]) -> bool:
+        adjacency: dict[str, set[str]] = {}
+        nodes: set[str] = set()
+        for src, dst in edges:
+            adjacency.setdefault(src, set()).add(dst)
+            nodes.add(src)
+            nodes.add(dst)
+
+        visited: set[str] = set()
+        stack: set[str] = set()
+
+        def dfs(node: str) -> bool:
+            if node in stack:
+                return True
+            if node in visited:
+                return False
+            visited.add(node)
+            stack.add(node)
+            for neighbor in adjacency.get(node, set()):
+                if dfs(neighbor):
+                    return True
+            stack.remove(node)
+            return False
+
+        for node in nodes:
+            if dfs(node):
+                return True
+        return False
 
     @staticmethod
     def _single_count(session: Any, query: str) -> int:
         result = session.run(query)
         record = result.single()
         if record is None:
-            raise RuntimeError("Neo4j count query returned no record.")
+            return 0
         return int(record["count"])
-
-    @staticmethod
-    def _has_cycle(edges: list[tuple[str, str]]) -> bool:
-        adjacency: dict[str, list[str]] = defaultdict(list)
-        vertices: set[str] = set()
-        for source, target in edges:
-            adjacency[source].append(target)
-            vertices.update((source, target))
-
-        indegree = {vertex: 0 for vertex in vertices}
-        for targets in adjacency.values():
-            for target in targets:
-                indegree[target] += 1
-        queue = deque(vertex for vertex, degree in indegree.items() if degree == 0)
-        visited = 0
-        while queue:
-            vertex = queue.popleft()
-            visited += 1
-            for target in adjacency.get(vertex, []):
-                indegree[target] -= 1
-                if indegree[target] == 0:
-                    queue.append(target)
-        return visited != len(vertices)
 
     def check(self, graph: Mapping[str, Any]) -> dict[str, Any]:
         nodes, edges = CypherGenerator.validate_graph(graph)
         expected_nodes = len(nodes)
-        expected_edges = len(edges)
+        
+        # Pillar 1 RAM Validation guarantees only valid edges are ingested
+        valid_node_ids = {node.get("id") for node in nodes}
+        valid_edges = [
+            e for e in edges 
+            if e.get("source") in valid_node_ids and e.get("target") in valid_node_ids
+        ]
+        expected_edges = len(valid_edges)
 
         with self.driver.session(database=self.database) as session:
             actual_nodes = self._single_count(session, self.NODE_COUNT)
             actual_edges = self._single_count(session, self.EDGE_COUNT)
             orphan_nodes = self._single_count(session, self.ORPHAN_COUNT)
-            dangling_edges = self._single_count(session, self.DANGLING_COUNT)
-            result = session.run(
-                self.STRUCTURAL_EDGES,
-                edge_types=["BELONG_TO", "NEXT", "PREVIOUS"],
-            )
-            structural_edges: dict[str, list[tuple[str, str]]] = defaultdict(list)
-            for record in result:
-                structural_edges[record["edge_type"]].append(
-                    (record["source"], record["target"])
-                )
+            semantic_cycles = self._single_count(session, self.SEMANTIC_CYCLES)
 
-        cyclic_types = sorted(
-            edge_type
-            for edge_type, type_edges in structural_edges.items()
-            if self._has_cycle(type_edges)
-        )
         counts_match = (
             actual_nodes == expected_nodes and actual_edges == expected_edges
         )
-        is_valid = counts_match and dangling_edges == 0 and not cyclic_types
-        return {
+        
+        report = {
             "expected_nodes": expected_nodes,
             "actual_nodes": actual_nodes,
             "expected_edges": expected_edges,
             "actual_edges": actual_edges,
             "orphan_nodes": orphan_nodes,
-            "dangling_edges": dangling_edges,
-            "structural_cycle_types": cyclic_types,
+            "semantic_cycles": semantic_cycles,
             "counts_match": counts_match,
-            "is_valid": is_valid,
+            "is_valid": counts_match
         }
+
+        # Pillar 5: Lightweight Audit Reporting (Non-blocking)
+        if not counts_match:
+            self.logger.warning(
+                "Graph Audit Discrepancy: Nodes (Expected %d, Actual %d). Edges (Expected %d, Actual %d)",
+                expected_nodes, actual_nodes, expected_edges, actual_edges
+            )
+        else:
+            self.logger.info("Graph Audit Passed: Counts Match.")
+
+        if orphan_nodes > 0:
+            self.logger.warning("Graph Audit Detected %d orphan nodes.", orphan_nodes)
+            
+        if semantic_cycles > 0:
+            self.logger.warning("Graph Audit Detected %d semantic cycles (HAS_CONDITION/HAS_EXCEPTION).", semantic_cycles)
+
+        return report

@@ -33,13 +33,16 @@ import os
 from pathlib import Path
 from typing import Optional
 
-# Add parent dir to path nếu cần
-sys.path.insert(0, os.path.dirname(__file__))
-
-from regex_engine import RegexEngine, load_docx_paragraphs, load_text_lines
-from boundary_detector import BoundaryDetector
-from hierarchy_builder import HierarchyBuilder
-from node_generator import NodeGenerator
+try:
+    from .boundary_detector import BoundaryDetector
+    from .hierarchy_builder import HierarchyBuilder
+    from .node_generator import NodeGenerator
+    from .regex_engine import RegexEngine, load_docx_paragraphs, load_text_lines
+except ImportError:  # pragma: no cover - legacy direct import fallback
+    from boundary_detector import BoundaryDetector
+    from hierarchy_builder import HierarchyBuilder
+    from node_generator import NodeGenerator
+    from regex_engine import RegexEngine, load_docx_paragraphs, load_text_lines
 
 
 # ---------------------------------------------------------------------------

@@ -19,7 +19,11 @@ Boundary = "node kết thúc khi gặp marker cùng cấp hoặc cấp cao hơn"
 
 from dataclasses import dataclass, field
 from typing import Optional
-from regex_engine import MatchResult, NodeType
+
+try:
+    from .regex_engine import MatchResult, NodeType
+except ImportError:  # pragma: no cover - direct script import fallback
+    from regex_engine import MatchResult, NodeType
 
 
 # ---------------------------------------------------------------------------

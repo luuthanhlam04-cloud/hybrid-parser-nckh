@@ -35,12 +35,3 @@ pytest>=8.2.0
 pytest-cov>=5.0.0
 numpy>=1.26.0
 sentence-transformers>=3.0.0
-
-# --- Module 8: W3C SHACL validation (optional at runtime) ---
-pyshacl>=0.26.0
-rdflib>=7.0.0
-neo4j>=5.19.0
-
-# --- Module 7: Ontology Builder ---
-PyYAML>=6.0
-thefuzz[speedup]>=0.20.0
