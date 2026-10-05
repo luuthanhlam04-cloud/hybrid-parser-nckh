@@ -183,7 +183,18 @@ class M7GraphAdapter:
                         "subject_status": "UNRESOLVED",
                         "condition_ids": [canonical_endpoint(c) for c in condition_ids],
                         "exception_ids": [canonical_endpoint(e) for e in norm.get("exception_ids", [])],
-                        "condition_groups": norm.get("condition_groups", []),
+                        "object_ids": [canonical_endpoint(item) for item in norm.get("object_ids", [])],
+                        "consequence_ids": [canonical_endpoint(item) for item in norm.get("consequence_ids", [])],
+                        "condition_groups": [
+                            {
+                                **group,
+                                "condition_ids": [
+                                    canonical_endpoint(item)
+                                    for item in group.get("condition_ids", [])
+                                ],
+                            }
+                            for group in norm.get("condition_groups", [])
+                        ],
                     })
                 continue  # ← Partial Norm đã được xử lý, bỏ qua vòng lặp subject_ids bên dưới
 

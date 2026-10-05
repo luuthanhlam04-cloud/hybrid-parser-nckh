@@ -38,9 +38,65 @@ Những gì CHƯA CHỐT (xem research_notes.md):
 
 import json
 import re
+from dataclasses import dataclass, field
 from typing import Optional
-from hierarchy_builder import HierarchyNode
-from regex_engine import NodeType
+
+try:
+    from .hierarchy_builder import HierarchyNode
+    from .regex_engine import NodeType
+except ImportError:  # pragma: no cover - direct script import fallback
+    from hierarchy_builder import HierarchyNode
+    from regex_engine import NodeType
+
+
+@dataclass
+class Position:
+    """Compatibility container used by validation tests for node positions."""
+    start: int = 0
+    end: int = 0
+
+    @property
+    def start_idx(self) -> int:
+        return self.start
+
+    @property
+    def end_idx(self) -> int:
+        return self.end
+
+
+@dataclass
+class LegalNode:
+    """Compatibility DTO for validation and structural integrity checks."""
+    id: str
+    type: str
+    depth: int = 0
+    title: Optional[str] = None
+    text: str = ""
+    parent_id: Optional[str] = None
+    children_count: int = 0
+    position: Position | int = field(default_factory=Position)
+    number: Optional[int | str] = None
+    marker: Optional[str] = None
+    law_prefix: str = ""
+    law_code: Optional[str] = None
+    source_doc: str = ""
+    word_style: Optional[str] = None
+    start_idx: int = 0
+    end_idx: int = 0
+    implicit_parent: bool = False
+
+    def __post_init__(self) -> None:
+        if isinstance(self.position, int):
+            self.start_idx = self.position
+            self.end_idx = self.position
+            self.position = Position(start=self.position, end=self.position)
+        elif isinstance(self.position, Position):
+            self.start_idx = self.position.start
+            self.end_idx = self.position.end
+        else:
+            self.position = Position(start=self.start_idx, end=self.end_idx)
+            self.start_idx = self.position.start
+            self.end_idx = self.position.end
 
 
 # ---------------------------------------------------------------------------

@@ -16,8 +16,13 @@ Stack logic:
 
 from dataclasses import dataclass, field
 from typing import Optional
-from boundary_detector import Boundary
-from regex_engine import NodeType
+
+try:
+    from .boundary_detector import Boundary
+    from .regex_engine import NodeType
+except ImportError:  # pragma: no cover - direct script import fallback
+    from boundary_detector import Boundary
+    from regex_engine import NodeType
 
 
 # ---------------------------------------------------------------------------

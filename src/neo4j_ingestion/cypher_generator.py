@@ -23,7 +23,19 @@ class CypherGenerator:
     
     INDEX_ONTOLOGY_CLASS = "CREATE INDEX idx_ontology_class IF NOT EXISTS FOR (n:UKG_NODE) ON (n.ontology_class)"
     INDEX_MODALITY = "CREATE INDEX idx_modality IF NOT EXISTS FOR (n:GLOBAL_NORM) ON (n.modality)"
-    INDEX_VECTOR = "CREATE VECTOR INDEX legal_node_vector_idx IF NOT EXISTS FOR (n:LegalNode) ON (n.embedding) OPTIONS {indexConfig: {`vector.dimensions`: 768, `vector.similarity_function`: 'cosine'}}"
+    VECTOR_INDEX_NAME = "legal_node_vector_idx"
+
+    @classmethod
+    def vector_index_statement(cls, dimensions: int) -> str:
+        if isinstance(dimensions, bool) or not isinstance(dimensions, int) or dimensions < 1:
+            raise ValueError("Vector index dimensions must be a positive integer.")
+        return (
+            f"CREATE VECTOR INDEX {cls.VECTOR_INDEX_NAME} IF NOT EXISTS "
+            "FOR (n:LegalNode) ON (n.embedding) "
+            "OPTIONS {indexConfig: {"
+            f"`vector.dimensions`: {dimensions}, "
+            "`vector.similarity_function`: 'cosine'}}"
+        )
 
     NODE_BATCH = """
         UNWIND $rows AS row
@@ -31,10 +43,7 @@ class CypherGenerator:
         SET n += row.properties
     """
     
-    CLEAR_NAMESPACE = """
-        MATCH (n:UKG_NODE {law_code: $law_code})
-        DETACH DELETE n
-    """
+    CLEAR_NAMESPACE = "MATCH (n:UKG_NODE) DETACH DELETE n"
 
     @staticmethod
     def get_edge_batch_query(edge_type: str) -> str:
@@ -115,7 +124,6 @@ class CypherGenerator:
     def node_parameters(node: Mapping[str, Any]) -> dict[str, Any]:
         labels = node.get("labels", [])
         properties = node.get("properties", {})
-        # Pre-compute search_text for FULLTEXT index
         search_text = " ".join(
             (
                 node["id"],
@@ -124,23 +132,30 @@ class CypherGenerator:
                 json.dumps(properties, ensure_ascii=False, sort_keys=True),
             )
         )
+        properties_json = json.dumps(properties, ensure_ascii=False, sort_keys=True)
         return {
             "id": node["id"],
+            "properties_json": properties_json,
+            "search_text": search_text,
             "properties": {
                 "node_kind": str(node.get("node_kind", "UNKNOWN")),
                 "search_text": search_text,
-                **properties # Native unpack all properties
-            }
+                **properties,
+            },
         }
 
     @classmethod
     def edge_parameters(cls, edge: Mapping[str, Any]) -> dict[str, Any]:
+        edge_key = cls.edge_key(edge)
         return {
             "source": edge["source"],
             "target": edge["target"],
+            "source_id": edge["source"],
+            "target_id": edge["target"],
+            "edge_key": edge_key,
             "type": edge["type"],
             "properties": {
-                "edge_key": cls.edge_key(edge),
-                **edge.get("properties", {}) # Native unpack all properties
-            }
+                "edge_key": edge_key,
+                **edge.get("properties", {}),
+            },
         }

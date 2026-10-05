@@ -33,31 +33,64 @@ class Neo4jIngestor:
         self.database = database
         self.batch_size = batch_size
 
-    def initialize_schema(self) -> None:
+    def initialize_schema(self, vector_dimensions: int | None = None) -> None:
         """Pillar 3: Hybrid Search Pre-Indexing"""
+        statements = [
+            CypherGenerator.NODE_CONSTRAINT,
+            CypherGenerator.NODE_TEXT_INDEX,
+            CypherGenerator.INDEX_ONTOLOGY_CLASS,
+            CypherGenerator.INDEX_MODALITY,
+        ]
+        if vector_dimensions is not None:
+            statements.append(CypherGenerator.vector_index_statement(vector_dimensions))
         with self.driver.session(database=self.database) as session:
-            for statement in (
-                CypherGenerator.NODE_CONSTRAINT,
-                CypherGenerator.NODE_TEXT_INDEX,
-                CypherGenerator.INDEX_ONTOLOGY_CLASS,
-                CypherGenerator.INDEX_MODALITY,
-            ):
+            for statement in statements:
                 result = session.run(statement)
                 if hasattr(result, "consume"):
                     result.consume()
 
     def clear_namespace(self, law_code: str) -> None:
-        """Pillar 4: Namespace Clear for Idempotent Ingestion"""
+        """Pillar 4: Namespace Clear for Idempotent Ingestion."""
         if not law_code or law_code == "UNKNOWN":
             print("WARNING: Cannot clear namespace dynamically because law_code is UNKNOWN.")
-            return
-            
-        print(f"Clearing namespace for law_code: {law_code}")
+        
+        if law_code and law_code != "UNKNOWN":
+            print(f"Clearing namespace for law_code: {law_code}")
         with self.driver.session(database=self.database) as session:
-            session.run(CypherGenerator.CLEAR_NAMESPACE, law_code=law_code)
+            session.run(CypherGenerator.CLEAR_NAMESPACE)
 
     def ingest(self, graph: Mapping[str, Any], *, replace: bool = False, cli_law_code: str = None) -> dict[str, int]:
         nodes, edges = CypherGenerator.validate_graph(graph)
+        valid_node_ids = {node["id"] for node in nodes}
+        invalid_edges = [
+            edge for edge in edges
+            if edge.get("source") not in valid_node_ids or edge.get("target") not in valid_node_ids
+        ]
+        if invalid_edges:
+            details = ", ".join(
+                f"{edge.get('source')}->{edge.get('target')}" for edge in invalid_edges[:5]
+            )
+            raise ValueError(f"unknown node reference in edge(s): {details}")
+
+        vector_dimensions = {
+            len(node["properties"]["embedding"])
+            for node in nodes
+            if "embedding" in node.get("properties", {})
+        }
+        if len(vector_dimensions) > 1:
+            raise ValueError("All node embeddings must have the same dimension.")
+        if vector_dimensions:
+            dimension = next(iter(vector_dimensions))
+            missing_vectors = [
+                node["id"] for node in nodes
+                if "LegalNode" in node.get("labels", [])
+                and len(node.get("properties", {}).get("embedding", [])) != dimension
+            ]
+            if missing_vectors:
+                raise ValueError(
+                    "Every LegalNode must have an embedding when vector indexing is enabled. "
+                    f"Missing: {missing_vectors[:3]}"
+                )
         
         # Determine law_code dynamically for namespace clearing
         law_code = "UNKNOWN"
@@ -67,8 +100,10 @@ class Neo4jIngestor:
             law_code = cli_law_code
 
         # Initialize schema and pre-indexes
-        self.initialize_schema()
-        
+        self.initialize_schema(
+            next(iter(vector_dimensions)) if vector_dimensions else None
+        )
+
         if replace:
             self.clear_namespace(law_code)
 
@@ -83,7 +118,9 @@ class Neo4jIngestor:
         node_batches = 0
         with self.driver.session(database=self.database) as session:
             for start in range(0, len(node_rows), self.batch_size):
-                session.run(CypherGenerator.NODE_BATCH, rows=node_rows[start : start + self.batch_size])
+                batch = node_rows[start : start + self.batch_size]
+                session.run(CypherGenerator.NODE_BATCH, rows=batch)
+                session.execute_write(lambda tx, rows=batch: tx.run(CypherGenerator.NODE_BATCH, rows=rows), batch)
                 node_batches += 1
 
         # Phase 5: Apply native Neo4j labels using Python-loop fallback (Neo4j 5.x safe)
@@ -152,17 +189,16 @@ class Neo4jIngestor:
                     batch = rows[start : start + self.batch_size]
                     try:
                         session.run(query, rows=batch)
+                        session.execute_write(lambda tx, q=query, rows=batch: tx.run(q, rows=rows), batch)
                         edge_accounting["edge_batches"] += 1
                     except Exception as e:
                         print(f"Edge batch execution failed for type {edge_type}: {e}")
                         edge_accounting["execution_failed"] += len(batch)
-                        # Correct accounting metrics to reflect execution failure
                         edge_accounting["created"] -= len(batch)
 
         return {
             "nodes": len(node_rows),
             "edges": len(valid_edges),
             "node_batches": node_batches,
-            "labels_applied": labels_applied,
-            **edge_accounting,
+            "edge_batches": edge_accounting["edge_batches"],
         }

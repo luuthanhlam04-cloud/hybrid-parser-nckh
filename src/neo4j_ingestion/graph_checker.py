@@ -32,6 +32,36 @@ class GraphChecker:
         self.logger.setLevel(logging.INFO)
 
     @staticmethod
+    def _has_cycle(edges: list[tuple[str, str]]) -> bool:
+        adjacency: dict[str, set[str]] = {}
+        nodes: set[str] = set()
+        for src, dst in edges:
+            adjacency.setdefault(src, set()).add(dst)
+            nodes.add(src)
+            nodes.add(dst)
+
+        visited: set[str] = set()
+        stack: set[str] = set()
+
+        def dfs(node: str) -> bool:
+            if node in stack:
+                return True
+            if node in visited:
+                return False
+            visited.add(node)
+            stack.add(node)
+            for neighbor in adjacency.get(node, set()):
+                if dfs(neighbor):
+                    return True
+            stack.remove(node)
+            return False
+
+        for node in nodes:
+            if dfs(node):
+                return True
+        return False
+
+    @staticmethod
     def _single_count(session: Any, query: str) -> int:
         result = session.run(query)
         record = result.single()

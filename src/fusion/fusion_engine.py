@@ -44,6 +44,28 @@ class FusionEngine:
         nodes = [self.policy.physical_node(node) for node in physical_nodes]
         
         # 1. STRICT PRUNING OF M7 NODES
+        norm_argument_ids: set[str] = set()
+        for relation in relations:
+            if not relation.get("norm_id"):
+                continue
+            for key in (
+                "source", "target", "object_ids", "condition_ids",
+                "exception_ids", "consequence_ids",
+            ):
+                value = relation.get(key)
+                if isinstance(value, str) and value:
+                    norm_argument_ids.add(value)
+                elif isinstance(value, list):
+                    norm_argument_ids.update(
+                        item for item in value if isinstance(item, str) and item
+                    )
+            for group in relation.get("condition_groups", []):
+                norm_argument_ids.update(
+                    item
+                    for item in group.get("condition_ids", [])
+                    if isinstance(item, str) and item
+                )
+
         kept_semantic_nodes = []
         for entity in entities:
             # We use merge policy to get the final node structure
@@ -52,7 +74,7 @@ class FusionEngine:
             fusion_kind = props.get("fusion_kind", "")
             
             # STRICT KILL RULE: Do not allow LOCAL_MENTION or REFERENCE nodes into the final graph
-            if fusion_kind in ["LOCAL_MENTION", "REFERENCE"]:
+            if fusion_kind in ["LOCAL_MENTION", "REFERENCE"] and node["id"] not in norm_argument_ids:
                 continue 
                 
             # STRIP EVIDENCE RULE: Remove raw text from semantic layer

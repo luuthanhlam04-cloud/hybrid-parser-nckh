@@ -12,6 +12,7 @@ from typing import Any
 from dotenv import load_dotenv
 
 from src.neo4j_ingestion import GraphChecker, Neo4jIngestor
+from src.retrieval.anchor_search import DEFAULT_EMBEDDING_DIR, attach_embeddings_to_graph
 
 
 DEFAULT_GRAPH = Path("outputs/unified_graphs/unified_knowledge_graph.json")
@@ -66,6 +67,17 @@ def main() -> None:
     )
     parser.add_argument("--batch-size", type=int, default=1000)
     parser.add_argument(
+        "--embedding-dir",
+        type=Path,
+        default=DEFAULT_EMBEDDING_DIR,
+        help="M5 embedding cache used to create the Neo4j vector index.",
+    )
+    parser.add_argument(
+        "--skip-vector-embeddings",
+        action="store_true",
+        help="Ingest without attaching M5 vectors or creating a vector index.",
+    )
+    parser.add_argument(
         "--replace",
         action="store_true",
         help="Delete existing UKG_NODE data before loading (does not touch other labels).",
@@ -85,6 +97,9 @@ def main() -> None:
         raise FileNotFoundError(f"Unified Graph JSON not found: {args.graph}")
 
     graph: dict[str, Any] = json.loads(args.graph.read_text(encoding="utf-8"))
+    if not args.skip_vector_embeddings:
+        dimensions = attach_embeddings_to_graph(graph, args.embedding_dir)
+        print(f"[VECTOR] Attached M5 embeddings ({dimensions} dimensions).")
 
     # Phase 3: Completeness Gate
     _run_completeness_gate(DEFAULT_CANONICAL, graph)
