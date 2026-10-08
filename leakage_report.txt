@@ -1,0 +1,79 @@
+# LEAKAGE CHECK REPORT
+
+## Phân bố Category
+- multi_hop: 67
+- conditional: 123
+- negative: 15
+- clean_factoid: 307
+
+## Phân bố Nguồn
+- VMTEB-ALQAC: 457
+- ViLegalExpert_Cleaned: 55
+
+## Data Leakage Overlap (Trung bình: 0.5037)
+
+BÌNH THƯỜNG: Tỷ lệ trùng lặp ở mức an toàn.
+
+--- Top 10 câu trùng lặp cao nhất ---
+1. QID: q-61 (Overlap: 0.8824)
+Q: Người đồng phạm có phải chịu trách nhiệm về những hành vi vượt quá dự định của người trực tiếp thực hiện không?
+A: Đồng phạm
+
+1. Đồng phạm là trường hợp có hai người trở lên cố ý cùng thực hiện một tội phạm.
+
+2. Phạ...
+-
+2. QID: q-226 (Overlap: 0.8667)
+Q: Tài sản bị chôn giấu được xác định là di tích lịch sử thì sẽ thuộc về ai?
+A: Xác lập quyền sở hữu đối với tài sản bị chôn, giấu, bị vùi lấp, chìm đắm được tìm thấy
+
+1. Người phá...
+-
+3. QID: q-39 (Overlap: 0.8333)
+Q: Trồng từ 500 đến dưới 3.000 cây thuốc phiện thì người vi phạm có thể bị đi tù bao nhiêu năm?
+A: Tội trồng cây thuốc phiện, cây côca, cây cần sa hoặc các loại cây khác có chứa chất ma túy
+
+1. Người...
+-
+4. QID: q-150 (Overlap: 0.8333)
+Q: Khi xử lý kỷ luật lao động đối với người dưới 15 tuổi, cần phải có sự tham gia của ai?
+A: Nguyên tắc, trình tự, thủ tục xử lý kỷ luật lao động
+
+1. Việc xử lý kỷ luật lao động được quy định n...
+-
+5. QID: q-228 (Overlap: 0.8333)
+Q: Nếu tài sản không phải là di tích lịch sử và giá trị nhỏ, ai sẽ được quyền sở hữu nó?
+A: Xác lập quyền sở hữu đối với tài sản bị chôn, giấu, bị vùi lấp, chìm đắm được tìm thấy
+
+1. Người phá...
+-
+6. QID: q-355 (Overlap: 0.8333)
+Q: Thu lợi bất chính bao nhiêu từ hoạt động mê tín dị đoan thì người vi phạm bị phạt tù từ 3 đến 10 năm?
+A: Tội hành nghề mê tín, dị đoan
+
+1. Người nào dùng bói toán, đồng bóng hoặc các hình thức mê tín, dị đ...
+-
+7. QID: q-227 (Overlap: 0.8235)
+Q: Nếu tài sản tìm thấy là di tích lịch sử và có giá trị thấp, ai là người sở hữu nó?
+A: Xác lập quyền sở hữu đối với tài sản bị chôn, giấu, bị vùi lấp, chìm đắm được tìm thấy
+
+1. Người phá...
+-
+8. QID: q-63 (Overlap: 0.8125)
+Q: Người mắc bệnh tâm thần gây ra hành vi nguy hiểm thì có phải chịu trách nhiệm hình sự không?
+A: Tình trạng không có năng lực trách nhiệm hình sự
+
+Người thực hiện hành vi nguy hiểm cho xã hội trong...
+-
+9. QID: q-211 (Overlap: 0.8095)
+Q: Khi một đồng sở hữu động sản từ bỏ quyền của mình, những người còn lại có được hưởng phần đó không?
+A: Định đoạt tài sản chung
+
+1. Mỗi chủ sở hữu chung theo phần có quyền định đoạt phần quyền sở hữu của ...
+-
+10. QID: q-476 (Overlap: 0.8000)
+Q: Trường hợp nào dẫn đến việc một người bị hạn chế năng lực hành vi dân sự theo quy định?
+A: Hạn chế năng lực hành vi dân sự
+
+1. Người nghiện ma túy, nghiện các chất kích thích khác dẫn đến phá...
+-
