@@ -4,14 +4,63 @@ Tài liệu này hướng dẫn chi tiết cách hệ thống `Benchmark Harness
 
 ## 1. Dữ liệu Đầu vào (Input Data) đã chuẩn bị sẵn
 Tập dữ liệu của chúng ta đã được chuyển vào thư mục chuẩn của bộ Harness:
-- **Corpus (Kho tri thức):** `benchmark_harness/data/corpus_final.json` (Chứa ~2.600 Điều luật).
+- **Corpus (Kho tri thức):** `benchmark_harness/data/corpus_final.json` (Hiện có 2.087 mục).
 - **Benchmark (Bộ đề thi):** `benchmark_harness/data/benchmark_rewritten.json` (512 câu hỏi QA).
 
 Quá trình **Indexing** bản chất là biến file text `corpus_final.json` thành các dạng cấu trúc dữ liệu tối ưu để máy tính có thể tìm kiếm cực nhanh.
 
 ---
 
-## 2. Quy trình Indexing cho 3 Hệ thống
+## 2. Trạng thái triển khai và chạy BM25
+
+Trong repository hiện tại, BM25 là baseline retrieval đã có thể chạy thật. Vector
+và Hybrid wrapper trong Harness vẫn là khung tích hợp, chưa phải hệ thống benchmark
+hoàn chỉnh; phần Graph/LightRAG cần API và cấu hình riêng.
+
+Cài các dependency cho baseline từ thư mục gốc repository:
+
+```powershell
+python -m pip install -r benchmark_harness/requirements.txt
+```
+
+Tạo sparse index từ corpus (mặc định `benchmark_harness/data/corpus_final.json`):
+
+```powershell
+python benchmark_harness/run_retrieval_benchmark.py index
+```
+
+Index đã token hóa được lưu tại `benchmark_harness/.cache/bm25/index.json`.
+Mỗi lần chạy tiếp, Harness xác minh hash corpus và tái sử dụng index; nếu corpus
+thay đổi thì index được tạo lại. Để chủ động tạo lại:
+
+```powershell
+python benchmark_harness/run_retrieval_benchmark.py index --rebuild-index
+```
+
+Chạy retrieval benchmark trên toàn bộ benchmark (mặc định 512 câu), tính
+Recall@5/MRR@5 và latency, xuất từng kết quả ra
+`benchmark_harness/results/bm25_results.csv`:
+
+```powershell
+python benchmark_harness/run_retrieval_benchmark.py benchmark
+```
+
+Chạy nhanh một phần để kiểm tra:
+
+```powershell
+python benchmark_harness/run_retrieval_benchmark.py benchmark --limit 50
+```
+
+Chỉ số này đo **retrieval**, chưa gọi LLM để sinh câu trả lời hay chấm RAG
+end-to-end. Nếu ground-truth article ID không có trong corpus, lệnh benchmark sẽ
+dừng và báo lỗi thay vì tính điểm trên dữ liệu sai.
+
+`baseline_bm25.py` vẫn là entry point tương thích. Có thể thay
+`python benchmark_harness/run_retrieval_benchmark.py` bằng
+`python baseline_bm25.py` trong cả hai lệnh `index` và `benchmark`; gọi file này
+không kèm subcommand sẽ chạy benchmark như phiên bản baseline cũ.
+
+## 3. Quy trình Indexing dự kiến cho 3 Hệ thống
 
 ### Hệ thống 1: Sparse Indexing (Cho BM25 & Hybrid)
 - **Bản chất:** Lập chỉ mục từ vựng (Giống như mục lục ở cuối cuốn sách).
@@ -46,7 +95,7 @@ Quá trình **Indexing** bản chất là biến file text `corpus_final.json` t
 
 ---
 
-## 3. Kiến trúc Harness và Đánh giá RAG End-to-End (Tầng 1 -> 4)
+## 4. Kiến trúc Harness và Đánh giá RAG End-to-End (Tầng 1 -> 4)
 Thay vì chỉ đánh giá Retrieval thuần túy (chỉ lấy top-5 ID), hệ thống đã được chốt hạ **Đánh Giá RAG End-to-End**. Điều này có nghĩa là cả 3 hệ thống (Vector, Hybrid, LightRAG) đều BẮT BUỘC phải tích hợp 1 module LLM Generator (GPT-4o-mini) ở cuối phễu để sinh ra câu trả lời cuối cùng.
 
 Kiến trúc code thực tế đã được xây dựng theo **Adapter Pattern**:
