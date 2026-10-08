@@ -1,0 +1,6146 @@
+[
+  {
+    "question_id": "01-DS-2",
+    "question": "Khi nào thì một mối quan hệ hôn nhân được coi là có yếu tố nước ngoài?",
+    "relevant_articles": [
+      "52/2014/qh13#3"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "01-DS-7",
+    "question": "Vợ chồng có được phép ủy quyền cho đối phương thực hiện các giao dịch pháp lý thay mình không?",
+    "relevant_articles": [
+      "52/2014/qh13#24"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "01-DS-9",
+    "question": "Đất đai có được sau khi cưới có mặc định là tài sản chung không, kể cả khi được cho tặng riêng?",
+    "relevant_articles": [
+      "52/2014/qh13#33"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "01-DS-10",
+    "question": "Việc hỗ trợ sinh sản bằng kỹ thuật y tế được hiểu như thế nào theo luật?",
+    "relevant_articles": [
+      "52/2014/qh13#3"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "01-DS-11",
+    "question": "Nam nữ sống chung mà không đăng ký kết hôn thì có được pháp luật công nhận là vợ chồng không?",
+    "relevant_articles": [
+      "52/2014/qh13#14"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "01-DS-14",
+    "question": "Người kiếm được nhiều tiền hơn trong nhà có được quyền chiếm hữu tài sản chung nhiều hơn người kia không?",
+    "relevant_articles": [
+      "52/2014/qh13#29"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "01-DS-31",
+    "question": "Nếu đang tranh chấp tài sản mà không chứng minh được đó là của riêng ai, thì tài sản đó xử lý thế nào?",
+    "relevant_articles": [
+      "52/2014/qh13#33"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "01-DS-38",
+    "question": "Vợ chồng có nghĩa vụ phải dùng tiền riêng để chi tiêu cho các nhu cầu sinh hoạt gia đình không?",
+    "relevant_articles": [
+      "52/2014/qh13#30"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "01-DS-43",
+    "question": "Việc vợ chồng ở đâu có phải phụ thuộc vào ý muốn của nhà chồng hay phong tục địa phương không?",
+    "relevant_articles": [
+      "52/2014/qh13#20"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "01-DS-46",
+    "question": "Thế nào là hành vi ly hôn giả tạo?",
+    "relevant_articles": [
+      "52/2014/qh13#3"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "01-TN-13",
+    "question": "Đâu không phải là vai trò của nhà nước là gì trong việc bảo hộ hôn nhân và gia đình?",
+    "relevant_articles": [
+      "52/2014/qh13#4"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "01-TN-14",
+    "question": "Vợ chồng có quyền hạn ra sao đối với việc quản lý và định đoạt tài sản chung?",
+    "relevant_articles": [
+      "52/2014/qh13#35"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "01-TN-18",
+    "question": "Sau khi ly hôn, người không trực tiếp nuôi con có những quyền và nghĩa vụ gì đối với con?",
+    "relevant_articles": [
+      "52/2014/qh13#82"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "01-TN-22",
+    "question": "Cha mẹ có bắt buộc phải cùng nhau nuôi dạy con cái không?",
+    "relevant_articles": [
+      "52/2014/qh13#71"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "01-TN-35",
+    "question": "Những hành vi nào bị pháp luật nghiêm cấm trong lĩnh vực hôn nhân gia đình?",
+    "relevant_articles": [
+      "52/2014/qh13#5"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "01-TL-6",
+    "question": "Nếu hai người đã ly hôn muốn quay lại với nhau thì phải làm những thủ tục gì?",
+    "relevant_articles": [
+      "52/2014/qh13#9"
+    ],
+    "law_name": "Luật Hôn nhân và gia đình 2014",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-1",
+    "question": "Mức án cao nhất cho hành vi chiếm đoạt di vật của người đã mất là bao nhiêu năm tù?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#418"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-2",
+    "question": "Người dưới bao nhiêu tuổi thì không bị áp dụng án tù chung thân?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#39"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-3",
+    "question": "Độ tuổi nào thì một người phải chịu trách nhiệm về mọi hành vi phạm tội của mình?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#12"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-4",
+    "question": "Nếu phạm tội nhẹ và có nhiều tình tiết giảm nhẹ nhưng chưa đến mức miễn tội, người đó bị xử lý ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#34"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-5",
+    "question": "Nếu được ân giảm án tử hình, phạm nhân sẽ phải chịu hình phạt gì thay thế?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#40"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-6",
+    "question": "Sau khi mãn hạn tù, đối tượng bị cấm cư trú trong khoảng thời gian dài bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#42"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-7",
+    "question": "Số tiền hay giá trị tài sản bị tước đoạt từ người phạm tội sẽ được chuyển vào ngân khố quốc gia hay đi đâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#45"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-8",
+    "question": "Mức án dành cho hành vi mới chỉ ở bước chuẩn bị thực hiện tội phản quốc là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#108"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-9",
+    "question": "Nếu đã nhận làm gián điệp nhưng chủ động đầu thú và khai báo thành khẩn trước khi thực hiện, người đó có được miễn trừ trách nhiệm hình sự không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#110"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-10",
+    "question": "Hình phạt cải tạo không giam giữ tối đa đối với hành vi ngược đãi tù binh là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#420"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-11",
+    "question": "Khung hình phạt tù cho tội danh trở thành lính đánh thuê chống lại quốc gia khác là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#425"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-12",
+    "question": "Chỉ huy bỏ mặc từ hai thương binh trở lên ở chiến trường khiến họ tử vong sẽ đối mặt với mức án tù thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#417"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-13",
+    "question": "Việc lơ là quy định trực chiến dẫn tới hậu quả cực kỳ nghiêm trọng sẽ bị xử lý hình sự ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#409"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-14",
+    "question": "Nếu tự làm mình bị thương để trốn tránh nghĩa vụ, người vi phạm có thể bị phạt cải tạo không giam giữ trong bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#403"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-15",
+    "question": "Sĩ quan quân đội chọn cách đầu hàng địch thì phải chịu mức án tù bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#399"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-16",
+    "question": "Hành vi làm nhục đồng đội dẫn đến việc nạn nhân tìm đến cái chết sẽ bị phạt tù mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#397"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-17",
+    "question": "Người đang bị giam giữ hoặc áp giải mà bỏ trốn thì khung hình phạt tù là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#386"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-18",
+    "question": "Đối với tội lạm quyền, thời hạn cấm làm việc tại một số vị trí cụ thể kéo dài trong mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#357"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-19",
+    "question": "Ngoài án tù, người lạm quyền có khả năng phải nộp phạt hành chính số tiền tối đa là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#357"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-20",
+    "question": "Mức phạt tiền cho việc tái phạm hành vi xuất nhập cảnh trái phép là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#347"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-21",
+    "question": "Nếu đã bị xử phạt hành chính mà vẫn tiếp tục ở lại Việt Nam trái phép, người đó bị phạt tù tối đa bao nhiêu lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#347"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-22",
+    "question": "Hủy hoại di tích văn hóa gây thiệt hại từ nửa tỷ đồng trở lên sẽ bị phạt tù bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#345"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-23",
+    "question": "Vi phạm luật quản lý nhà ở có thể bị phạt tiền bổ sung với mức cao nhất là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#343"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-24",
+    "question": "Hành vi mua bán trái phép con dấu cơ quan không thuộc tài liệu mật bị phạt cải tạo không giam giữ tối đa mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#342"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-25",
+    "question": "Mạo danh vị trí công tác để làm việc phi pháp mà không nhằm chiếm đoạt tài sản thì bị xử lý cải tạo không giam giữ bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#339"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-26",
+    "question": "Nếu ngăn cản việc đi nghĩa vụ, nhập ngũ hoặc tập trung huấn luyện thì bị xử lý thế nào, có thể nhận mức án bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#335"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-27",
+    "question": "Hành vi gây khó dễ cho việc thực hiện nghĩa vụ trong thời kỳ chiến tranh sẽ chịu mức án tù ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#335"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-28",
+    "question": "Cán bộ đã bị kỷ luật mà vẫn tiếp tục làm sai giấy tờ hộ tịch thì bị xử lý cảnh cáo hoặc cải tạo không giam giữ tối đa bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#336"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-29",
+    "question": "Việc lạm dụng quyền hạn để làm sai quy định về gọi nhập ngũ hay đăng ký nghĩa vụ quân sự sẽ bị phạt cải tạo không giam giữ tối đa bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#334"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-30",
+    "question": "Mức án tù dành cho người trốn tránh nghĩa vụ quân sự khi đất nước có chiến tranh là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#332"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-31",
+    "question": "Dùng vũ lực hoặc đe dọa để cản trở người đang làm công vụ thì bị phạt cải tạo không giam giữ tối đa mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#330"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-32",
+    "question": "Người từ 18 tuổi mua dâm trẻ em (trừ trường hợp cụ thể) sẽ đối mặt với khung hình phạt tù từ bao nhiêu đến bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#329"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-33",
+    "question": "Ngoài án tù, người mua dâm người dưới 18 tuổi còn phải nộp phạt hành chính trong khoảng bao nhiêu tiền?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#329"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-34",
+    "question": "Đánh bạc trái phép với số tiền từ 5 đến dưới 50 triệu đồng thì mức phạt tiền bổ sung là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#321"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-35",
+    "question": "Khi tham gia đánh bạc trái phép với giá trị từ 5 đến 50 triệu đồng, người phạm tội có thể bị cải tạo không giam giữ tối đa bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#321"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-36",
+    "question": "Người bị kết tội đánh bạc sẽ phải nộp thêm khoản tiền phạt từ bao nhiêu đến bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#321"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-37",
+    "question": "Tái phạm hành vi mê tín dị đoan dù đã bị xử phạt trước đó thì sẽ chịu mức án cải tạo không giam giữ cao nhất là bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#320"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-38",
+    "question": "Hành vi phá thai trái phép khiến 3 người trở lên tử vong sẽ bị phạt tù trong khoảng thời gian bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#316"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-39",
+    "question": "Trồng từ 500 đến dưới 3.000 cây thuốc phiện thì người vi phạm có thể bị đi tù bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#247"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-40",
+    "question": "Mức án tù cho hành vi trồng số lượng cây thuốc phiện từ 3.000 cây trở lên là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#247"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-41",
+    "question": "Nếu việc trồng cây cần sa được tổ chức thực hiện thì mức án tù quy định là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#247"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-42",
+    "question": "Ngoài án tù, người trồng các loại cây chứa chất ma túy có thể bị phạt tiền từ bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#247"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-43",
+    "question": "Hành vi có dấu hiệu tội phạm nhưng tính chất nguy hiểm rất thấp thì có được coi là phạm tội không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#8"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-44",
+    "question": "Văn bản pháp luật nào định nghĩa về hành vi nguy hiểm cho xã hội bị coi là tội phạm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#8"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-45",
+    "question": "Dựa trên mức độ nguy hiểm, pháp luật hình sự hiện hành chia tội phạm thành bao nhiêu nhóm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#9"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-46",
+    "question": "Với tội danh được xếp vào nhóm ít nghiêm trọng, khung hình phạt cao nhất là bao nhiêu năm tù?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#9"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-47",
+    "question": "Độ tuổi từ 14 đến 16 sẽ phải chịu án hình sự đối với các tội rất nghiêm trọng hoặc đặc biệt nghiêm trọng nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#12"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-48",
+    "question": "Nếu say rượu hoặc dùng chất kích thích dẫn đến mất kiểm soát hành vi rồi phạm tội, người đó có được miễn trách nhiệm pháp lý không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#13"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-49",
+    "question": "Pháp luật quy định danh sách các tội danh nào mà hành vi chuẩn bị thực hiện đã bị coi là phạm tội?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#14"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-50",
+    "question": "Thiếu niên từ đủ 14 đến dưới 16 tuổi phải chịu trách nhiệm hình sự khi chuẩn bị thực hiện các tội danh nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#14"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-51",
+    "question": "Hành vi phạm tội không thành công có bị xử lý hình sự hay không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#15"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-52",
+    "question": "Thế nào được hiểu là hành vi phạm tội chưa đạt?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#15"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-53",
+    "question": "Định nghĩa về việc tự nguyện dừng lại khi đang thực hiện tội phạm là gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#16"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-54",
+    "question": "Khi tự ý dừng phạm tội thì người vi phạm có được miễn trừ trách nhiệm với tội danh dự định ban đầu không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#16"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-55",
+    "question": "Thế nào được gọi là phạm tội có tổ chức?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#17"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-56",
+    "question": "Ai được coi là người thực hành trong một vụ án?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#17"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-57",
+    "question": "Vai trò của người tổ chức trong đồng phạm được xác định như thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#17"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-58",
+    "question": "Những nhóm đối tượng nào được xếp vào thành phần đồng phạm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#17"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-59",
+    "question": "Người xúi giục trong vụ án hình sự được hiểu là ai?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#17"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-60",
+    "question": "Ai được xem là người giúp sức khi thực hiện tội phạm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#17"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-61",
+    "question": "Người đồng phạm có phải chịu trách nhiệm về những hành vi vượt quá dự định của người trực tiếp thực hiện không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#17"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-62",
+    "question": "Nếu gây hậu quả nguy hiểm do sự kiện bất ngờ thì có bị truy cứu trách nhiệm hình sự không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#20"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-63",
+    "question": "Người mắc bệnh tâm thần gây ra hành vi nguy hiểm thì có phải chịu trách nhiệm hình sự không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#21"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-64",
+    "question": "Hành động phòng vệ chính đáng có bị coi là vi phạm pháp luật hình sự không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#22"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-65",
+    "question": "Hậu quả pháp lý đối với người chống trả quá mức cần thiết khi phòng vệ là gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#22"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-66",
+    "question": "Thế nào là hành vi phản kháng không đúng mức khi gặp nguy hiểm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#22"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-67",
+    "question": "Khái niệm tình huống khẩn cấp được hiểu ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#23"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-68",
+    "question": "Liệu việc gây tổn thất trong lúc khẩn cấp có bị xem là phạm tội?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#23"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-69",
+    "question": "Khi nào người tạo ra thiệt hại trong tình thế cấp bách phải chịu trách nhiệm trước pháp luật?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#23"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-70",
+    "question": "Khoảng thời gian tối đa để xử lý hình sự đối với tội phạm được quy định thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#27"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-71",
+    "question": "Với nhóm tội ít nguy hiểm, thời hạn truy cứu trách nhiệm kéo dài bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#27"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-72",
+    "question": "Tội phạm mức nghiêm trọng có thời hiệu xử lý hình sự là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#27"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-73",
+    "question": "Nếu tội phạm thuộc nhóm rất nghiêm trọng thì thời hạn truy cứu là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#27"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-74",
+    "question": "Thời gian để truy cứu trách nhiệm cho tội đặc biệt nghiêm trọng là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#27"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-75",
+    "question": "Theo Bộ luật Hình sự 2017, hình phạt là gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#30"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-76",
+    "question": "Theo Bộ luật Hình sự 2017, mục đích của hình phạt là gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#31"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-77",
+    "question": "Mỗi vụ án, người phạm tội nhận được bao nhiêu hình phạt chính?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#32"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-78",
+    "question": "Theo Bộ luật Hình sự năm 2017, cảnh cáo được áp dụng đối với người phạm tội như thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#34"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-79",
+    "question": "Theo Bộ luật Hình sự năm 2017, trục xuất là gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#37"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-80",
+    "question": "Nếu không chốt trước về chất lượng hàng hóa, thì căn cứ vào đâu để xác định?",
+    "relevant_articles": [
+      "91/2015/qh13#432"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-81",
+    "question": "Khi hai bên quên thỏa thuận giá cả, thì số tiền được tính toán thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#433"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-82",
+    "question": "Nếu chưa thống nhất cách thức trả tiền, thì quy trình đó được quyết định ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#433"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-83",
+    "question": "Nếu thời điểm trả tiền không rõ ràng, người mua cần thực hiện nghĩa vụ khi nào?",
+    "relevant_articles": [
+      "91/2015/qh13#434"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-84",
+    "question": "Khi người bán giao thừa hàng so với hợp đồng, người mua có quyền xử lý thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#437"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-85",
+    "question": "Nếu hàng hóa không trọn bộ, người mua đã thanh toán thì được hưởng quyền lợi gì?",
+    "relevant_articles": [
+      "91/2015/qh13#438"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-86",
+    "question": "Trường hợp chỉ thỏa thuận ngày giao hàng, thời điểm trả tiền được tính theo cách nào?",
+    "relevant_articles": [
+      "91/2015/qh13#440"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-87",
+    "question": "Nếu không có thỏa thuận cụ thể về giao hàng và trả tiền, người mua phải làm gì?",
+    "relevant_articles": [
+      "91/2015/qh13#440"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-88",
+    "question": "Với tài sản phải làm thủ tục sang tên, bên mua chịu rủi ro kể từ lúc nào?",
+    "relevant_articles": [
+      "91/2015/qh13#441"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-89",
+    "question": "Người bán chịu trách nhiệm rủi ro đến khi nào đối với các tài sản cần đăng ký sở hữu?",
+    "relevant_articles": [
+      "91/2015/qh13#441"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-90",
+    "question": "Nếu không có thỏa thuận cụ thể, ai sẽ chịu các khoản phí vận chuyển và thủ tục sang tên tài sản?",
+    "relevant_articles": [
+      "91/2015/qh13#442"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-91",
+    "question": "Tôi phải làm gì nếu món hàng mình vừa mua bị người khác tuyên bố là của họ?",
+    "relevant_articles": [
+      "91/2015/qh13#444"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-92",
+    "question": "Nếu hàng bị lỗi kỹ thuật mà cửa hàng không sửa được trong thời gian bảo hành, tôi có thể đòi quyền lợi gì?",
+    "relevant_articles": [
+      "91/2015/qh13#448"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-93",
+    "question": "Trong lúc bảo hành, tình huống nào khiến người bán không phải đền bù thiệt hại cho tôi?",
+    "relevant_articles": [
+      "91/2015/qh13#449"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-94",
+    "question": "Khi mua bán các loại quyền tài sản, khi nào thì tôi chính thức trở thành chủ sở hữu?",
+    "relevant_articles": [
+      "91/2015/qh13#450"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-95",
+    "question": "Trong thời gian tôi đang dùng thử sản phẩm, món đồ đó thực tế thuộc quyền sở hữu của ai?",
+    "relevant_articles": [
+      "91/2015/qh13#452"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-96",
+    "question": "Hiểu thế nào cho đúng về một hợp đồng trao đổi tài sản?",
+    "relevant_articles": [
+      "91/2015/qh13#455"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-97",
+    "question": "Với nhà đất không cần đăng ký sở hữu, hợp đồng tặng cho sẽ có hiệu lực kể từ lúc nào?",
+    "relevant_articles": [
+      "91/2015/qh13#459"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-98",
+    "question": "Nếu tôi không thể trả lại vật đúng loại, số lượng hay chất lượng như đã vay thì phải xử lý ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#466"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-99",
+    "question": "Nếu hợp đồng thuê không ghi rõ thời hạn thanh toán, khi nào tôi bắt buộc phải trả tiền thuê?",
+    "relevant_articles": [
+      "91/2015/qh13#481"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-100",
+    "question": "Nếu tôi trả lại đồ thuê chậm trễ, người cho thuê có quyền yêu cầu tôi làm gì?",
+    "relevant_articles": [
+      "91/2015/qh13#482"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-101",
+    "question": "Những gì được tính là tài sản chung trong một nhóm hợp tác?",
+    "relevant_articles": [
+      "91/2015/qh13#506"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-102",
+    "question": "Nếu muốn rút khỏi nhóm hợp tác, tôi được nhận lại những gì?",
+    "relevant_articles": [
+      "91/2015/qh13#510"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-103",
+    "question": "Nếu dịch vụ tôi thuê không đúng cam kết hoặc bị trễ, tôi có quyền đòi giảm giá không?",
+    "relevant_articles": [
+      "91/2015/qh13#519"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-104",
+    "question": "Nếu khách hàng vi phạm nghiêm trọng hợp đồng, bên cung cấp dịch vụ có quyền đơn phương hủy bỏ không?",
+    "relevant_articles": [
+      "91/2015/qh13#520"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-105",
+    "question": "Nếu tôi giao hàng cho đơn vị vận chuyển muộn hơn dự kiến, tôi phải chịu những khoản phí nào?",
+    "relevant_articles": [
+      "91/2015/qh13#532"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-106",
+    "question": "Nếu bên gia công giao hàng chậm mà sản phẩm gặp rủi ro, họ có phải bồi thường không?",
+    "relevant_articles": [
+      "91/2015/qh13#548"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-107",
+    "question": "Nếu lúc thuê gia công quên thỏa thuận mức giá, tôi sẽ phải trả tiền công dựa trên cơ sở nào?",
+    "relevant_articles": [
+      "91/2015/qh13#552"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-108",
+    "question": "Nếu nhiều người cùng hợp sức làm một việc có treo thưởng, tiền thưởng sẽ được chia như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#572"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-109",
+    "question": "Người chiếm hữu tài sản trái phép mà không ngay tình có nghĩa vụ gì đối với lợi nhuận thu được?",
+    "relevant_articles": [
+      "91/2015/qh13#581"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-110",
+    "question": "Tôi có bao nhiêu thời gian để kiện đòi bồi thường thiệt hại?",
+    "relevant_articles": [
+      "91/2015/qh13#588"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-111",
+    "question": "Nếu tôi tự vệ chính đáng thì có phải đền bù cho đối phương không?",
+    "relevant_articles": [
+      "91/2015/qh13#594"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-112",
+    "question": "Nếu nạn nhân bị mất hoàn toàn khả năng làm việc, bên gây thiệt hại phải chi trả tiền bồi thường đến khi nào?",
+    "relevant_articles": [
+      "91/2015/qh13#593"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-113",
+    "question": "Ai sẽ đứng ra trông coi di sản nếu di chúc không ghi rõ người quản lý?",
+    "relevant_articles": [
+      "91/2015/qh13#616"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-114",
+    "question": "Khi nào thì người thừa kế được quyền từ chối nhận tài sản để lại?",
+    "relevant_articles": [
+      "91/2015/qh13#620"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-115",
+    "question": "Nếu muốn kiện để đòi chia di sản là nhà đất thì phải làm trong bao lâu?",
+    "relevant_articles": [
+      "91/2015/qh13#623"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-116",
+    "question": "Người không biết chữ cần làm gì để di chúc của họ có giá trị pháp lý?",
+    "relevant_articles": [
+      "91/2015/qh13#630"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-117",
+    "question": "Việt kiều muốn di chúc có giá trị như công chứng thì phải làm sao?",
+    "relevant_articles": [
+      "91/2015/qh13#638"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-118",
+    "question": "Nếu di chúc bổ sung trái ngược với di chúc cũ thì văn bản nào được áp dụng?",
+    "relevant_articles": [
+      "91/2015/qh13#640"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-119",
+    "question": "Đã chia xong tài sản rồi mới tìm thấy di chúc thì xử lý ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#642"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-120",
+    "question": "Khi nào di chúc bắt đầu có hiệu lực thực tế?",
+    "relevant_articles": [
+      "91/2015/qh13#643"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-121",
+    "question": "Có được lấy một phần di sản ra để phục vụ cho việc thờ cúng hay không?",
+    "relevant_articles": [
+      "91/2015/qh13#645"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-122",
+    "question": "Ai có trách nhiệm thông báo nội dung di chúc cho mọi người biết?",
+    "relevant_articles": [
+      "91/2015/qh13#647"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-123",
+    "question": "Di chúc không ghi cụ thể phần tài sản của từng người thì chia như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#659"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-124",
+    "question": "Chủ doanh nghiệp cần quản lý thông tin gì về nhân viên nếu thuê qua trung gian?",
+    "relevant_articles": [
+      "45/2019/qh14#100"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-125",
+    "question": "Nếu người môi giới không trả lương cho công nhân thì chủ chính có phải chịu trách nhiệm không?",
+    "relevant_articles": [
+      "45/2019/qh14#100"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-126",
+    "question": "Điều kiện nào để nhân viên được tạm ứng lương mà không bị tính lãi?",
+    "relevant_articles": [
+      "45/2019/qh14#101"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-127",
+    "question": "Mức tạm ứng lương cao nhất mà người lao động được nhận là bao nhiêu?",
+    "relevant_articles": [
+      "45/2019/qh14#101"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-128",
+    "question": "Trường hợp nào người làm công không được phép tạm ứng tiền lương?",
+    "relevant_articles": [
+      "45/2019/qh14#101"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-129",
+    "question": "Sếp chỉ được trừ lương của nhân viên trong những tình huống nào?",
+    "relevant_articles": [
+      "45/2019/qh14#102"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-130",
+    "question": "Mức khấu trừ tối đa là bao nhiêu?",
+    "relevant_articles": [
+      "45/2019/qh14#102"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-131",
+    "question": "Các vấn đề về tăng lương hay phụ cấp được ghi nhận ở tài liệu nào?",
+    "relevant_articles": [
+      "45/2019/qh14#103"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-132",
+    "question": "Thưởng cho người lao động dựa vào điệu kiện gì?",
+    "relevant_articles": [
+      "45/2019/qh14#104"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-133",
+    "question": "Theo luật, một ngày làm việc bình thường kéo dài tối đa bao nhiêu tiếng?",
+    "relevant_articles": [
+      "45/2019/qh14#105"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-134",
+    "question": "Giới hạn thời gian làm thêm trong ngày không được vượt quá bao nhiêu phần trăm thời giờ làm việc thông thường?",
+    "relevant_articles": [
+      "45/2019/qh14#107"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-135",
+    "question": "Trừ một số trường hợp đặc biệt, số giờ làm thêm tối đa trong năm là bao nhiêu?",
+    "relevant_articles": [
+      "45/2019/qh14#107"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-136",
+    "question": "Khi tổ chức tăng ca theo khoản 3 Điều 107, chủ doanh nghiệp phải thực hiện nghĩa vụ gì với cơ quan chức năng?",
+    "relevant_articles": [
+      "45/2019/qh14#107"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-137",
+    "question": "Nếu làm việc từ 6 giờ trở lên trong ngày, nhân viên được nghỉ giữa ca tối thiểu bao lâu?",
+    "relevant_articles": [
+      "45/2019/qh14#109"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-138",
+    "question": "Thời gian nghỉ giữa ca của nhân viên làm việc theo ca liên tục từ 6 giờ trở lên có được tính vào giờ làm việc không?",
+    "relevant_articles": [
+      "45/2019/qh14#109"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-139",
+    "question": "Nếu chu kỳ công việc khiến nhân viên không thể nghỉ hàng tuần, doanh nghiệp cần đảm bảo mức nghỉ tối thiểu thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#111"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-140",
+    "question": "Khi ngày nghỉ hàng tuần rơi đúng vào dịp lễ tết, người lao động có được nghỉ bù không?",
+    "relevant_articles": [
+      "45/2019/qh14#111"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-141",
+    "question": "Người làm việc trong điều kiện bình thường được hưởng bao nhiêu ngày nghỉ phép năm?",
+    "relevant_articles": [
+      "45/2019/qh14#113"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-142",
+    "question": "Số ngày nghỉ phép năm dành cho người làm công việc độc hại là bao nhiêu?",
+    "relevant_articles": [
+      "45/2019/qh14#113"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-143",
+    "question": "Nếu chưa làm đủ 12 tháng, số ngày nghỉ phép năm của nhân viên được tính như thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#113"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-144",
+    "question": "Người lao động có thể thỏa thuận với sếp về việc chia nhỏ hoặc gộp ngày nghỉ phép năm như thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#113"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-145",
+    "question": "Khi tổ chức đám cưới, nhân viên được nghỉ hưởng nguyên lương trong mấy ngày?",
+    "relevant_articles": [
+      "45/2019/qh14#115"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-146",
+    "question": "Trường hợp anh chị em ruột qua đời, người lao động được nghỉ không hưởng lương mấy ngày?",
+    "relevant_articles": [
+      "45/2019/qh14#115"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-147",
+    "question": "Công ty có bao nhiêu nhân viên trở lên thì phải thực hiện đăng ký nội quy lao động?",
+    "relevant_articles": [
+      "45/2019/qh14#119"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-148",
+    "question": "Nếu hồ sơ đăng ký nội quy có điểm trái luật, cơ quan quản lý sẽ xử lý ra sao trong vòng 7 ngày?",
+    "relevant_articles": [
+      "45/2019/qh14#119"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-149",
+    "question": "Sau bao lâu thì nội quy lao động bắt đầu có hiệu lực kể từ khi cơ quan chức năng nhận được hồ sơ?",
+    "relevant_articles": [
+      "45/2019/qh14#121"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-150",
+    "question": "Khi xử lý kỷ luật lao động đối với người dưới 15 tuổi, cần phải có sự tham gia của ai?",
+    "relevant_articles": [
+      "45/2019/qh14#122"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-151",
+    "question": "Người lao động mắc bệnh gì thì không được xem xét xử lý kỷ luật?",
+    "relevant_articles": [
+      "45/2019/qh14#122"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-152",
+    "question": "Nếu nhân viên làm sai quy định gây thiệt hại tài chính cho công ty, thời hạn để xử lý kỷ luật là bao lâu?",
+    "relevant_articles": [
+      "45/2019/qh14#123"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-153",
+    "question": "Nghỉ việc không phép bao nhiêu ngày trong vòng một tháng hoặc một năm thì có thể bị cho thôi việc?",
+    "relevant_articles": [
+      "45/2019/qh14#125"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-154",
+    "question": "Trong lúc bị tạm dừng công việc để xác minh vụ việc, người lao động được tạm ứng bao nhiêu phần trăm lương?",
+    "relevant_articles": [
+      "45/2019/qh14#128"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-155",
+    "question": "Nếu lỡ tay làm hỏng đồ đạc gây thiệt hại dưới 10 tháng lương tối thiểu vùng, tôi phải đền bù tối đa là bao nhiêu?",
+    "relevant_articles": [
+      "45/2019/qh14#129"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-156",
+    "question": "Trong tình huống nào thì người làm thuê không phải chịu trách nhiệm đền bù tài sản bị hư hại?",
+    "relevant_articles": [
+      "45/2019/qh14#129"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-157",
+    "question": "Công ty có nghĩa vụ gì để đảm bảo điều kiện làm việc cho nhân viên nữ?",
+    "relevant_articles": [
+      "45/2019/qh14#136"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-158",
+    "question": "Từ tháng thứ mấy của thai kỳ thì nhân viên không được yêu cầu làm đêm, làm thêm hoặc đi công tác xa?",
+    "relevant_articles": [
+      "45/2019/qh14#137"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-159",
+    "question": "Công ty phải xử lý thế nào nếu nhân viên đang mang thai phải làm công việc độc hại hoặc nguy hiểm?",
+    "relevant_articles": [
+      "45/2019/qh14#137"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-160",
+    "question": "Nếu hợp đồng lao động hết hạn đúng lúc nữ nhân viên đang bầu bí hoặc nuôi con nhỏ, công ty phải ưu tiên thực hiện điều gì?",
+    "relevant_articles": [
+      "45/2019/qh14#137"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-161",
+    "question": "Khi nào thì lao động nữ mang thai có quyền xin nghỉ hoặc chấm dứt hợp đồng sớm?",
+    "relevant_articles": [
+      "45/2019/qh14#138"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-162",
+    "question": "Nếu bác sĩ yêu cầu tạm nghỉ, thời gian hoãn hợp đồng của lao động nữ được tính như thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#138"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-163",
+    "question": "Muốn quay lại làm việc sớm hơn thời gian nghỉ sinh quy định, lao động nữ cần đáp ứng những điều kiện gì?",
+    "relevant_articles": [
+      "45/2019/qh14#139"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-164",
+    "question": "Hợp đồng hoặc các hành vi đơn phương dẫn đến việc thay đổi quyền và nghĩa vụ dân sự gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#116"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-165",
+    "question": "Giao dịch thực hiện qua thông điệp dữ liệu điện tử được pháp luật công nhận là hình thức nào?",
+    "relevant_articles": [
+      "91/2015/qh13#119"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-166",
+    "question": "Giao dịch dân sự sẽ không có giá trị pháp lý nếu thiếu các yếu tố nào?",
+    "relevant_articles": [
+      "91/2015/qh13#122"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-167",
+    "question": "Thời hạn để gửi đơn yêu cầu tòa án hủy một giao dịch dân sự bị vô hiệu là bao nhiêu năm?",
+    "relevant_articles": [
+      "91/2015/qh13#132"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-168",
+    "question": "Nếu quá thời hạn kiện mà không ai yêu cầu tuyên bố vô hiệu thì giao dịch dân sự sẽ ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#132"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-169",
+    "question": "Các loại giao dịch dân sự nào không bị giới hạn thời gian yêu cầu tòa án tuyên vô hiệu?",
+    "relevant_articles": [
+      "91/2015/qh13#132"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-170",
+    "question": "Việc một người đứng ra thay mặt và thực hiện giao dịch cho người khác được gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#134"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-171",
+    "question": "Ai là người đại diện hợp pháp cho trẻ em chưa đủ tuổi trưởng thành?",
+    "relevant_articles": [
+      "91/2015/qh13#136"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-172",
+    "question": "Ai đứng ra đại diện pháp lý cho trẻ chưa đủ tuổi trưởng thành?",
+    "relevant_articles": [
+      "91/2015/qh13#136"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-173",
+    "question": "Đối với người trưởng thành gặp vấn đề về nhận thức, ai là người đại diện trước pháp luật?",
+    "relevant_articles": [
+      "91/2015/qh13#136"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-174",
+    "question": "Nếu thời gian không tính liên tục, một năm theo quy định pháp luật tương ứng với bao nhiêu ngày?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-175",
+    "question": "Trong trường hợp thời gian không liền mạch, nửa năm được quy đổi thành mấy tháng?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-176",
+    "question": "Khi tính thời gian không liên tục, một tháng được tính bằng bao nhiêu ngày?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-177",
+    "question": "Nửa tháng được tính là bao nhiêu ngày theo quy định về thời hạn?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-178",
+    "question": "Một tuần được quy đổi thành bao nhiêu ngày theo luật định?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-179",
+    "question": "Một ngày được tính bằng bao nhiêu giờ?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-180",
+    "question": "Theo quy định, một giờ bao gồm bao nhiêu phút?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-181",
+    "question": "Một phút được tính bằng bao nhiêu giây?",
+    "relevant_articles": [
+      "91/2015/qh13#146"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-182",
+    "question": "Nếu thời hạn bắt đầu bởi một sự kiện cụ thể, ngày bắt đầu tính từ lúc nào?",
+    "relevant_articles": [
+      "91/2015/qh13#147"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-183",
+    "question": "Ngoài quyền chiếm hữu và sử dụng, quyền sở hữu còn bao gồm quyền gì nữa?",
+    "relevant_articles": [
+      "91/2015/qh13#158"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-184",
+    "question": "Quyền sở hữu tài sản bao gồm quyền chiếm hữu, định đoạt và quyền nào khác?",
+    "relevant_articles": [
+      "91/2015/qh13#158"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-185",
+    "question": "Quyền sử dụng, định đoạt và quyền nào tạo nên đầy đủ quyền sở hữu tài sản?",
+    "relevant_articles": [
+      "91/2015/qh13#158"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-186",
+    "question": "Ngoài quyền hưởng dụng và bề mặt, quyền khác đối với tài sản còn có quyền gì?",
+    "relevant_articles": [
+      "91/2015/qh13#159"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-187",
+    "question": "Danh sách các quyền khác đối với tài sản gồm quyền bất động sản liền kề, bề mặt và quyền gì?",
+    "relevant_articles": [
+      "91/2015/qh13#159"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-188",
+    "question": "Quyền khác đối với tài sản bao gồm quyền bất động sản liền kề, quyền hưởng dụng và quyền nào?",
+    "relevant_articles": [
+      "91/2015/qh13#159"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-189",
+    "question": "Ranh giới bất động sản có thể dựa vào dấu mốc tồn tại bao nhiêu năm mà không xảy ra tranh chấp?",
+    "relevant_articles": [
+      "91/2015/qh13#175"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-190",
+    "question": "Hành vi nắm giữ, chi phối tài sản giống như người có quyền được gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#179"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-191",
+    "question": "Việc giữ tài sản mà bản thân tin rằng mình có quyền hợp pháp được gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#180"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-192",
+    "question": "Người giữ đồ vật dù biết bản thân chẳng có tư cách pháp lý đối với nó thì bị gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#181"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-193",
+    "question": "Ai phải chịu trách nhiệm đưa ra bằng chứng khi có tranh cãi về việc một người đang giữ tài sản có trung thực hay không?",
+    "relevant_articles": [
+      "91/2015/qh13#184"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-194",
+    "question": "Khi chủ cũ cho phép dùng đồ vật nhưng không sang tên, người nhận cần tuân thủ yêu cầu gì lúc nắm giữ nó?",
+    "relevant_articles": [
+      "91/2015/qh13#188"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-195",
+    "question": "Cá nhân hay tổ chức nào mới được phép quyết định số phận của một tài sản?",
+    "relevant_articles": [
+      "91/2015/qh13#193"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-196",
+    "question": "Trong những tình huống nào thì khả năng tự mình quyết định về tài sản bị giới hạn?",
+    "relevant_articles": [
+      "91/2015/qh13#196"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-197",
+    "question": "Khi bán các món đồ là di tích lịch sử, ai được ưu tiên mua lại?",
+    "relevant_articles": [
+      "91/2015/qh13#196"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-198",
+    "question": "Những thứ như khoáng sản, vùng trời hay biển đảo được coi là tài sản dạng gì?",
+    "relevant_articles": [
+      "91/2015/qh13#197"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-199",
+    "question": "Khi một người đứng tên riêng cho tài sản của mình thì gọi là hình thức sở hữu nào?",
+    "relevant_articles": [
+      "91/2015/qh13#205"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-200",
+    "question": "Việc một pháp nhân độc lập đứng tên tài sản được phân loại là loại hình sở hữu gì?",
+    "relevant_articles": [
+      "91/2015/qh13#205"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-201",
+    "question": "Nếu tài sản thuộc quyền kiểm soát của nhiều người cùng một lúc thì gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#207"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-202",
+    "question": "Ngoài thỏa thuận và luật, yếu tố nào khác giúp xác định quyền lợi đối với tài sản chung?",
+    "relevant_articles": [
+      "91/2015/qh13#208"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-203",
+    "question": "Bên cạnh các quy định chung và thỏa thuận, căn cứ nào tạo nên sở hữu chung?",
+    "relevant_articles": [
+      "91/2015/qh13#208"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-204",
+    "question": "Nếu một người trong nhóm đồng sở hữu muốn bán phần của mình, ai sẽ có cơ hội mua trước?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-205",
+    "question": "Nếu tài sản là nhà đất, các đồng sở hữu có bao lâu để thực hiện quyền mua ưu tiên?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-206",
+    "question": "Với các loại động sản, thời hạn dành cho việc ưu tiên mua lại là bao lâu?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-207",
+    "question": "Nếu một người từ bỏ quyền lợi ở bất động sản chung, phần đó sẽ về tay ai, trừ trường hợp cộng đồng?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-208",
+    "question": "Phần bất động sản bị bỏ lại sẽ thuộc về ai nếu đó là tài sản chung của cả cộng đồng?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-209",
+    "question": "Nếu đồng sở hữu bất động sản qua đời không người thừa kế, phần quyền đó xử lý ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-210",
+    "question": "Trong trường hợp sở hữu cộng đồng, khi một thành viên mất mà không có người kế thừa thì phần đó đi đâu?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-211",
+    "question": "Khi một đồng sở hữu động sản từ bỏ quyền của mình, những người còn lại có được hưởng phần đó không?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-212",
+    "question": "Nếu một người dùng chung tài sản là đồ vật qua đời mà không có ai thừa kế, thì phần của họ sẽ được xử lý ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#218"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-213",
+    "question": "Khi nào thì một người làm việc hợp pháp bắt đầu có quyền làm chủ đối với những gì họ tạo ra từ công sức của mình?",
+    "relevant_articles": [
+      "91/2015/qh13#222"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-214",
+    "question": "Thời điểm nào thì người sản xuất hợp pháp được công nhận là chủ sở hữu đối với thành quả làm ra?",
+    "relevant_articles": [
+      "91/2015/qh13#222"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-215",
+    "question": "Từ lúc nào thì người kinh doanh hợp pháp chính thức sở hữu tài sản từ công việc của mình?",
+    "relevant_articles": [
+      "91/2015/qh13#222"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-216",
+    "question": "Chủ sở hữu được quyền hưởng lợi tức, hoa lợi từ tài sản của mình từ thời điểm nào?",
+    "relevant_articles": [
+      "91/2015/qh13#224"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-217",
+    "question": "Người đang sử dụng tài sản được quyền sở hữu hoa lợi, lợi tức kể từ khi nào?",
+    "relevant_articles": [
+      "91/2015/qh13#224"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-218",
+    "question": "Nếu có thỏa thuận từ trước, thì khi nào chủ tài sản được quyền sở hữu những hoa lợi, lợi tức phát sinh?",
+    "relevant_articles": [
+      "91/2015/qh13#224"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-219",
+    "question": "Nếu có thỏa thuận, người dùng tài sản sẽ được hưởng hoa lợi, lợi tức vào lúc nào?",
+    "relevant_articles": [
+      "91/2015/qh13#224"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-220",
+    "question": "Tài sản bị chủ cũ bỏ rơi không còn muốn giữ nữa được gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#228"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-221",
+    "question": "Ai sẽ là người nắm quyền đối với bất động sản không rõ chủ hoặc bị bỏ hoang?",
+    "relevant_articles": [
+      "91/2015/qh13#228"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-222",
+    "question": "Nếu tìm thấy đồ vật vô chủ, cần bao lâu thông báo công khai để người nhặt được trở thành chủ sở hữu?",
+    "relevant_articles": [
+      "91/2015/qh13#228"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-223",
+    "question": "Thời hạn bao lâu để Nhà nước tiếp quản bất động sản không tìm thấy chủ nhân sau khi đã thông báo?",
+    "relevant_articles": [
+      "91/2015/qh13#228"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-224",
+    "question": "Khi thấy tài sản bị vùi lấp hay chìm đắm mà biết rõ ai là chủ, người phát hiện phải xử lý thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#229"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-225",
+    "question": "Nếu tìm thấy tài sản bị chôn giấu nhưng không biết chủ nhân là ai, tôi phải làm gì?",
+    "relevant_articles": [
+      "91/2015/qh13#229"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-226",
+    "question": "Tài sản bị chôn giấu được xác định là di tích lịch sử thì sẽ thuộc về ai?",
+    "relevant_articles": [
+      "91/2015/qh13#229"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-227",
+    "question": "Nếu tài sản tìm thấy là di tích lịch sử và có giá trị thấp, ai là người sở hữu nó?",
+    "relevant_articles": [
+      "91/2015/qh13#229"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-228",
+    "question": "Nếu tài sản không phải là di tích lịch sử và giá trị nhỏ, ai sẽ được quyền sở hữu nó?",
+    "relevant_articles": [
+      "91/2015/qh13#229"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-229",
+    "question": "Nếu nhặt được đồ người khác làm mất và biết rõ thông tin liên lạc của họ, tôi nên làm gì?",
+    "relevant_articles": [
+      "91/2015/qh13#230"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-230",
+    "question": "Nếu nhặt được đồ đánh rơi mà không cách nào liên hệ được chủ cũ, tôi phải làm sao?",
+    "relevant_articles": [
+      "91/2015/qh13#230"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-231",
+    "question": "Cần làm gì khi bắt gặp gia súc đi lạc?",
+    "relevant_articles": [
+      "91/2015/qh13#231"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-232",
+    "question": "Khi nhận lại thú nuôi bị lạc, chủ nhân cần đền bù những khoản gì cho người tìm thấy?",
+    "relevant_articles": [
+      "91/2015/qh13#231"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-233",
+    "question": "Nếu gia súc không thuộc diện thả rông theo lối sống vùng miền, thì sau bao lâu người giữ hộ sẽ trở thành chủ sở hữu?",
+    "relevant_articles": [
+      "91/2015/qh13#231"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-234",
+    "question": "Với vật nuôi thả rông theo tập quán, người trông coi được quyền sở hữu sau khoảng thời gian nào kể từ lúc đăng tin?",
+    "relevant_articles": [
+      "91/2015/qh13#231"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-235",
+    "question": "Nếu đã rao tin tìm chủ mà một tháng trôi qua không ai đến nhận gia cầm thì quyền sở hữu thuộc về ai?",
+    "relevant_articles": [
+      "91/2015/qh13#232"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-236",
+    "question": "Người chủ phải hoàn trả những loại phí gì khi nhận lại gia cầm từ người bắt được?",
+    "relevant_articles": [
+      "91/2015/qh13#232"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-237",
+    "question": "Sau bao lâu thì chủ ao hồ được phép đứng tên vật nuôi dưới nước đi lạc vào khu vực của mình?",
+    "relevant_articles": [
+      "91/2015/qh13#233"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-238",
+    "question": "Khi món đồ bị dùng hết hoặc hủy hoại thì quyền làm chủ tài sản đó ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#242"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-239",
+    "question": "Thời điểm nào chấm dứt quyền sở hữu đối với tài sản khi bị Nhà nước trưng mua?",
+    "relevant_articles": [
+      "91/2015/qh13#243"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-240",
+    "question": "Từ lúc nào quyền sở hữu tài sản bị tịch thu sung công quỹ chính thức mất hiệu lực?",
+    "relevant_articles": [
+      "91/2015/qh13#244"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-241",
+    "question": "Việc dùng một bất động sản để hỗ trợ khai thác bất động sản kế bên được gọi là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#245"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-242",
+    "question": "Những căn cứ nào dẫn đến việc hình thành quyền đối với đất đai, công trình liền kề?",
+    "relevant_articles": [
+      "91/2015/qh13#246"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-243",
+    "question": "Những ai chịu sự ràng buộc bởi quyền đối với bất động sản liền kề?",
+    "relevant_articles": [
+      "91/2015/qh13#247"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-244",
+    "question": "Bộ luật Lao động quy định điều gì?",
+    "relevant_articles": [
+      "45/2019/qh14#1"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-245",
+    "question": "Định nghĩa của \"Người lao động\"?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-246",
+    "question": "Ai được coi là người thuê mướn lao động theo quy định pháp luật?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-247",
+    "question": "Tổ chức đại diện cho nhân viên tại nơi làm việc được hiểu như thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-248",
+    "question": "Tổ chức nào có vai trò đại diện bảo vệ quyền lợi cho phía thuê mướn lao động?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-249",
+    "question": "Định nghĩa của \"Quan hệ lao động\"?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-250",
+    "question": "Người làm việc không dựa trên hợp đồng lao động được định nghĩa ra sao?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-251",
+    "question": "Định nghĩa của \"Cưỡng bức lao động\"?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-252",
+    "question": "Hành vi thế nào bị xem là quấy rối tình dục tại chỗ làm?",
+    "relevant_articles": [
+      "45/2019/qh14#3"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-253",
+    "question": "Các bên tạo lập quan hệ lao động dựa trên những nguyên tắc nào?",
+    "relevant_articles": [
+      "45/2019/qh14#7"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-254",
+    "question": "Việc làm là gì?",
+    "relevant_articles": [
+      "45/2019/qh14#9"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-255",
+    "question": "Trong điều 10 của Bộ Luật dân sự 2019, nơi làm việc của người lao động được quy định như thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#10"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-256",
+    "question": "Người tìm việc có nghĩa vụ chi trả phí tuyển dụng cho đơn vị sử dụng lao động không?",
+    "relevant_articles": [
+      "45/2019/qh14#11"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-257",
+    "question": "Hợp đồng lao động bằng giấy tờ cần phải lập bao nhiêu bản?",
+    "relevant_articles": [
+      "45/2019/qh14#14"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-258",
+    "question": "Khi chuẩn bị ký hợp đồng, phía công ty cần thông tin cụ thể gì cho nhân viên mới?",
+    "relevant_articles": [
+      "45/2019/qh14#16"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-259",
+    "question": "Nhân viên phải khai báo những nội dung nào cho nơi làm việc khi bắt đầu ký kết hợp đồng?",
+    "relevant_articles": [
+      "45/2019/qh14#16"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-260",
+    "question": "Với các công việc thời vụ dưới 12 tháng, nhóm nhân sự từ 18 tuổi trở lên có được cử một đại diện đứng ra ký hợp đồng không?",
+    "relevant_articles": [
+      "45/2019/qh14#18"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-261",
+    "question": "Để được ủy quyền cho một người trong nhóm ký hợp đồng khi làm việc ngắn hạn, người lao động cần đạt độ tuổi tối thiểu bao nhiêu?",
+    "relevant_articles": [
+      "45/2019/qh14#18"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-262",
+    "question": "Nếu cùng lúc làm cho nhiều nơi, việc đóng các loại bảo hiểm bắt buộc sẽ tuân theo quy định như thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#19"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-263",
+    "question": "Sau khi hợp đồng cũ hết hạn, hai bên có bao nhiêu ngày để tiến hành ký tiếp văn bản mới?",
+    "relevant_articles": [
+      "45/2019/qh14#20"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-264",
+    "question": "Thời điểm nào thì hợp đồng lao động chính thức bắt đầu có giá trị pháp lý?",
+    "relevant_articles": [
+      "45/2019/qh14#23"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-265",
+    "question": "Với hợp đồng có thời hạn dưới 30 ngày, công ty có được yêu cầu nhân viên thử việc không?",
+    "relevant_articles": [
+      "45/2019/qh14#24"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-266",
+    "question": "Mỗi công việc cụ thể chỉ được phép thử việc tối đa bao nhiêu lần?",
+    "relevant_articles": [
+      "45/2019/qh14#25"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-267",
+    "question": "Người giữ vai trò quản lý doanh nghiệp có thể phải thử việc trong thời gian dài nhất là bao nhiêu ngày?",
+    "relevant_articles": [
+      "45/2019/qh14#25"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-268",
+    "question": "Với vị trí yêu cầu bằng cấp từ cao đẳng trở lên, thời hạn thử việc giới hạn trong bao nhiêu ngày?",
+    "relevant_articles": [
+      "45/2019/qh14#25"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-269",
+    "question": "Thời gian thử việc tối đa dành cho nhân viên kỹ thuật hoặc nghiệp vụ trung cấp là bao nhiêu ngày?",
+    "relevant_articles": [
+      "45/2019/qh14#25"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-270",
+    "question": "Mức lương dành cho nhân viên đang trong thời gian thử việc thấp nhất là bao nhiêu phần trăm so với lương chính thức?",
+    "relevant_articles": [
+      "45/2019/qh14#26"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-271",
+    "question": "Khi bị điều chuyển sang việc khác, mức lương mới thấp nhất phải đạt bao nhiêu phần trăm lương cũ?",
+    "relevant_articles": [
+      "45/2019/qh14#29"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-272",
+    "question": "Muốn thay đổi hoặc bổ sung điều khoản hợp đồng đang thực hiện, phải báo trước cho phía bên kia bao nhiêu ngày?",
+    "relevant_articles": [
+      "45/2019/qh14#33"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-273",
+    "question": "Phụ nữ đang nuôi con nhỏ dưới mấy tháng tuổi thì không được tự ý nghỉ việc đơn phương?",
+    "relevant_articles": [
+      "45/2019/qh14#37"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-274",
+    "question": "Khi muốn rút lại thông báo nghỉ việc trước thời hạn, người lao động cần làm gì để hợp lệ?",
+    "relevant_articles": [
+      "45/2019/qh14#38"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-275",
+    "question": "Nếu nhân viên tự ý nghỉ việc trái luật, họ có còn được hưởng trợ cấp thôi việc không?",
+    "relevant_articles": [
+      "45/2019/qh14#40"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-276",
+    "question": "Một người lao động được thuê lại làm việc tối đa trong bao nhiêu tháng?",
+    "relevant_articles": [
+      "45/2019/qh14#53"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-277",
+    "question": "Hợp đồng cho thuê nhân sự giữa các doanh nghiệp phải được lập thành mấy bản?",
+    "relevant_articles": [
+      "45/2019/qh14#55"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-278",
+    "question": "Độ tuổi tối thiểu để một cá nhân bắt đầu học nghề hoặc thực tập là bao nhiêu?",
+    "relevant_articles": [
+      "45/2019/qh14#61"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-279",
+    "question": "Sau khi ký kết thỏa ước tập thể, doanh nghiệp có bao nhiêu ngày để nộp văn bản này cho cơ quan quản lý nhà nước tại tỉnh sở tại?",
+    "relevant_articles": [
+      "45/2019/qh14#77"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-280",
+    "question": "Cơ quan nào có thẩm quyền ra quyết định hủy bỏ thỏa ước lao động tập thể?",
+    "relevant_articles": [
+      "45/2019/qh14#87"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-281",
+    "question": "Nếu thỏa ước tập thể bị coi là không hợp lệ, thì các quyền lợi của nhân viên sẽ được xử lý dựa trên căn cứ nào?",
+    "relevant_articles": [
+      "45/2019/qh14#88"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-282",
+    "question": "Phía nào chịu trách nhiệm chi trả toàn bộ kinh phí phát sinh từ quá trình thương lượng và công bố thỏa ước lao động?",
+    "relevant_articles": [
+      "45/2019/qh14#89"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-283",
+    "question": "Nếu phải tạm ngừng việc dưới 14 ngày do sự cố khách quan, lương của người lao động được tính như thế nào so với lương tối thiểu?",
+    "relevant_articles": [
+      "45/2019/qh14#99"
+    ],
+    "law_name": "Bộ luật Lao động 2019",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-284",
+    "question": "Hành vi xây dựng trái phép trên đất chiếm dụng có thể bị phạt tiền tối đa là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#343"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-285",
+    "question": "Mức phạt tiền cho hành vi tổ chức kết hôn sớm cho người chưa đủ tuổi là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#183"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-286",
+    "question": "Vô ý làm hỏng tài sản của người khác trị giá từ 100 đến dưới 500 triệu đồng có thể nhận hình phạt nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#180"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-287",
+    "question": "Mức thiệt hại tài sản do vô ý gây ra từ bao nhiêu trở lên thì khung hình phạt sẽ tăng lên mức cải tạo hoặc tù giam?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#180"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-288",
+    "question": "Nếu hành hạ người khác gây tổn thương tâm lý từ 31% trở lên, mức án tù cao nhất là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#140"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-289",
+    "question": "Mức án tù thấp nhất dành cho người có hành vi phá hoại chính sách kinh tế - xã hội nhằm chống phá nhà nước là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#115"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-290",
+    "question": "Giữ tài sản của người khác trị giá từ 10 đến dưới 200 triệu đồng mà không chịu trả lại có thể bị phạt cải tạo không giam giữ trong thời gian bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#176"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-291",
+    "question": "Những trường hợp phạm tội nào được coi là không có án tích?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#69"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-292",
+    "question": "Số tiền phạt thấp nhất mà một doanh nghiệp phải chịu khi bị kết tội là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#77"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-293",
+    "question": "Trong trường hợp nào thì tòa án sẽ quyết định áp dụng hình phạt cấm huy động vốn đối với doanh nghiệp?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#81"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-294",
+    "question": "Thời hạn tối đa và tối thiểu cho việc cấm doanh nghiệp huy động vốn là bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#81"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-295",
+    "question": "Đối với người phạm tội dưới 18 tuổi, thời gian giáo dục tại trường giáo dưỡng kéo dài trong khoảng bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#96"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-296",
+    "question": "Người từ 16 đến dưới 18 tuổi phạm tội sẽ bị phạt tiền tối đa bằng bao nhiêu so với mức quy định chung?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#99"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-297",
+    "question": "Điều kiện về độ tuổi và tính chất tội phạm nào cho phép áp dụng hình phạt cải tạo không giam giữ với người dưới 18 tuổi?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#100"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-298",
+    "question": "Nếu một người ra tay tước đoạt mạng sống của kẻ khác do bị kích động vì hành vi sai trái quá mức, mức án tù sẽ là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#125"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-299",
+    "question": "Hình phạt cải tạo không giam giữ cao nhất áp dụng cho hành vi gây chết người ngoài ý muốn là bao lâu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#128"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-300",
+    "question": "Mức án tù cụ thể dành cho trường hợp vô tình làm thiệt mạng từ hai người trở lên là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#128"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-301",
+    "question": "Phải đẩy bao nhiêu nạn nhân dẫn đến tự tử thì khung hình phạt tù sẽ tăng lên từ 5 đến 12 năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#130"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-302",
+    "question": "Trường hợp tráo đổi trẻ nhỏ dưới 1 tuổi mà bản thân có nghĩa vụ chăm sóc thì phải chịu mức án thấp nhất là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#152"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-303",
+    "question": "Hành vi giữ lại bảo vật quốc gia trái phép có thể bị phạt tù ít nhất bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#176"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-304",
+    "question": "Nếu vô tình phá hỏng tài sản người khác có giá trị dưới ngưỡng nào thì chỉ bị xử lý bằng hình thức cảnh cáo?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#180"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-305",
+    "question": "Khung hình phạt tù dành cho tội loạn luân được quy định cụ thể là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#184"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-306",
+    "question": "Nếu tái phạm hành vi nguy hiểm trong việc tổ chức đẻ thuê vì lợi nhuận, mức án tù là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#187"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-307",
+    "question": "Người từng bị xử lý vì quảng cáo sai sự thật mà tiếp tục vi phạm sẽ đối mặt với thời hạn cải tạo không giam giữ tối đa là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#197"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-308",
+    "question": "Thu lợi bất chính đạt mức nào trở lên từ việc cho vay nặng lãi thì sẽ bị phạt tù từ nửa năm đến 3 năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#201"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-309",
+    "question": "Gây thất thoát hàng cứu trợ từ bao nhiêu tiền trở lên sẽ khiến người phạm tội bị phạt tù đến 5 năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#231"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-310",
+    "question": "Việc lơ là nhiệm vụ trực chiến gây hậu quả nặng nề có thể bị phạt tù cao nhất là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#409"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-311",
+    "question": "Mức án tù thấp nhất cho tội làm lính đánh thuê chống lại quốc gia có chủ quyền là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#425"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-312",
+    "question": "Sĩ quan hoặc người chỉ huy làm mất tài liệu mật về quân sự sẽ chịu hậu quả pháp lý như thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#407"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-313",
+    "question": "Làm lộ tài liệu quân sự mật khi đang trong vùng chiến sự sẽ bị xử lý theo hình thức nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#407"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-314",
+    "question": "Khi đang ở chiến trường mà làm mất tài liệu mật, người vi phạm chịu án tù tối đa bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#407"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-315",
+    "question": "Báo cáo sai sự thật gây hậu quả nghiêm trọng trong tình huống khẩn cấp quân sự bị xử lý ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#408"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-316",
+    "question": "Nếu đang ở nơi có chiến sự mà cố ý báo cáo sai gây hậu quả lớn thì hình phạt cụ thể là gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#408"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-317",
+    "question": "Mức án tù thấp nhất cho hành vi báo cáo sai lệch trong chiến đấu gây hậu quả nghiêm trọng là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#408"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-318",
+    "question": "Nếu đang tham chiến mà cố ý đưa tin sai lệch về quân sự dẫn đến hậu quả nặng nề thì mức án cao nhất là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#408"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-319",
+    "question": "Trồng từ bao nhiêu cây có chứa ma túy trở lên sẽ đối mặt với khung hình phạt cao nhất là bảy năm tù?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#247"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-320",
+    "question": "Số lượng cây chứa chất gây nghiện tối thiểu là bao nhiêu để người vi phạm có thể bị phạt tù đến ba năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#247"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-321",
+    "question": "Đối với người tái phạm nguy hiểm hành vi làm giả hồ sơ chứng khoán, pháp luật quy định hình phạt thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#212"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-322",
+    "question": "Mức lợi bất chính bao nhiêu thì hành vi làm giả hồ sơ niêm yết chứng khoán sẽ bị phạt tù từ hai đến bảy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#212"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-323",
+    "question": "Người thực hiện các việc liên quan đến tiền giả sẽ phải chịu mức án tù thấp nhất là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#207"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-324",
+    "question": "Mức hình phạt nặng nhất dành cho tội danh gián điệp chống phá đất nước là gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#110"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-325",
+    "question": "Hình phạt tù thấp nhất áp dụng cho hành vi gián điệp hoặc phá hoại nước ta là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#110"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-326",
+    "question": "Mức án cao nhất cho hành vi thu thập, cung cấp tài liệu cho nước ngoài nhằm chống phá Việt Nam là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#110"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-327",
+    "question": "Nếu làm cơ sở hoạt động tình báo theo chỉ đạo của nước ngoài thì sẽ bị xử lý như thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#110"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-328",
+    "question": "Việc thu thập rồi bàn giao bí mật quốc gia cho thế lực bên ngoài bị xử phạt ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#110"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-329",
+    "question": "Cần làm gì để được miễn tội khi đã lỡ nhận nhiệm vụ gián điệp?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#110"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-330",
+    "question": "Hành vi cho mượn địa điểm để dùng chất cấm có mức án tù tối đa là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#256"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-331",
+    "question": "Nếu bị kết tội chứa chấp sử dụng trái phép ma túy, khung hình phạt tù thấp nhất là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#256"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-332",
+    "question": "Nếu lợi dụng chức vụ để làm nơi cho người khác sử dụng ma túy thì bị phạt tù tối đa bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#256"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-333",
+    "question": "Mức tù thấp nhất đối với hành vi lợi dụng quyền hạn để chứa chấp việc dùng ma túy là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#256"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-334",
+    "question": "Mức phạt tiền cao nhất đối với người phạm tội chứa chấp sử dụng ma túy là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#256"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-335",
+    "question": "Khoản tiền phạt thấp nhất cho tội chứa chấp sử dụng trái phép chất ma túy là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#256"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-336",
+    "question": "Người tái phạm nguy hiểm tội chứa chấp dùng ma túy sẽ bị trừng phạt thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#256"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-337",
+    "question": "Việc điều khiển máy bay trái quy định hàng không nước ta bị phạt tiền trong khoảng nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#283"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-338",
+    "question": "Mức tiền phạt cao nhất cho hành vi bay vào hoặc rời lãnh thổ nước ta trái quy định hàng không là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#283"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-339",
+    "question": "Mức phạt tiền thấp nhất áp dụng cho trường hợp lái tàu bay xâm nhập hoặc xuất cảnh trái phép là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#283"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-340",
+    "question": "Khung hình phạt tù cho hành vi điều khiển phương tiện bay không đúng pháp luật hàng không Việt Nam được quy định ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#283"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-341",
+    "question": "Nếu việc lái tàu bay trái quy định không gây hậu quả nghiêm trọng, người vi phạm có thể bị phạt tù tối đa mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#283"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-342",
+    "question": "Sử dụng sai mục đích tần số vô tuyến quốc gia cho an ninh, cứu hộ gây thiệt hại từ bao nhiêu thì bị truy cứu trách nhiệm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#293"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-343",
+    "question": "Hành vi dùng lậu tần số chuyên dụng cho cứu nạn, quốc phòng phải gây thiệt hại bao nhiêu để có thể bị phạt tù đến 5 năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#293"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-344",
+    "question": "Nếu làm thiệt hại từ 200 đến dưới 500 triệu đồng khi dùng trái phép tần số vô tuyến dành cho cấp cứu, hình phạt sẽ thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#293"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-345",
+    "question": "Người đã bị xử phạt hành chính vì dùng lậu tần số chuyên dụng mà tiếp tục vi phạm sẽ đối mặt với mức phạt tiền ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#293"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-346",
+    "question": "Nếu tái phạm nguy hiểm khi sử dụng trái phép tần số vô tuyến dành cho mục đích an ninh, mức phạt tù thấp nhất là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#293"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-347",
+    "question": "Hành vi quyên góp, tiếp tế tiền bạc cho các cá nhân hoặc tổ chức khủng bố bị xử lý bằng hình thức gì?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#300"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-348",
+    "question": "Hình phạt tù cao nhất dành cho tội hỗ trợ tài chính hoặc tài sản cho khủng bố là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#300"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-349",
+    "question": "Mức tù tối thiểu cho người bị kết tội cung cấp nguồn lực cho tổ chức, cá nhân khủng bố là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#300"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-350",
+    "question": "Người mới chỉ dừng lại ở bước chuẩn bị tài trợ cho các đối tượng khủng bố có thể bị phạt tù ít nhất mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#300"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-351",
+    "question": "Mức án tù cao nhất cho hành vi chuẩn bị hỗ trợ tài chính cho khủng bố là bao nhiêu năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#300"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-352",
+    "question": "Người đã bị xử phạt hành chính về mê tín dị đoan mà vẫn tiếp tục vi phạm thì chịu chế tài như thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#320"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-353",
+    "question": "Mức phạt tiền tối đa cho người tái phạm hành vi bói toán, đồng bóng là bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#320"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-354",
+    "question": "Hình phạt nào dành cho đối tượng hành nghề mê tín dị đoan dẫn đến hậu quả làm chết người?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#320"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-355",
+    "question": "Thu lợi bất chính bao nhiêu từ hoạt động mê tín dị đoan thì người vi phạm bị phạt tù từ 3 đến 10 năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#320"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-356",
+    "question": "Người đánh bạc trái phép bằng tiền hoặc hiện vật giá trị thấp nhưng đã từng bị xử lý về hành vi này thì bị phạt ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#321"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-357",
+    "question": "Cán bộ hoặc công chức tự ý bỏ việc gây hậu quả nghiêm trọng sẽ bị xử lý thế nào theo pháp luật?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#363"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-358",
+    "question": "Viên chức hoặc công chức cố ý bỏ vị trí công tác dẫn tới hậu quả nghiêm trọng sẽ chịu chế tài hình sự ra sao?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#363"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-359",
+    "question": "Mức phạt nào dành cho người làm việc trong cơ quan nhà nước tự ý nghỉ việc và còn rủ rê người khác cùng làm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#363"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-360",
+    "question": "Nếu bỏ nhiệm vụ khi đất nước đang gặp thảm họa hoặc dịch bệnh, mức án tù cao nhất là mấy năm?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#363"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-361",
+    "question": "Những nhóm đối tượng nào thường bị áp dụng biện pháp quản chế?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#43"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-362",
+    "question": "Thời gian quản chế kéo dài trong khoảng bao lâu sau khi mãn hạn tù?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#43"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-363",
+    "question": "Hình phạt tù chung thân được hiểu như thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#39"
+    ],
+    "law_name": "Bộ luật Hình sự hợp nhất",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-443",
+    "question": "Tại Việt Nam, các quyền lợi dân sự được bảo vệ dựa trên cơ sở pháp lý nào?",
+    "relevant_articles": [
+      "91/2015/qh13#2"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-444",
+    "question": "Trong tình huống nào các quyền lợi dân sự có thể bị giới hạn theo luật định?",
+    "relevant_articles": [
+      "91/2015/qh13#2"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-445",
+    "question": "Định nghĩa về tập quán trong quan hệ dân sự theo quy định hiện hành là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#5"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-446",
+    "question": "Khi thiếu thỏa thuận và luật không quy định, việc dùng tập quán để giải quyết tranh chấp cần lưu ý điều gì?",
+    "relevant_articles": [
+      "91/2015/qh13#5"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-447",
+    "question": "Nếu không có luật, không có hợp đồng và không có tập quán, cơ quan chức năng sẽ xử lý vụ việc dân sự thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#6"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-448",
+    "question": "Khi không thể áp dụng luật tương tự, các căn cứ nào khác được dùng để giải quyết tranh chấp dân sự?",
+    "relevant_articles": [
+      "91/2015/qh13#6"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-449",
+    "question": "Nhà nước yêu cầu giữ gìn những giá trị nào khi thực hiện các nghĩa vụ dân sự?",
+    "relevant_articles": [
+      "91/2015/qh13#7"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-450",
+    "question": "Pháp luật có khuyến khích các bên hòa giải trong tranh chấp dân sự hay không?",
+    "relevant_articles": [
+      "91/2015/qh13#7"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-451",
+    "question": "Hãy liệt kê chín nguồn gốc làm phát sinh quyền lợi dân sự.",
+    "relevant_articles": [
+      "91/2015/qh13#8"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-452",
+    "question": "Việc thực hiện quyền dân sự phải tuân thủ những nguyên tắc nào để không vi phạm pháp luật?",
+    "relevant_articles": [
+      "91/2015/qh13#9"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-453",
+    "question": "Việc một cá nhân từ chối thực hiện quyền dân sự của mình có làm quyền đó mất đi không?",
+    "relevant_articles": [
+      "91/2015/qh13#9"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-454",
+    "question": "Hành vi lạm dụng quyền dân sự bị cấm trong những trường hợp nào?",
+    "relevant_articles": [
+      "91/2015/qh13#10"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "negative"
+  },
+  {
+    "question_id": "q-455",
+    "question": "Nếu lạm dụng quyền dân sự gây hậu quả, tòa án có thể áp dụng các hình thức xử lý nào?",
+    "relevant_articles": [
+      "91/2015/qh13#10"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-456",
+    "question": "Khi quyền dân sự bị xâm phạm, chủ thể có thể yêu cầu cơ quan thẩm quyền thực hiện các biện pháp bảo vệ nào?",
+    "relevant_articles": [
+      "91/2015/qh13#11"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-457",
+    "question": "Khi tự bảo vệ quyền lợi cá nhân, người dân cần căn cứ vào điều nào của bộ luật để đảm bảo hành động đó hợp pháp và không đi ngược lại các nguyên tắc chung?",
+    "relevant_articles": [
+      "91/2015/qh13#12"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-458",
+    "question": "Nếu quyền dân sự bị xâm phạm, cá nhân hoặc tổ chức được nhận bồi thường toàn bộ thiệt hại trong những trường hợp nào ngoài thỏa thuận giữa các bên?",
+    "relevant_articles": [
+      "91/2015/qh13#13"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-459",
+    "question": "Theo quy định pháp luật, tòa án và các cơ quan chức năng có trách nhiệm gì trong việc bảo đảm quyền dân sự cho người dân và doanh nghiệp?",
+    "relevant_articles": [
+      "91/2015/qh13#14"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-460",
+    "question": "Nếu phát sinh tranh chấp hoặc bị xâm phạm quyền dân sự, người dân nên thực hiện các thủ tục bảo vệ quyền lợi thông qua những cơ quan nào?",
+    "relevant_articles": [
+      "91/2015/qh13#14"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-461",
+    "question": "Nếu chưa có điều luật cụ thể để áp dụng, tòa án cần dựa vào điều khoản nào trong bộ luật để giải quyết vụ việc thay vì từ chối thụ lý?",
+    "relevant_articles": [
+      "91/2015/qh13#14"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-462",
+    "question": "Trong quá trình xử lý yêu cầu bảo vệ quyền lợi, tòa án hoặc cơ quan chức năng có quyền hủy bỏ những loại quyết định nào của tổ chức hay cá nhân có thẩm quyền?",
+    "relevant_articles": [
+      "91/2015/qh13#15"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-463",
+    "question": "Khi một quyết định cá biệt bị hủy bỏ, quyền lợi dân sự của người bị ảnh hưởng sẽ được khôi phục và bảo vệ theo hình thức nào?",
+    "relevant_articles": [
+      "91/2015/qh13#15"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-464",
+    "question": "Theo Điều 16, Bộ luật dân sự 2015, năng lực pháp luật dân sự của cá nhân là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#16"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-465",
+    "question": "Theo Điều 16, Bộ luật dân sự 2015, năng lực pháp luật dân sự của cá nhân tồn tại khi nào?",
+    "relevant_articles": [
+      "91/2015/qh13#16"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-466",
+    "question": "Năng lực pháp luật dân sự của mỗi cá nhân bao gồm những nội dung cơ bản nào theo quy định pháp luật hiện hành?",
+    "relevant_articles": [
+      "91/2015/qh13#17"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-467",
+    "question": "Pháp luật có cho phép hạn chế năng lực pháp luật dân sự của một cá nhân hay không?",
+    "relevant_articles": [
+      "91/2015/qh13#18"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-468",
+    "question": "Theo luật, thế nào được hiểu là năng lực hành vi dân sự của một cá nhân?",
+    "relevant_articles": [
+      "91/2015/qh13#19"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-469",
+    "question": "Độ tuổi nào được coi là người thành niên theo quy định của pháp luật dân sự?",
+    "relevant_articles": [
+      "91/2015/qh13#20"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-470",
+    "question": "Người đã thành niên có quyền và trách nhiệm thực hiện các hành vi dân sự như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#20"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-471",
+    "question": "Định nghĩa thế nào là người chưa thành niên và quy định về việc thực hiện giao dịch dân sự đối với nhóm người này ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#21"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-472",
+    "question": "Đối với trẻ em dưới 6 tuổi, việc thực hiện các giao dịch dân sự sẽ do ai đảm nhận?",
+    "relevant_articles": [
+      "91/2015/qh13#21"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-473",
+    "question": "Một người sẽ bị tuyên bố mất năng lực hành vi dân sự trong tình huống cụ thể nào?",
+    "relevant_articles": [
+      "91/2015/qh13#22"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-474",
+    "question": "Pháp luật quy định như thế nào về những người gặp khó khăn trong việc nhận thức và điều khiển hành vi của chính mình?",
+    "relevant_articles": [
+      "91/2015/qh13#23"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-475",
+    "question": "Ai là người đứng ra thay mặt thực hiện các giao dịch cho người bị mất năng lực hành vi dân sự?",
+    "relevant_articles": [
+      "91/2015/qh13#22"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-476",
+    "question": "Trường hợp nào dẫn đến việc một người bị hạn chế năng lực hành vi dân sự theo quy định?",
+    "relevant_articles": [
+      "91/2015/qh13#24"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-477",
+    "question": "Quyền nhân thân được hiểu là gì và có đặc điểm pháp lý nào cần lưu ý?",
+    "relevant_articles": [
+      "91/2015/qh13#25"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-478",
+    "question": "Khi muốn thực hiện các giao dịch liên quan đến quyền nhân thân của người đã mất hoặc bị mất tích, cần phải có sự đồng ý của ai?",
+    "relevant_articles": [
+      "91/2015/qh13#25"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-479",
+    "question": "Luật dân sự năm 2015 quy định cách thức xác định họ và tên của một cá nhân như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#26"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-480",
+    "question": "Trong những tình huống nào thì một người có thể đề nghị cơ quan chức năng cho phép đổi họ?",
+    "relevant_articles": [
+      "91/2015/qh13#27"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-481",
+    "question": "Việc đổi họ có làm mất đi các quyền lợi hay trách nhiệm pháp lý gắn với họ cũ hay không?",
+    "relevant_articles": [
+      "91/2015/qh13#27"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-482",
+    "question": "Pháp luật cho phép thay đổi tên cá nhân trong những trường hợp cụ thể nào?",
+    "relevant_articles": [
+      "91/2015/qh13#28"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-483",
+    "question": "Các quy định về thủ tục đăng ký khai sinh và khai tử được nêu ra sao trong bộ luật dân sự?",
+    "relevant_articles": [
+      "91/2015/qh13#30"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-484",
+    "question": "Quyền liên quan đến quốc tịch của mỗi cá nhân được hiểu như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#31"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-485",
+    "question": "Cá nhân có những quyền gì đối với hình ảnh cá nhân của chính mình?",
+    "relevant_articles": [
+      "91/2015/qh13#32"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-486",
+    "question": "Khi nào việc sử dụng ảnh của người khác không cần phải xin phép chủ thể?",
+    "relevant_articles": [
+      "91/2015/qh13#32"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-487",
+    "question": "Nếu hình ảnh bị sử dụng trái phép, người có ảnh có quyền yêu cầu tòa án xử lý ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#32"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-488",
+    "question": "Pháp luật cho phép khám nghiệm tử thi trong những trường hợp nào?",
+    "relevant_articles": [
+      "91/2015/qh13#33"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-489",
+    "question": "Danh dự, nhân phẩm và uy tín cá nhân được pháp luật bảo vệ như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#34"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-490",
+    "question": "Ngoài việc yêu cầu bác bỏ thông tin sai lệch, nạn nhân còn có quyền gì khác?",
+    "relevant_articles": [
+      "91/2015/qh13#34"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-491",
+    "question": "Điều kiện cần thiết để một người được phép xác định lại giới tính là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#36"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-492",
+    "question": "Sau khi chuyển đổi giới tính, người đó có những quyền và nghĩa vụ gì?",
+    "relevant_articles": [
+      "91/2015/qh13#36"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "multi_hop"
+  },
+  {
+    "question_id": "q-493",
+    "question": "Việc đại diện cho các cơ quan nhà nước trong các giao dịch dân sự được quy định thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#98"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-494",
+    "question": "Tài sản chung của các tổ chức không có tư cách pháp nhân được quản lý ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#102"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-495",
+    "question": "Theo Bộ luật Dân sự năm 2015 tài sản hình thành trong tương lai bao gồm những loại tài sản nào?",
+    "relevant_articles": [
+      "91/2015/qh13#108"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-496",
+    "question": "Bộ luật Dân sự năm 2015 quy định như thế nào về tài sản hiện có?",
+    "relevant_articles": [
+      "91/2015/qh13#108"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-497",
+    "question": "Đối với động sản, việc đăng ký sở hữu có bắt buộc hay không?",
+    "relevant_articles": [
+      "91/2015/qh13#106"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-498",
+    "question": "Bộ luật Dân sự năm 2015 quy định như thế nào về huỷ bỏ quyết định tuyên bố mất tích?",
+    "relevant_articles": [
+      "91/2015/qh13#70"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-499",
+    "question": "Hậu quả pháp lý khi tòa án hủy bỏ phán quyết tuyên bố một người đã chết là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#73"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-500",
+    "question": "Những tiêu chuẩn nào để một tổ chức được công nhận là pháp nhân?",
+    "relevant_articles": [
+      "91/2015/qh13#74"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-501",
+    "question": "Bất động sản có bắt buộc phải làm thủ tục đăng ký quyền sở hữu tại cơ quan nhà nước không?",
+    "relevant_articles": [
+      "91/2015/qh13#106"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-502",
+    "question": "Theo Bộ luật Dân sự năm 2015, Bất động sản bao gồm những loại nào?",
+    "relevant_articles": [
+      "91/2015/qh13#107"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-503",
+    "question": "Theo Bộ luật Dân sự 2015, lợi tức được hiểu như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#109"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-504",
+    "question": "Bộ luật Dân sự 2015 quy định thế nào về nơi lưu trú cá nhân?",
+    "relevant_articles": [
+      "91/2015/qh13#40"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-505",
+    "question": "Khi nào tòa án có thể ra phán quyết một người vắng mặt lâu ngày là đã mất tích?",
+    "relevant_articles": [
+      "91/2015/qh13#68"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-506",
+    "question": "Pháp nhân thương mại được hiểu là tổ chức như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#75"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-507",
+    "question": "Định nghĩa về pháp nhân phi thương mại theo quy định hiện hành là gì?",
+    "relevant_articles": [
+      "91/2015/qh13#76"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-508",
+    "question": "Bộ luật Dân sự 2015 quy định thế nào về tên gọi của pháp nhân?",
+    "relevant_articles": [
+      "91/2015/qh13#78"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-509",
+    "question": "Bộ luật Dân sự 2015 quy định thế nào về tài sản của pháp nhân?",
+    "relevant_articles": [
+      "91/2015/qh13#81"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-510",
+    "question": "Quy chế pháp lý đối với chi nhánh và văn phòng đại diện của một pháp nhân được xác định ra sao?",
+    "relevant_articles": [
+      "91/2015/qh13#84"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-511",
+    "question": "Pháp nhân có bị giới hạn quyền và nghĩa vụ dân sự hay không?",
+    "relevant_articles": [
+      "91/2015/qh13#86"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-512",
+    "question": "Trong những tình huống nào thì một pháp nhân sẽ bị giải thể?",
+    "relevant_articles": [
+      "91/2015/qh13#93"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-513",
+    "question": "Thời điểm nào được xem là chính thức chấm dứt sự tồn tại của một pháp nhân?",
+    "relevant_articles": [
+      "91/2015/qh13#96"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-514",
+    "question": "Nhà nước và các cơ quan công quyền phải chịu trách nhiệm dân sự với đối tác nước ngoài trong hoàn cảnh nào?",
+    "relevant_articles": [
+      "91/2015/qh13#100"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "conditional"
+  },
+  {
+    "question_id": "q-515",
+    "question": "Theo Bộ luật Dân sự 2015 “tài sản” được hiểu như thế nào và\nbao gồm những gì?",
+    "relevant_articles": [
+      "91/2015/qh13#105"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-516",
+    "question": "Tài sản là bất động sản có bắt buộc phải đăng ký quyền sở hữu tại cơ quan nhà nước không?",
+    "relevant_articles": [
+      "91/2015/qh13#106"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-517",
+    "question": "Theo Bộ luật Dân sự 2015, hoa lợi được hiểu như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#109"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-518",
+    "question": "Theo Bộ luật Dân sự 2015, vật chính được hiểu như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#110"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-519",
+    "question": "Theo Bộ luật Dân sự 2015, vật phụ được hiểu như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#110"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "q-520",
+    "question": "Theo Bộ luật Dân sự 2015, vật chia được được hiểu như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#111"
+    ],
+    "law_name": "Bộ luật Dân sự 2015",
+    "num_articles": 1,
+    "difficulty": 3,
+    "source": "VMTEB-ALQAC",
+    "category": "clean_factoid"
+  },
+  {
+    "question_id": "VILEGAL_1791",
+    "question": "Chiến sĩ Bộ đội biên phòng đang thi hành công vụ có thẩm quyền xử phạt như thế nào trong lĩnh vực hóa chất?",
+    "relevant_articles": [
+      "73/vbhn-vpqh#41"
+    ],
+    "law_name": "Xử Lý Vi Phạm Hành Chính",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2328",
+    "question": "Thế nào là sở hữu chéo giữa các doanh nghiệp theo quy định pháp luật?",
+    "relevant_articles": [
+      "59/2020/qh14#195"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0036",
+    "question": "Doanh nghiệp muốn ngừng hoạt động thì cần báo trước cho cơ quan quản lý bao lâu?",
+    "relevant_articles": [
+      "59/2020/qh14#206"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1044",
+    "question": "Công ty đầu tư chứng khoán được hiểu thế nào?",
+    "relevant_articles": [
+      "59/2020/qh14#216"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0111",
+    "question": "Di chúc của người không biết chữ có bắt buộc phải công chứng hay chứng thực không?",
+    "relevant_articles": [
+      "91/2015/qh13#634"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2098",
+    "question": "Pháp nhân mới hình thành do chia, tách có phải thi hành án hình sự do pháp nhân thương mại cũ bị áp dụng không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#87"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0308",
+    "question": "Các thành viên quản lý cấp cao tại doanh nghiệp nhà nước có trách nhiệm và quyền lợi gì?",
+    "relevant_articles": [
+      "59/2020/qh14#165"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1589",
+    "question": "Việc cải thiện điều kiện lao động, xây dựng văn hóa an toàn lao động được quy định như thế nào?",
+    "relevant_articles": [
+      "45/2019/qh14#137"
+    ],
+    "law_name": "Lao Động",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1101",
+    "question": "Người từng bị tòa tuyên bố đã chết nếu quay về thì có quyền đòi lại tài sản đã chia không?",
+    "relevant_articles": [
+      "91/2015/qh13#72"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0095",
+    "question": "Chủ tịch xã được quyền xử phạt vi phạm hành chính cao nhất bao nhiêu tiền đối với các vấn đề trật tự xã hội?",
+    "relevant_articles": [
+      "73/vbhn-vpqh#38"
+    ],
+    "law_name": "Xử Lý Vi Phạm Hành Chính",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2154",
+    "question": "Có được ủy quyền cho người khác đi gửi tiết kiệm ngân hàng không?",
+    "relevant_articles": [
+      "91/2015/qh13#469"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0404",
+    "question": "Như thế nào được gọi là cổ phiếu đã phát hành?",
+    "relevant_articles": [
+      "59/2020/qh14#112"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1053",
+    "question": "Giữa anh chị em ruột trong gia đình có những quyền và nghĩa vụ gì với nhau?",
+    "relevant_articles": [
+      "52/2014/qh13#106"
+    ],
+    "law_name": "Hôn Nhân Và Gia Đình",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0367",
+    "question": "Tên địa điểm kinh doanh bắt buộc phải có cụm từ “Địa điểm kinh doanh” không?",
+    "relevant_articles": [
+      "59/2020/qh14#41"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2277",
+    "question": "Việc lắp đặt máng xối hoặc đường thoát nước mưa sang đất của hàng xóm có được phép không?",
+    "relevant_articles": [
+      "91/2015/qh13#250"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1998",
+    "question": "Quy chế nội bộ về quản trị công ty được ai xây dựng?",
+    "relevant_articles": [
+      "59/2020/qh14#137"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0358",
+    "question": "Hội đồng thành viên có phải là cơ quan ra quyết định cao nhất tại công ty TNHH hai thành viên trở lên?",
+    "relevant_articles": [
+      "59/2020/qh14#54"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 1,
+    "category": "clean_factoid",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2515",
+    "question": "Khi luật không có quy định cụ thể, việc áp dụng tương tự pháp luật trong dân sự thực hiện thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#6"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1336",
+    "question": "Trường hợp đất bị thu hồi làm dự án giao thông, người dân có quyền được thuê nhà tái định cư không?",
+    "relevant_articles": [
+      "31/2024/qh15#125"
+    ],
+    "law_name": "Đất Đai",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0290",
+    "question": "Thực hiện về quyền cầm giữ tài sản được quy định như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#348"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2556",
+    "question": "Mức thời gian được giảm thi hành án đối với người bị phạt cải tạo không giam giữ?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#102"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2253",
+    "question": "Các tiêu chuẩn để trở thành thành viên Hội đồng quản trị công ty đại chúng là gì?",
+    "relevant_articles": [
+      "59/2020/qh14#155"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0167",
+    "question": "Người đang bị hoãn thi hành án có cơ hội được xét tha tù trước thời hạn không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#66"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0366",
+    "question": "Quy định về bồi thường bệnh nghề nghiệp khi bị suy giảm khả năng lao động 4%?",
+    "relevant_articles": [
+      "45/2019/qh14#38"
+    ],
+    "law_name": "Lao Động",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2427",
+    "question": "Nghĩa vụ cấp dưỡng của con đối với cha mẹ",
+    "relevant_articles": [
+      "52/2014/qh13#115"
+    ],
+    "law_name": "Hôn Nhân Và Gia Đình",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1817",
+    "question": "Chủ doanh nghiệp tư nhân có phải chịu những khoản nợ sau khi bán doanh nghiệp?",
+    "relevant_articles": [
+      "59/2020/qh14#191"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2377",
+    "question": "Thỏa thuận về bảo lãnh được quy định như thế nào?",
+    "relevant_articles": [
+      "91/2015/qh13#336"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1941",
+    "question": "Xử lý vi phạm đối với người chấp hành án phạt cải tạo không giam giữ",
+    "relevant_articles": [
+      "01/vbhn-vpqh#100"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2269",
+    "question": "Trộm điện thì xử phạt bao nhiêu?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#173"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1639",
+    "question": "Làm công trừ nợ được không?",
+    "relevant_articles": [
+      "91/2015/qh13#358"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0361",
+    "question": "Phạt cọc gấp đôi thì có đúng quy định pháp luật?",
+    "relevant_articles": [
+      "91/2015/qh13#328"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1745",
+    "question": "Vợ chồng tôi là dân tộc Kinh và Hà Nhì thì con thuộc dân tộc nào?",
+    "relevant_articles": [
+      "91/2015/qh13#29"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2023",
+    "question": "Mức phạt khi sử dụng động vật chết do bệnh, dịch để chế biến thực phẩm được quy định như thế nào?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#317"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1826",
+    "question": "Bị thương tật 25%, cơ quan nhà nước có khởi tố không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#155"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0944",
+    "question": "Ai cũng được phép từ chối nhận tài sản thừa kế hay sao?",
+    "relevant_articles": [
+      "91/2015/qh13#620"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0648",
+    "question": "Bên nhận thế chấp có quyền cho bên thứ ba thuê lại tài sản đó không?",
+    "relevant_articles": [
+      "91/2015/qh13#326"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0892",
+    "question": "Nếu hủy hợp đồng trước hạn thì có phải bồi thường thiệt hại không?",
+    "relevant_articles": [
+      "91/2015/qh13#428"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2113",
+    "question": "Xử lý tài chính khi doanh nghiệp chấm dứt cam kết thực hiện mục tiêu xã hội, môi trường được quy định như thế nào?",
+    "relevant_articles": [
+      "59/2020/qh14#16"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2028",
+    "question": "Việc văn phòng đại diện đóng cửa có khiến hợp đồng lao động đương nhiên chấm dứt?",
+    "relevant_articles": [
+      "45/2019/qh14#34"
+    ],
+    "law_name": "Lao Động",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0205",
+    "question": "Không thực hiện hợp đồng có bị mất tiền cọc không?",
+    "relevant_articles": [
+      "91/2015/qh13#328"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0044",
+    "question": "Người đang trong thời gian thử thách án treo có được xin rút ngắn thời gian này không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#65"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0776",
+    "question": "Chồng muốn bán căn nhà duy nhất đứng tên riêng thì có cần vợ đồng ý không?",
+    "relevant_articles": [
+      "52/2014/qh13#31"
+    ],
+    "law_name": "Hôn Nhân Và Gia Đình",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1735",
+    "question": "Con riêng được nhận di sản thừa kế từ cha dượng không?",
+    "relevant_articles": [
+      "91/2015/qh13#654"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0239",
+    "question": "Hiệu lực pháp lý của di chúc miệng khi người lập di chúc phục hồi sức khỏe?",
+    "relevant_articles": [
+      "91/2015/qh13#638"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0098",
+    "question": "Nếu thành viên chưa góp đủ vốn, công ty cần làm thủ tục thay đổi vốn trong bao lâu?",
+    "relevant_articles": [
+      "59/2020/qh14#47"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2319",
+    "question": "Nếu gia súc lạc vào nhà mình thì mình có quyền sở hữu chúng không?",
+    "relevant_articles": [
+      "91/2015/qh13#229"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0752",
+    "question": "Khi mua bán hàng hóa, bên nào chịu rủi ro nếu tài sản bị hỏng hóc?",
+    "relevant_articles": [
+      "91/2015/qh13#441"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1763",
+    "question": "Tòa án có thể ra lệnh tạm dừng chia di sản thừa kế trong bao lâu?",
+    "relevant_articles": [
+      "91/2015/qh13#661"
+    ],
+    "law_name": "Dân Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2016",
+    "question": "Thời gian được phép đi khỏi nơi cư trú đối với người phạt quản chế?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#63"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 2,
+    "category": "conditional",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0665",
+    "question": "Thành lập công ty lâm nghiệp trách nhiệm hữu hạn hai thành viên trở lên được quy định như thế nào?",
+    "relevant_articles": [
+      "59/2020/qh14#23"
+    ],
+    "law_name": "Doanh Nghiệp",
+    "num_articles": 1,
+    "difficulty": 4,
+    "category": "multi_hop",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0722",
+    "question": "Những cách nào được dùng để xử lý hậu quả sau khi vi phạm luật giao thông?",
+    "relevant_articles": [
+      "73/vbhn-vpqh#28"
+    ],
+    "law_name": "Xử Lý Vi Phạm Hành Chính",
+    "num_articles": 1,
+    "difficulty": 4,
+    "category": "multi_hop",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_0474",
+    "question": "Bằng lái xe bị tước quyền sử dụng có được cấp đổi khi sắp hết hạn không?",
+    "relevant_articles": [
+      "73/vbhn-vpqh#81"
+    ],
+    "law_name": "Xử Lý Vi Phạm Hành Chính",
+    "num_articles": 1,
+    "difficulty": 5,
+    "category": "negative",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1322",
+    "question": "Ủy ban nhân dân cấp xã có thẩm quyền xem xét giảm thời gian chấp hành án treo không?",
+    "relevant_articles": [
+      "01/vbhn-vpqh#65"
+    ],
+    "law_name": "Hình Sự",
+    "num_articles": 1,
+    "difficulty": 5,
+    "category": "negative",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_2405",
+    "question": "Xe phân khối chạy tốc độ thấp có bị tạm giữ GPLX hay không?",
+    "relevant_articles": [
+      "73/vbhn-vpqh#125"
+    ],
+    "law_name": "Xử Lý Vi Phạm Hành Chính",
+    "num_articles": 1,
+    "difficulty": 5,
+    "category": "negative",
+    "source": "ViLegalExpert_Cleaned"
+  },
+  {
+    "question_id": "VILEGAL_1313",
+    "question": "Người lao động nước ngoài làm việc không đúng với nội dung trong giấy phép lao động thì có bị trục xuất không?",
+    "relevant_articles": [
+      "45/2019/qh14#152"
+    ],
+    "law_name": "Lao Động",
+    "num_articles": 1,
+    "difficulty": 5,
+    "category": "negative",
+    "source": "ViLegalExpert_Cleaned"
+  }
+]
