@@ -59,3 +59,24 @@ Quá trình xử lý từ 17:00 đến nay là một Case Study hoàn hảo cho 
 
 3. **Thiếu độ khó thực tế (Lack of Complexity):** 
    Đời thực, người dân không bao giờ hỏi *"Theo Khoản 2 Điều 15 Luật Đất đai thì..."*. Họ hỏi những hoàn cảnh phức tạp, cần suy luận chéo nhiều điều luật (Multi-hop), có điều kiện ngoại lệ (Conditional), hoặc hỏi những thứ luật không quy định (Negative/Refusal). Dữ liệu thô sơ trên mạng 95% là câu hỏi ngây ngô (Factoid 1 bước). Việc ta phải thiết kế lại các trường dữ liệu và lọc phân loại là để tạo ra những chướng ngại vật thực sự, qua đó mới ép được các hệ thống Hybrid hay LightRAG bộc lộ hết sức mạnh thiết kế của chúng.
+
+## 6. Q&A Học Thuật: Biện Luận Lựa Chọn Mô Hình Đánh Giá (Model Selection Defend)
+**Câu hỏi/Tranh luận:** *"Tại sao lại dùng API thương mại (GPT-4o-mini) để đánh giá RAG? Sinh viên NCKH không có kinh phí thì chạy sao nổi? Tại sao không dùng mô hình Open-Source miễn phí như Qwen 2.5 7B hay Llama chạy Local cho đúng chất NCKH?"*
+
+**Giải đáp (Insights dùng để Bảo vệ trước Hội đồng):**
+
+Việc sử dụng API (GPT-4o-mini) thay vì Local LLM không hề làm giảm giá trị học thuật, trái lại đây là quyết định tối ưu nhất về quản trị rủi ro nghiên cứu. Dưới đây là luận điểm 4 tiêu chí để phản biện:
+
+1. **Về Chất lượng (Khả năng suy luận pháp lý):**
+   GPT-4o-mini không hề yếu. Trên các benchmark pháp lý tiếng Việt (VLegal-Bench), nó thường xuyên đạt điểm cao hơn các mô hình open-source 7B-8B. Trong khi Qwen 2.5 7B dù mạnh ở khởi đầu nhưng hay mắc lỗi ở các suy luận phức tạp (tỷ lệ lỗi lên tới 37% ở ngữ nghĩa không rõ ràng). Làm "Giám khảo tự động" thì GPT-4o-mini mang lại một baseline khách quan và đáng tin cậy hơn.
+
+2. **Về Chi phí (Cost):**
+   Chi phí API rẻ đến mức không tưởng. Với 3.000 lượt gọi (Generation + Judging) cho 512 câu, tổng chi phí chỉ từ **1-3 USD** (vài chục ngàn VNĐ). Rất nhiều bài báo khoa học Q1 (quốc tế) cũng đã công bố việc đánh giá bằng API với mức phí chỉ khoảng 60 USD. Đây không phải rào cản.
+
+3. **Về Thời gian (Time & Compute Quota):**
+   Dùng API giải phóng hoàn toàn gánh nặng tính toán (Compute Burden). Cả bộ benchmark có thể chạy xong trong **1-2 giờ**. Nếu ép chạy Qwen 2.5 7B Local trên Kaggle, quá trình sinh text (Inference) cho 3.000 lượt sẽ tốn **4-8 giờ**, ngốn sạch hạn mức GPU (30h/tuần) của nền tảng. Nếu có lỗi sập giữa chừng phải chạy lại, dự án có nguy cơ "chết lâm sàng" vì cạn kiệt tài nguyên tính toán.
+
+4. **Về Giá trị Học thuật (Core Contribution):**
+   Nhiều hội nghị hàng đầu (ACL, EMNLP, NeurIPS) vẫn chấp nhận sử dụng GPT-4o-mini làm Verifier. Đóng góp học thuật cốt lõi của đề tài này nằm ở việc **thiết kế, tinh chỉnh và so sánh các kiến trúc Truy xuất RAG** (Vector vs Hybrid vs Graph). Việc chọn con LLM nào để nhả chữ ở cuối phễu chỉ là một chi tiết triển khai thực tế (Implementation detail), hoàn toàn không làm suy giảm tính học thuật của việc nghiên cứu RAG.
+   
+**=> Chiến lược Chốt Hạ:** Tầng Retrieval (băm Vector, truy tìm) chạy Local 100% trên Kaggle để tận dụng sức mạnh GPU T4. Tầng Generation và Evaluation (nhả chữ và chấm điểm) bắn API để tối ưu tốc độ, đảm bảo dự án về đích an toàn.
