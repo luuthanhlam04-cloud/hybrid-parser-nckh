@@ -44,3 +44,18 @@ Tập benchmark cuối cùng đã được "chốt hạ" bao gồm các thông s
 ---
 *Kết luận dành cho phần Viết Luận Văn:* 
 Quá trình xử lý từ 17:00 đến nay là một Case Study hoàn hảo cho việc: "Sự cần thiết của Data Hygiene (Vệ sinh dữ liệu) trong thiết kế Legal Benchmark". Mọi hệ thống RAG phức tạp đều sẽ vô nghĩa (Garbage In - Garbage Out) nếu tập Benchmark bị rò rỉ dữ liệu (Leakage) và không phản ánh đúng phân phối ngôn ngữ tự nhiên của người dùng.
+
+## 5. Q&A Học Thuật: Phản Biện Về Nguồn Dữ Liệu
+**Câu hỏi:** *"Các tập data trên mạng (VMTEB, ViLegalQA) bản chất chỉ là tập hợp cặp Câu hỏi - Câu trả lời. Tại sao chúng ta không bốc nguyên xi về xài luôn mà phải mất cả buổi để mổ xẻ, lọc lỗi và dùng AI viết lại? Chẳng phải cứ có Hỏi - Đáp là đánh giá được RAG sao?"*
+
+**Giải đáp (Insights cốt lõi để đưa vào Luận văn):**
+
+1. **Lỗi Rò rỉ Dữ liệu (Data Leakage) tàn phá tính công bằng:** 
+   Nhiều tập dữ liệu cũ được tạo ra bằng cách rất cơ học: Tác giả copy nguyên một câu trong luật, đảo ngữ một chút và gắn thêm từ để hỏi. Hậu quả là **câu hỏi chứa chính xác từ vựng của câu trả lời**. 
+   Nếu dùng tập này, một thuật toán thô sơ từ 30 năm trước như BM25 (so khớp từ khóa) cũng dễ dàng đạt điểm tuyệt đối (Recall lên tới 90%). Điều này làm "bóp méo" hoàn toàn bài toán RAG: Các mô hình Vector/Graph phức tạp bị lu mờ, vì hệ thống lúc này chỉ đang chơi trò "tìm từ giống nhau" chứ không hề phải suy luận ngữ nghĩa pháp lý.
+
+2. **Lệch pha Phiên bản Luật (Temporal Misalignment):** 
+   Pháp luật thay đổi liên tục. Rất nhiều bộ QA cũ trích dẫn Luật Hôn nhân Gia đình bản cũ hoặc Luật Đất đai 2013. Trong khi đó, kho tri thức (Corpus) của hệ thống chúng ta là các bộ luật Mới Nhất. Nếu bốc nguyên QA cũ vào, hệ thống RAG tìm ra luật mới (chính xác với hiện hành) nhưng lại bị Giám khảo đánh điểm 0 vì... "không khớp với đáp án cũ". Việc đánh giá sẽ thành rác nếu không đồng bộ hóa (mapping) được `article_id`.
+
+3. **Thiếu độ khó thực tế (Lack of Complexity):** 
+   Đời thực, người dân không bao giờ hỏi *"Theo Khoản 2 Điều 15 Luật Đất đai thì..."*. Họ hỏi những hoàn cảnh phức tạp, cần suy luận chéo nhiều điều luật (Multi-hop), có điều kiện ngoại lệ (Conditional), hoặc hỏi những thứ luật không quy định (Negative/Refusal). Dữ liệu thô sơ trên mạng 95% là câu hỏi ngây ngô (Factoid 1 bước). Việc ta phải thiết kế lại các trường dữ liệu và lọc phân loại là để tạo ra những chướng ngại vật thực sự, qua đó mới ép được các hệ thống Hybrid hay LightRAG bộc lộ hết sức mạnh thiết kế của chúng.
