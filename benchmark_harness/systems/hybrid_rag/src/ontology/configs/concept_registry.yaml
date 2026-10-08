@@ -1,0 +1,368 @@
+metadata:
+  version: "1.0"
+  description: "Canonical Concept Hub cho Module 7 — Luật Đất đai 2024, Chương 3 (Quyền và nghĩa vụ của người sử dụng đất)"
+  namespace: "LO2024"
+
+concepts:
+  # ============================
+  # LEGAL SUBJECTS (13 concepts)
+  # ============================
+  - id: "LO2024.SUBJECT.LAND_USER"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject"
+    preferred_name: "Người sử dụng đất"
+    alt_labels:
+      - "người sử dụng đất"
+      - "đối tượng sử dụng đất"
+    negative_triggers:
+      - "người có quyền lợi"
+    neo4j_labels: ["LegalSubject", "LandUser"]
+
+  - id: "LO2024.SUBJECT.INDIVIDUAL_DOMESTIC"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.DomesticEntity.Individual"
+    preferred_name: "Cá nhân trong nước"
+    alt_labels:
+      - "cá nhân"
+      - "cá nhân trong nước"
+      - "công dân"
+    negative_triggers:
+      - "cá nhân nước ngoài"
+    neo4j_labels: ["LegalSubject", "DomesticEntity", "Individual"]
+
+  - id: "LO2024.SUBJECT.ETHNIC_MINORITY_INDIVIDUAL"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.DomesticEntity.EthnicMinorityIndividual"
+    preferred_name: "Cá nhân là người dân tộc thiểu số"
+    alt_labels:
+      - "người dân tộc thiểu số"
+      - "đồng bào dân tộc thiểu số"
+      - "cá nhân là người dân tộc thiểu số"
+    negative_triggers:
+      - "vùng đồng bào dân tộc thiểu số"
+    neo4j_labels: ["LegalSubject", "DomesticEntity", "Individual", "EthnicMinority"]
+
+  - id: "LO2024.SUBJECT.DOMESTIC_ORGANIZATION"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.DomesticEntity.Organization"
+    preferred_name: "Tổ chức kinh tế trong nước"
+    alt_labels:
+      - "tổ chức kinh tế"
+      - "doanh nghiệp"
+    negative_triggers:
+      - "tổ chức có vốn đầu tư nước ngoài"
+    neo4j_labels: ["LegalSubject", "DomesticEntity", "Organization"]
+
+  - id: "LO2024.SUBJECT.PROVINCIAL_AUTHORITY"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.Authority.ProvincialAuthority"
+    preferred_name: "Ủy ban nhân dân cấp tỉnh"
+    alt_labels:
+      - "UBND cấp tỉnh"
+      - "ủy ban nhân dân cấp tỉnh"
+    negative_triggers:
+      - "ủy ban nhân dân cấp huyện"
+    neo4j_labels: ["LegalSubject", "Authority", "ProvincialAuthority"]
+
+  - id: "LO2024.SUBJECT.DISTRICT_AUTHORITY"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.Authority.DistrictAuthority"
+    preferred_name: "Ủy ban nhân dân cấp huyện"
+    alt_labels:
+      - "UBND cấp huyện"
+      - "ủy ban nhân dân cấp huyện"
+    negative_triggers:
+      - "ủy ban nhân dân cấp tỉnh"
+    neo4j_labels: ["LegalSubject", "Authority", "DistrictAuthority"]
+
+  - id: "LO2024.SUBJECT.COMMUNE_AUTHORITY"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.Authority.CommuneAuthority"
+    preferred_name: "Ủy ban nhân dân cấp xã"
+    alt_labels:
+      - "UBND cấp xã"
+      - "ủy ban nhân dân cấp xã"
+    negative_triggers:
+      - "ủy ban nhân dân cấp huyện"
+    neo4j_labels: ["LegalSubject", "Authority", "CommuneAuthority"]
+
+  - id: "LO2024.SUBJECT.STATE"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.Authority.CentralAuthority"
+    preferred_name: "Nhà nước"
+    alt_labels:
+      - "Nhà nước"
+      - "Chính phủ"
+    negative_triggers:
+      - "tài sản nhà nước"
+    neo4j_labels: ["LegalSubject", "Authority", "CentralAuthority", "State"]
+
+  - id: "LO2024.SUBJECT.OVERSEAS_VIETNAMESE"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.ForeignRelatedEntity.OverseasVietnamese"
+    preferred_name: "Người gốc Việt Nam định cư ở nước ngoài"
+    alt_labels:
+      - "người gốc Việt Nam định cư ở nước ngoài"
+      - "kiều bào"
+    negative_triggers:
+      - "người nước ngoài"
+    neo4j_labels: ["LegalSubject", "ForeignRelatedEntity", "OverseasVietnamese"]
+
+  - id: "LO2024.SUBJECT.FDI_ENTERPRISE"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.ForeignRelatedEntity.FDIEnterprise"
+    preferred_name: "Tổ chức kinh tế có vốn đầu tư nước ngoài"
+    alt_labels:
+      - "tổ chức kinh tế có vốn đầu tư nước ngoài"
+      - "doanh nghiệp FDI"
+    negative_triggers:
+      - "tổ chức kinh tế trong nước"
+    neo4j_labels: ["LegalSubject", "ForeignRelatedEntity", "FDIEnterprise"]
+
+  - id: "LO2024.SUBJECT.FOREIGN_DIPLOMATIC_ORGANIZATION"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.ForeignRelatedEntity.DiplomaticOrganization"
+    preferred_name: "Tổ chức ngoại giao nước ngoài"
+    alt_labels:
+      - "tổ chức ngoại giao"
+      - "cơ quan đại diện ngoại giao"
+    negative_triggers:
+      - "tổ chức kinh tế"
+    neo4j_labels: ["LegalSubject", "ForeignRelatedEntity", "DiplomaticOrganization"]
+
+  - id: "LO2024.SUBJECT.RELIGIOUS_ORGANIZATION"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.DomesticEntity.ReligiousOrganization"
+    preferred_name: "Tổ chức tôn giáo"
+    alt_labels:
+      - "tổ chức tôn giáo"
+      - "cơ sở tôn giáo"
+    negative_triggers:
+      - "tổ chức kinh tế"
+    neo4j_labels: ["LegalSubject", "DomesticEntity", "ReligiousOrganization"]
+
+  - id: "LO2024.SUBJECT.RESIDENTIAL_COMMUNITY"
+    semantic_type: "LegalSubject"
+    taxonomy_path: "LegalSubject.DomesticEntity.ResidentialCommunity"
+    preferred_name: "Cộng đồng dân cư"
+    alt_labels:
+      - "cộng đồng dân cư"
+    negative_triggers:
+      - "cá nhân"
+    neo4j_labels: ["LegalSubject", "DomesticEntity", "ResidentialCommunity"]
+
+  # ============================
+  # LEGAL ACTIONS (13 concepts)
+  # ============================
+  - id: "LO2024.ACTION.LAND_TRANSFER"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.TransferAction"
+    preferred_name: "Chuyển nhượng quyền sử dụng đất"
+    alt_labels:
+      - "chuyển nhượng"
+      - "chuyển nhượng QSDĐ"
+    negative_triggers:
+      - "nhận chuyển nhượng"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "TransferAction"]
+
+  - id: "LO2024.ACTION.LAND_MORTGAGE"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.MortgageAction"
+    preferred_name: "Thế chấp quyền sử dụng đất"
+    alt_labels:
+      - "thế chấp"
+      - "thế chấp quyền sử dụng đất"
+    negative_triggers:
+      - "nhận thế chấp"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "MortgageAction"]
+
+  - id: "LO2024.ACTION.LAND_LEASE"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.LeaseAction"
+    preferred_name: "Cho thuê quyền sử dụng đất"
+    alt_labels:
+      - "cho thuê"
+      - "cho thuê quyền sử dụng đất"
+    negative_triggers:
+      - "thuê đất"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "LeaseAction"]
+
+  - id: "LO2024.ACTION.LAND_SUBLEASE"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.SubleaseAction"
+    preferred_name: "Cho thuê lại quyền sử dụng đất"
+    alt_labels:
+      - "cho thuê lại"
+      - "cho thuê lại quyền sử dụng đất"
+    negative_triggers:
+      - "cho thuê đất"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "SubleaseAction"]
+
+  - id: "LO2024.ACTION.LAND_DONATION"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.DonationAction"
+    preferred_name: "Tặng cho quyền sử dụng đất"
+    alt_labels:
+      - "tặng cho"
+      - "hiến tặng"
+    negative_triggers:
+      - "nhận tặng cho"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "DonationAction"]
+
+  - id: "LO2024.ACTION.LAND_INHERITANCE"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.InheritanceAction"
+    preferred_name: "Thừa kế quyền sử dụng đất"
+    alt_labels:
+      - "thừa kế"
+      - "để lại thừa kế"
+    negative_triggers:
+      - "nhận thừa kế"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "InheritanceAction"]
+
+  - id: "LO2024.ACTION.LAND_CAPITAL_CONTRIBUTION"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.CapitalContributionAction"
+    preferred_name: "Góp vốn bằng quyền sử dụng đất"
+    alt_labels:
+      - "góp vốn"
+      - "góp vốn bằng quyền sử dụng đất"
+    negative_triggers:
+      - "nhận góp vốn"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "CapitalContributionAction"]
+
+  - id: "LO2024.ACTION.CERTIFICATION"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.AdministrativeProcedure.CertificationAction"
+    preferred_name: "Công chứng hoặc chứng thực"
+    alt_labels:
+      - "công chứng"
+      - "chứng thực"
+    negative_triggers:
+      - "tổ chức hành nghề công chứng"
+    neo4j_labels: ["LegalAction", "AdministrativeProcedure", "CertificationAction"]
+
+  - id: "LO2024.ACTION.CERT_ISSUANCE"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.AdministrativeProcedure.CertIssuanceAction"
+    preferred_name: "Cấp Giấy chứng nhận quyền sử dụng đất"
+    alt_labels:
+      - "cấp Giấy chứng nhận"
+      - "cấp sổ đỏ"
+    negative_triggers:
+      - "xin cấp Giấy chứng nhận"
+    neo4j_labels: ["LegalAction", "AdministrativeProcedure", "CertIssuanceAction"]
+
+  - id: "LO2024.ACTION.LAND_REGISTRATION"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.AdministrativeProcedure.LandRegistrationAction"
+    preferred_name: "Đăng ký đất đai"
+    alt_labels:
+      - "đăng ký đất đai"
+      - "đăng ký biến động"
+    negative_triggers:
+      - "cơ quan đăng ký đất đai"
+    neo4j_labels: ["LegalAction", "AdministrativeProcedure", "LandRegistrationAction"]
+
+  - id: "LO2024.ACTION.LAND_ALLOCATION"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.StateManagement.LandAllocationAction"
+    preferred_name: "Giao đất"
+    alt_labels:
+      - "giao đất"
+      - "nhà nước giao đất"
+    negative_triggers:
+      - "được giao đất"
+    neo4j_labels: ["LegalAction", "StateManagement", "LandAllocationAction"]
+
+  - id: "LO2024.ACTION.LAND_LEASE_BY_STATE"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.StateManagement.LandLeaseAction"
+    preferred_name: "Cho thuê đất (từ Nhà nước)"
+    alt_labels:
+      - "nhà nước cho thuê đất"
+      - "cho thuê đất"
+    negative_triggers:
+      - "được cho thuê đất"
+    neo4j_labels: ["LegalAction", "StateManagement", "LandLeaseAction"]
+
+  - id: "LO2024.ACTION.LAND_RECOVERY"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.StateManagement.LandRecoveryAction"
+    preferred_name: "Thu hồi đất"
+    alt_labels:
+      - "thu hồi đất"
+      - "thu hồi"
+    negative_triggers:
+      - "bị thu hồi đất"
+    neo4j_labels: ["LegalAction", "StateManagement", "LandRecoveryAction"]
+
+  # ============================
+  # LEGAL OBJECTS (6 concepts)
+  # ============================
+  - id: "LO2024.OBJECT.LAND_USE_RIGHT"
+    semantic_type: "LegalObject"
+    taxonomy_path: "LegalObject.LandRight.LandUseRight"
+    preferred_name: "Quyền sử dụng đất"
+    alt_labels:
+      - "quyền sử dụng đất"
+      - "QSDĐ"
+    negative_triggers:
+      - "giấy chứng nhận quyền sử dụng đất"
+    neo4j_labels: ["LegalObject", "LandRight", "LandUseRight"]
+
+  - id: "LO2024.OBJECT.LAND_CERTIFICATE"
+    semantic_type: "LegalObject"
+    taxonomy_path: "LegalObject.LandDocument.LandCertificate"
+    preferred_name: "Giấy chứng nhận quyền sử dụng đất"
+    alt_labels:
+      - "Giấy chứng nhận"
+      - "sổ đỏ"
+    negative_triggers:
+      - "đơn xin cấp giấy chứng nhận"
+    neo4j_labels: ["LegalObject", "LandDocument", "LandCertificate"]
+
+  - id: "LO2024.OBJECT.AGRICULTURAL_LAND"
+    semantic_type: "LegalObject"
+    taxonomy_path: "LegalObject.PhysicalLand.AgriculturalLand"
+    preferred_name: "Đất nông nghiệp"
+    alt_labels:
+      - "đất nông nghiệp"
+      - "đất trồng lúa"
+      - "đất rừng"
+    negative_triggers:
+      - "đất phi nông nghiệp"
+    neo4j_labels: ["LegalObject", "PhysicalLand", "AgriculturalLand"]
+
+  - id: "LO2024.OBJECT.NON_AGRICULTURAL_LAND"
+    semantic_type: "LegalObject"
+    taxonomy_path: "LegalObject.PhysicalLand.NonAgriculturalLand"
+    preferred_name: "Đất phi nông nghiệp"
+    alt_labels:
+      - "đất phi nông nghiệp"
+      - "đất xây dựng"
+    negative_triggers:
+      - "đất nông nghiệp"
+    neo4j_labels: ["LegalObject", "PhysicalLand", "NonAgriculturalLand"]
+
+  - id: "LO2024.OBJECT.RESIDENTIAL_LAND"
+    semantic_type: "LegalObject"
+    taxonomy_path: "LegalObject.PhysicalLand.ResidentialLand"
+    preferred_name: "Đất ở"
+    alt_labels:
+      - "đất ở"
+      - "đất thổ cư"
+    negative_triggers:
+      - "nhà ở"
+    neo4j_labels: ["LegalObject", "PhysicalLand", "ResidentialLand"]
+
+  - id: "LO2024.OBJECT.COMMERCIAL_LAND"
+    semantic_type: "LegalObject"
+    taxonomy_path: "LegalObject.PhysicalLand.CommercialLand"
+    preferred_name: "Đất thương mại, dịch vụ"
+    alt_labels:
+      - "đất thương mại dịch vụ"
+      - "đất sản xuất kinh doanh"
+    negative_triggers:
+      - "đất ở"
+    neo4j_labels: ["LegalObject", "PhysicalLand", "CommercialLand"]

@@ -1,0 +1,227 @@
+# mapping_rules.yaml
+# Rules ánh xạ M6 entity text → subtype + canonical_concept_id
+#
+# Cấu trúc mỗi rule:
+#   id: RULE_MAP_<N>
+#   m6_type: loại entity M6 input (SUBJECT, ACTION, OBJECT, PENALTY, CONDITION, EXCEPTION, REFERENCE)
+#   triggers:             # danh sách từ khóa/cụm từ trigger (lowercase, normalized)
+#   negative_triggers:    # nếu xuất hiện → KHÔNG match rule này (giảm false positive)
+#   target_subtype:       # subtype trong taxonomy_registry
+#   target_concept_id:    # concept ID trong concept_registry (optional)
+#   confidence: HIGH/MEDIUM/LOW
+#   action: CORRECT/FLAG  # CORRECT = tự sửa; FLAG = mark UNRESOLVED để review
+
+mapping_rules:
+  # =============================
+  # SUBJECT → LegalSubject mapping
+  # =============================
+  - id: RULE_MAP_S01
+    m6_type: SUBJECT
+    triggers:
+      - "người dân tộc thiểu số"
+      - "đồng bào dân tộc thiểu số"
+      - "cá nhân là người dân tộc thiểu số"
+      - "đồng bào các dân tộc thiểu số"
+    negative_triggers: []
+    target_subtype: EthnicMinorityIndividual
+    target_concept_id: LO2024.SUBJECT.ETHNIC_MINORITY_INDIVIDUAL
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_S02
+    m6_type: SUBJECT
+    triggers:
+      - "ubnd cấp tỉnh"
+      - "ủy ban nhân dân cấp tỉnh"
+      - "ubnd tỉnh"
+      - "ủy ban nhân dân tỉnh"
+    negative_triggers: ["cấp huyện", "cấp xã"]
+    target_subtype: ProvincialAuthority
+    target_concept_id: LO2024.SUBJECT.PROVINCIAL_AUTHORITY
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_S03
+    m6_type: SUBJECT
+    triggers:
+      - "ubnd cấp huyện"
+      - "ủy ban nhân dân cấp huyện"
+      - "ubnd huyện"
+    negative_triggers: ["cấp tỉnh", "cấp xã"]
+    target_subtype: DistrictAuthority
+    target_concept_id: LO2024.SUBJECT.DISTRICT_AUTHORITY
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_S04
+    m6_type: SUBJECT
+    triggers:
+      - "nhà nước"
+    negative_triggers: []
+    target_subtype: CentralAuthority
+    target_concept_id: LO2024.SUBJECT.STATE
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_S05
+    m6_type: SUBJECT
+    triggers:
+      - "người gốc việt nam định cư ở nước ngoài"
+      - "người việt nam định cư ở nước ngoài"
+      - "kiều bào"
+    negative_triggers: []
+    target_subtype: OverseasVietnamese
+    target_concept_id: LO2024.SUBJECT.OVERSEAS_VIETNAMESE
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_S06
+    m6_type: SUBJECT
+    triggers:
+      - "tổ chức kinh tế có vốn đầu tư nước ngoài"
+      - "doanh nghiệp fdi"
+      - "tổ chức fdi"
+    negative_triggers: []
+    target_subtype: FDIEnterprise
+    target_concept_id: LO2024.SUBJECT.FDI_ENTERPRISE
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_S07
+    m6_type: SUBJECT
+    triggers:
+      - "người sử dụng đất"
+      - "các đối tượng sử dụng đất"
+    negative_triggers: []
+    target_subtype: Individual
+    target_concept_id: LO2024.SUBJECT.LAND_USER
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_S08
+    m6_type: SUBJECT
+    triggers:
+      - "tổ chức kinh tế"
+      - "doanh nghiệp"
+      - "tổ chức trong nước"
+    negative_triggers: ["nước ngoài", "fdi", "vốn đầu tư nước ngoài"]
+    target_subtype: Organization
+    target_concept_id: LO2024.SUBJECT.DOMESTIC_ORGANIZATION
+    confidence: HIGH
+    action: CORRECT
+
+  # Semantic Role Audit — SUBJECT label nhưng thực chất là LegalObject/Document
+  - id: RULE_MAP_S_AUDIT_01
+    m6_type: SUBJECT
+    triggers:
+      - "hợp đồng"
+      - "giấy chứng nhận"
+      - "sổ đỏ"
+      - "quyết định"
+      - "văn bản"
+    negative_triggers: ["được", "bị", "do", "phải"]
+    target_subtype: LegalDocument
+    target_concept_id: LO2024.OBJECT.LEGAL_DOCUMENT
+    confidence: LOW
+    action: FLAG   # → UNRESOLVED, cần review — đây là LegalDocument không phải Subject
+
+  # =============================
+  # ACTION → LegalAction mapping
+  # =============================
+  - id: RULE_MAP_A01
+    m6_type: ACTION
+    triggers:
+      - "chuyển nhượng"
+      - "chuyển nhượng quyền sử dụng đất"
+      - "chuyển nhượng qsdđ"
+    negative_triggers: []
+    target_subtype: TransferAction
+    target_concept_id: LO2024.ACTION.LAND_TRANSFER
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_A02
+    m6_type: ACTION
+    triggers:
+      - "thế chấp"
+      - "thế chấp quyền sử dụng đất"
+    negative_triggers: []
+    target_subtype: MortgageAction
+    target_concept_id: LO2024.ACTION.LAND_MORTGAGE
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_A03
+    m6_type: ACTION
+    triggers:
+      - "công chứng"
+      - "chứng thực"
+      - "công chứng hoặc chứng thực"
+      - "công chứng, chứng thực"
+    negative_triggers: []
+    target_subtype: CertificationAction
+    target_concept_id: LO2024.ACTION.CERTIFICATION
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_A04
+    m6_type: ACTION
+    triggers:
+      - "cấp giấy chứng nhận"
+      - "cấp giấy chứng nhận quyền sử dụng đất"
+    negative_triggers: []
+    target_subtype: CertIssuanceAction
+    target_concept_id: LO2024.ACTION.CERT_ISSUANCE
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_A05
+    m6_type: ACTION
+    triggers:
+      - "đăng ký đất đai"
+      - "đăng ký biến động"
+      - "đăng ký quyền sử dụng đất"
+    negative_triggers: []
+    target_subtype: LandRegistrationAction
+    target_concept_id: LO2024.ACTION.LAND_REGISTRATION
+    confidence: HIGH
+    action: CORRECT
+
+  # =============================
+  # OBJECT → LegalObject mapping (từ HAS_OBJECT targets)
+  # =============================
+  - id: RULE_MAP_O01
+    m6_type: OBJECT
+    triggers:
+      - "quyền sử dụng đất"
+      - "qsdđ"
+    negative_triggers: []
+    target_subtype: LandUseRight
+    target_concept_id: LO2024.OBJECT.LAND_USE_RIGHT
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_O02
+    m6_type: OBJECT
+    triggers:
+      - "giấy chứng nhận"
+      - "giấy chứng nhận quyền sử dụng đất"
+      - "sổ đỏ"
+      - "sổ hồng"
+    negative_triggers: []
+    target_subtype: LandCertificate
+    target_concept_id: LO2024.OBJECT.LAND_CERTIFICATE
+    confidence: HIGH
+    action: CORRECT
+
+  - id: RULE_MAP_O03
+    m6_type: OBJECT
+    triggers:
+      - "đất nông nghiệp"
+      - "đất trồng lúa"
+      - "đất rừng"
+    negative_triggers: []
+    target_subtype: AgriculturalLand
+    target_concept_id: LO2024.OBJECT.AGRICULTURAL_LAND
+    confidence: HIGH
+    action: CORRECT

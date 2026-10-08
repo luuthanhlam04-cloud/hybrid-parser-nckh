@@ -1,0 +1,142 @@
+<USER_REQUEST>
+Dưới đây là **Báo cáo Đánh giá và Nhận xét Phản biện Chuyên sâu** cho file `chuong_3_phuong_phap_nghien_cuu.md`. 
+
+Với vai trò là **Hội đồng Đánh giá / Giám khảo Phản biện NCKH**, tôi đã rà soát bản thảo dưới lăng kính khắt khe về cả **tính khoa học (Scientific Rigor)**, **ngôn ngữ hàn lâm (Academic Writing Style)** và **tính thực tiễn kỹ thuật (Technical Feasibility)**.
+
+---
+
+# 🏛️ BÁO CÁO NHẬN XÉT PHẢN BIỆN CHƯƠNG 3: PHƯƠNG PHÁP NGHIÊN CỨU
+
+## I. ĐÁNH GIÁ TỔNG QUAN (OVERALL ASSESSMENT)
+
+* **Điểm mạnh ghi nhận:**
+  1. **Khung kiến trúc rất hoàn chỉnh:** Bản thảo đã thể hiện trọn vẹn tư duy thiết kế hệ thống 11 Modules, phân định rạch ròi giữa **Tuyến Tĩnh (Static Pipeline - Rule-based)** và **Tuyến Động (Dynamic Pipeline - AI-based)**.
+  2. **Tư duy Neuro-symbolic rõ nét:** Kết hợp giữa tri thức quy tắc cứng (Regex Parsing, Hierarchy Stack, Legal Domain-Range Constraints) với trí tuệ nhân tạo sinh tạo (LLM Structured Extraction, Semantic Routing).
+  3. **Đã có sơ đồ và công thức toán:** Bài viết có sơ đồ luồng Mermaid và bộ công thức toán học cho các chỉ số đánh giá (F1, RAGAS, MaxFusion score).
+
+* **Đánh giá chung:** Bản thảo do Agent AI viết đã dựng được **"bộ khung" nội dung rất ấn tượng**. Tuy nhiên, bài viết vẫn còn mang đậm **"dấu vết AI" (AI Hallmarks)**: sa đà vào mô tả code/thư viện Python, lạm dụng từ ngữ hô hào over-claiming, và bỏ ngỏ một số **"tử huyệt" về mặt logic pháp lý & thực nghiệm** mà bất kỳ Hội đồng khoa học nào cũng sẽ xoáy vào để bắt bẻ.
+
+---
+
+## II. 5 NHÓM ĐIỂM CẦN SỬA ĐỂ BÀI ĐẠT CHUẨN CON NGƯỜI VIẾT & BẢO VỆ THÀNH CÔNG
+
+### 1. Tẩy sạch "Văn phong AI" và các Tuyên bố Quá đà (Over-claiming)
+
+> 🛑 **Vấn đề của AI Agent:** AI rất hay dùng các tính từ mang tính "thần thánh hóa" giải pháp như *"tuyệt đối 100%"*, *"hoàn hảo"*, *"bất biến cốt lõi"*, *"triệt tiêu hoàn toàn"*. Trong NCKH, văn phong phải **khiêm tốn, trung tính và dựa trên chứng cứ thực nghiệm (Scientific Modality & Hedging)**.
+
+* **Những vị trí bắt buộc phải sửa văn phong:**
+  * ❌ *Nói:* "khôi phục cấu trúc vật lý với chi phí bằng 0 và độ chính xác tuyệt đối".
+    👉 *Sửa thành:* "khôi phục cấu trúc vật lý với chi phí tính toán không đáng kể và đạt độ chính xác cao trên tập dữ liệu thử nghiệm."
+  * ❌ *Nói:* "triệt tiêu 100% ID collision".
+    👉 *Sửa thành:* "giảm thiểu tối đa nguy cơ trùng lặp mã định danh nhờ cơ chế mã hóa phân cấp kết hợp chỉ số vị trí tuyệt đối."
+  * ❌ *Nói:* "bảo đảm 100% không ảo giác" (Zero-Hallucination).
+    👉 *Sửa thành:* "áp dụng nguyên tắc Four Corners Rule buộc mô hình chỉ trích xuất dữ liệu có bằng chứng (evidence) thực tế nhằm tối thiểu hóa nguy cơ ảo giác pháp lý."
+
+---
+
+### 2. Chuyển từ "Mô tả Code Python" sang "Thuyết minh Phương pháp Khoa học"
+
+> 🛑 **Vấn đề của AI Agent:** Các mục §3.6 và §3.7 hiện đang đọc giống như **Tài liệu hướng dẫn lập trình (Developer Documentation)** hơn là Báo cáo NCKH. AI liệt kê quá nhiều tên hàm Python, tên thư viện (`unicodedata.normalize`, `fuzzywuzzy`, `Pydantic`, `Instructor`). Hội đồng sẽ nhận xét: *"Đây là báo cáo thực tập kỹ thuật phần mềm, không phải luận văn nghiên cứu!"*
+
+* **Cách khắc phục:**
+  * **Trừu tượng hóa công cụ:** Thay vì viết `unicodedata.normalize("NFC", text)`, hãy nâng cấp thành thuật toán: *"Tiến hành chuẩn hóa chuỗi Unicode về dạng chuẩn NFC (Canonical Composition) nhằm đồng nhất biểu diễn ký tự tiếng Việt..."*
+  * **Tập trung vào Động lực & Nguyên lý (Design Rationale):** Đừng chỉ kể *Code làm gì*, hãy giải thích *Tại sao lại chọn giải pháp đó*. Ví dụ: Thay vì tả hàm Pydantic, hãy phân tích **Bài toán Ép định dạng đầu ra (Output Constraint Formulation)** bằng toán học hoặc Grammars.
+
+---
+
+### 3. Thành thật về Giới hạn Thực nghiệm (Pilot Corpus vs Generalizability)
+
+> 🛑 **Vấn đề bị Hội đồng bắt bẻ:** Bạn tuyên bố xây dựng hệ thống xử lý văn bản luật Việt Nam nói chung, nhưng toàn bộ dữ liệu thực nghiệm ở §3.5 chỉ chạy trên **Chương III Luật Đất đai 2024 (222 physical nodes)**.
+> ❓ *Hội đồng sẽ hỏi:* *"Chỉ test trên đúng 1 Chương của 1 Đạo luật (222 nodes), làm sao khẳng định hệ thống chạy đúng cho toàn bộ 260 Điều của Luật Đất đai hay các Luật khác?"*
+
+* **Cách phòng thủ trong bài viết:**
+  * Tại §3.5.1, bổ sung hẳn một tiểu mục: **"3.5.4. Giới hạn phạm vi thực nghiệm & Định hướng mở rộng"**.
+  * **Lập luận thỏa đáng:** Khẳng định Chương III Luật Đất đai 2024 được chọn làm **Pilot Corpus đại diện cho trường hợp phức tạp nhất (Worst-case Pilot)** do chứa đủ 5 tầng phân cấp (Chương ➔ Mục ➔ Điều ➔ Khoản ➔ Điểm), mật độ dẫn chiếu chéo cao, và chứa toàn bộ 8 lớp thực thể quy phạm Hohfeld. 
+  * Thừa nhận rõ ràng: Kết quả thực nghiệm ở Chương 4 thể hiện **Tính khả thi của Kiến trúc (Proof of Concept)** trên mẫu phức tạp, và việc benchmark mở rộng đa văn bản sẽ được thực hiện ở các giai đoạn phát triển tiếp theo.
+
+---
+
+### 4. Giải quyết các "Điểm Mù" Logic & Kỹ thuật Hội đồng sẽ Xoáy vào
+
+Hội đồng chuyên môn Legal Tech chắc chắn sẽ đặt ra 4 câu hỏi hóc húa sau, bài viết cần cài cắm câu trả lời ngay trong Chương 3:
+
+#### ❓ Câu hỏi 1: *"Nếu Module 7 loại bỏ (REJECT) hoặc Cách ly (QUARANTINE) các cạnh sai Hohfeld, liệu có làm MẤT DỮ LIỆU/MẤT TRI THỨC pháp lý không?"*
+* **Trả lời ngay trong §3.7.3:** Thuyết minh triết lý **"Preserve Data \\(\neq\\) Participate in Reasoning"**. 
+  * Cần nhấn mạnh: Việc loại bỏ cạnh ngữ nghĩa bị lỗi ở Tầng 2 **tuyệt đối không làm xóa Node hay Văn bản gốc ở Tầng 1**. 
+  * Đoạn luật thô vẫn nằm nguyên vẹn tại `LegalNode` (Physical Graph) và vẫn được truy xuất thông qua Vector Search.
+  * Việc loại bỏ Cạnh sai chỉ giúp ngăn chặn **Ảo giác Logic (Logical Hallucination)** khi AI duyệt đồ thị, chứ không làm mất thông tin của người dùng.
+
+#### ❓ Câu hỏi 2: *"Tại sao M8/M9 không lưu văn bản thô (evidence) trên Cạnh mà chỉ lưu con trỏ `source_node_ids`? Khi RAG truy vấn, làm sao LLM đọc được câu luật?"*
+* **Trả lời ngay trong §3.8:** Thuyết minh cơ chế **Pointer-based Provenance (Cạnh siêu nhẹ)**.
+  * Cạnh ngữ nghĩa ở Tầng 2 chỉ đóng vai trò **Con trỏ định tuyến (Routing Pointer)**.
+  * Khi Module 10 (Retriever) duyệt đồ thị, nó sử dụng `source_node_ids` để "kéo" câu văn bản thô nguyên bản từ Tầng 1 (`LegalNode.text`) nạp vào Prompt Context cho LLM Reader.
+  * Cách thiết kế này giúp Đồ thị nén siêu nhẹ (giảm >80% dung lượng storage trên Neo4j) và **tiết kiệm tối đa Context Window cho LLM**.
+
+#### ❓ Câu hỏi 3: *"Tại sao lại để Module 10 (Retrieval) làm Black Box không tối ưu? Liệu đánh giá ở Module 11 có công bằng?"*
+* **Trả lời ngay trong §3.9.1:** Giải thích triết lý **Biến kiểm soát (Control Variable)**.
+* Đóng góp khoa học cốt lõi của đề tài nằm ở **Tầng Tiền xử lý dữ liệu (Hybrid Parser - MT1 & MT2)**. Do đó, buộc phải **đóng băng (Freeze) Tầng Retrieval (M10)** làm Black Box cố định cho tất cả các phương pháp đối chứng (Baselines), để đảm bảo mọi sự chênh lệch về chỉ số QA ở M11 đều đo lường trực tiếp chất lượng của đồ thị do Parser tạo ra, không bị nhiễu bởi các thủ thuật Query.
+
+#### ❓ Câu hỏi 4: *"Nói là Rule-based không tốn tiền API ở M7, nhưng ai là người gõ file Từ điển `taxonomy_aliases.yaml`?"*
+* **Trả lời ngay trong §3.7.3:** Làm rõ vai trò của **Human-in-the-loop (Chuyên gia đối soát)**.
+* Thừa nhận thật thà: M7 chạy hoàn toàn bằng Rule-based code (0 đồng API), nhưng bộ từ điển Taxonomy Aliases được khởi tạo bằng script offline kết hợp với sự **thẩm định và rà soát thủ công của chuyên gia pháp lý** trước khi đưa vào Production.
+
+---
+
+### 5. Chuẩn hóa Trích dẫn & Ký hiệu Toán học
+
+> 🛑 **Vấn đề về Trình bày:** Bài viết đang dùng các mã shortcut trong ngoặc vuông như `[STRCHK]`, `[VLEGAL]`, `[HOHFELD]`, `[RAGAS]`. Đây là ghi chú tạm của dev, **không bao giờ được xuất hiện trong bản nộp chính thức của Luận văn**.
+
+* **Yêu cầu chuẩn hóa:**
+  1. Chuyển toàn bộ các mã `[VLEGAL]` thành trích dẫn chuẩn **IEEE (dạng số,)** hoặc **APA (dạng tên tác giả, năm)**. Ví dụ: *"theo phương pháp luận VLegal-Bench của Nguyen và cộng sự (2024)"*.
+  2. Bổ sung ngay danh mục **Tài liệu tham khảo (References)** ở cuối chương với đầy đủ thông tin xuất bản (Tên tác giả, Tên bài báo, Tạp chí/Hội nghị, Năm xuất bản, DOI/URL).
+  3. **Đồng bộ Ký hiệu Toán học:**
+     * Định nghĩa rõ không gian tập hợp ở đầu §3.4: 
+       Gọi \\(\mathcal{G}_P = (\mathcal{V}_P, \mathcal{E}_P)\\) là Đồ thị Cấu trúc Vật lý (Physical Graph), \\(\mathcal{G}_S = (\mathcal{V}_S, \mathcal{E}_S)\\) là Đồ thị Ngữ nghĩa Chuẩn hóa (Semantic Graph).
+     * Đảm bảo mọi chỉ số \\(Precision, Recall, F_1\\) đều gắn liền với các tập hợp \\(\mathcal{V}\\) và \\(\mathcal{E}\\) đã định nghĩa.
+
+---
+
+## III. BẢNG CHECKLIST CHỈNH SỬA CHI TIẾT THEO TỪNG MỤC
+
+| Mục trong Chương 3 | Tình trạng hiện tại | Hành động chỉnh sửa bắt buộc |
+| :--- | :--- | :--- |
+| **§3.0. Tổng quan** | Mới có sơ đồ Mermaid | - Loại bỏ từ "tuyệt đối".<br>- Bổ sung đoạn văn thuyết minh về **Unidirectional Data Flow** (Luồng dữ liệu 1 chiều chống vòng lặp). |
+| **§3.1 - §3.3 (MT1-MT3)** | Trình bày khá ổn | - Nhấn mạnh bản chất **Neuro-symbolic** (kết hợp cứng-mềm).<br>- Làm rõ vị trí của Human-in-the-loop trong đánh giá. |
+| **§3.4. Công thức toán** | Có công thức F1, RAGAS | - Chuẩn hóa ký hiệu toán học tập hợp (\\(\mathcal{V}_P, \mathcal{V}_S, \mathcal{E}\\)).<br>- Giải thích rõ ý nghĩa các biến số trong công thức RAGAS. |
+| **§3.5. Dữ liệu nghiên cứu** | Đã có số liệu Ch3 Luật Đất đai | - **Bổ sung §3.5.4:** Thuyết minh về lý do chọn Worst-case Pilot và giới hạn phạm vi nghiên cứu.<br>- Mới tả Golden QA, cần bổ sung quy trình gán nhãn **Golden Graph (Ground Truth)**. |
+| **§3.6. Tuyến Tĩnh (M1-M4)** | Quá giống tài liệu dev, nhiều code | - Bỏ code snippet Python, thay bằng mô tả thuật toán.<br>- Giải thích lý do chọn **Hybrid ID** (`law_code` + `parent_id` + `start_idx`). |
+| **§3.7. Tuyến Động (M5-M7)** | Rất chi tiết nhưng thiếu lập luận | - Thêm phần giải thích: Tại sao chọn **MaxFusion** (Regex + Embedding).<br>- Thêm giải thích **Quarantine Mode** (chống sập graph).<br>- Giải thích cơ chế **Concept Hub (LocalMention \\(\rightarrow\\) DENOTES \\(\rightarrow\\) CanonicalConcept)**. |
+| **§3.8. Hợp nhất (M8-M9)** | Đã có nội dung chính | - Thuyết minh triết lý **Physical First Merge** (Tầng 1 làm mỏ neo).<br>- Giải thích cơ chế con trỏ `source_node_ids` giúp tiết kiệm Token. |
+| **§3.9. Retrieval & Eval** | Viết hơi ngắn | - Khẳng định M10 là **Control Variable (Biến kiểm soát)**.<br>- Trình bày tiêu chí chấm điểm của **LLM-as-a-Judge (GPT-4o)**. |
+| **Bảng Trích dẫn** | Đang dùng mã tạm `[STRCHK]`... | - **Xóa toàn bộ mã tạm**, thay bằng trích dẫn chuẩn APA/IEEE.<br>- Tạo danh mục Tài liệu tham khảo hoàn chỉnh ở cuối file. |
+
+---
+
+🎯 **KẾT LUẬN VÀ HƯỚNG ĐI TIẾP THEO:**
+
+Bản thảo `chuong_3_phuong_phap_nghien_cuu.md` hiện tại đã đạt **75-80% khối lượng công việc**. Nó cung cấp một bức tranh toàn cảnh cực kỳ logic về mặt kiến trúc hệ thống. 
+
+Chỉ cần bạn thực hiện **4 bước tinh chỉnh cuối cùng**:
+1. *Tẩy sạch văn phong AI (chuyển sang giọng văn hàn lâm, trung tính)*.
+2. *Trừu tượng hóa code/thư viện thành thuật toán và lý thuyết*.
+3. *Cài cắm các câu trả lời cho 4 câu hỏi phản biện cốt lõi (xóa cạnh, con trỏ text, blackbox retrieval, human-in-the-loop)*.
+4. *Chuẩn hóa toàn bộ trích dẫn và ký hiệu toán học*.
+
+Bài báo cáo của bạn sẽ trở nên **cực kỳ đanh thép, chuẩn mực và sẵn sàng bảo vệ xuất sắc trước mọi Hội đồng khoa học!** 🚀@[d:\code\hybrid-parser-nckh\reports\chuong_3_phuong_phap_nghien_cuu.md] 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-05T01:49:45+07:00.
+
+The user's current state is as follows:
+Active Document: d:\code\hybrid-parser-nckh\reports\chuong_3_phuong_phap_nghien_cuu.md (LANGUAGE_MARKDOWN)
+Cursor is on line: 1
+Other open documents:
+- d:\code\hybrid-parser-nckh\docs\tom_tat_module_9.md (LANGUAGE_MARKDOWN)
+- d:\code\hybrid-parser-nckh\docs\lam_fixm67_megre_m8.md (LANGUAGE_MARKDOWN)
+- d:\code\hybrid-parser-nckh\reports\chuong_3_phuong_phap_nghien_cuu.md (LANGUAGE_MARKDOWN)
+
+The user has mentioned some items in the form @[ITEM]. Here is extra information about the items that were mentioned by the user, in the order that they appear:
+
+@[d:\code\hybrid-parser-nckh\reports\chuong_3_phuong_phap_nghien_cuu.md] is a [File]:
+d:\code\hybrid-parser-nckh\reports\chuong_3_phuong_phap_nghien_cuu.md
+</ADDITIONAL_METADATA>

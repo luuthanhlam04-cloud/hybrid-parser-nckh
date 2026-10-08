@@ -1,0 +1,12 @@
+Total extra nodes: 11
+  doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-a_p6776: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Tổ chức trong nước là pháp nhân mới được hình thành thông qua việc chia, tách, s'
+  doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p4162: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đ'
+  doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5095: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo t'
+  doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5350: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giá'
+  doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p5524: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép n'
+  doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6316: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được nhận quyền '
+  doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p12391: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất v'
+  doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15442: labels=['LegalNode', 'POINT'], regex=0.4(CONDITION) -> reject, text='Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê đất hằng năm đối với'
+  doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22461: labels=['LegalNode', 'POINT'], regex=1.0(CROSS_REF) -> CANDIDATE, text='Tặng cho quyền sử dụng đất cho Nhà nước; tặng cho quyền sử dụng đất cho cộng đồn'
+  doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24600: labels=['LegalNode', 'POINT'], regex=0.0(NONE) -> reject, text='Góp vốn bằng tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn thuê '
+  doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29670: labels=['LegalNode', 'POINT'], regex=0.4(CONDITION) -> reject, text='Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê đất hằng năm đối với'

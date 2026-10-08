@@ -1,0 +1,56 @@
+# validation_rules.yaml
+# Chứa các rule kiểm định ngữ nghĩa (Domain-Range) và Role Auditing.
+
+rules:
+  # ==========================================
+  # DOMAIN - RANGE RULES cho Canonical Graph (M7)
+  # ==========================================
+  - rule_id: "RULE_M7_DOMAIN_ALLOW_ACTION"
+    type: "DOMAIN_RANGE"
+    relation: "ALLOW"
+    valid_sources: ["LegalSubject"]
+    valid_targets: ["LegalAction"]
+    violation_action: "QUARANTINE"
+
+  - rule_id: "RULE_M7_DOMAIN_REQUIRE_ACTION"
+    type: "DOMAIN_RANGE"
+    relation: "REQUIRE"
+    valid_sources: ["LegalSubject"]
+    valid_targets: ["LegalAction"]
+    violation_action: "QUARANTINE"
+
+  - rule_id: "RULE_M7_DOMAIN_HAS_OBJECT"
+    type: "DOMAIN_RANGE"
+    relation: "HAS_OBJECT"
+    valid_sources: ["LegalAction"]
+    valid_targets: ["LegalObject", "LegalSubject"] # Hành vi tác động lên Object hoặc Subject
+    violation_action: "QUARANTINE"
+
+  # ==========================================
+  # ANTI-AUTO-CAST RULES (Role Audit)
+  # ==========================================
+  - rule_id: "RULE_M7_ANTI_CAST_SUBJECT_TO_OBJECT"
+    type: "ROLE_AUDIT"
+    trigger: "SUBJECT_MAPPED_TO_OBJECT_CONCEPT"
+    description: "M6 gán nhãn SUBJECT nhưng thực thể lại thuộc Taxonomy LegalObject (VD: hợp đồng, sổ đỏ)"
+    violation_action: "QUARANTINE"
+    suggested_type: "OBJECT"
+
+  - rule_id: "RULE_M7_CONFLICT_BLACKLIST_CONTEXT"
+    type: "ROLE_AUDIT"
+    trigger: "BLACKLIST_CONFLICT_CONTEXT"
+    description: "Mâu thuẫn giữa từ khóa và cấu trúc câu"
+    violation_action: "UNRESOLVED"
+
+  # ==========================================
+  # NORM TRIGGER RULES
+  # ==========================================
+  - rule_id: "RULE_M7_NORM_TRIGGER"
+    type: "NORM_CREATION"
+    triggers:
+      - "HAS_CONDITION"
+      - "HAS_EXCEPTION"
+      - "HAS_CONSEQUENCE"
+      - "JOINT_SUBJECT" # >= 2 subjects cho 1 action
+    action: "CREATE_NORM_ASSERTION"
+    fallback: "SIMPLE_RELATION"

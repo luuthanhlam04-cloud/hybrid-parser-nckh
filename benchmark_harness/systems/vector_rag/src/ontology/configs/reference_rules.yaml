@@ -1,0 +1,135 @@
+# reference_rules.yaml
+# Regex patterns và logic cho Reference Resolver
+#
+# M7 sẽ parse "raw_text" của entity type REFERENCE để tìm Physical Node đích
+# Tham chiếu trong Physical Graph đọc từ:
+#   - node["labels"][1]           → node type (ARTICLE, CLAUSE, POINT...)
+#   - node["properties"]["number"] → số điều/khoản
+#   - node["properties"]["marker"] → ký tự điểm (a, b, c...)
+#   - node["properties"]["parent_id"] hoặc edges BELONG_TO → traverse cây
+
+patterns:
+  # ---- RELATIVE references (dựa vào vị trí hiện tại trên cây M4) ----
+
+  - id: REF_RELATIVE_POINT_IN_CLAUSE
+    description: "Điểm X khoản này"
+    examples:
+      - "điểm b khoản này"
+      - "điểm a khoản này"
+      - "tại điểm đ khoản này"
+    regex: "điểm\\s+([a-zđ])\\s+khoản\\s+này"
+    capture_groups:
+      marker: 1
+    resolve_strategy: RELATIVE_SIBLING
+    steps:
+      - get_current_node
+      - get_parent_clause   # lên cấp CLAUSE
+      - find_child_point    # tìm POINT với marker = captured marker
+
+  - id: REF_RELATIVE_CLAUSE_IN_ARTICLE
+    description: "Khoản X điều này"
+    examples:
+      - "khoản 2 điều này"
+      - "khoản 3 điều này"
+      - "tại khoản 1 điều này"
+    regex: "khoản\\s+(\\d+)\\s+điều\\s+này"
+    capture_groups:
+      number: 1
+    resolve_strategy: RELATIVE_SIBLING
+    steps:
+      - get_current_node
+      - get_parent_article  # lên cấp ARTICLE
+      - find_child_clause   # tìm CLAUSE với number = captured number
+
+  - id: REF_RELATIVE_THIS_CLAUSE
+    description: "Khoản này (không chỉ định điểm)"
+    examples:
+      - "khoản này"
+      - "trong khoản này"
+    regex: "khoản\\s+này"
+    capture_groups: {}
+    resolve_strategy: RELATIVE_PARENT
+    steps:
+      - get_current_node
+      - get_parent_clause   # trỏ về chính khoản cha
+
+  - id: REF_RELATIVE_THIS_ARTICLE
+    description: "Điều này"
+    examples:
+      - "điều này"
+      - "trong điều này"
+    regex: "điều\\s+này"
+    capture_groups: {}
+    resolve_strategy: RELATIVE_PARENT
+    steps:
+      - get_current_node
+      - get_parent_article
+
+  - id: REF_RELATIVE_POINT_CLAUSE_ARTICLE
+    description: "Điểm X khoản Y điều này"
+    examples:
+      - "điểm b khoản 3 điều này"
+      - "tại điểm a khoản 2 điều này"
+    regex: "điểm\\s+([a-zđ])\\s+khoản\\s+(\\d+)\\s+điều\\s+này"
+    capture_groups:
+      marker: 1
+      clause_number: 2
+    resolve_strategy: RELATIVE_TRAVERSE
+    steps:
+      - get_current_node
+      - get_parent_article
+      - find_child_clause   # với number = clause_number
+      - find_child_point    # với marker = marker
+
+  # ---- ABSOLUTE references (tìm theo số điều/khoản trong document) ----
+
+  - id: REF_ABSOLUTE_ARTICLE
+    description: "Điều X Luật này / Điều X"
+    examples:
+      - "Điều 27 Luật này"
+      - "Điều 48"
+      - "quy định tại Điều 27"
+      - "theo quy định tại điều 27"
+    regex: "(?:điều|Điều)\\s+(\\d+)"
+    capture_groups:
+      article_number: 1
+    resolve_strategy: ABSOLUTE_ARTICLE
+    steps:
+      - find_article_by_number  # tìm ARTICLE với number = article_number trong document
+
+  - id: REF_ABSOLUTE_CLAUSE_IN_ARTICLE
+    description: "Khoản X Điều Y"
+    examples:
+      - "khoản 2 Điều 48"
+      - "khoản 3 điều 27"
+      - "quy định tại khoản 1 Điều 26"
+    regex: "khoản\\s+(\\d+)\\s+(?:điều|Điều)\\s+(\\d+)"
+    capture_groups:
+      clause_number: 1
+      article_number: 2
+    resolve_strategy: ABSOLUTE_CLAUSE
+    steps:
+      - find_article_by_number
+      - find_child_clause
+
+  - id: REF_ABSOLUTE_POINT_CLAUSE_ARTICLE
+    description: "Điểm X Khoản Y Điều Z"
+    examples:
+      - "điểm b khoản 3 Điều 27"
+      - "tại điểm a khoản 1 điều 26"
+    regex: "điểm\\s+([a-zđ])\\s+khoản\\s+(\\d+)\\s+(?:điều|Điều)\\s+(\\d+)"
+    capture_groups:
+      marker: 1
+      clause_number: 2
+      article_number: 3
+    resolve_strategy: ABSOLUTE_POINT
+    steps:
+      - find_article_by_number
+      - find_child_clause
+      - find_child_point
+
+# Unresolved policy:
+unresolved_policy:
+  action: FLAG    # không silent drop, mark status = UNRESOLVED
+  log_level: WARNING
+  include_in_validation_report: true

@@ -1,0 +1,186 @@
+# -*- coding: utf-8 -*-
+from typing import Dict, Any, Optional
+
+SYSTEM_PROMPT = """Bạn là một chuyên gia Hệ thống Thông tin Pháp lý (Legal Informatics Expert). Nhiệm vụ của bạn là bóc tách Thực thể và Quan hệ pháp lý thành JSON theo chuẩn Hohfeldian nghiêm ngặt.
+
+[1. HỆ THỐNG THỰC THỂ BẮT BUỘC (7 TYPES)]
+1. SUBJECT (Chủ thể): Người, tổ chức, cơ quan (VD: "Người sử dụng đất", "Nhà nước").
+2. ACTION (Hành vi): Hành động, quyền, nghĩa vụ, thủ tục (VD: "Chuyển nhượng", "Công chứng").
+3. OBJECT (Khách thể): Tài sản, tiền, vật chất (VD: "Đất đai", "Giấy chứng nhận").
+4. CONDITION (Điều kiện): Trạng thái, thời hạn, sự kiện (VD: "Khi Nhà nước thu hồi đất", "Đất không có tranh chấp").
+5. EXCEPTION (Ngoại lệ): VD: "Trừ trường hợp thừa kế".
+6. REFERENCE (Dẫn chiếu): VD: "Điều 26 Luật này".
+7. PENALTY (Chế tài): VD: "Phạt tiền", "Thu hồi".
+
+[2. HỆ THỐNG QUAN HỆ BẮT BUỘC (8 TYPES)]
+- ALLOW: (SUBJECT) -> (ACTION) [Quyền]
+- REQUIRE: (SUBJECT/ACTION) -> (ACTION) [Nghĩa vụ / Bắt buộc]
+- PROHIBIT: (SUBJECT) -> (ACTION) [Nghiêm cấm]
+- HAS_CONDITION: (SUBJECT/ACTION) -> (CONDITION)
+- HAS_EXCEPTION: (ACTION/CONDITION) -> (EXCEPTION)
+- REFERENCE_TO: (Tất cả) -> (REFERENCE)
+- HAS_OBJECT: (ACTION) -> (OBJECT)
+- HAS_PENALTY: (ACTION) -> (PENALTY)
+
+[3. 8 QUY TẮC BÓC TÁCH NGỮ NGHĨA (CRITICAL RULES)]
+1. Cấm gán Quyền/Nghĩa vụ cho OBJECT (Action-Object Fallacy). Các từ như "Hợp đồng", "Giấy chứng nhận", "Sổ đỏ" KHÔNG ĐƯỢC LÀM CHỦ THỂ (SUBJECT) mà chỉ được làm TARGET của HAS_OBJECT.
+2. Suy luận Chủ thể Ẩn: BẮT BUỘC tìm ngược lên câu mở đoạn. Nếu CÓ CĂN CỨ thì gán (đánh dấu CONTEXT_INFERRED). Nếu KHÔNG có căn cứ, KHÔNG ĐƯỢC BỊA. Lúc này, vẫn xuất relation ALLOW/REQUIRE/PROHIBIT nhưng để "source": null (giá trị null JSON, KHÔNG PHẢI chuỗi "null") và "source_status": "UNRESOLVED".
+3. Tách bạch Đối tượng và Hành động: Không gộp "Chuyển nhượng quyền sử dụng đất" thành 1 Action. Phải rã: (Chủ thể) --ALLOW--> (Chuyển nhượng) --HAS_OBJECT--> (Quyền sử dụng đất).
+4. Cấu trúc "X khi/nếu Y" -> HAS_CONDITION.
+5. Cấu trúc "trừ trường hợp Y" -> HAS_EXCEPTION.
+6. Cấu trúc "theo quy định tại Y" -> REFERENCE_TO.
+7. Bằng chứng nguyên văn (Verbatim): Trường `evidence` phải trích NGUYÊN VĂN chính xác từng chữ cái. KHÔNG ĐỂ RỖNG. Cấm tóm tắt. Cấm tự ý thay đổi từ ngữ (VD: Không đổi "Công dân" thành "Người dân").
+
+[4. FEW-SHOT EXAMPLES]
+Ví dụ 1: Xử lý Câu Bị Động
+Văn bản: "Nhà nước thu hồi đất thì người sử dụng đất được bồi thường."
+- ĐÚNG: (Người sử dụng đất) --ALLOW--> (Bồi thường) VÀ (Thu hồi) --HAS_CONDITION--> (Nhà nước thu hồi đất)
+
+Ví dụ 2: Tách Đối tượng & Hành động (Case khuyết chủ thể)
+Văn bản: "Hợp đồng chuyển nhượng quyền sử dụng đất phải được công chứng."
+- ĐÚNG:
+  {
+    "source": "e_cong_chung", "relation_type": "HAS_OBJECT", "target": "e_hop_dong", "source_status": "RESOLVED"
+  },
+  {
+    "source": null, "relation_type": "REQUIRE", "target": "e_cong_chung", "source_status": "UNRESOLVED"
+  }
+
+Ví dụ 3: Chủ thể Ẩn (Danh sách liệt kê)
+Văn bản: "Điều 27. Quyền của công dân: Được tham gia quản lý nhà nước."
+- ĐÚNG: (Công dân) --ALLOW--> (Tham gia quản lý nhà nước)
+
+Ví dụ 4: Khái niệm / Giải thích từ ngữ (Fallback)
+Văn bản: "Nhà nước là tổ chức quyền lực chính trị."
+- ĐÚNG: Trả về mảng entities: [] và relations: [] (Vì không có quy phạm pháp lý nào ở đây)
+
+[5. ZERO-HALLUCINATION & INTEGRITY]
+- Mỗi thực thể phải có id duy nhất (VD: e1, e2, e3).
+- Các trường source/target của relation BẮT BUỘC trỏ đúng id của thực thể đã khai báo trong mảng entities.
+- Chỉ tạo thực thể từ các từ xuất hiện TRỰC TIẾP trong [NỘI DUNG CẦN TRÍCH XUẤT]. Phần [BỐI CẢNH] chỉ dùng để hiểu ngữ nghĩa, khi trích phải NGUYÊN VĂN, KHÔNG ĐƯỢC bịa hoặc dùng danh từ thay thế.
+- Nếu câu không chứa quy phạm pháp lý (VD: giải thích từ ngữ), trả về mảng rỗng []. (Ví dụ 5)
+
+[STRICT JSON OUTPUT YÊU CẦU]
+Chỉ trả về JSON tuân thủ cấu trúc sau, không kèm bất kỳ giải thích nào, không dùng markdown:
+{
+  "entities": [],
+  "relations": []
+}
+"""
+
+class PromptBuilder:
+    def __init__(self, physical_graph: Dict[str, Any]):
+        """
+        Khởi tạo PromptBuilder với Đồ thị vật lý (Physical Graph).
+        Dựng từ điển lookup theo ID để dễ dàng tra ngược node cha.
+        """
+        self.node_lookup: Dict[str, Dict[str, Any]] = {}
+        nodes = physical_graph.get("nodes", [])
+        for node in nodes:
+            node_id = node.get("id")
+            if node_id:
+                self.node_lookup[node_id] = node
+                
+        # Dựng lookup parent mapping từ edges (nếu physical_graph lưu BELONG_TO)
+        # hoặc nếu node có sẵn thuộc tính parent_id trong properties, ta sẽ lấy từ đó.
+        self.parent_map: Dict[str, str] = {}
+        edges = physical_graph.get("edges", [])
+        for edge in edges:
+            if edge.get("type") == "BELONG_TO":
+                source = edge.get("source")
+                target = edge.get("target")
+                if source and target:
+                    self.parent_map[source] = target
+
+    def _get_parent_id(self, node_id: str) -> Optional[str]:
+        """
+        Lấy parent_id của một node_id.
+        Ưu tiên lấy từ edges (BELONG_TO), nếu không có thì thử lookup trong properties.
+        """
+        if node_id in self.parent_map:
+            return self.parent_map[node_id]
+            
+        node = self.node_lookup.get(node_id)
+        if node:
+            props = node.get("properties", {})
+            return props.get("parent_id")
+            
+        return None
+
+    def build_hierarchical_context(self, node_id: str) -> str:
+        """
+        Tra ngược an toàn để lấy bối cảnh phân cấp (từ node hiện tại lên cấp cao nhất như ARTICLE).
+        """
+        if node_id not in self.node_lookup:
+            return ""
+            
+        context_lines = []
+        current_id = node_id
+        
+        # Ngăn chặn vòng lặp vô hạn bằng mảng visited
+        visited = set()
+        
+        # Traverse lên các node cha
+        while current_id and current_id not in visited:
+            visited.add(current_id)
+            node = self.node_lookup.get(current_id)
+            if not node:
+                break
+                
+            labels = node.get("labels", [])
+            node_type = labels[1] if len(labels) > 1 else "UNKNOWN"
+            props = node.get("properties", {})
+            
+            # Không lấy title hoặc text trống nếu không có
+            text = props.get("text")
+            title = props.get("title")
+            
+            content = ""
+            if title and text:
+                content = f"{title} - {text}"
+            elif text:
+                content = text
+            elif title:
+                content = title
+                
+            if current_id != node_id and content:
+                context_lines.append(f"- {node_type}: {content}")
+                
+            # Stop tra ngược khi tới cấp ARTICLE
+            if node_type == "ARTICLE":
+                break
+                
+            current_id = self._get_parent_id(current_id)
+            
+        # context_lines lưu từ con lên cha, nên cần đảo ngược lại
+        context_lines.reverse()
+        return "\n".join(context_lines)
+
+    def build_prompt(self, target_node_id: str) -> str:
+        """
+        Tạo prompt hoàn chỉnh cho một node nhất định.
+        """
+        target_node = self.node_lookup.get(target_node_id)
+        if not target_node:
+            return "Node không tồn tại trong Physical Graph."
+            
+        labels = target_node.get("labels", [])
+        node_type = labels[1] if len(labels) > 1 else "UNKNOWN"
+        props = target_node.get("properties", {})
+        
+        text = props.get("text")
+        title = props.get("title")
+        node_content = text if text else title
+        
+        context_str = self.build_hierarchical_context(target_node_id)
+        
+        prompt = "[BỐI CẢNH PHÂN CẤP]\n"
+        if context_str.strip():
+            prompt += context_str + "\n"
+        else:
+            prompt += "(Không có bối cảnh cha)\n"
+            
+        prompt += "\n[NỘI DUNG CẦN TRÍCH XUẤT (NODE HIỆN TẠI)]\n"
+        prompt += f"- {node_type}: {node_content}"
+        
+        return prompt

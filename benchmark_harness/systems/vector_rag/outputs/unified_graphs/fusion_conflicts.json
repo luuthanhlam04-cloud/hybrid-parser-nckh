@@ -1,0 +1,51 @@
+[
+  {
+    "flag": "POTENTIAL_LEGAL_CONFLICT",
+    "conflict_type": "ALLOW_PROHIBIT",
+    "subject": "LO2024.SUBJECT.FDI_ENTERPRISE",
+    "action": "LO2024.ACTION.LAND_TRANSFER",
+    "global_norm_ids": [
+      "GNORM_e5184ceb5273",
+      "GNORM_95f3bddb89b4"
+    ],
+    "message": "ALLOW conflict with PROHIBIT for the same subject/action without a linked exception.",
+    "relation_types": [
+      "ALLOW",
+      "PROHIBIT"
+    ],
+    "context_status": "DISTINCT_EXPLICIT_CONDITIONS_REQUIRES_REVIEW"
+  },
+  {
+    "flag": "POTENTIAL_LEGAL_CONFLICT",
+    "conflict_type": "ALLOW_PROHIBIT",
+    "subject": "LO2024.SUBJECT.OVERSEAS_VIETNAMESE",
+    "action": "LO2024.ACTION.LAND_TRANSFER",
+    "global_norm_ids": [
+      "GNORM_e5184ceb5273",
+      "GNORM_95f3bddb89b4"
+    ],
+    "message": "ALLOW conflict with PROHIBIT for the same subject/action without a linked exception.",
+    "relation_types": [
+      "ALLOW",
+      "PROHIBIT"
+    ],
+    "context_status": "DISTINCT_EXPLICIT_CONDITIONS_REQUIRES_REVIEW"
+  },
+  {
+    "flag": "POTENTIAL_LEGAL_CONFLICT",
+    "conflict_type": "ALLOW_PROHIBIT",
+    "subject": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+    "action": "LO2024.ACTION.LAND_MORTGAGE",
+    "global_norm_ids": [
+      "GNORM_783383925c14",
+      "GNORM_987a69861e67",
+      "GNORM_b30fdc060754"
+    ],
+    "message": "ALLOW conflict with PROHIBIT for the same subject/action without a linked exception.",
+    "relation_types": [
+      "ALLOW",
+      "PROHIBIT"
+    ],
+    "context_status": "SAME_OR_UNSPECIFIED_CONDITIONS"
+  }
+]
