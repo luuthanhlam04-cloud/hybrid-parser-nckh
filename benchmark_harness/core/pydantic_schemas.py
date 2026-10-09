@@ -59,6 +59,10 @@ class EvaluationScore(BaseModel):
     # Metadata
     evaluator_model: Optional[str] = Field(default=None, description="Tên LLM giám khảo")
     eval_latency_ms: Optional[float] = None
+    prompt_tokens: Optional[int] = Field(default=0)
+    completion_tokens: Optional[int] = Field(default=0)
+    total_tokens: Optional[int] = Field(default=0)
+    estimated_cost: Optional[float] = Field(default=0.0)
 
 # ==========================================
 # 4. AGGREGATE SCHEMAS (Tổng hợp Báo Cáo)

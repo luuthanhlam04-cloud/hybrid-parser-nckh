@@ -90,6 +90,13 @@ Chỉ trả về JSON object:
                         text = data['choices'][0]['message']['content'].strip()
                         res_dict = json.loads(text)
                         
+                        usage = data.get("usage", {})
+                        p_tokens = usage.get("prompt_tokens", 0)
+                        c_tokens = usage.get("completion_tokens", 0)
+                        t_tokens = usage.get("total_tokens", 0)
+                        # Giá gpt-4o-mini openrouter: $0.15/1M input, $0.60/1M output
+                        est_cost = (p_tokens / 1000000 * 0.150) + (c_tokens / 1000000 * 0.600)
+                        
                         latency = (time.time() - start_time) * 1000
                         return EvaluationScore(
                             question_id=question.question_id,
@@ -103,7 +110,11 @@ Chỉ trả về JSON object:
                             faithfulness=float(res_dict.get("faithfulness", 0.0)),
                             citation_accuracy=float(res_dict.get("citation_accuracy", 0.0)),
                             evaluator_model=self.model_name,
-                            eval_latency_ms=latency
+                            eval_latency_ms=latency,
+                            prompt_tokens=p_tokens,
+                            completion_tokens=c_tokens,
+                            total_tokens=t_tokens,
+                            estimated_cost=est_cost
                         )
                 elif resp.status_code == 429:
                     wait_time = 2 ** attempt * 5 # 5s, 10s, 20s

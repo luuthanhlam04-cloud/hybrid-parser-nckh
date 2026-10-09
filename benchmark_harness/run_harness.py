@@ -72,6 +72,10 @@ def run_benchmark(system_name="hybrid", n_test=None):
     
     test_size = n_test if n_test else len(questions)
     
+    total_prompt_tokens = 0
+    total_completion_tokens = 0
+    total_cost = 0.0
+    
     start_time = time.time()
     for i, q in enumerate(questions[:test_size]):
         print(f"\n[{i+1}/{test_size}] Đang xử lý câu hỏi: {q.question_id}")
@@ -81,7 +85,19 @@ def run_benchmark(system_name="hybrid", n_test=None):
             continue
         
         # 1. RAG chạy (Retrieval + Generation)
-        response = system.retrieve_and_answer(q, top_k=5)
+        try:
+            response = system.retrieve_and_answer(q, top_k=5)
+            if not response.generation or "error" in str(response.generation).lower():
+                response.generation = "ERROR: LLM Crash"
+        except Exception as e:
+            print(f"   [Lỗi nghiêm trọng] RAG_CRASHED tại câu {q.question_id}: {e}")
+            from core.pydantic_schemas import SystemResponse
+            response = SystemResponse(
+                question_id=q.question_id,
+                retrieved_docs=[],
+                generation="ERROR: RAG_CRASHED",
+                metadata={"error": str(e)}
+            )
         
         # 2. Tính Recall/MRR cơ sở
         retrieved_ids = [doc.article_id for doc in response.retrieved_docs]
@@ -108,6 +124,15 @@ def run_benchmark(system_name="hybrid", n_test=None):
         
         results.append(score.model_dump())
         
+        # Cập nhật chi phí
+        total_prompt_tokens += score.prompt_tokens or 0
+        total_completion_tokens += score.completion_tokens or 0
+        total_cost += score.estimated_cost or 0.0
+        
+        if total_cost > 5.0:
+            print(f"\n[BÁO ĐỘNG] Chi phí API đã vượt ngưỡng an toàn ($5.0). Chi phí hiện tại: ${total_cost:.2f}. DỪNG KHẨN CẤP!")
+            break
+        
         # Tự động lưu Checkpoint sau mỗi 10 câu
         if (i + 1) % 10 == 0 or (i + 1) == test_size:
             df = pd.DataFrame(results)
@@ -130,9 +155,16 @@ def run_benchmark(system_name="hybrid", n_test=None):
     print(f"- Tổng số câu đã chạy: {len(df)}")
     print(f"- Recall@5 trung bình: {avg_recall:.4f}")
     print(f"- MRR@5 trung bình: {avg_mrr:.4f}")
+    print(f"- Tổng Prompt Tokens: {total_prompt_tokens}")
+    print(f"- Tổng Completion Tokens: {total_completion_tokens}")
+    print(f"- Ước tính chi phí API: ${total_cost:.4f}")
     print(f"- File kết quả: {out_file}")
     print(f"- Thời gian chạy thực tế: {total_time:.2f} giây")
-    print("- Trạng thái: PASS (Sẵn sàng up lên Kaggle)")
+    
+    if len(df) == test_size:
+        print("- Trạng thái: PASS (Sẵn sàng up lên Kaggle)")
+    else:
+        print("- Trạng thái: FAIL (Dừng giữa chừng do lỗi hoặc giới hạn)")
     print("="*40)
 
 if __name__ == "__main__":
