@@ -7,7 +7,7 @@ Tài liệu này là quy trình rút gọn dành riêng cho đội Dev khi bắt
 2. Clone code và chuyển sang nhánh `benchmark`:
    ```bash
    git clone https://github.com/luuthanhlam04-cloud/hybrid-parser-nckh.git
-   cd hybrid-parser-nckh/Benchmark
+   cd hybrid-parser-nckh
    git checkout benchmark
    ```
 3. Cài đặt các thư viện lõi:
