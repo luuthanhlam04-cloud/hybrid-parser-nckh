@@ -17,12 +17,18 @@ def main():
         print("API_KEY_MISSING")
         sys.exit(1)
         
+    is_mock = False
     try:
         import torch
         if not torch.cuda.is_available():
-            print("NO_GPU - Chuyển sang Mock mode")
+            is_mock = True
     except ImportError:
-        print("NO_GPU (Thiếu thư viện torch) - Chuyển sang Mock mode")
+        is_mock = True
+        
+    if is_mock:
+        print("Mock mode")
+    else:
+        print("Loading BGE-M3...")
         
     try:
         system = HybridRAGWrapper()
