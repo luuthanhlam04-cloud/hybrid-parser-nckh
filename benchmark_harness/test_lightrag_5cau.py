@@ -10,6 +10,14 @@ from systems.light_rag.wrapper import LightRAGWrapper
 from run_harness import calculate_recall_mrr
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--n_docs", type=int, default=50)
+    args = parser.parse_args()
+
+    import logging
+    logging.getLogger("lightrag").setLevel(logging.WARNING)
+
     print("=== TEST 5 CÂU HỆ THỐNG LIGHTRAG ===")
     
     API_KEY = os.environ.get("OPENROUTER_API_KEY", "YOUR_OPENROUTER_API_KEY_HERE")
@@ -22,7 +30,13 @@ def main():
     print("Loading BGE-M3...")
     
     system = LightRAGWrapper()
-    system.index_corpus("data/corpus_final.json", "data/index_lightrag")
+    
+    if os.path.exists("./lightrag_workspace"):
+        print("Workspace đã tồn tại. LightRAG sẽ resume từ document cuối cùng.")
+    else:
+        print("Workspace chưa có. Bắt đầu index từ đầu.")
+        
+    system.index_corpus("data/corpus_final.json", "data/index_lightrag", n_docs=args.n_docs, resume=True)
     print("+ BGE-M3 load thành công? True")
     
     # Check graph creation

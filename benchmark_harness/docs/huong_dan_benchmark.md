@@ -73,13 +73,21 @@ Chạy script test tương ứng của bạn:
 ---
 
 ## BƯỚC 5: CHẠY BENCHMARK TOÀN DIỆN (512 CÂU)
-Vẫn đứng tại thư mục `benchmark_harness`, chạy duy nhất lệnh này tuỳ theo hệ thống của bạn:
+Vẫn đứng tại thư mục `benchmark_harness`, chạy lệnh tuỳ theo hệ thống của bạn. 
+
+### Đối với Vector và Hybrid (Nhanh & Xoá sạch làm lại):
 ```bash
-# Chọn 1 trong 3 lệnh sau:
 python run_harness.py --system vector
 python run_harness.py --system hybrid
-python run_harness.py --system lightrag
 ```
+
+### Đối với LightRAG (Quy trình Sinh tồn - KHÔNG BAO GIỜ CHẠY 500 VĂN BẢN MỘT LẦN):
+Do LightRAG tốn hàng tiếng đồng hồ để Index, nếu Kaggle sập sẽ mất toàn bộ đồ thị. Bạn **BẮT BUỘC** phải chia nhỏ quá trình Index:
+1. Chạy 50 văn bản đầu tiên: `python run_harness.py --system lightrag --n_docs 50`
+2. Đợi máy chạy xong, hệ thống sẽ tự động sao lưu vào thư mục `lightrag_backup_batch_...`.
+3. Tải ngay thư mục backup này về máy tính hoặc đẩy lên Kaggle Dataset để cất giữ.
+4. Ở lần chạy sau, giải nén thư mục đó vào lại `/kaggle/working/lightrag_workspace`. Khi bạn nới rộng số lượng lên (ví dụ: `--n_docs 100`), LightRAG sẽ **Resume (bỏ qua 50 bài cũ)** và chạy tiếp 50 bài mới mà không tốn tiền API hay thời gian lại từ đầu.
+5. Lặp lại quá trình tới khi hết 500 documents. Sau đó hãy bỏ lệnh `--n_docs` để chạy chấm điểm 512 câu hỏi.
 
 **Tính năng an toàn tự động (Đừng hoảng sợ nếu gặp):**
 1. **Resume (Chống sập):** Kaggle giới hạn chạy liên tục vài tiếng. Nếu máy ảo bị sập giữa chừng, bạn bật máy lại và gõ lại y hệt lệnh trên. Hệ thống sẽ tự nạp file `checkpoint_results_XYZ.csv` và CHẠY TIẾP từ câu bị đứt, bỏ qua các câu đã chấm.

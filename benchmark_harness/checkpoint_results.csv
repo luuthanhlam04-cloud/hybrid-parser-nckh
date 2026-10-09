@@ -1,0 +1,11 @@
+question_id,system_name,recall_at_5,mrr_at_5,refusal_correct,false_positive,all_relevant_retrieved,context_precision,faithfulness,citation_accuracy,reasoning_coverage,evaluator_model,eval_latency_ms
+01-DS-2,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,12444.890975952148
+01-DS-7,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,10031.513214111328
+01-DS-9,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,6753.726243972778
+01-DS-10,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,7029.239654541016
+01-DS-11,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,11602.393388748169
+01-DS-14,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,22714.313507080078
+01-DS-31,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,42921.263456344604
+01-DS-38,HybridRAG,0.0,0.0,,,,0.0,1.0,0.0,,gemini-3.5-flash-lite,14962.83483505249
+01-DS-43,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,7868.389844894409
+01-DS-46,HybridRAG,0.0,0.0,,,,0.0,0.0,0.0,,gemini-3.5-flash-lite,14435.608625411987

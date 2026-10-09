@@ -51,16 +51,28 @@ class LightRAGWrapper(BaseRAGSystem):
             llm_model_func=llm_model_func
         )
         
-    def index_corpus(self, corpus_path: str, index_dir: str):
+    def index_corpus(self, corpus_path: str, index_dir: str, n_docs: int = None, resume: bool = True):
+        import shutil
         print(f"[LightRAG] Đang xây dựng đồ thị từ {corpus_path}...")
         with open(corpus_path, "r", encoding="utf-8") as f:
             corpus = json.load(f)
         texts = [doc['text'] for doc in corpus]
         
+        texts_to_process = texts[:n_docs] if n_docs is not None else texts
+        
         import asyncio
         asyncio.run(self.rag.initialize_storages())
         
-        self.rag.insert(texts)
+        batch_size = 50
+        for i in range(0, len(texts_to_process), batch_size):
+            batch = texts_to_process[i:i+batch_size]
+            self.rag.insert(batch)
+            
+            batch_num = (i // batch_size) + 1
+            backup_dir = f"/kaggle/working/lightrag_backup_batch_{batch_num}"
+            shutil.copytree("./lightrag_workspace", backup_dir, dirs_exist_ok=True)
+            print(f"[LightRAG] Đã backup batch {batch_num} vào {backup_dir}")
+            
         print("[LightRAG] Xây dựng đồ thị hoàn tất!")
         
     def retrieve_and_answer(self, query_data: BenchmarkQuestion, top_k: int = 5) -> SystemResponse:

@@ -38,7 +38,7 @@ def calculate_recall_mrr(retrieved_ids: List[str], ground_truth: List[str]):
             
     return recall, mrr
 
-def run_benchmark(system_name="hybrid", n_test=None):
+def run_benchmark(system_name="hybrid", n_test=None, n_docs=None):
     print(f"=== STARTING BENCHMARK HARNESS FOR {system_name.upper()} ===")
     questions, corpus_dict = load_data()
     print(f"Loaded {len(questions)} questions.")
@@ -54,7 +54,11 @@ def run_benchmark(system_name="hybrid", n_test=None):
         raise ValueError(f"System {system_name} is not supported.")
         
     # Thực hiện Indexing dữ liệu corpus trước khi benchmark
-    system.index_corpus("data/corpus_final.json", "data/index")
+    if system_name == "lightrag":
+        n_docs_for_lightrag = n_docs if n_docs is not None else 50
+        system.index_corpus("data/corpus_final.json", "data/index", n_docs=n_docs_for_lightrag, resume=True)
+    else:
+        system.index_corpus("data/corpus_final.json", "data/index")
     
     judge = LLMJudge(model_name="openai/gpt-4o-mini")
     
@@ -172,10 +176,12 @@ def run_benchmark(system_name="hybrid", n_test=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run RAG Benchmark Harness")
-    parser.add_argument("--system", type=str, default="hybrid", choices=["vector", "hybrid", "light"], 
-                        help="Hệ thống RAG cần chạy (vector, hybrid, light)")
+    parser.add_argument("--system", type=str, default="hybrid", choices=["vector", "hybrid", "lightrag"], 
+                        help="Hệ thống RAG cần chạy (vector, hybrid, lightrag)")
     parser.add_argument("--n_test", type=int, default=None, 
                         help="Số lượng câu để test. Bỏ trống để chạy full tập data.")
+    parser.add_argument("--n_docs", type=int, default=None, 
+                        help="Số lượng văn bản cần index (chỉ dùng cho LightRAG). Mặc định 50.")
     args = parser.parse_args()
     
-    run_benchmark(system_name=args.system, n_test=args.n_test)
+    run_benchmark(system_name=args.system, n_test=args.n_test, n_docs=args.n_docs)
