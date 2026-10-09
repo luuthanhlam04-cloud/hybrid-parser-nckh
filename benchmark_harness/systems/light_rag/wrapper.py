@@ -3,6 +3,7 @@ import sys
 import json
 import time
 import asyncio
+import numpy as np
 from typing import Dict, Any
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -25,8 +26,8 @@ class LightRAGWrapper(BaseRAGSystem):
         print("[LightRAG] Loading Dense Model (BGE-M3)...")
         self.emb_model = SentenceTransformer('BAAI/bge-m3', device='cuda')
         
-        async def embedding_func(texts: list[str]) -> list[list[float]]:
-            return self.emb_model.encode(texts, normalize_embeddings=True).tolist()
+        async def embedding_func(texts: list[str]) -> np.ndarray:
+            return self.emb_model.encode(texts, normalize_embeddings=True)
             
         async def llm_model_func(prompt, system_prompt=None, history_messages=[], **kwargs) -> str:
             return await openai_complete_if_cache(
