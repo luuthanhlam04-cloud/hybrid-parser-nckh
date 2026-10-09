@@ -68,6 +68,9 @@ class LightRAGWrapper(BaseRAGSystem):
             RetrievalResult(article_id="01/vbhn-vpqh#1", score=0.99, text="Trích đoạn mẫu từ Graph..."),
         ]
         
+        # LƯU Ý QUAN TRỌNG: Hàm query() của LightRAG thực hiện cả Search và Generation.
+        # Bạn nên cố gắng bóc tách hoặc dùng try-except để nếu LLM lỗi, vẫn giữ lại được Node context.
+        
         return SystemResponse(
             question_id=query_data.question_id,
             retrieved_docs=fake_results[:top_k],

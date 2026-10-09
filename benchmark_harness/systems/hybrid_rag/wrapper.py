@@ -140,6 +140,9 @@ class HybridRAGWrapper(BaseRAGSystem):
             for r in final_results
         ]
         
+        # LƯU Ý QUAN TRỌNG: Khi gọi LLM sinh câu trả lời ở bước này, hãy bọc trong try-except.
+        # Nếu LLM OOM, hãy gán generation="ERROR: LLM Crash" và VẪN trả về retrieved_docs để bảo toàn điểm Recall/MRR.
+        
         return SystemResponse(
             question_id=query_data.question_id,
             retrieved_docs=retrieved_docs,

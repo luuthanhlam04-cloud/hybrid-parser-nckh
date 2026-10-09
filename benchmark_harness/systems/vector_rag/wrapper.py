@@ -63,6 +63,9 @@ class VectorRAGWrapper(BaseRAGSystem):
             RetrievalResult(article_id="01/vbhn-vpqh#1", score=0.95, text="Trích đoạn mẫu..."),
         ]
         
+        # LƯU Ý QUAN TRỌNG: Khi tích hợp LLM generation thực tế, hãy dùng try-except
+        # Nếu LLM lỗi, gán generation="ERROR: LLM Crash" và VẪN trả về retrieved_docs để không mất điểm Recall.
+        
         return SystemResponse(
             question_id=query_data.question_id,
             retrieved_docs=fake_results[:top_k],
