@@ -73,7 +73,11 @@ def run_benchmark(system_name="hybrid", n_test=None, n_docs=None):
             print(f"[Resume] Đã load {len(completed_ids)} câu từ Checkpoint cũ.")
         except Exception as e:
             print(f"[Lỗi] Không thể load checkpoint: {e}")
-    
+    if system_name in ["light", "lightrag"]:
+        if n_docs is not None and n_docs < 500 and n_test is None:
+            n_test = 5
+            print("[Thông báo] Vì n_docs < 500, tự động giới hạn n_test = 5 để test. (Bạn có thể ép chạy bằng --n_test)")
+            
     test_size = n_test if n_test else len(questions)
     
     total_prompt_tokens = 0
@@ -105,7 +109,7 @@ def run_benchmark(system_name="hybrid", n_test=None, n_docs=None):
         
         # 2. Tính Recall/MRR cơ sở
         retrieved_ids = [doc.article_id for doc in response.retrieved_docs]
-        if system_name == "light":
+        if system_name in ["light", "lightrag"]:
             recall, mrr, strict_match = None, None, None
             print("   -> Recall@5: N/A | MRR@5: N/A (GraphRAG không hỗ trợ chunk ID)")
         else:
