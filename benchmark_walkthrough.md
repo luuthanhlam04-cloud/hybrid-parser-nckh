@@ -87,9 +87,16 @@ Team phụ trách nhánh `Hybrid_RAG` cần lưu ý tuân thủ đúng cấu hì
 
 1. Đưa toàn bộ thư mục `benchmark_harness/` lên Kaggle.
 2. Cài đặt các thư viện lõi của team bạn (VD: `pip install sentence-transformers faiss-gpu`).
-3. Khởi chạy Orchestrator:
+3. Khởi chạy Orchestrator bằng tham số dòng lệnh tùy thuộc vào team của bạn:
 ```bash
-python run_harness.py
+# Nếu bạn làm nhánh Vector RAG
+python run_harness.py --system vector
+
+# Nếu bạn làm nhánh Hybrid RAG
+python run_harness.py --system hybrid
+
+# Nếu bạn làm nhánh LightRAG (Graph)
+python run_harness.py --system light
 ```
 
 Hệ thống sẽ tự động in ra màn hình tiến trình chạy từng câu, chấm điểm và tự động tổng hợp **Báo Cáo 5 Dòng** cuối cùng:

@@ -7,10 +7,12 @@ from typing import List, Dict
 from core.pydantic_schemas import BenchmarkQuestion
 from core.evaluator import LLMJudge
 
+import argparse
+
 # Kế hoạch là dev team sẽ import wrapper thật ở đây
 from systems.hybrid_rag.wrapper import HybridRAGWrapper
-# from systems.vector_rag.wrapper import VectorRAGWrapper
-# from systems.light_rag.wrapper import LightRAGWrapper
+from systems.vector_rag.wrapper import VectorRAGWrapper
+from systems.light_rag.wrapper import LightRAGWrapper
 
 def load_data():
     with open("data/benchmark_rewritten.json", "r", encoding="utf-8") as f:
@@ -36,15 +38,21 @@ def calculate_recall_mrr(retrieved_ids: List[str], ground_truth: List[str]):
             
     return recall, mrr
 
-def run_benchmark():
-    print("=== STARTING BENCHMARK HARNESS ===")
+def run_benchmark(system_name="hybrid"):
+    print(f"=== STARTING BENCHMARK HARNESS FOR {system_name.upper()} ===")
     questions, corpus_dict = load_data()
     print(f"Loaded {len(questions)} questions.")
     
     # Khởi tạo hệ thống (Trên Kaggle sẽ tốn VRAM GPU ở đây)
-    # system = VectorRAGWrapper()
-    system = HybridRAGWrapper()
-    
+    if system_name == "vector":
+        system = VectorRAGWrapper()
+    elif system_name == "hybrid":
+        system = HybridRAGWrapper()
+    elif system_name == "light":
+        system = LightRAGWrapper()
+    else:
+        raise ValueError(f"System {system_name} is not supported.")
+        
     # Thực hiện Indexing dữ liệu corpus trước khi benchmark
     system.index_corpus("data/corpus_final.json", "data/index")
     
@@ -75,8 +83,8 @@ def run_benchmark():
             question=q, 
             response=response, 
             retrieved_texts=retrieved_texts, 
-            system_name="HybridRAG",
-            recall=recall, 
+            system_name=system_name.upper(),
+            recall=recall,
             mrr=mrr
         )
         
@@ -92,19 +100,27 @@ def run_benchmark():
     
     # 5. Tổng hợp và xuất báo cáo
     df = pd.DataFrame(results)
-    df.to_csv("final_benchmark_results.csv", index=False)
+    out_file = f"final_benchmark_results_{system_name.upper()}.csv"
+    df.to_csv(out_file, index=False)
     
     avg_recall = df['recall_at_5'].mean()
     avg_mrr = df['mrr_at_5'].mean()
     
     print("\n" + "="*40)
     print("BÁO CÁO NHANH (QUICK REPORT)")
+    print(f"- Hệ thống: {system_name.upper()}")
     print(f"- Tổng số câu đã chạy: {len(df)}")
     print(f"- Recall@5 trung bình: {avg_recall:.4f}")
     print(f"- MRR@5 trung bình: {avg_mrr:.4f}")
+    print(f"- File kết quả: {out_file}")
     print(f"- Thời gian chạy thực tế: {total_time:.2f} giây")
     print("- Trạng thái: PASS (Sẵn sàng up lên Kaggle)")
     print("="*40)
 
 if __name__ == "__main__":
-    run_benchmark()
+    parser = argparse.ArgumentParser(description="Run RAG Benchmark Harness")
+    parser.add_argument("--system", type=str, default="hybrid", choices=["vector", "hybrid", "light"], 
+                        help="Hệ thống RAG cần chạy (vector, hybrid, light)")
+    args = parser.parse_args()
+    
+    run_benchmark(system_name=args.system)
