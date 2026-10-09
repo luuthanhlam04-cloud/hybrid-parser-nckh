@@ -43,8 +43,8 @@ class EvaluationScore(BaseModel):
     system_name: str
     
     # Tầng 1: Retrieval
-    recall_at_5: float
-    mrr_at_5: float
+    recall_at_5: Optional[float] = None
+    mrr_at_5: Optional[float] = None
     refusal_correct: Optional[bool] = Field(default=None, description="Dành cho Negative")
     refusal_appropriate: Optional[bool] = Field(default=None, description="Dành cho Negative (có từ chối đúng lý do luật không quy định không)")
     false_positive: Optional[bool] = Field(default=None, description="Dành cho Negative")

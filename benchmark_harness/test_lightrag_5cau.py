@@ -66,17 +66,15 @@ def main():
             gen_text = response.generation.replace('\n', ' ')
             print(f"+ Generation gọi API thành công? {gen_text[:80]}...")
             
-            recall, mrr = calculate_recall_mrr(retrieved_ids, q.relevant_articles)
-            retrieved_texts = [corpus_dict.get(aid, "") for aid in retrieved_ids]
-            strict_match = all(aid in retrieved_ids for aid in q.relevant_articles) if q.category == "multi_hop" and q.relevant_articles else None
+            recall, mrr = None, None
+            retrieved_texts = []
+            strict_match = None
             
             score = judge.evaluate(q, response, retrieved_texts, "LIGHTRAG", recall, mrr, strict_match)
-            print(f"+ Judge chấm điểm? Recall@5: {recall:.2f}, MRR@5: {mrr:.2f}, Faithfulness: {score.faithfulness}")
+            print(f"+ Judge chấm điểm? Recall@5: N/A, MRR@5: N/A, Faithfulness: {score.faithfulness}")
             print(f"+ Token đã dùng? Prompt: {score.prompt_tokens}, Completion: {score.completion_tokens}")
             
             results.append(score.model_dump())
-            total_recall += recall
-            total_mrr += mrr
         except Exception as e:
             print(f"LỖI CỤ THỂ TẠI CÂU {q.question_id}: {e}")
             sys.exit(1)
@@ -93,8 +91,8 @@ def main():
     print("\n" + "="*40)
     print("- Hệ thống: lightrag")
     print(f"- Số câu đã chạy: 5")
-    print(f"- Recall@5 trung bình: {total_recall/5:.4f}")
-    print(f"- MRR@5 trung bình: {total_mrr/5:.4f}")
+    print("- Recall@5 trung bình: N/A")
+    print("- MRR@5 trung bình: N/A")
     print("- Trạng thái: PASS")
 
 if __name__ == "__main__":

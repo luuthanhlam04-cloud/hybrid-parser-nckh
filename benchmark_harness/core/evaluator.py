@@ -13,7 +13,7 @@ class LLMJudge:
         self.model_name = model_name
         self.url = "https://openrouter.ai/api/v1/chat/completions"
 
-    def evaluate(self, question: BenchmarkQuestion, response: SystemResponse, retrieved_texts: List[str], system_name: str, recall: float, mrr: float, strict_match: bool = None) -> EvaluationScore:
+    def evaluate(self, question: BenchmarkQuestion, response: SystemResponse, retrieved_texts: List[str], system_name: str, recall: Optional[float], mrr: Optional[float], strict_match: bool = None) -> EvaluationScore:
         base_prompt = f"""Bạn là giám khảo đánh giá hệ thống RAG pháp lý.
 Câu hỏi: {question.question}
 Danh sách các điều luật đúng (Ground Truth): {', '.join(question.relevant_articles)}

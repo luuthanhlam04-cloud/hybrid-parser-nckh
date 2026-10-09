@@ -101,12 +101,15 @@ def run_benchmark(system_name="hybrid", n_test=None):
         
         # 2. Tính Recall/MRR cơ sở
         retrieved_ids = [doc.article_id for doc in response.retrieved_docs]
-        recall, mrr = calculate_recall_mrr(retrieved_ids, q.relevant_articles)
-        print(f"   -> Recall@5: {recall:.2f} | MRR@5: {mrr:.2f}")
-        
-        strict_match = None
-        if q.category == "multi_hop" and q.relevant_articles:
-            strict_match = all(aid in retrieved_ids for aid in q.relevant_articles)
+        if system_name == "light":
+            recall, mrr, strict_match = None, None, None
+            print("   -> Recall@5: N/A | MRR@5: N/A (GraphRAG không hỗ trợ chunk ID)")
+        else:
+            recall, mrr = calculate_recall_mrr(retrieved_ids, q.relevant_articles)
+            print(f"   -> Recall@5: {recall:.2f} | MRR@5: {mrr:.2f}")
+            strict_match = None
+            if q.category == "multi_hop" and q.relevant_articles:
+                strict_match = all(aid in retrieved_ids for aid in q.relevant_articles)
             
         # 3. Lấy full text của các bài viết đã retrieve để gửi cho Giám khảo
         retrieved_texts = [corpus_dict.get(aid, "Nội dung không tồn tại.") for aid in retrieved_ids]
@@ -146,15 +149,15 @@ def run_benchmark(system_name="hybrid", n_test=None):
     out_file = f"final_benchmark_results_{system_name.upper()}.csv"
     df.to_csv(out_file, index=False)
     
-    avg_recall = df['recall_at_5'].mean()
-    avg_mrr = df['mrr_at_5'].mean()
-    
-    print("\n" + "="*40)
-    print("BÁO CÁO NHANH (QUICK REPORT)")
-    print(f"- Hệ thống: {system_name.upper()}")
     print(f"- Tổng số câu đã chạy: {len(df)}")
-    print(f"- Recall@5 trung bình: {avg_recall:.4f}")
-    print(f"- MRR@5 trung bình: {avg_mrr:.4f}")
+    if system_name == "light":
+        print("- Recall@5 trung bình: N/A")
+        print("- MRR@5 trung bình: N/A")
+    else:
+        avg_recall = df['recall_at_5'].mean()
+        avg_mrr = df['mrr_at_5'].mean()
+        print(f"- Recall@5 trung bình: {avg_recall:.4f}")
+        print(f"- MRR@5 trung bình: {avg_mrr:.4f}")
     print(f"- Tổng Prompt Tokens: {total_prompt_tokens}")
     print(f"- Tổng Completion Tokens: {total_completion_tokens}")
     print(f"- Ước tính chi phí API: ${total_cost:.4f}")
