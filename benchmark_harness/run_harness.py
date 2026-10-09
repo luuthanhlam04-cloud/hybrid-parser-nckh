@@ -38,7 +38,7 @@ def calculate_recall_mrr(retrieved_ids: List[str], ground_truth: List[str]):
             
     return recall, mrr
 
-def run_benchmark(system_name="hybrid"):
+def run_benchmark(system_name="hybrid", n_test=None):
     print(f"=== STARTING BENCHMARK HARNESS FOR {system_name.upper()} ===")
     questions, corpus_dict = load_data()
     print(f"Loaded {len(questions)} questions.")
@@ -58,14 +58,27 @@ def run_benchmark(system_name="hybrid"):
     
     judge = LLMJudge(model_name="openai/gpt-4o-mini")
     
+    checkpoint_file = f"checkpoint_results_{system_name.upper()}.csv"
     results = []
+    completed_ids = set()
+    if os.path.exists(checkpoint_file):
+        try:
+            df_ckpt = pd.read_csv(checkpoint_file)
+            results = df_ckpt.to_dict('records')
+            completed_ids = set(df_ckpt['question_id'].astype(str).tolist())
+            print(f"[Resume] Đã load {len(completed_ids)} câu từ Checkpoint cũ.")
+        except Exception as e:
+            print(f"[Lỗi] Không thể load checkpoint: {e}")
     
-    # Chạy thử 50 câu đầu tiên theo rule của User
-    test_size = 50 
+    test_size = n_test if n_test else len(questions)
     
     start_time = time.time()
     for i, q in enumerate(questions[:test_size]):
         print(f"\n[{i+1}/{test_size}] Đang xử lý câu hỏi: {q.question_id}")
+        
+        if str(q.question_id) in completed_ids:
+            print("   -> Đã xử lý trong checkpoint (Skip).")
+            continue
         
         # 1. RAG chạy (Retrieval + Generation)
         response = system.retrieve_and_answer(q, top_k=5)
@@ -75,6 +88,10 @@ def run_benchmark(system_name="hybrid"):
         recall, mrr = calculate_recall_mrr(retrieved_ids, q.relevant_articles)
         print(f"   -> Recall@5: {recall:.2f} | MRR@5: {mrr:.2f}")
         
+        strict_match = None
+        if q.category == "multi_hop" and q.relevant_articles:
+            strict_match = all(aid in retrieved_ids for aid in q.relevant_articles)
+            
         # 3. Lấy full text của các bài viết đã retrieve để gửi cho Giám khảo
         retrieved_texts = [corpus_dict.get(aid, "Nội dung không tồn tại.") for aid in retrieved_ids]
         
@@ -85,15 +102,16 @@ def run_benchmark(system_name="hybrid"):
             retrieved_texts=retrieved_texts, 
             system_name=system_name.upper(),
             recall=recall,
-            mrr=mrr
+            mrr=mrr,
+            strict_match=strict_match
         )
         
         results.append(score.model_dump())
         
         # Tự động lưu Checkpoint sau mỗi 10 câu
-        if (i + 1) % 10 == 0:
+        if (i + 1) % 10 == 0 or (i + 1) == test_size:
             df = pd.DataFrame(results)
-            df.to_csv("checkpoint_results.csv", index=False)
+            df.to_csv(checkpoint_file, index=False)
             print("   [Checkpoint] Đã lưu tiến trình.")
             
     total_time = time.time() - start_time
@@ -121,6 +139,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run RAG Benchmark Harness")
     parser.add_argument("--system", type=str, default="hybrid", choices=["vector", "hybrid", "light"], 
                         help="Hệ thống RAG cần chạy (vector, hybrid, light)")
+    parser.add_argument("--n_test", type=int, default=None, 
+                        help="Số lượng câu để test. Bỏ trống để chạy full tập data.")
     args = parser.parse_args()
     
-    run_benchmark(system_name=args.system)
+    run_benchmark(system_name=args.system, n_test=args.n_test)

@@ -46,8 +46,9 @@ class EvaluationScore(BaseModel):
     recall_at_5: float
     mrr_at_5: float
     refusal_correct: Optional[bool] = Field(default=None, description="Dành cho Negative")
+    refusal_appropriate: Optional[bool] = Field(default=None, description="Dành cho Negative (có từ chối đúng lý do luật không quy định không)")
     false_positive: Optional[bool] = Field(default=None, description="Dành cho Negative")
-    all_relevant_retrieved: Optional[bool] = Field(default=None, description="Dành cho Multi-hop")
+    strict_match: Optional[bool] = Field(default=None, description="True nếu retrieve đủ TẤT CẢ relevant_articles trong top-5")
     
     # Tầng 2 & 3: Semantic & Legal (Chấm bằng LLM)
     context_precision: Optional[float] = None
