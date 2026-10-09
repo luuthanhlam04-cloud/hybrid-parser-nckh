@@ -13,6 +13,8 @@ Tài liệu này hướng dẫn chi tiết "cầm tay chỉ việc" cho 3 thành
    cd hybrid-parser-nckh/Benchmark
    git checkout benchmark
    ```
+   *(LƯU Ý QUAN TRỌNG: TUYỆT ĐỐI bám chặt vào nhánh `benchmark` này. Không dùng các nhánh cá nhân cũ (như `duong` hay `lam_m7`) vì chúng đã lỗi thời và không tương thích với siêu kiến trúc mới).*
+
 4. Cài đặt các thư viện cần thiết. Gõ lệnh tương ứng với hệ thống bạn phụ trách:
    - **Vector RAG:** `pip install sentence-transformers faiss-gpu pandas requests`
    - **Hybrid RAG:** `pip install sentence-transformers faiss-gpu rank_bm25 FlagEmbedding torch pandas requests`
@@ -36,9 +38,10 @@ Mỗi người cần mở file tương ứng của mình ra và nhúng code thu�
 - **Người số 2:** Sửa file `benchmark_harness/systems/hybrid_rag/wrapper.py`
 - **Người số 3:** Sửa file `benchmark_harness/systems/light_rag/wrapper.py`
 
-**Lưu ý sinh tử:**
+**Lưu ý sinh tử (Quy tắc "Nhà ai nấy ở, Code ai nấy sửa"):**
+- **CẤM ĐỤNG CHẠM** vào các file lõi như `run_harness.py`, `core/evaluator.py` hay `core/pydantic_schemas.py`. Kiến trúc này đã được thiết kế hoàn hảo với "Áo giáp chống sập (Anti-Crash OOM)", đếm tiền Token API và tự động Resume khi Kaggle sập. Mọi chỉnh sửa ngoài `wrapper.py` sẽ làm vỡ trận toàn hệ thống!
 - Đọc kỹ các phần comment `""" """` tôi đã viết sẵn để biết chỗ nào cần bỏ comment (uncomment).
-- Đảm bảo hàm `retrieve_and_answer` trả về đúng format.
+- Đảm bảo hàm `retrieve_and_answer` trả về đúng format `SystemResponse`.
 - Chỗ sinh câu trả lời LLM **BẮT BUỘC BỌC `try-except`**. Tránh trường hợp LLM sập làm mất luôn kết quả tìm kiếm Vector (Đã ghi chú kỹ trong code).
 
 ---
