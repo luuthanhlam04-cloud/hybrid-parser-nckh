@@ -9,12 +9,22 @@ import sys
 import time
 from collections import defaultdict
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 if __package__:
     from .core.bm25_index import BM25Index
+    from .core.dense_index import (
+        DEFAULT_EMBEDDING_MODEL,
+        DenseIndex,
+        reciprocal_rank_fusion,
+    )
 else:
     from core.bm25_index import BM25Index
+    from core.dense_index import (
+        DEFAULT_EMBEDDING_MODEL,
+        DenseIndex,
+        reciprocal_rank_fusion,
+    )
 
 
 HARNESS_DIR = Path(__file__).resolve().parent
@@ -22,6 +32,7 @@ DEFAULT_CORPUS = HARNESS_DIR / "data" / "corpus_final.json"
 DEFAULT_BENCHMARK = HARNESS_DIR / "data" / "benchmark_rewritten.json"
 DEFAULT_INDEX = HARNESS_DIR / ".cache" / "bm25" / "index.json"
 DEFAULT_RESULTS = HARNESS_DIR / "results" / "bm25_results.csv"
+DEFAULT_DENSE_INDEX = HARNESS_DIR / ".cache" / "dense_bge_m3" / "index.npz"
 
 
 def load_benchmark(path: str | Path) -> list[dict[str, Any]]:
@@ -90,12 +101,14 @@ def calculate_recall_mrr(
 
 
 def run_benchmark(
-    index: BM25Index,
+    retrieve: Callable[[str, int], list[dict[str, Any]]],
     questions: list[dict[str, Any]],
     *,
+    system_name: str,
     top_k: int,
     limit: int | None,
     output_path: str | Path,
+    config: dict[str, Any],
 ) -> dict[str, Any]:
     selected_questions = questions if limit is None else questions[:limit]
     if not selected_questions:
@@ -113,7 +126,7 @@ def run_benchmark(
 
     for position, question in enumerate(selected_questions, start=1):
         query_started_at = time.perf_counter()
-        retrieved = index.retrieve(question["question"], top_k=top_k)
+        retrieved = retrieve(question["question"], top_k)
         latency_ms = (time.perf_counter() - query_started_at) * 1000
         retrieved_ids = [document["article_id"] for document in retrieved]
         ground_truth = question["relevant_articles"]
@@ -159,6 +172,8 @@ def run_benchmark(
     elapsed_seconds = time.perf_counter() - started_at
     question_count = len(rows)
     summary = {
+        "system": system_name,
+        "config": config,
         "question_count": question_count,
         "top_k": top_k,
         f"mean_recall_at_{top_k}": total_recall / question_count,
@@ -175,14 +190,21 @@ def run_benchmark(
         },
         "results_csv": str(output_file.resolve()),
     }
+    summary_path = output_file.with_suffix(".summary.json")
+    summary_path.write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
-    print("\nRetrieval benchmark summary")
+    print(f"\n{system_name.upper()} retrieval benchmark summary")
     print(f"Questions: {question_count}")
     print(f"Recall@{top_k}: {summary[f'mean_recall_at_{top_k}']:.4f}")
     print(f"MRR@{top_k}: {summary[f'mean_mrr_at_{top_k}']:.4f}")
     print(f"Mean query latency: {summary['mean_latency_ms']:.2f} ms")
     print(f"Elapsed: {elapsed_seconds:.2f} s")
     print(f"Results: {output_file}")
+    print(f"Summary: {summary_path}")
+    print(f"Config: {json.dumps(config, ensure_ascii=False)}")
     print("\nBy category:")
     for category, metrics in summary["category_metrics"].items():
         print(
@@ -195,11 +217,13 @@ def run_benchmark(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Index the legal corpus and benchmark BM25 retrieval."
+        description="Index the legal corpus and benchmark retrieval systems."
     )
     commands = parser.add_subparsers(dest="command", required=True)
 
-    index_parser = commands.add_parser("index", help="Build or refresh the BM25 index.")
+    index_parser = commands.add_parser(
+        "index", help="Build or refresh BM25 and/or dense indexes."
+    )
     benchmark_parser = commands.add_parser(
         "benchmark", help="Run Recall/MRR retrieval evaluation."
     )
@@ -207,13 +231,39 @@ def build_parser() -> argparse.ArgumentParser:
         command_parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
         command_parser.add_argument("--index", type=Path, default=DEFAULT_INDEX)
         command_parser.add_argument(
+            "--system",
+            choices=("bm25", "vector", "hybrid"),
+            default="bm25",
+            help="BM25, dense vector, or BM25+dense RRF retrieval.",
+        )
+        command_parser.add_argument(
+            "--dense-index",
+            type=Path,
+            default=DEFAULT_DENSE_INDEX,
+        )
+        command_parser.add_argument("--model", default=DEFAULT_EMBEDDING_MODEL)
+        command_parser.add_argument("--batch-size", type=int, default=4)
+        command_parser.add_argument("--device", default="auto")
+        command_parser.add_argument(
+            "--local-files-only",
+            action="store_true",
+            help="Do not download the embedding model if it is not cached.",
+        )
+        command_parser.add_argument(
             "--rebuild-index",
             action="store_true",
             help="Rebuild the index even if a matching cache exists.",
         )
     index_parser.set_defaults(limit=None)
+    benchmark_parser.add_argument(
+        "--candidate-k",
+        type=int,
+        default=50,
+        help="Sparse/dense candidates per channel for Hybrid RRF.",
+    )
+    benchmark_parser.add_argument("--rrf-k", type=int, default=60)
     benchmark_parser.add_argument("--benchmark", type=Path, default=DEFAULT_BENCHMARK)
-    benchmark_parser.add_argument("--output", type=Path, default=DEFAULT_RESULTS)
+    benchmark_parser.add_argument("--output", type=Path)
     benchmark_parser.add_argument("--top-k", type=int, default=5)
     benchmark_parser.add_argument(
         "--limit",
@@ -230,30 +280,97 @@ def main(argv: list[str] | None = None) -> int:
             raise ValueError("--top-k must be a positive integer.")
         if args.limit is not None and args.limit < 1:
             raise ValueError("--limit must be a positive integer.")
+        if args.batch_size < 1:
+            raise ValueError("--batch-size must be a positive integer.")
+        if args.candidate_k < args.top_k:
+            raise ValueError("--candidate-k must be greater than or equal to --top-k.")
+        if args.rrf_k < 1:
+            raise ValueError("--rrf-k must be a positive integer.")
+    elif args.batch_size < 1:
+        raise ValueError("--batch-size must be a positive integer.")
 
-    index, rebuilt = BM25Index.build_or_load(
+    sparse_index, sparse_rebuilt = BM25Index.build_or_load(
         args.corpus,
         args.index,
-        force_rebuild=args.rebuild_index,
+        force_rebuild=args.rebuild_index and args.system in {"bm25", "hybrid"},
     )
     print(
-        f"BM25 index {'built' if rebuilt else 'loaded'}: "
-        f"{len(index.documents)} documents ({args.index})"
+        f"BM25 index {'built' if sparse_rebuilt else 'loaded'}: "
+        f"{len(sparse_index.documents)} documents ({args.index})"
     )
+    dense_index: DenseIndex | None = None
+    dense_rebuilt = False
+    if args.system in {"vector", "hybrid"}:
+        dense_index, dense_rebuilt = DenseIndex.build_or_load(
+            args.corpus,
+            args.dense_index,
+            model_name=args.model,
+            batch_size=args.batch_size,
+            device=args.device,
+            local_files_only=args.local_files_only,
+            force_rebuild=args.rebuild_index,
+        )
+        print(
+            f"Dense index {'built' if dense_rebuilt else 'loaded'}: "
+            f"{len(dense_index.documents)} documents, "
+            f"dimension={dense_index.embeddings.shape[1]} ({args.dense_index})"
+        )
     if args.command == "index":
         return 0
 
     questions = load_benchmark(args.benchmark)
     validate_ground_truth(
         questions,
-        {document.article_id for document in index.documents},
+        {document.article_id for document in sparse_index.documents},
+    )
+    if args.system == "vector":
+        if dense_index is None:
+            raise RuntimeError("Dense index was not initialized.")
+        retrieve = dense_index.retrieve
+        config = {
+            "method": "dense_cosine",
+            "embedding_model": args.model,
+            "device": str(dense_index.encoder.device),
+            "reranker": None,
+        }
+    elif args.system == "hybrid":
+        if dense_index is None:
+            raise RuntimeError("Dense index was not initialized.")
+
+        def retrieve(query: str, top_k: int) -> list[dict[str, Any]]:
+            sparse_results = sparse_index.retrieve(query, args.candidate_k)
+            dense_results = dense_index.retrieve(query, args.candidate_k)
+            return reciprocal_rank_fusion(
+                sparse_results,
+                dense_results,
+                top_k=top_k,
+                rrf_k=args.rrf_k,
+            )
+
+        config = {
+            "method": "bm25_plus_dense_reciprocal_rank_fusion",
+            "tokenizer": "pyvi.ViTokenizer",
+            "embedding_model": args.model,
+            "candidate_k_per_channel": args.candidate_k,
+            "rrf_k": args.rrf_k,
+            "device": str(dense_index.encoder.device),
+            "reranker": None,
+        }
+    else:
+        retrieve = sparse_index.retrieve
+        config = {"method": "bm25", "tokenizer": "pyvi.ViTokenizer"}
+
+    output_path = args.output or (
+        DEFAULT_RESULTS.parent / f"{args.system}_results.csv"
     )
     run_benchmark(
-        index,
+        retrieve,
         questions,
+        system_name=args.system,
         top_k=args.top_k,
         limit=args.limit,
-        output_path=args.output,
+        output_path=output_path,
+        config=config,
     )
     return 0
 

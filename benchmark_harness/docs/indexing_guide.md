@@ -60,7 +60,32 @@ dừng và báo lỗi thay vì tính điểm trên dữ liệu sai.
 `python baseline_bm25.py` trong cả hai lệnh `index` và `benchmark`; gọi file này
 không kèm subcommand sẽ chạy benchmark như phiên bản baseline cũ.
 
-## 3. Quy trình Indexing dự kiến cho 3 Hệ thống
+## 3. Benchmark Vector và Hybrid trên Kaggle
+
+Các lệnh sau benchmark **retrieval-only**: Vector dùng cosine similarity trên
+embedding BGE-M3; Hybrid kết hợp BM25 (PyVi) và BGE-M3 bằng Reciprocal Rank
+Fusion (RRF), mặc định lấy 50 ứng viên từ mỗi bộ truy xuất và `rrf_k=60`.
+Không gọi LLM, không sinh câu trả lời, và không dùng cross-encoder reranker.
+
+Trên Kaggle, bật Internet để tải model BGE-M3 và chọn GPU accelerator. Từ thư
+mục gốc repository:
+
+```bash
+python -m pip install -r benchmark_harness/requirements-vector.txt
+python benchmark_harness/run_retrieval_benchmark.py index --system hybrid --device cuda --batch-size 8
+python benchmark_harness/run_retrieval_benchmark.py benchmark --system vector --device cuda --batch-size 8 --output /kaggle/working/vector_results.csv
+python benchmark_harness/run_retrieval_benchmark.py benchmark --system hybrid --device cuda --batch-size 8 --candidate-k 50 --rrf-k 60 --output /kaggle/working/hybrid_results.csv
+```
+
+Index embedding dùng chung cho hai benchmark, được lưu tại
+`benchmark_harness/.cache/dense_bge_m3/index.npz`. Chạy mỗi benchmark trên đủ 512
+câu; dùng `--limit 5` để smoke-test. Mỗi CSV có file `.summary.json` đi kèm, ghi
+rõ model, thiết bị, phương pháp fusion, latency và cấu hình không reranker.
+Nếu notebook Kaggle được mở ở thư mục khác, chuyển vào thư mục repository trước
+khi chạy hoặc truyền đường dẫn `--corpus`, `--benchmark`, `--index` và
+`--dense-index` tường minh.
+
+## 4. Quy trình Indexing dự kiến cho 3 Hệ thống
 
 ### Hệ thống 1: Sparse Indexing (Cho BM25 & Hybrid)
 - **Bản chất:** Lập chỉ mục từ vựng (Giống như mục lục ở cuối cuốn sách).
@@ -95,7 +120,7 @@ không kèm subcommand sẽ chạy benchmark như phiên bản baseline cũ.
 
 ---
 
-## 4. Kiến trúc Harness và Đánh giá RAG End-to-End (Tầng 1 -> 4)
+## 5. Kiến trúc Harness và Đánh giá RAG End-to-End (Tầng 1 -> 4)
 Thay vì chỉ đánh giá Retrieval thuần túy (chỉ lấy top-5 ID), hệ thống đã được chốt hạ **Đánh Giá RAG End-to-End**. Điều này có nghĩa là cả 3 hệ thống (Vector, Hybrid, LightRAG) đều BẮT BUỘC phải tích hợp 1 module LLM Generator (GPT-4o-mini) ở cuối phễu để sinh ra câu trả lời cuối cùng.
 
 Kiến trúc code thực tế đã được xây dựng theo **Adapter Pattern**:
