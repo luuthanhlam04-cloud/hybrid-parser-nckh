@@ -1,7 +1,7 @@
 import json
 import requests
 import time
-from typing import List
+from typing import List, Dict, Optional, Any
 import os
 from .pydantic_schemas import EvaluationScore, BenchmarkQuestion, SystemResponse
 
