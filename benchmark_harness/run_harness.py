@@ -44,7 +44,11 @@ def run_benchmark():
     # Khởi tạo hệ thống (Trên Kaggle sẽ tốn VRAM GPU ở đây)
     # system = VectorRAGWrapper()
     system = HybridRAGWrapper()
-    judge = LLMJudge(model_name="gemini-3.5-flash-lite")
+    
+    # Thực hiện Indexing dữ liệu corpus trước khi benchmark
+    system.index_corpus("data/corpus_final.json", "data/index")
+    
+    judge = LLMJudge(model_name="openai/gpt-4o-mini")
     
     results = []
     

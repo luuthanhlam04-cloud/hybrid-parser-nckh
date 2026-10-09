@@ -2,14 +2,16 @@ import json
 import requests
 import time
 from typing import List
+import os
 from .pydantic_schemas import EvaluationScore, BenchmarkQuestion, SystemResponse
 
-API_KEY = "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY"
-URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={API_KEY}"
+# Điền API Key của OpenRouter vào đây, hoặc đặt biến môi trường OPENROUTER_API_KEY
+API_KEY = os.environ.get("OPENROUTER_API_KEY", "ĐIỀN_API_KEY_OPENROUTER_CỦA_BẠN_VÀO_ĐÂY")
 
 class LLMJudge:
-    def __init__(self, model_name="gemini-3.5-flash-lite"):
+    def __init__(self, model_name="openai/gpt-4o-mini"):
         self.model_name = model_name
+        self.url = "https://openrouter.ai/api/v1/chat/completions"
 
     def evaluate(self, question: BenchmarkQuestion, response: SystemResponse, retrieved_texts: List[str], system_name: str, recall: float, mrr: float) -> EvaluationScore:
         prompt = f"""Bạn là giám khảo đánh giá hệ thống RAG pháp lý.
@@ -25,25 +27,30 @@ Hãy đánh giá 3 tiêu chí:
 2. faithfulness: Câu trả lời có dựa hoàn toàn vào tài liệu tìm được không, hay bị ảo giác? (0.0 đến 1.0)
 3. citation_accuracy: Hệ thống có trích dẫn đúng điều/khoản không? (0.0 đến 1.0)
 
-Chỉ trả về JSON object: {{"context_precision": float, "faithfulness": float, "citation_accuracy": float}}
+Chỉ trả về định dạng JSON object, không kèm văn bản nào khác: {{"context_precision": float, "faithfulness": float, "citation_accuracy": float}}
 """
         payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.0, "maxOutputTokens": 512}
+            "model": self.model_name,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.0,
+            "max_tokens": 512,
+            "response_format": { "type": "json_object" }
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {API_KEY}"
         }
         
         start_time = time.time()
         for attempt in range(3):
             try:
-                resp = requests.post(URL, headers={"Content-Type": "application/json"}, json=payload, timeout=30)
+                resp = requests.post(self.url, headers=headers, json=payload, timeout=30)
                 if resp.status_code == 200:
                     data = resp.json()
-                    if 'candidates' in data and len(data['candidates']) > 0:
-                        text = data['candidates'][0]['content']['parts'][0]['text'].strip()
-                        if text.startswith('```json'): text = text[7:]
-                        if text.startswith('```'): text = text[3:]
-                        if text.endswith('```'): text = text[:-3]
-                        res_dict = json.loads(text.strip())
+                    if 'choices' in data and len(data['choices']) > 0:
+                        text = data['choices'][0]['message']['content'].strip()
+                        res_dict = json.loads(text)
                         
                         latency = (time.time() - start_time) * 1000
                         return EvaluationScore(
@@ -58,9 +65,14 @@ Chỉ trả về JSON object: {{"context_precision": float, "faithfulness": floa
                             eval_latency_ms=latency
                         )
                 elif resp.status_code == 429:
+                    print("[LLMJudge] Bị rate limit, đang đợi 10s...")
                     time.sleep(10)
                     continue
+                else:
+                    print(f"[LLMJudge] Lỗi API: {resp.status_code} - {resp.text}")
+                    time.sleep(5)
             except Exception as e:
+                print(f"[LLMJudge] Lỗi kết nối: {e}")
                 time.sleep(5)
                 
         latency = (time.time() - start_time) * 1000
