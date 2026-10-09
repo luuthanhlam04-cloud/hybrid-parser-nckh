@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import time
+import asyncio
 from typing import Dict, Any
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -54,6 +55,10 @@ class LightRAGWrapper(BaseRAGSystem):
         with open(corpus_path, "r", encoding="utf-8") as f:
             corpus = json.load(f)
         texts = [doc['text'] for doc in corpus]
+        
+        import asyncio
+        asyncio.run(self.rag.initialize_storages())
+        
         self.rag.insert(texts)
         print("[LightRAG] Xây dựng đồ thị hoàn tất!")
         
