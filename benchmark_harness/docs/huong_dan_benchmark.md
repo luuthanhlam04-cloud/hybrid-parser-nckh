@@ -16,9 +16,15 @@ Tài liệu này hướng dẫn chi tiết "cầm tay chỉ việc" cho 3 thành
    *(LƯU Ý QUAN TRỌNG: TUYỆT ĐỐI bám chặt vào nhánh `benchmark` này. Không dùng các nhánh cá nhân cũ (như `duong` hay `lam_m7`) vì chúng đã lỗi thời và không tương thích với siêu kiến trúc mới).*
 
 4. Cài đặt các thư viện cần thiết. Gõ lệnh tương ứng với hệ thống bạn phụ trách:
-   - **Vector RAG:** `pip install sentence-transformers faiss-gpu pandas requests`
-   - **Hybrid RAG:** `pip install sentence-transformers faiss-gpu rank_bm25 FlagEmbedding torch pandas requests`
-   - **LightRAG:** `pip install lightrag sentence-transformers pandas requests`
+   - **Vector RAG:** `pip install -q sentence-transformers faiss-gpu pandas requests`
+   - **Hybrid RAG:** `pip install -q sentence-transformers faiss-gpu rank_bm25 FlagEmbedding torch pandas requests`
+   - **LightRAG:** Bắt buộc cài cẩn thận theo trình tự sau để không lỗi `tiktoken`:
+     ```bash
+     !pip install -q --upgrade setuptools-rust tiktoken
+     !pip install -q lightrag-hku --no-deps
+     !pip install -q backoff jsonlines nest-asyncio python-dotenv pyyaml numpy
+     !pip install -q sentence-transformers pandas requests
+     ```
 
 ---
 
@@ -32,11 +38,10 @@ export OPENROUTER_API_KEY="sk-or-v1-xxxxxxxxxxxxxxxxx"
 ---
 
 ## BƯỚC 3: "MỞ KHOÁ" CODE LOGIC CỦA BẠN (WRAPPER)
-Code tải về hiện đang dùng dữ liệu giả (fake data) để an toàn. 
-Mỗi người cần mở file tương ứng của mình ra và nhúng code thuật toán RAG thật vào:
+Code tải về ĐÃ ĐƯỢC CHUẨN HOÁ. Các thành viên chỉ việc kiểm tra sơ bộ:
 - **Người số 1:** Sửa file `benchmark_harness/systems/vector_rag/wrapper.py`
 - **Người số 2:** Sửa file `benchmark_harness/systems/hybrid_rag/wrapper.py`
-- **Người số 3:** Sửa file `benchmark_harness/systems/light_rag/wrapper.py`
+- **Người số 3:** Sửa file `benchmark_harness/systems/light_rag/wrapper.py` (Đã được vá lỗi Numpy và tương thích hoàn toàn `lightrag-hku`)
 
 **Lưu ý sinh tử (Quy tắc "Nhà ai nấy ở, Code ai nấy sửa"):**
 - **CẤM ĐỤNG CHẠM** vào các file lõi như `run_harness.py`, `core/evaluator.py` hay `core/pydantic_schemas.py`. Kiến trúc này đã được thiết kế hoàn hảo với "Áo giáp chống sập (Anti-Crash OOM)", đếm tiền Token API và tự động Resume khi Kaggle sập. Mọi chỉnh sửa ngoài `wrapper.py` sẽ làm vỡ trận toàn hệ thống!
@@ -73,7 +78,7 @@ Vẫn đứng tại thư mục `benchmark_harness`, chạy duy nhất lệnh nà
 # Chọn 1 trong 3 lệnh sau:
 python run_harness.py --system vector
 python run_harness.py --system hybrid
-python run_harness.py --system light
+python run_harness.py --system lightrag
 ```
 
 **Tính năng an toàn tự động (Đừng hoảng sợ nếu gặp):**
@@ -94,5 +99,18 @@ Trong thư mục `benchmark_harness` sẽ xuất hiện file kết quả siêu q
 - Do đó, Recall@5 và MRR@5 không được báo cáo cho LightRAG.
 - Chỉ so sánh chất lượng câu trả lời (Faithfulness, Answer Correctness) cho LightRAG.
 
-**Cách tải về:**
-Trên giao diện Kaggle, ở cây thư mục bên phải, tìm đến 2 file `.csv` này, ấn vào dấu 3 chấm `...` cạnh file và chọn **Download**. Gửi file này về cho trưởng nhóm để gộp lại báo cáo chung. Đóng máy và ăn mừng! 
+**Cách tải về (Đặc biệt quan trọng):**
+Trên giao diện Kaggle, ở cây thư mục bên phải, tìm đến 2 file `.csv` kết quả. Ấn vào dấu 3 chấm `...` cạnh file và chọn **Download**. Gửi file này về cho trưởng nhóm.
+
+**🌟 SAO LƯU DỮ LIỆU INDEXING (Để chạy lại không tốn tiền):**
+Khi chạy xong, để tải thành quả Index (đồ thị LightRAG hoặc File FAISS) về máy tính, bạn gõ lệnh sau để tạo file ZIP:
+```bash
+# Bứng nguyên Đồ thị của LightRAG (nếu bạn chạy LightRAG)
+!zip -r /kaggle/working/lightrag_backup.zip lightrag_workspace/
+
+# Bứng CSDL FAISS của Vector/Hybrid (nếu bạn chạy 2 cái kia)
+!zip -r /kaggle/working/vector_hybrid_backup.zip data/index_*
+```
+Sau đó Download file `.zip` ở panel bên phải về cất vào máy. **TUYỆT ĐỐI KHÔNG PUSH CÁC THƯ MỤC NÀY LÊN GITHUB BẰNG KAGGLE** để tránh phình kho code.
+
+Đóng máy và ăn mừng!
