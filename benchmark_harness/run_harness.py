@@ -48,7 +48,7 @@ def run_benchmark(system_name="hybrid", n_test=None, n_docs=None):
         system = VectorRAGWrapper()
     elif system_name == "hybrid":
         system = HybridRAGWrapper()
-    elif system_name == "light":
+    elif system_name in ["light", "lightrag"]:
         system = LightRAGWrapper()
     else:
         raise ValueError(f"System {system_name} is not supported.")
@@ -154,7 +154,7 @@ def run_benchmark(system_name="hybrid", n_test=None, n_docs=None):
     df.to_csv(out_file, index=False)
     
     print(f"- Tổng số câu đã chạy: {len(df)}")
-    if system_name == "light":
+    if system_name in ["light", "lightrag"]:
         print("- Recall@5 trung bình: N/A")
         print("- MRR@5 trung bình: N/A")
     else:
