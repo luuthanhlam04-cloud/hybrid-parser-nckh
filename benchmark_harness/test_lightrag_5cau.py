@@ -17,18 +17,13 @@ def main():
         print("API_KEY_MISSING")
         sys.exit(1)
         
-    is_mock = False
     try:
-        import torch
-        if not torch.cuda.is_available():
-            is_mock = True
+        import lightrag
     except ImportError:
-        is_mock = True
+        print("LIGHTRAG_IMPORT_FAILED")
+        sys.exit(1)
         
-    if is_mock:
-        print("Mock mode")
-    else:
-        print("Loading BGE-M3...")
+    print("Loading BGE-M3...")
         
     try:
         system = LightRAGWrapper()

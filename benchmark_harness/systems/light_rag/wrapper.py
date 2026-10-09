@@ -11,6 +11,7 @@ from core.pydantic_schemas import BenchmarkQuestion, SystemResponse, RetrievalRe
 class LightRAGWrapper(BaseRAGSystem):
     """
     Hệ thống LightRAG SẴN SÀNG CHẠY THẬT.
+    Tương thích với lightrag-hku.
     """
     def __init__(self, config: Dict[str, Any] = None):
         super().__init__(config)
@@ -19,7 +20,7 @@ class LightRAGWrapper(BaseRAGSystem):
         try:
             from lightrag import LightRAG, QueryParam
             from lightrag.utils import EmbeddingFunc
-            from lightrag.llm import openrouter_model_if_cache, openrouter_embedding
+            from lightrag.llm import openai_complete_if_cache
             from sentence_transformers import SentenceTransformer
             
             # Load embedding model
@@ -27,6 +28,17 @@ class LightRAGWrapper(BaseRAGSystem):
             
             async def embedding_func(texts: list[str]) -> list[list[float]]:
                 return self.emb_model.encode(texts, normalize_embeddings=True).tolist()
+                
+            async def llm_model_func(prompt, system_prompt=None, history_messages=[], **kwargs) -> str:
+                return await openai_complete_if_cache(
+                    "openai/gpt-4o-mini",
+                    prompt,
+                    system_prompt=system_prompt,
+                    history_messages=history_messages,
+                    api_key=os.environ.get("OPENROUTER_API_KEY", ""),
+                    base_url="https://openrouter.ai/api/v1",
+                    **kwargs
+                )
                 
             os.makedirs("./lightrag_workspace", exist_ok=True)
             self.rag = LightRAG(
@@ -36,13 +48,12 @@ class LightRAGWrapper(BaseRAGSystem):
                     max_token_size=8192,
                     func=embedding_func
                 ),
-                llm_model_func=openrouter_model_if_cache,
-                llm_model_name="openai/gpt-4o-mini",
-                llm_model_max_async=4
+                llm_model_func=llm_model_func
             )
             self.model_loaded = True
         except ImportError:
-            print("[LightRAG] LỖI: Thiếu thư viện lightrag. Chạy giả lập.")
+            print("LIGHTRAG_IMPORT_FAILED")
+            sys.exit(1)
             
     def index_corpus(self, corpus_path: str, index_dir: str):
         if not self.model_loaded:
@@ -62,8 +73,7 @@ class LightRAGWrapper(BaseRAGSystem):
         start_time = time.time()
         
         if not self.model_loaded:
-            fake_results = [RetrievalResult(article_id="01/vbhn-vpqh#1", score=0.99, text="Fake Graph...")]
-            return SystemResponse(question_id=query_data.question_id, retrieved_docs=fake_results[:top_k], generation="Mock Graph Answer", metadata={"latency_ms": 0})
+            return SystemResponse(question_id=query_data.question_id, retrieved_docs=[], generation="Mock Graph Answer", metadata={"latency_ms": 0})
             
         try:
             from lightrag import QueryParam
@@ -71,11 +81,9 @@ class LightRAGWrapper(BaseRAGSystem):
             # Query trực tiếp từ Graph
             answer = self.rag.query(query_data.question, param=QueryParam(mode="hybrid"))
             
-            # Do LightRAG băm lại văn bản thành các Node/Edge Đồ thị và không giữ lại 
-            # ánh xạ article_id ban đầu, nên việc trích xuất lại Chunk gốc là bất khả thi.
+            # LightRAG không giữ lại chunk ID ban đầu
             print("LIGHTRAG_CANNOT_EXTRACT_CHUNKS")
             retrieved_docs = []
-            
             generation = str(answer)
         except Exception as e:
             retrieved_docs = []
