@@ -17,24 +17,16 @@ def main():
         print("API_KEY_MISSING")
         sys.exit(1)
         
-    try:
-        import lightrag
-    except ImportError:
-        print("LIGHTRAG_IMPORT_FAILED")
-        sys.exit(1)
-        
+    import lightrag
+    
     print("Loading BGE-M3...")
-        
-    try:
-        system = LightRAGWrapper()
-        system.index_corpus("data/corpus_final.json", "data/index_lightrag")
-        print("+ BGE-M3 load thành công? True")
-        
-        # Check graph creation
-        print("+ Graph load thành công? True (LightRAG Workspace Init)")
-    except Exception as e:
-        print(f"+ Graph load thành công? False\nLỗi: {e}")
-        sys.exit(1)
+    
+    system = LightRAGWrapper()
+    system.index_corpus("data/corpus_final.json", "data/index_lightrag")
+    print("+ BGE-M3 load thành công? True")
+    
+    # Check graph creation
+    print("+ Graph load thành công? True (LightRAG Workspace Init)")
 
     try:
         with open("data/benchmark_rewritten.json", "r", encoding="utf-8") as f:
@@ -53,26 +45,23 @@ def main():
 
     for i, q in enumerate(questions):
         print(f"\n--- CÂU {i+1}/5: {q.question_id} ---")
-        try:
-            response = system.retrieve_and_answer(q, top_k=5)
-            retrieved_ids = [doc.article_id for doc in response.retrieved_docs]
-            print(f"+ Retrieval trả về article_id? {retrieved_ids}")
-            
-            gen_text = response.generation.replace('\n', ' ')
-            print(f"+ Generation gọi API thành công? {gen_text[:80]}...")
-            
-            recall, mrr = None, None
-            retrieved_texts = []
-            strict_match = None
-            
-            score = judge.evaluate(q, response, retrieved_texts, "LIGHTRAG", recall, mrr, strict_match)
-            print(f"+ Judge chấm điểm? Recall@5: N/A, MRR@5: N/A, Faithfulness: {score.faithfulness}")
-            print(f"+ Token đã dùng? Prompt: {score.prompt_tokens}, Completion: {score.completion_tokens}")
-            
-            results.append(score.model_dump())
-        except Exception as e:
-            print(f"LỖI CỤ THỂ TẠI CÂU {q.question_id}: {e}")
-            sys.exit(1)
+        
+        response = system.retrieve_and_answer(q, top_k=5)
+        retrieved_ids = [doc.article_id for doc in response.retrieved_docs]
+        print(f"+ Retrieval trả về article_id? {retrieved_ids}")
+        
+        gen_text = response.generation.replace('\n', ' ')
+        print(f"+ Generation gọi API thành công? {gen_text[:80]}...")
+        
+        recall, mrr = None, None
+        retrieved_texts = []
+        strict_match = None
+        
+        score = judge.evaluate(q, response, retrieved_texts, "LIGHTRAG", recall, mrr, strict_match)
+        print(f"+ Judge chấm điểm? Recall@5: N/A, MRR@5: N/A, Faithfulness: {score.faithfulness}")
+        print(f"+ Token đã dùng? Prompt: {score.prompt_tokens}, Completion: {score.completion_tokens}")
+        
+        results.append(score.model_dump())
             
     ckpt_name = "checkpoint_test_lightrag_5cau.csv"
     try:
