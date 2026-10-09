@@ -90,8 +90,9 @@ Trong thư mục `benchmark_harness` sẽ xuất hiện file kết quả siêu q
 - `checkpoint_results_VECTOR.csv`
 
 **Lưu ý đặc biệt cho báo cáo:**
-- Hệ thống LightRAG do bản chất băm văn bản thành các Đồ thị tri thức (Graph) nên không thể trích xuất lại các Chunk ID nguyên bản. Do đó, **LightRAG không báo cáo chỉ số Recall@5 và MRR@5**.
-- Trong luận văn, bảng so sánh Retrieval sẽ bỏ qua LightRAG (để N/A). LightRAG sẽ chỉ tham gia vào bảng so sánh Generation (đánh giá bằng LLM Judge các tiêu chí Faithfulness, Answer Correctness).
+- LightRAG không hỗ trợ trích xuất chunk ID do cấu trúc đồ thị. 
+- Do đó, Recall@5 và MRR@5 không được báo cáo cho LightRAG.
+- Chỉ so sánh chất lượng câu trả lời (Faithfulness, Answer Correctness) cho LightRAG.
 
 **Cách tải về:**
 Trên giao diện Kaggle, ở cây thư mục bên phải, tìm đến 2 file `.csv` này, ấn vào dấu 3 chấm `...` cạnh file và chọn **Download**. Gửi file này về cho trưởng nhóm để gộp lại báo cáo chung. Đóng máy và ăn mừng! 
