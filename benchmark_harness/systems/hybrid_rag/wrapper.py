@@ -72,6 +72,7 @@ class HybridRAGWrapper(BaseRAGSystem):
         headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
         prompt = f"Trả lời câu hỏi sau dựa trên thông tin pháp luật được cung cấp.\n\nNgữ cảnh:\n{context}\n\nCâu hỏi: {question}"
         try:
+            print("Calling OpenRouter...")
             res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, 
                               json={"model": "openai/gpt-4o-mini", "messages": [{"role": "user", "content": prompt}], "temperature": 0.0}, timeout=30)
             res.raise_for_status()

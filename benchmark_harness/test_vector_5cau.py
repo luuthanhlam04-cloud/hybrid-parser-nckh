@@ -21,11 +21,9 @@ def main():
     try:
         import torch
         if not torch.cuda.is_available():
-            print("NO_GPU")
-            sys.exit(1)
+            print("NO_GPU - Chuyển sang Mock mode")
     except ImportError:
-        print("NO_GPU (Thiếu thư viện torch)")
-        sys.exit(1)
+        print("NO_GPU (Thiếu thư viện torch) - Chuyển sang Mock mode")
         
     try:
         system = VectorRAGWrapper()

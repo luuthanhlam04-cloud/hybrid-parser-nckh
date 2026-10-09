@@ -67,13 +67,24 @@ class LightRAGWrapper(BaseRAGSystem):
             
         try:
             from lightrag import QueryParam
+            import re
+            
             # Query trực tiếp từ Graph
             answer = self.rag.query(query_data.question, param=QueryParam(mode="hybrid"))
             
-            # Tạm thời LightRAG chưa bóc tách chunks trả về, ta để danh sách rỗng 
-            # hoặc trích xuất log. (Việc map ID luật từ Graph cần custom sâu hơn)
+            # LightRAG query() mặc định chỉ trả về String answer, không trả list chunks.
+            # Cố gắng dùng Regex để bóc tách article_id (ví dụ '01/vbhn-vpqh#1') nếu LLM có trích dẫn.
+            found_ids = re.findall(r'[0-9a-zA-Z_]+/[a-zA-Z0-9_-]+#[0-9]+', str(answer))
+            found_ids = list(set(found_ids))
+            
             retrieved_docs = []
-            generation = answer
+            if found_ids:
+                for aid in found_ids[:top_k]:
+                    retrieved_docs.append(RetrievalResult(article_id=aid, score=1.0, text="Extracted from LightRAG answer"))
+            else:
+                print("LIGHTRAG_CANNOT_EXTRACT_CHUNKS")
+                
+            generation = str(answer)
         except Exception as e:
             retrieved_docs = []
             generation = f"ERROR: LightRAG Crash - {e}"

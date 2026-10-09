@@ -73,6 +73,7 @@ class VectorRAGWrapper(BaseRAGSystem):
             "temperature": 0.0
         }
         try:
+            print("Calling OpenRouter...")
             res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload, timeout=30)
             res.raise_for_status()
             return res.json()['choices'][0]['message']['content']
