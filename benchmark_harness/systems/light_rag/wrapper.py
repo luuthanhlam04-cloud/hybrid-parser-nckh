@@ -73,6 +73,13 @@ class LightRAGWrapper(BaseRAGSystem):
             shutil.copytree("./lightrag_workspace", backup_dir, dirs_exist_ok=True)
             print(f"[LightRAG] Đã backup batch {batch_num} vào {backup_dir}")
             
+            total_docs = i + len(batch)
+            zip_name = f"/kaggle/working/lightrag_workspace_{total_docs}.zip"
+            if os.path.exists(zip_name):
+                os.remove(zip_name)
+            shutil.make_archive(zip_name.replace(".zip", ""), 'zip', "./lightrag_workspace")
+            print(f"[LightRAG] Đã nén workspace: {zip_name}")
+            
         print("[LightRAG] Xây dựng đồ thị hoàn tất!")
         
     def retrieve_and_answer(self, query_data: BenchmarkQuestion, top_k: int = 5) -> SystemResponse:
