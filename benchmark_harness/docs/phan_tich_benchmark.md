@@ -6,11 +6,19 @@ Tài liệu này trình bày chuyên sâu về phương pháp luận nghiên c�
 
 ## PHẦN 1: PHƯƠNG PHÁP LUẬN VÀ QUY TRÌNH XÂY DỰNG TẬP DỮ LIỆU (GOLDEN DATASET)
 
-### 1.1. Từ chối các bộ dữ liệu sẵn có (Dataset Rejection Rationale)
-Trong giai đoạn đầu của nghiên cứu, nhóm đã tiến hành khảo sát và kiểm toán (Data Audit) các bộ dữ liệu phổ biến như VMTEB (Vietnamese Massive Text Embedding Benchmark) và một số tập dữ liệu hỏi-đáp nội bộ sinh ra từ các pipeline tự động. Tuy nhiên, chúng tôi quyết định loại bỏ hoàn toàn các tập dữ liệu này dựa trên các cơ sở khoa học sau:
-- **Hiện tượng Rò rỉ Dữ liệu (Data Leakage):** Quá trình sinh tự động của VMTEB mắc lỗi prompt engineering, dẫn đến việc câu hỏi chứa nguyên văn (verbatim) một phần câu trả lời hoặc các thuật ngữ chuyên môn hẹp. Điều này làm mất đi tính thách thức của bài toán, biến mô hình truy xuất ngữ nghĩa (Semantic Retrieval) thành bài toán so khớp chuỗi đơn thuần (Lexical Matching).
-- **Thiếu tính đại diện thực tế (Lack of Real-world Representation):** Các câu hỏi cũ mang tính "nhồi nhét từ khóa" (Keyword-stuffed). Trong thực tế tư vấn pháp luật, người dân thường sử dụng ngôn ngữ đời thường, dân dã, đôi khi không chính xác về mặt thuật ngữ pháp lý.
-- **Nhiễu cấu trúc (Structural Noise):** Các file định dạng Parquet hoặc JSON cũ chứa nhiều nhãn (ground truth) bị rỗng (`null`) hoặc trỏ sai ID điều luật (`article_id`), làm sai lệch nghiêm trọng các hàm mục tiêu đánh giá như Recall và MRR.
+### 1.1. Hành trình sàng lọc và Lịch sử Từ chối các bộ dữ liệu (Dataset Evolution & Rejection)
+Trong quá trình tìm kiếm tập dữ liệu hoàn hảo, nhóm đã trải qua nhiều lần thử nghiệm và liên tục phải loại bỏ (reject) các bộ dữ liệu không đạt chuẩn. Quá trình này diễn ra theo 3 giai đoạn:
+
+**Giai đoạn 1: Bộ dữ liệu VMTEB (Vietnamese Massive Text Embedding Benchmark)**
+- Ban đầu, nhóm khảo sát tập dữ liệu chuẩn VMTEB lưu dưới định dạng `.parquet` (`vmteb_queries.parquet`, `vmteb_corpus.parquet`). 
+- **Lý do loại bỏ:** Qua quá trình kiểm toán (Data Audit), chúng tôi phát hiện lỗi **Data Leakage (Rò rỉ dữ liệu)** nghiêm trọng. Quá trình sinh tự động của VMTEB mắc lỗi prompt engineering, dẫn đến việc câu hỏi chứa nguyên văn (verbatim) một phần câu trả lời. Điều này làm mất đi tính thách thức của bài toán, biến mô hình Semantic Search thành trò chơi so khớp chuỗi (Lexical Matching) đơn thuần.
+
+**Giai đoạn 2: Bộ dữ liệu Sinh tự động nội bộ (`qa_dataset.json` / `benchmark.txt`)**
+- Nhóm chuyển sang sử dụng một bộ dữ liệu JSON được sinh tự động trước đó. Tuy nhiên, khi chạy thử nghiệm kịch bản Audit, hàng loạt lỗ hổng cấu trúc (Structural Noise) lộ diện.
+- **Lý do loại bỏ:** Hàng loạt nhãn (ground truth) bị rỗng (`null` hoặc `[]`), hoặc trỏ sai ID điều luật (`article_id`) sang những bài viết không hề tồn tại trong Corpus. Việc sử dụng bộ dữ liệu "bẩn" này sẽ khiến các chỉ số toán học khắt khe như Recall và MRR bị tính toán sai lệch hoàn toàn, làm sụp đổ tính trung thực của toàn bộ báo cáo NCKH. Hơn nữa, câu hỏi mang tính "nhồi nhét từ khóa" (Keyword-stuffed) thay vì câu hỏi tự nhiên của người dùng.
+
+**Giai đoạn 3: Quyết định "Đập đi xây lại"**
+- Đứng trước nguy cơ sai lệch số liệu, nhóm quyết định **loại bỏ (Reject) toàn bộ dữ liệu rác**. Chúng tôi chỉ giữ lại bộ Corpus vàng gồm hơn 3.350.630 ký tự văn bản Luật chuẩn xác (đã được làm sạch HTML, Markdown), và tiến hành xây dựng lại tập câu hỏi từ đầu theo tiêu chuẩn khắt khe nhất.
 
 ### 1.2. Kỹ thuật Xây dựng Golden Dataset (Paraphrasing & Multi-hop Reasoning)
 Để giải quyết triệt để các rào cản trên, nhóm đã giữ lại kho ngữ liệu gốc (Corpus) gồm 3.350.630 ký tự văn bản Luật chuẩn xác, và tiến hành tái cấu trúc tập câu hỏi (512 câu) thông qua kỹ thuật **LLM-based Paraphrasing**:
