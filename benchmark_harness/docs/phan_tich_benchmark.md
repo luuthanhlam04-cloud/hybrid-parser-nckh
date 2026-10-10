@@ -23,9 +23,10 @@ Trong quá trình tìm kiếm tập dữ liệu hoàn hảo, nhóm đã trải q
 ### 1.2. Tính minh bạch và Quyết định xây dựng Golden Dataset (Hybrid Dataset Approach)
 Để giải quyết triệt để các rào cản trên và đảm bảo tính **Minh bạch học thuật (Academic Transparency)**, nhóm quyết định áp dụng phương pháp tiếp cận "Hỗn hợp" (Hybrid Dataset Approach): Chúng tôi **sử dụng lại kho ngữ liệu (Corpus) từ nguồn uy tín bên ngoài** nhưng **tự tay xây dựng tập câu hỏi (Queries) nội bộ**.
 - **Kho ngữ liệu hữu cơ (Organic Corpus):** Giữ lại bộ Corpus vàng gồm hơn 3.350.630 ký tự văn bản Luật chuẩn xác (đã được làm sạch HTML, Markdown). Việc dùng Corpus từ bên thứ 3 (như cấu trúc gốc của VMTEB) đảm bảo dữ liệu văn bản luật là khách quan, không bị "đẽo gọt" để thiên vị cho mô hình của nhóm.
-- **Tập câu hỏi tự xây dựng (Self-built Golden Queries):** Để triệt tiêu rò rỉ dữ liệu (Data Leakage) vốn có ở VMTEB, nhóm tiến hành tái cấu trúc tập câu hỏi (512 câu) thông qua kỹ thuật **LLM-based Paraphrasing**:
-1. **Khử từ khóa chuyên môn (De-jargonization):** Dùng LLM viết lại các câu hỏi pháp lý phức tạp thành ngôn ngữ sinh hoạt thường ngày, buộc các hệ thống RAG phải sử dụng năng lực "hiểu ngữ nghĩa sâu" (Deep Semantic Understanding) thay vì đối sánh từ khóa.
-2. **Đa dạng hóa luồng suy luận:** Tập dữ liệu được thiết kế bao gồm **Single-hop Queries** (Truy xuất trực tiếp một điều luật) và **Multi-hop Queries** (Đòi hỏi hệ thống phải tổng hợp và suy luận chéo giữa nhiều nguồn luật khác nhau như Hình sự, Dân sự, Doanh nghiệp).
+- **Tập câu hỏi tự xây dựng (Self-built Golden Queries):** Để triệt tiêu rò rỉ dữ liệu (Data Leakage) vốn có ở VMTEB, nhóm tiến hành tái thiết kế lại toàn bộ tập 512 câu hỏi với độ khó bám sát thực tiễn:
+  - **Tập câu hỏi Chuyên gia (Expert-curated Subset):** Đáng chú ý, tập dữ liệu có chứa **58 câu hỏi được đóng góp và tinh chỉnh trực tiếp bởi các Chuyên gia pháp lý**. Việc đưa các tình huống thực tiễn, héo lắt từ chuyên gia vào bộ Benchmark giúp kiểm thử giới hạn suy luận của mô hình trước các vụ việc phức tạp mà kỹ thuật sinh tự động (Auto-generation) không thể bao quát hết, nâng tầm uy tín học thuật của toàn bộ quá trình kiểm định.
+  - **Khử từ khóa chuyên môn (De-jargonization):** Các câu hỏi còn lại được sử dụng LLM để viết lại (Paraphrasing) thành ngôn ngữ sinh hoạt thường ngày, buộc các hệ thống RAG phải sử dụng năng lực "hiểu ngữ nghĩa sâu" (Deep Semantic Understanding) thay vì đối sánh từ khóa.
+  - **Đa dạng hóa luồng suy luận:** Bộ câu hỏi bao trùm cả **Single-hop Queries** (Truy xuất trực tiếp một điều luật) và **Multi-hop Queries** (Đòi hỏi hệ thống phải tổng hợp và suy luận chéo giữa nhiều nguồn luật khác nhau).
 
 ---
 
