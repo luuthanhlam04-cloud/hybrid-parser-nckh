@@ -42,3 +42,21 @@ Mặc dù việc xây dựng đồ thị ban đầu vô cùng gian nan, LightRAG
 ## 4. Kết Luận
 Đưa LightRAG vào bài Benchmark là một quyết định vô cùng đắt giá cho báo cáo NCKH. Dữ liệu từ thực nghiệm này sẽ chứng minh một luận điểm quan trọng trong báo cáo:
 > *"GraphRAG/LightRAG mang lại tiềm năng kết nối thông tin tuyệt vời, nhưng rào cản quá lớn về chi phí và thời gian Indexing (cần LLM trích xuất) khiến nó khó trở thành giải pháp thay thế hoàn toàn cho VectorRAG trong các hệ thống cần cập nhật dữ liệu pháp luật thời gian thực (Real-time update)."*
+
+## 5. Phân Tích Sự Chênh Lệch Dữ Liệu Thực Nghiệm (Benchmark Analysis)
+
+Sau khi chạy toàn vẹn bộ 512 câu hỏi, kết quả thu về gây bất ngờ lớn nhưng lại cực kỳ có giá trị để bảo vệ luận án khoa học:
+
+### 5.1. Tại sao LightRAG KHÔNG THỂ đo lường Recall và MRR?
+Trong kết quả đo lường, chỉ số Recall@5 và MRR@5 của LightRAG đều bị gán là **N/A**. Lý do cốt lõi xuất phát từ kiến trúc của GraphRAG:
+- **Vector & Hybrid:** Tìm kiếm và trả về nguyên bản các đoạn văn bản (chunks) chứa `article_id` cụ thể. Do đó, ta có thể đối chiếu trực tiếp `retrieved_ids` với `ground_truth_ids` để tính Recall và MRR.
+- **LightRAG (GraphRAG):** Không truy xuất văn bản thô. Thay vào đó, nó duyệt qua Đồ thị Tri thức để nhặt ra các **Thực thể (Entities)** và **Mối quan hệ (Relations)**, sau đó trộn chúng lại thành một đoạn văn cảnh tổng hợp (Synthesized Context). Không tồn tại một ánh xạ 1-1 nào giữa đoạn văn cảnh này với `article_id` ban đầu. Việc ép đo lường Recall/MRR trên LightRAG là sai về mặt phương pháp học khoa học.
+
+### 5.2. Giải mã sự "Sụp hầm" của LightRAG (Faithfulness = 39.7%)
+LightRAG vốn được quảng cáo rất mạnh, nhưng tại sao độ trung thực (Faithfulness) lại rớt thảm hại xuống mức ~39.7%, trong khi Vector/Hybrid đạt >92%?
+- **Bản chất của Dữ liệu Pháp luật:** Luật pháp Việt Nam (và thế giới nói chung) đòi hỏi sự **chính xác tuyệt đối về mặt từ ngữ, cấu trúc và ngữ cảnh**. Một điều luật chỉ có tác dụng khi nó đi kèm với các điều kiện loại trừ, khoản, điểm rõ ràng.
+- **Điểm yếu của GraphRAG trong miền Pháp luật:** Khi LightRAG "băm" điều luật ra để trích xuất thực thể, nó đã phá vỡ hoàn toàn cấu trúc ngữ pháp và tính ràng buộc chặt chẽ của văn bản luật pháp. Ngữ cảnh LLM nhận được từ Đồ thị chỉ là các cụm từ chắp vá (ví dụ: *Tội phạm -> Bị phạt -> 5 năm*), thiếu đi bối cảnh nguyên vẹn. Hậu quả là LLM sinh ra câu trả lời sai lệch, ảo giác (Hallucination), hoặc không bám sát luật, dẫn đến điểm Faithfulness cực thấp.
+
+### 5.3. Tại sao Hybrid RAG nhỉnh hơn Vector RAG ở MRR?
+Mặc dù cả hai đều có độ trung thực cực cao (trên 92%), Hybrid RAG đạt **MRR@5 = 0.8796**, vượt trội hơn Vector RAG (0.8407).
+- **Lý do:** Vector RAG (Semantic Search) thỉnh thoảng bị "nhầm lẫn" khi các điều luật có ý nghĩa na ná nhau nhưng khác số hiệu. Khi kết hợp thêm thuật toán từ khoá BM25 (đặc trưng của Hybrid), hệ thống bắt đúng chính xác số hiệu Điều/Luật hoặc các thuật ngữ chuyên ngành hẹp, giúp đẩy tài liệu chính xác nhất lên ngay vị trí Top 1 (tối ưu chỉ số MRR). Điều này chứng minh Hybrid là phương pháp cân bằng và tối ưu nhất cho văn bản pháp luật hiện tại.
