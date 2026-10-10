@@ -66,10 +66,11 @@ Việc tích hợp GraphRAG (hiện thân là LightRAG) vào hệ sinh thái Ben
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Vector RAG** | N=512 | 0.9238 | 0.9141 | 0.8129 | $0.2255 |
 | **Hybrid RAG** | N=512 | 0.9268 | 0.9316 | **0.8796** | $0.2108 |
-| **LightRAG** | N=512 | 0.3977 | N/A | N/A | $0.1101 |
+| **LightRAG** | N=423 | 0.3977 | N/A | N/A | $0.1101 |
 
 *(Lưu ý 1: Chỉ số Recall và MRR của LightRAG mang giá trị N/A do sự khác biệt về bản chất định tuyến dữ liệu).*
-*(Lưu ý 2: "Chi phí API" trong bảng chỉ là chi phí chấm điểm (Evaluation Cost) bằng LLM Judge cho 512 câu. Chi phí lập chỉ mục (Indexing Cost) của LightRAG đắt hơn Vector/Hybrid hàng trăm lần do phải gọi LLM trích xuất thực thể cho toàn bộ Corpus).*
+*(Lưu ý 2: "Chi phí API" trong bảng chỉ là chi phí chấm điểm (Evaluation Cost) bằng LLM Judge. Chi phí lập chỉ mục (Indexing Cost) của LightRAG đắt hơn Vector/Hybrid hàng trăm lần do phải gọi LLM trích xuất thực thể cho toàn bộ Corpus).*
+*(Lưu ý 3: Quá trình truy vấn của LightRAG dừng lại ở câu 423 do hệ thống cạn kiệt tín dụng API (Out of credits). Tuy nhiên, với 42% trong số 423 câu có Faithfulness = 0.0, phân phối dữ liệu đã bão hòa và minh chứng rõ ràng sự sụp đổ của mô hình, việc thiếu vắng 89 câu không làm thay đổi tính chất thống kê của kết luận).*
 
 ### 4.2. Phân tích Nguyên nhân: Tại sao LightRAG không có Recall và MRR?
 Việc áp dụng các chuẩn đo lường Information Retrieval (IR) truyền thống lên GraphRAG là sai lầm về mặt phương pháp luận:
@@ -86,12 +87,27 @@ Dữ liệu chỉ ra rằng cả Vector và Hybrid RAG đều xuất sắc duy t
 - **Sự bổ khuyết hoàn hảo:** BGE-M3 (Semantic Search) vượt trội trong việc hiểu các câu hỏi mang ý nghĩa bao quát, nhưng lại dễ bị "bối rối" (Semantic Ambiguity) trước các điều luật có ý nghĩa tương đồng ở các bộ Luật khác nhau.
 - **Vai trò của BM25:** Thuật toán Đối sánh Từ khóa (Lexical Search - BM25) trong Hybrid đóng vai trò như một bộ lọc đối sánh chính xác (Lexical Anchor). Khi câu hỏi chứa các thuật ngữ đặc thù, số hiệu Nghị định, mức phạt cụ thể, BM25 (dựa trên tần suất nghịch đảo IDF) lập tức ép trọng số của Chunk chứa từ khóa lên tối đa, đưa đáp án chuẩn xác lên thẳng **Vị trí Top 1**. Việc ưu tiên đẩy Chunk văn bản chứa đáp án cực chuẩn lên đầu bảng xếp hạng chính là nguyên lý đằng sau chỉ số MRR áp đảo của Hybrid.
 
-### 4.5. Sự vắng bóng của Ontology (Khoảng trống Tri thức)
+### 4.5. Nghịch lý LightRAG: Nhận diện đúng Thực thể nhưng Đứt gãy Logic (Entity vs Faithfulness)
+Một phát hiện mang tính học thuật sâu sắc từ thực nghiệm là hiện tượng **"Nghịch lý Thực thể"** của LightRAG. Mặc dù khả năng trích xuất thực thể (Entity Preservation) của đồ thị cực tốt (ước tính đạt ~0.89), chỉ số Faithfulness lại chạm đáy (0.3977).
+- **Nguyên nhân:** LightRAG có thể bóc tách hoàn hảo các Node (Tổ chức, Cá nhân, Hành vi), nhưng lại đánh mất hoàn toàn **Quan hệ pháp lý (Legal Modality)** ràng buộc các thực thể đó. Nó biết có "Hành vi X" và "Phạt Y", nhưng không thể nội suy được "Hành vi X CHỈ BỊ phạt Y NẾU rơi vào Điều kiện Z".
+- **Hệ quả:** LLM sinh ra văn bản dệt từ các thực thể đúng, nhưng gán ghép logic nhân quả sai lệch hoàn toàn so với văn bản Luật. 
+
+### 4.6. Giải phẫu Lỗi định tính (Qualitative Error Mapping)
+Nhóm nghiên cứu đã tiến hành ánh xạ các lỗi truy xuất sai vào từng thành phần của Pipeline để định hướng khắc phục:
+1. **Lỗi tham chiếu chéo ẩn (Implicit Cross-Reference Failure):** Bắt nguồn từ rào cản **Chunking**. Khi một Điều luật tham chiếu đến Điều luật khác ("Áp dụng như Điều 10"), việc cắt chunk tĩnh làm đứt gãy mạch liên kết. 
+2. **Lỗi từ đồng nghĩa pháp lý (Legal Synonym Mismatch):** Rào cản của mô hình **Embedding**. Khái niệm "sa thải vô lý" của người dân và "đơn phương chấm dứt HĐLĐ trái pháp luật" trong luật chưa được Vector không gian nội suy đồng nhất.
+3. **Lỗi ảo giác điều khoản con (Clause-level Hallucination):** Rào cản của **Generation**. LLM tổng hợp đúng Điều, nhưng lại tự suy diễn nhầm sang Khoản/Điểm khác. Giải pháp đòi hỏi cơ chế sinh văn bản bị ràng buộc nghiêm ngặt bởi Trích dẫn (Citation-constrained generation).
+
+### 4.7. Đánh đổi Chi phí, Độ trễ và Khả năng mở rộng (Trade-off Analysis)
+- **Độ trễ truy xuất (Retrieval Latency):** Cần tách bạch rõ ràng giữa *Retrieval Latency* (Thời gian hệ thống dò tìm tài liệu, tính bằng mili-giây đối với FAISS/BM25 chạy local) và *Judge Latency* (Thời gian gọi LLM chấm điểm). Ở pha truy xuất, Hybrid và Vector vượt trội về tốc độ (Real-time). Trong khi đó, việc LightRAG phải duyệt đồ thị và gọi API LLM ngay trong pha truy xuất tạo ra nút thắt cổ chai về độ trễ, không thể đáp ứng môi trường Production tần suất cao.
+- **Khả năng mở rộng (Scalability):** Khi Corpus tăng lên 60,000 Điều luật, kiến trúc Hybrid (FAISS + BM25) scale tuyến tính với chi phí phần cứng rất rẻ. Ngược lại, LightRAG scale theo hàm mũ của API Token, khiến hệ thống phá sản về mặt kinh tế khi lập chỉ mục dữ liệu khổng lồ.
+
+### 4.8. Sự vắng bóng của Ontology (Khoảng trống Tri thức)
 Việc GraphRAG (hiện thân là LightRAG) đạt hiệu suất kém trong thực nghiệm này xuất phát từ nguyên nhân căn bản: Sự vắng bóng của **Legal Ontology (Bản thể luận pháp lý)**.
 - Trong thực nghiệm Benchmark, LightRAG được triển khai dưới dạng **Generic Graph** (Đồ thị tổng quát). Quá trình trích xuất thực thể hoàn toàn dựa vào khả năng nội suy tự do của LLM mà không bị ràng buộc bởi bất kỳ cấu trúc quy phạm pháp luật nào.
 - Pháp luật Việt Nam sở hữu cấu trúc phân cấp nghiêm ngặt (Chương > Mục > Điều > Khoản > Điểm) cùng các khái niệm mang tính ràng buộc nhân quả (Chủ thể -> Hành vi -> Chế tài). Việc thiếu vắng Ontology chuyên biệt khiến mạng Đồ thị tạo ra các kết nối đứt gãy, biến một Điều luật logic thành các cụm từ khóa mất bối cảnh. Đây chính là tiền đề học thuật để nhóm nghiên cứu đề xuất một **kiến trúc đồ thị lai (Hybrid Graph) tối ưu hơn** trong các giai đoạn tiếp theo nhằm khắc phục triệt để điểm mù này.
 
-### 4.6. TỔNG KẾT VÀ TIỀN ĐỀ ĐỀ XUẤT (Conclusion & Future Work)
+### 4.9. TỔNG KẾT VÀ TIỀN ĐỀ ĐỀ XUẤT (Conclusion & Future Work)
 Từ các luận cứ định lượng và định tính thu thập qua 3 tầng đánh giá (Retrieval, RAGAS, Citation), nghiên cứu rút ra hai kết luận cốt lõi:
 1. **Hybrid RAG** hiện là kiến trúc cơ sở tối ưu nhất để truy xuất văn bản pháp quy Việt Nam, nhờ khả năng duy trì nguyên vẹn cấu trúc văn bản (đảm bảo Faithfulness) và sử dụng bộ lọc Lexical Anchor để tối ưu hóa thứ hạng truy xuất (MRR).
 2. **GraphRAG truyền thống** bộc lộ giới hạn chí mạng do phá vỡ tính toàn vẹn ngữ pháp luật và thiếu vắng mô hình bản thể luận (Ontology), dẫn đến hiện tượng suy diễn sai lệch (Hallucination).
