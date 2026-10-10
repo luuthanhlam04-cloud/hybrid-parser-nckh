@@ -68,7 +68,8 @@ Việc tích hợp GraphRAG (hiện thân là LightRAG) vào hệ sinh thái Ben
 | **Hybrid RAG** | N=512 | 0.9268 | 0.9316 | **0.8796** | $0.2108 |
 | **LightRAG** | N=512 | 0.3977 | N/A | N/A | $0.1101 |
 
-*(Lưu ý: Chỉ số Recall và MRR của LightRAG mang giá trị N/A do sự khác biệt về bản chất định tuyến dữ liệu).*
+*(Lưu ý 1: Chỉ số Recall và MRR của LightRAG mang giá trị N/A do sự khác biệt về bản chất định tuyến dữ liệu).*
+*(Lưu ý 2: "Chi phí API" trong bảng chỉ là chi phí chấm điểm (Evaluation Cost) bằng LLM Judge cho 512 câu. Chi phí lập chỉ mục (Indexing Cost) của LightRAG đắt hơn Vector/Hybrid hàng trăm lần do phải gọi LLM trích xuất thực thể cho toàn bộ Corpus).*
 
 ### 4.2. Phân tích Nguyên nhân: Tại sao LightRAG không có Recall và MRR?
 Việc áp dụng các chuẩn đo lường Information Retrieval (IR) truyền thống lên GraphRAG là sai lầm về mặt phương pháp luận:
