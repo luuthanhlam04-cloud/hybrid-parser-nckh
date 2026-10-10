@@ -1,64 +1,78 @@
-# BÁO CÁO PHÂN TÍCH BENCHMARK TOÀN DIỆN (Dành cho Viết Luận văn)
+# BÁO CÁO PHÂN TÍCH THỰC NGHIỆM VÀ ĐÁNH GIÁ MÔ HÌNH (BENCHMARK ANALYSIS REPORT)
 
-Tài liệu này tổng hợp toàn bộ quy trình luận chứng, xây dựng dữ liệu, khắc phục sự cố kỹ thuật và phân tích kết quả thực nghiệm để đưa vào chương "Phương pháp nghiên cứu" và "Đánh giá kết quả" của báo cáo NCKH.
-
-## PHẦN 1: PHƯƠNG PHÁP NGHIÊN CỨU & XÂY DỰNG DỮ LIỆU (DATASET)
-
-### 1.1. Khởi nguồn dữ liệu & Quyết định loại bỏ các bộ Benchmark cũ
-- **Vấn đề của bộ VMTEB (Vietnamese Massive Text Embedding Benchmark):** Ban đầu, nhóm dự định sử dụng tập dữ liệu chuẩn VMTEB. Tuy nhiên, qua quá trình kiểm toán (Audit Data), chúng tôi phát hiện lỗi Data Leakage nghiêm trọng (Câu hỏi chứa nguyên si câu trả lời), định dạng Parquet rườm rà, và các câu hỏi mang tính chất "nhồi nhét từ khóa" (Keyword-stuffed) thay vì câu hỏi tự nhiên của người dùng (Natural User Queries).
-- **Vấn đề của các bộ dữ liệu nội bộ cũ:** Các file `qa_dataset.json` cũ được sinh ra tự động nhưng chứa nhiều câu trả lời (ground truth) bị rỗng hoặc trỏ sai ID bài viết, dẫn đến việc tính toán các chỉ số khắt khe như Recall và MRR sẽ bị sai lệch hoàn toàn.
-- **Quyết định:** Loại bỏ (Reject) toàn bộ dữ liệu rác, chỉ giữ lại bộ Corpus gồm hơn 3.3 triệu ký tự văn bản Luật chuẩn, và tiến hành xây dựng lại tập câu hỏi từ đầu theo tiêu chuẩn khắt khe hơn.
-
-### 1.2. Phân tích tập dữ liệu Benchmark hiện tại (Golden Dataset)
-Để đảm bảo tính khách quan và sát thực tế, tập dữ liệu `benchmark_rewritten.json` (512 câu hỏi) đã được xây dựng theo tiêu chuẩn vàng (Golden Dataset):
-- **Phân loại đa dạng:** Bao gồm cả câu hỏi Đơn luồng (Single-hop) đòi hỏi tra cứu trực tiếp một điều luật, và câu hỏi Đa luồng (Multi-hop) đòi hỏi hệ thống tổng hợp từ nhiều nguồn luật khác nhau (Hình sự, Dân sự, Doanh nghiệp).
-- **Paraphrasing:** Các câu hỏi được viết lại (Rewritten) để mô phỏng cách hỏi đời thường của người dân (không chứa các từ khóa kỹ thuật pháp lý, dùng từ ngữ dân dã), nhằm thử thách khả năng "hiểu ngữ nghĩa sâu" (Semantic Search) của các hệ thống RAG thay vì chỉ đơn thuần là so khớp từ khóa.
+Tài liệu này trình bày chuyên sâu về phương pháp luận nghiên cứu, quy trình tinh chỉnh chuẩn hóa tập dữ liệu, kiến trúc đánh giá độc lập (Benchmark Harness) và các phân tích học thuật đối với kết quả thực nghiệm của 3 hệ thống: Vector RAG, Hybrid RAG và LightRAG (GraphRAG). Dữ liệu từ báo cáo này phục vụ trực tiếp cho chương "Phương pháp nghiên cứu" và "Đánh giá kết quả" trong Luận văn NCKH.
 
 ---
 
-## PHẦN 2: CÁC VẤN ĐỀ KỸ THUẬT VÀ NÚT THẮT CỔ CHAI (BOTTLENECKS) CỦA LIGHTRAG
+## PHẦN 1: PHƯƠNG PHÁP LUẬN VÀ QUY TRÌNH XÂY DỰNG TẬP DỮ LIỆU (GOLDEN DATASET)
 
-Quá trình đưa hệ thống đồ thị tri thức (GraphRAG / LightRAG) vào thực nghiệm gặp phải vô vàn rào cản kỹ thuật. Đây là điểm nhấn quan trọng chứng minh nỗ lực kỹ thuật xuất sắc của nhóm:
+### 1.1. Từ chối các bộ dữ liệu sẵn có (Dataset Rejection Rationale)
+Trong giai đoạn đầu của nghiên cứu, nhóm đã tiến hành khảo sát và kiểm toán (Data Audit) các bộ dữ liệu phổ biến như VMTEB (Vietnamese Massive Text Embedding Benchmark) và một số tập dữ liệu hỏi-đáp nội bộ sinh ra từ các pipeline tự động. Tuy nhiên, chúng tôi quyết định loại bỏ hoàn toàn các tập dữ liệu này dựa trên các cơ sở khoa học sau:
+- **Hiện tượng Rò rỉ Dữ liệu (Data Leakage):** Quá trình sinh tự động của VMTEB mắc lỗi prompt engineering, dẫn đến việc câu hỏi chứa nguyên văn (verbatim) một phần câu trả lời hoặc các thuật ngữ chuyên môn hẹp. Điều này làm mất đi tính thách thức của bài toán, biến mô hình truy xuất ngữ nghĩa (Semantic Retrieval) thành bài toán so khớp chuỗi đơn thuần (Lexical Matching).
+- **Thiếu tính đại diện thực tế (Lack of Real-world Representation):** Các câu hỏi cũ mang tính "nhồi nhét từ khóa" (Keyword-stuffed). Trong thực tế tư vấn pháp luật, người dân thường sử dụng ngôn ngữ đời thường, dân dã, đôi khi không chính xác về mặt thuật ngữ pháp lý.
+- **Nhiễu cấu trúc (Structural Noise):** Các file định dạng Parquet hoặc JSON cũ chứa nhiều nhãn (ground truth) bị rỗng (`null`) hoặc trỏ sai ID điều luật (`article_id`), làm sai lệch nghiêm trọng các hàm mục tiêu đánh giá như Recall và MRR.
 
-### 2.1. Giải quyết các "Bug" chí mạng của LightRAG
-- **Lỗi môi trường & Dependencies:** Trên nền tảng Python 3.13 (đời mới nhất), thư viện `tiktoken` (dùng để đếm token của OpenAI) không thể tự động build bằng Rust. Nhóm phải can thiệp sâu bằng lệnh `pip install --no-deps` và chuyển đổi sang nhánh mã nguồn `lightrag-hku` để hệ thống tương thích hoàn toàn.
-- **Xung đột kiểu dữ liệu Cốt lõi (Numpy vs List):** Hàm Embedding BGE-M3 cục bộ trả về kiểu mảng `list`, nhưng cơ sở dữ liệu NanoVectorDB ẩn bên dưới LightRAG lại yêu cầu kiểu `numpy.ndarray` để tính toán khoảng cách vector (gọi thuộc tính `.size`). Nhóm đã phải trực tiếp chỉnh sửa Wrapper để ép kiểu dữ liệu chuẩn, cứu sống toàn bộ quá trình Indexing tránh khỏi lỗi Crash.
-- **Lỗi mất trắng dữ liệu:** Kiến trúc bất đồng bộ của LightRAG yêu cầu phải chạy lệnh `asyncio.run(self.rag.initialize_storages())` trước khi nạp (insert) tài liệu. Nếu bỏ sót, hàng tiếng đồng hồ chạy đồ thị sẽ không được ghi vào ổ đĩa. Nhóm đã bổ sung cơ chế Auto-Backup nén thành file ZIP sau mỗi 50 documents để "sinh tồn" trước các rủi ro máy chủ.
-
-### 2.2. Nút thắt cổ chai: Tại sao LightRAG Indexing & Benchmark quá chậm?
-- **Vector / Hybrid RAG:** Việc lập chỉ mục (Indexing) 500 văn bản pháp luật lớn chỉ tốn vỏn vẹn **2 phút**. Lý do là mô hình nhúng BGE-M3 (Embedding) và BM25 chạy trực tiếp trên card đồ hoạ (GPU) và CPU nội bộ bằng các phép toán ma trận cực nhanh mà không cần kết nối mạng.
-- **LightRAG:** Bị thắt cổ chai trầm trọng bởi **LLM Entity Extraction**. Với mỗi chunk văn bản, LightRAG phải gửi toàn bộ lên API của OpenAI (GPT-4o-mini) để ép LLM đọc, phân tích cú pháp, và trích xuất các Thực thể (Entities) cùng Mối quan hệ (Relations). 
-- **Hệ quả thực tế:** Việc gọi API hàng ngàn lần qua internet, cộng thêm giới hạn Rate Limit (429) của nhà cung cấp, khiến thời gian Indexing kéo dài **hàng giờ đồng hồ**, tiêu tốn hàng triệu token. Điều này bộc lộ nhược điểm chí mạng của GraphRAG khi triển khai cho các kho dữ liệu pháp luật khổng lồ và cần cập nhật thường xuyên (Real-time update).
+### 1.2. Kỹ thuật Xây dựng Golden Dataset (Paraphrasing & Multi-hop Reasoning)
+Để giải quyết triệt để các rào cản trên, nhóm đã giữ lại kho ngữ liệu gốc (Corpus) gồm 3.350.630 ký tự văn bản Luật chuẩn xác, và tiến hành tái cấu trúc tập câu hỏi (512 câu) thông qua kỹ thuật **LLM-based Paraphrasing**:
+1. **Khử từ khóa chuyên môn (De-jargonization):** Dùng LLM viết lại các câu hỏi pháp lý phức tạp thành ngôn ngữ sinh hoạt thường ngày, buộc các hệ thống RAG phải sử dụng năng lực "hiểu ngữ nghĩa sâu" (Deep Semantic Understanding) thay vì đối sánh từ khóa.
+2. **Đa dạng hóa luồng suy luận:** Tập dữ liệu được thiết kế bao gồm **Single-hop Queries** (Truy xuất trực tiếp một điều luật) và **Multi-hop Queries** (Đòi hỏi hệ thống phải tổng hợp và suy luận chéo giữa nhiều nguồn luật khác nhau như Hình sự, Dân sự, Doanh nghiệp).
 
 ---
 
-## PHẦN 3: KẾT QUẢ THỰC NGHIỆM VÀ PHÂN TÍCH CHUYÊN SÂU (EVALUATION RESULTS)
+## PHẦN 2: KIẾN TRÚC ĐÁNH GIÁ ĐỘC LẬP (BENCHMARK HARNESS ARCHITECTURE)
 
-### 3.1. Bảng số liệu tổng quan (Benchmark Metrics)
-| Hệ thống | Số câu hỏi | Faithfulness (Độ trung thực) | Recall@5 | MRR@5 | Tổng chi phí API |
+Thay vì sử dụng các công cụ đánh giá có sẵn vốn thiếu linh hoạt, nhóm đã tự thiết kế một hệ thống đánh giá (Benchmark Harness) đo ni đóng giày cho bài toán pháp lý.
+
+### 2.1. Thiết kế Hộp đen (Wrapper Pattern)
+Hệ thống áp dụng mẫu thiết kế Wrapper, cô lập hoàn toàn lõi thuật toán của Vector, Hybrid và LightRAG khỏi logic chấm điểm. Điều này đảm bảo tính công bằng (Fairness) tuyệt đối: mọi hệ thống đều nhận chung một định dạng đầu vào (Input Query) và phải tuân thủ chuẩn đầu ra (SystemResponse).
+
+### 2.2. Giám khảo LLM (LLM-as-a-Judge) & Định dạng Pydantic
+Để đánh giá độ Trung thực (Faithfulness) của câu trả lời, chúng tôi tích hợp GPT-4o-mini qua cổng API OpenRouter. 
+- Nhằm tránh hiện tượng LLM trả về kết quả rác, nhóm đã ứng dụng thư viện **Pydantic** để ép kiểu dữ liệu đầu ra (Structured Output), đảm bảo Giám khảo luôn trả về đúng các trường điểm số (faithfulness, tokens, chi phí).
+- Tích hợp cơ chế **Exponential Backoff**: Tự động ngủ đông và thử lại khi hệ thống API gặp lỗi giới hạn truy cập (Rate Limit 429), giúp quá trình benchmark 512 câu diễn ra liền mạch không đứt gãy.
+
+---
+
+## PHẦN 3: GIẢI PHẪU NÚT THẮT KỸ THUẬT CỦA LIGHTRAG (GRAPH-BASED RETRIEVAL)
+
+Việc tích hợp GraphRAG (hiện thân là LightRAG) vào hệ sinh thái Benchmark là một thách thức kỹ thuật đồ sộ. Sự khác biệt về hệ hình (Paradigm Shift) so với RAG truyền thống đã làm bộc lộ nhiều điểm yếu chí mạng của công nghệ này:
+
+### 3.1. Rào cản Kiến trúc và Tích hợp
+1. **Lỗi bất đồng bộ thư viện (Dependency Hell):** Môi trường Python 3.13 trên Kaggle từ chối biên dịch `tiktoken` (engine đếm token của OpenAI). Nhóm buộc phải rẽ nhánh sang mã nguồn `lightrag-hku`, áp dụng cờ `--no-deps` để vô hiệu hóa kiểm tra phụ thuộc, đồng thời tái cấu trúc lại luồng import LLM (`lightrag.llm.openai`).
+2. **Xung đột chiều không gian Vector (Dimensionality Conflict):** Hàm Embedding nội bộ BGE-M3 (Sentence Transformers) sinh ra dữ liệu dạng `list`, trong khi NanoVectorDB của LightRAG yêu cầu mảng `numpy.ndarray` để tính toán khoảng cách Euclidean/Cosine (thuộc tính `.size`). Sự bất đồng này gây sụp đổ toàn bộ chuỗi Indexing, buộc nhóm phải can thiệp trực tiếp vào lớp Wrapper để ép kiểu dữ liệu chuẩn xác.
+3. **Quản lý bộ nhớ dị bộ (Asynchronous Storage):** Đồ thị tri thức của LightRAG yêu cầu lưu trữ trên đĩa cứng liên tục. Nếu không gọi hàm `asyncio.run(initialize_storages())`, dữ liệu đồ thị chỉ tồn tại trên RAM và bốc hơi hoàn toàn khi tiến trình kết thúc. Nhóm đã khắc phục bằng cơ chế Auto-Backup nén ZIP sau mỗi 50 văn bản (Batch Checkpointing).
+
+### 3.2. Nút thắt cổ chai về Thời gian và Chi phí (The Indexing Bottleneck)
+- **RAG Truyền thống (Vector/Hybrid):** Quá trình lập chỉ mục 500 văn bản chỉ tiêu tốn **~2 phút**. Thuật toán BM25 và Vector Embedding (BGE-M3) chạy hoàn toàn dựa trên phép toán ma trận của GPU/CPU nội bộ, không phụ thuộc vào internet.
+- **LightRAG:** Quá trình lập chỉ mục yêu cầu LLM phải đọc, phân tích cú pháp cú pháp (Parsing) và trích xuất từng Thực thể (Entity) cùng Mối quan hệ (Relation) cho mỗi chunk văn bản. Việc đẩy khối lượng dữ liệu khổng lồ này qua API OpenRouter không chỉ tiêu tốn hàng triệu token đầu vào/đầu ra, mà còn bị thắt cổ chai bởi độ trễ mạng (Network Latency) và giới hạn băng thông (Rate Limits). Đây là minh chứng học thuật cho thấy GraphRAG cực kỳ đắt đỏ và thiếu tính khả thi đối với các hệ thống pháp luật yêu cầu cập nhật theo thời gian thực (Real-time Indexing).
+
+---
+
+## PHẦN 4: ĐÁNH GIÁ KẾT QUẢ THỰC NGHIỆM VÀ SUY LUẬN KHOA HỌC
+
+### 4.1. Bảng số liệu Tổng hợp
+| Hệ thống | Mẫu dữ liệu | Faithfulness | Recall@5 | MRR@5 | Chi phí API (Tính toán) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Vector RAG** | 480 | 0.9348 (93.48%) | 0.9375 | 0.8407 | $0.2096 |
-| **Hybrid RAG** | **512** | 0.9268 (92.68%) | 0.9316 | **0.8796** | $0.2108 |
-| **LightRAG** | **512** | 0.3977 (39.77%) | N/A | N/A | $0.1101 |
+| **Vector RAG** | N=480 | 0.9348 | 0.9375 | 0.8407 | $0.2096 |
+| **Hybrid RAG** | N=512 | 0.9268 | 0.9316 | **0.8796** | $0.2108 |
+| **LightRAG** | N=512 | 0.3977 | N/A | N/A | $0.1101 |
 
-*(Ghi chú: Recall và MRR của LightRAG được đánh dấu N/A do không thể áp dụng phương pháp đo lường ID văn bản thô).*
+*(Lưu ý: Chỉ số Recall và MRR của LightRAG mang giá trị N/A do sự khác biệt về bản chất định tuyến dữ liệu).*
 
-### 3.2. Phân tích chi tiết: Tại sao có sự chênh lệch khổng lồ?
+### 4.2. Phân tích Nguyên nhân: Tại sao LightRAG không có Recall và MRR?
+Việc áp dụng các chuẩn đo lường Information Retrieval (IR) truyền thống lên GraphRAG là sai lầm về mặt phương pháp luận:
+- Các hệ thống **Vector & Hybrid** hoạt động dựa trên cơ chế **Chunk Retrieval**: Chúng dò tìm và trả về nguyên khối văn bản gốc (được định danh bằng `article_id`). Sự tồn tại của ID cho phép ta so khớp toán học với Ground Truth để tính Recall và MRR.
+- Ngược lại, **LightRAG** hoạt động theo cơ chế **Synthesized Context Generation**: Nó duyệt qua Mạng nơ-ron Đồ thị, nhặt các điểm nút (Nodes/Entities) rời rạc và tự động dùng LLM để tóm tắt, dệt nên một đoạn văn cảnh lai tạp. Đoạn văn cảnh này không thuộc về bất kỳ `article_id` đơn lẻ nào. Sự thiếu vắng ánh xạ 1-1 khiến việc tính toán Recall và MRR trở nên vô nghĩa.
 
-#### 1. Sự "Sụp hầm" của LightRAG (Faithfulness = 39.7%)
-LightRAG vốn là một kiến trúc tiên tiến, nhưng tại sao độ trung thực (Faithfulness) lại rớt thảm hại xuống mức ~39.7%, trong khi Vector/Hybrid đạt mức xuất sắc >92%?
-- **Đặc thù của Dữ liệu Pháp luật:** Luật pháp Việt Nam đòi hỏi sự **chính xác tuyệt đối về mặt từ ngữ, cấu trúc và tính nguyên vẹn của văn bản**. Một điều luật chỉ có giá trị khi nó đi kèm với các điều kiện loại trừ, khoản, điểm được liệt kê rõ ràng trong cùng một văn bản.
-- **Điểm yếu chí mạng của GraphRAG trong miền Pháp lý:** Khi LightRAG tiến hành "băm" điều luật ra để tạo Đồ thị Tri thức (Knowledge Graph), nó đã phá vỡ hoàn toàn cấu trúc ngữ pháp và tính nguyên vẹn của văn bản luật pháp. Ngữ cảnh mà hệ thống nhặt ra từ Đồ thị và cung cấp cho LLM trả lời chỉ là các mảnh ghép rời rạc (Ví dụ: *Tội phạm -> Bị phạt -> 5 năm*), thiếu đi bối cảnh ràng buộc. Hậu quả là LLM sinh ra ảo giác (Hallucination), tự chắp vá thông tin sai lệch dẫn đến điểm Trung thực chạm đáy.
+### 4.3. Sự Sụp đổ Độ Trung Thực của LightRAG (Faithfulness = 39.7%)
+Trái ngược với sự kỳ vọng về khả năng kết nối tri thức, LightRAG thất bại thảm hại ở chỉ số cốt lõi nhất của AI Pháp lý: Độ Trung thực (Faithfulness).
+- **Tính đặc thù của Ngôn ngữ Pháp lý:** Văn bản pháp luật sở hữu tính toàn vẹn và ràng buộc ngữ cảnh cực kỳ nghiêm ngặt. Một điều luật chỉ mang tính chính xác khi đi kèm đầy đủ các điểm, khoản, và điều kiện loại trừ (ví dụ: *"Trừ trường hợp quy định tại khoản 2..."*).
+- **Sự phá hủy Cấu trúc gốc của GraphRAG:** Khi chia nhỏ văn bản thành các Node và Edge, LightRAG đã bóc tách thực thể ra khỏi cấu trúc ngữ pháp nguyên bản. LLM ở đầu cuối chỉ nhận được các cụm từ rời rạc (Ví dụ: *Xâm phạm -> Xử lý hành chính -> Phạt tiền*). Sự mất mát bối cảnh sâu sắc này khiến LLM sinh ra hiện tượng **Ảo giác (Hallucination)**, tự chắp vá logic sai lệch hoàn toàn so với nguyên bản Luật pháp, đẩy chỉ số Faithfulness xuống vực thẳm.
 
-#### 2. Tại sao LightRAG không có Recall và MRR?
-Việc thiết kế phương pháp luận đo lường Recall và MRR đối với LightRAG là bất khả thi:
-- **Vector & Hybrid:** Các hệ thống này truy xuất và trả về nguyên khối văn bản (chunks) được gán mã số `article_id` cụ thể. Do đó, thuật toán đánh giá có thể đối chiếu trực tiếp tập `retrieved_ids` với tập đáp án `ground_truth_ids` để tính Recall và MRR một cách toán học.
-- **LightRAG (GraphRAG):** Thuật toán này không truy xuất văn bản thô. Thay vào đó, nó duyệt qua Đồ thị để gom nhặt các **Entities** và **Relations**, sau đó trộn chúng lại thành một đoạn văn cảnh tổng hợp (Synthesized Context). Không tồn tại một ánh xạ 1-1 nào giữa đoạn văn cảnh nhân tạo này với các `article_id` ban đầu. Do đó, việc ép đo lường Recall/MRR trên LightRAG là sai lệch về mặt khoa học.
+### 4.4. Đỉnh cao của Hybrid RAG (Vô địch MRR)
+Dữ liệu chỉ ra rằng cả Vector và Hybrid RAG đều xuất sắc duy trì độ trung thực >92% nhờ khả năng bảo toàn cấu trúc văn bản. Tuy nhiên, **Hybrid RAG chứng tỏ sự ưu việt tuyệt đối ở chỉ số MRR (0.8796 so với 0.8407)**.
+- **Sự bổ khuyết hoàn hảo:** BGE-M3 (Semantic Search) vượt trội trong việc hiểu các câu hỏi mang ý nghĩa bao quát, nhưng lại dễ bị "bối rối" (Semantic Ambiguity) trước các điều luật có ý nghĩa tương đồng ở các bộ Luật khác nhau.
+- **Vai trò của BM25:** Thuật toán Đối sánh Từ khóa (Lexical Search - BM25) trong Hybrid đóng vai trò như một mỏ neo. Khi câu hỏi chứa các thuật ngữ đặc thù, số hiệu Nghị định, mức phạt cụ thể, BM25 (dựa trên tần suất nghịch đảo IDF) lập tức tính điểm trọng số khổng lồ, ép tài liệu chính xác nhất lên thẳng **Vị trí Top 1**. Việc ưu tiên đẩy đáp án cực chuẩn lên đầu bảng xếp hạng chính là nguyên lý đằng sau chỉ số MRR áp đảo của Hybrid.
 
-#### 3. Sự Vượt Trội Của Hybrid RAG (Vô địch MRR)
-Cả Vector RAG và Hybrid RAG đều cung cấp nguyên văn điều luật cho LLM, do đó duy trì mức độ chính xác cực cao (>92%). Tuy nhiên, **Hybrid RAG chứng tỏ sự vượt trội hoàn toàn về chỉ số MRR (0.8796 so với 0.8407 của Vector)**.
-- **Lý giải:** Vector RAG (Semantic Search) vượt trội trong việc hiểu ý nghĩa, nhưng đôi khi bị "bối rối" trước các điều luật có ý nghĩa na ná nhau nằm rải rác ở các bộ Luật/Nghị định khác nhau. Hybrid RAG khắc phục triệt để điểm mù này nhờ sự bổ trợ của thuật toán **BM25 (Đối sánh Từ khóa)**. Khi người dùng đưa ra các từ khoá hẹp (như số hiệu Nghị định, mức phạt cụ thể, mã số điều luật), BM25 lập tức tính toán độ hiếm (IDF) và ép bài viết đúng nhất lên thẳng **vị trí Top 1**. Việc ưu tiên đẩy đáp án đúng lên đầu tiên chính là lý do khiến chỉ số MRR của Hybrid đạt mức tối ưu.
-
-### 3.3. TỔNG KẾT (Conclusion)
-Dữ liệu từ thực nghiệm quy mô lớn đã chứng minh một cách định lượng và học thuật rằng: **Đối với miền tri thức Pháp luật** - nơi đòi hỏi tính chính xác tuyệt đối về mặt văn bản, cấu trúc nguyên vẹn và tốc độ cập nhật Real-time - **Hybrid RAG là giải pháp toàn diện và tối ưu nhất**. 
-Trong khi đó, GraphRAG/LightRAG, mặc dù mang lại tiềm năng kết nối thông tin đa luồng trong các văn bản mở (tiểu thuyết, báo chí), lại hoàn toàn không phù hợp với văn bản pháp lý. Rào cản khổng lồ về chi phí Indexing kết hợp với việc làm suy giảm cấu trúc ngôn ngữ luật gốc đã khiến hệ thống này sinh ra hiện tượng Hallucination nghiêm trọng, không đáp ứng được tiêu chuẩn khắt khe của hệ thống trợ lý pháp lý AI.
+### 4.5. TỔNG KẾT (Conclusion)
+Từ các luận cứ định lượng và định tính trên, nghiên cứu đi đến kết luận vững chắc: **Trong lĩnh vực Trợ lý AI Pháp lý (Legal Tech) - nơi tính toàn vẹn của văn bản, độ chính xác tuyệt đối và khả năng cập nhật theo thời gian thực là tiên quyết - Hybrid RAG là giải pháp kiến trúc tối ưu và toàn diện nhất hiện nay.** GraphRAG (LightRAG), mặc dù mang giá trị học thuật cao trong việc tổng hợp tri thức mở, lại bộc lộ những nhược điểm chí mạng về chi phí tính toán và làm suy biến tính trung thực của văn bản luật.
