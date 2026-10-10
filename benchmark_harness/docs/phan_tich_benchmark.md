@@ -20,8 +20,10 @@ Trong quá trình tìm kiếm tập dữ liệu hoàn hảo, nhóm đã trải q
 **Giai đoạn 3: Quyết định "Đập đi xây lại"**
 - Đứng trước nguy cơ sai lệch số liệu, nhóm quyết định **loại bỏ (Reject) toàn bộ dữ liệu rác**. Chúng tôi chỉ giữ lại bộ Corpus vàng gồm hơn 3.350.630 ký tự văn bản Luật chuẩn xác (đã được làm sạch HTML, Markdown), và tiến hành xây dựng lại tập câu hỏi từ đầu theo tiêu chuẩn khắt khe nhất.
 
-### 1.2. Kỹ thuật Xây dựng Golden Dataset (Paraphrasing & Multi-hop Reasoning)
-Để giải quyết triệt để các rào cản trên, nhóm đã giữ lại kho ngữ liệu gốc (Corpus) gồm 3.350.630 ký tự văn bản Luật chuẩn xác, và tiến hành tái cấu trúc tập câu hỏi (512 câu) thông qua kỹ thuật **LLM-based Paraphrasing**:
+### 1.2. Tính minh bạch và Quyết định xây dựng Golden Dataset (Hybrid Dataset Approach)
+Để giải quyết triệt để các rào cản trên và đảm bảo tính **Minh bạch học thuật (Academic Transparency)**, nhóm quyết định áp dụng phương pháp tiếp cận "Hỗn hợp" (Hybrid Dataset Approach): Chúng tôi **sử dụng lại kho ngữ liệu (Corpus) từ nguồn uy tín bên ngoài** nhưng **tự tay xây dựng tập câu hỏi (Queries) nội bộ**.
+- **Kho ngữ liệu hữu cơ (Organic Corpus):** Giữ lại bộ Corpus vàng gồm hơn 3.350.630 ký tự văn bản Luật chuẩn xác (đã được làm sạch HTML, Markdown). Việc dùng Corpus từ bên thứ 3 (như cấu trúc gốc của VMTEB) đảm bảo dữ liệu văn bản luật là khách quan, không bị "đẽo gọt" để thiên vị cho mô hình của nhóm.
+- **Tập câu hỏi tự xây dựng (Self-built Golden Queries):** Để triệt tiêu rò rỉ dữ liệu (Data Leakage) vốn có ở VMTEB, nhóm tiến hành tái cấu trúc tập câu hỏi (512 câu) thông qua kỹ thuật **LLM-based Paraphrasing**:
 1. **Khử từ khóa chuyên môn (De-jargonization):** Dùng LLM viết lại các câu hỏi pháp lý phức tạp thành ngôn ngữ sinh hoạt thường ngày, buộc các hệ thống RAG phải sử dụng năng lực "hiểu ngữ nghĩa sâu" (Deep Semantic Understanding) thay vì đối sánh từ khóa.
 2. **Đa dạng hóa luồng suy luận:** Tập dữ liệu được thiết kế bao gồm **Single-hop Queries** (Truy xuất trực tiếp một điều luật) và **Multi-hop Queries** (Đòi hỏi hệ thống phải tổng hợp và suy luận chéo giữa nhiều nguồn luật khác nhau như Hình sự, Dân sự, Doanh nghiệp).
 
@@ -61,7 +63,7 @@ Việc tích hợp GraphRAG (hiện thân là LightRAG) vào hệ sinh thái Ben
 ### 4.1. Bảng số liệu Tổng hợp
 | Hệ thống | Mẫu dữ liệu | Faithfulness | Recall@5 | MRR@5 | Chi phí API (Tính toán) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Vector RAG** | N=480 | 0.9348 | 0.9375 | 0.8407 | $0.2096 |
+| **Vector RAG** | N=512 | 0.9238 | 0.9141 | 0.8129 | $0.2255 |
 | **Hybrid RAG** | N=512 | 0.9268 | 0.9316 | **0.8796** | $0.2108 |
 | **LightRAG** | N=512 | 0.3977 | N/A | N/A | $0.1101 |
 
@@ -78,7 +80,7 @@ Trái ngược với sự kỳ vọng về khả năng kết nối tri thức, L
 - **Sự phá hủy Cấu trúc gốc của GraphRAG:** Khi chia nhỏ văn bản thành các Node và Edge, LightRAG đã bóc tách thực thể ra khỏi cấu trúc ngữ pháp nguyên bản. LLM ở đầu cuối chỉ nhận được các cụm từ rời rạc (Ví dụ: *Xâm phạm -> Xử lý hành chính -> Phạt tiền*). Sự mất mát bối cảnh sâu sắc này khiến LLM sinh ra hiện tượng **Ảo giác (Hallucination)**, tự chắp vá logic sai lệch hoàn toàn so với nguyên bản Luật pháp, đẩy chỉ số Faithfulness xuống vực thẳm.
 
 ### 4.4. Đỉnh cao của Hybrid RAG (Vô địch MRR)
-Dữ liệu chỉ ra rằng cả Vector và Hybrid RAG đều xuất sắc duy trì độ trung thực >92% nhờ khả năng bảo toàn cấu trúc văn bản. Tuy nhiên, **Hybrid RAG chứng tỏ sự ưu việt tuyệt đối ở chỉ số MRR (0.8796 so với 0.8407)**.
+Dữ liệu chỉ ra rằng cả Vector và Hybrid RAG đều xuất sắc duy trì độ trung thực >92% nhờ khả năng bảo toàn cấu trúc văn bản. Tuy nhiên, **Hybrid RAG chứng tỏ sự ưu việt tuyệt đối ở chỉ số MRR (0.8796 so với 0.8129 của Vector)**.
 - **Sự bổ khuyết hoàn hảo:** BGE-M3 (Semantic Search) vượt trội trong việc hiểu các câu hỏi mang ý nghĩa bao quát, nhưng lại dễ bị "bối rối" (Semantic Ambiguity) trước các điều luật có ý nghĩa tương đồng ở các bộ Luật khác nhau.
 - **Vai trò của BM25:** Thuật toán Đối sánh Từ khóa (Lexical Search - BM25) trong Hybrid đóng vai trò như một mỏ neo. Khi câu hỏi chứa các thuật ngữ đặc thù, số hiệu Nghị định, mức phạt cụ thể, BM25 (dựa trên tần suất nghịch đảo IDF) lập tức tính điểm trọng số khổng lồ, ép tài liệu chính xác nhất lên thẳng **Vị trí Top 1**. Việc ưu tiên đẩy đáp án cực chuẩn lên đầu bảng xếp hạng chính là nguyên lý đằng sau chỉ số MRR áp đảo của Hybrid.
 
