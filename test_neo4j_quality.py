@@ -2,7 +2,7 @@ import os
 import time
 import sys
 from dotenv import load_dotenv
-from neo4j import GraphDatabase
+from neo4j import GraphDatabase 
 
 sys.stdout.reconfigure(encoding='utf-8')
 

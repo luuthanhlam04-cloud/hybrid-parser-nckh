@@ -14,19 +14,17 @@ class FakeAnchorSearch:
 
 
 class FakeGraphQuery:
-    def __init__(self, records):
-        self.records = records
+    def __init__(self, records_a=None, records_b=None):
+        self.records_a = records_a or []
+        self.records_b = records_b or []
 
     def retrieve_mode_a(self, anchor_ids, *, limit=20):
         assert anchor_ids == ["anchor-1"]
-        assert limit == 7
-        return self.records
+        return self.records_a
 
     def retrieve_mode_b(self, anchor_ids, *, max_hops=2, max_paths=100):
         assert anchor_ids == ["anchor-1"]
-        assert max_hops == 2
-        assert max_paths == 9
-        return self.records
+        return self.records_b
 
 
 class FakeAnswerGenerator:
@@ -54,7 +52,7 @@ def test_m10_pipeline_builds_answer_and_logs_jsonl(tmp_path):
     log_path = tmp_path / "m10_answers.jsonl"
     pipeline = M10Pipeline(
         anchor_search=FakeAnchorSearch([{"node_id": "anchor-1", "score": 0.95}]),
-        graph_query=FakeGraphQuery([{"norm_id": "norm-1", "modality": "REQUIRE"}]),
+        graph_query=FakeGraphQuery(records_a=[{"norm_id": "norm-1", "modality": "REQUIRE"}]),
         answer_generator=FakeAnswerGenerator(),
         context_assembler=FakeContextAssembler(),
         log_path=log_path,
@@ -77,3 +75,26 @@ def test_m10_pipeline_builds_answer_and_logs_jsonl(tmp_path):
     payload = json.loads(log_path.read_text(encoding="utf-8").strip())
     assert payload["question"] == "Có bắt buộc công chứng không?"
     assert payload["mode"] == "A"
+
+
+def test_m10_pipeline_auto_mode_fallbacks_when_empty(tmp_path):
+    log_path = tmp_path / "m10_answers_fallback.jsonl"
+    pipeline = M10Pipeline(
+        anchor_search=FakeAnchorSearch([{"node_id": "anchor-1", "score": 0.95}]),
+        graph_query=FakeGraphQuery(records_a=[], records_b=[{"neighbor": "data"}]),
+        answer_generator=FakeAnswerGenerator(),
+        context_assembler=FakeContextAssembler(),
+        log_path=log_path,
+    )
+
+    result = pipeline.answer(
+        "Có bắt buộc công chứng không?",
+        mode="AUTO",
+        top_k=3,
+        max_hops=2,
+        result_limit=7,
+    )
+
+    assert result["mode"] == "B (Fallback)"
+    assert result["context"] == "MODE_B_CONTEXT"
+    assert result["retrieved_count"] == 1

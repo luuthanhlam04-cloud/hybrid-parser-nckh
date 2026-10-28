@@ -13,7 +13,12 @@ from src.retrieval.m10_pipeline import M10Pipeline
 def main():
     parser = argparse.ArgumentParser(description="Test M10 Graph Retrieval Pipeline")
     parser.add_argument("question", type=str, help="Câu hỏi pháp lý bằng tiếng Việt")
-    parser.add_argument("--mode", choices=["A", "B"], default="A", help="Mode A (Norm) hoặc Mode B (k-hop)")
+    parser.add_argument(
+        "--mode",
+        choices=["A", "B", "AUTO"],
+        default="AUTO",
+        help="Mode A (Norm), Mode B (k-hop), hoặc AUTO (Ưu tiên A, tự fallback sang B nếu rỗng)",
+    )
     parser.add_argument("--top-k", type=int, default=5, help="Số lượng mỏ neo (Anchor nodes) cần tìm")
     args = parser.parse_args()
 
@@ -52,11 +57,11 @@ def main():
         )
         
         print("\n" + "="*70)
-        print("💡 CÂU TRẢ LỜI TỪ LLM:")
+        print(f"💡 CÂU TRẢ LỜI TỪ LLM (Thực thi theo Mode: {result['mode']}):")
         print("="*70)
         print(result["answer"])
         print("\n" + "="*70)
-        print(f"🔍 NGỮ CẢNH (CONTEXT) TRÍCH XUẤT TỪ NEO4J ({result['retrieved_count']} nodes):")
+        print(f"🔍 NGỮ CẢNH (CONTEXT) TRÍCH XUẤT TỪ NEO4J ({result['retrieved_count']} records):")
         print("="*70)
         print(result["context"])
         

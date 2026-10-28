@@ -33,36 +33,53 @@ class M10Pipeline:
         self,
         question: str,
         *,
-        mode: Literal["A", "B"] = "A",
+        mode: Literal["A", "B", "AUTO"] = "AUTO",
         top_k: int = 5,
         max_hops: int = 2,
         result_limit: int = 20,
     ) -> dict[str, Any]:
         if not isinstance(question, str) or not question.strip():
             raise ValueError("question must be a non-empty string.")
-        mode = mode.upper()
-        if mode not in {"A", "B"}:
-            raise ValueError("mode must be 'A' or 'B'.")
+        normalized_mode = mode.upper()
+        if normalized_mode not in {"A", "B", "AUTO"}:
+            raise ValueError("mode must be 'A', 'B', or 'AUTO'.")
 
         anchors = self.anchor_search.search(question, top_k=top_k)
         anchor_ids = [anchor["node_id"] for anchor in anchors]
-        if mode == "A":
+
+        actual_mode = normalized_mode
+        if normalized_mode == "A":
             records = self.graph_query.retrieve_mode_a(anchor_ids, limit=result_limit)
             context = self.context_assembler.assemble_mode_a(records)
-        else:
+        elif normalized_mode == "B":
             records = self.graph_query.retrieve_mode_b(
                 anchor_ids,
                 max_hops=max_hops,
                 max_paths=result_limit,
             )
             context = self.context_assembler.assemble_mode_b(records)
+        else:
+            # AUTO mode: Thử Mode A trước để lấy cấu trúc quy phạm logic.
+            # Nếu Mode A không tìm thấy bản ghi nào (0 nodes), tự động fallback sang Mode B!
+            records = self.graph_query.retrieve_mode_a(anchor_ids, limit=result_limit)
+            if records:
+                actual_mode = "A"
+                context = self.context_assembler.assemble_mode_a(records)
+            else:
+                actual_mode = "B (Fallback)"
+                records = self.graph_query.retrieve_mode_b(
+                    anchor_ids,
+                    max_hops=max_hops,
+                    max_paths=result_limit,
+                )
+                context = self.context_assembler.assemble_mode_b(records)
 
         generation = self.answer_generator.generate(question.strip(), context)
         result = {
             "request_id": str(uuid4()),
             "created_at": datetime.now(timezone.utc).isoformat(),
             "question": question.strip(),
-            "mode": mode,
+            "mode": actual_mode,
             "anchors": anchors,
             "retrieved_count": len(records),
             "context": context,

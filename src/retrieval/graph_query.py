@@ -11,64 +11,64 @@ class GraphQuery:
 
 	MODE_A_QUERY = """
 		UNWIND $anchor_ids AS anchor_id
-		MATCH (anchor:UKG_NODE:LegalNode {id: anchor_id})-[:MENTIONS]->
-			  (norm:UKG_NODE:GLOBAL_NORM)
-		CALL {
-			WITH norm
+		MATCH (anchor:UKG_NODE:LegalNode {id: anchor_id})
+		OPTIONAL MATCH (anchor)-[:MENTIONS]->(direct_norm:UKG_NODE:GLOBAL_NORM)
+		OPTIONAL MATCH (anchor)<-[:BELONG_TO*1..3]-(descendant:UKG_NODE:LegalNode)-[:MENTIONS]->(child_norm:UKG_NODE:GLOBAL_NORM)
+		WITH anchor,
+		     coalesce(direct_norm, child_norm) AS norm,
+		     coalesce(descendant, anchor) AS source_node
+		WHERE norm IS NOT NULL
+		CALL (norm) {
 			OPTIONAL MATCH (norm)-[:HAS_SUBJECT]->(entity:UKG_NODE)
 			RETURN collect(DISTINCT CASE WHEN entity IS NULL THEN null ELSE {
 				id: entity.id,
-				text: coalesce(entity.canonical_text, entity.preferred_name, entity.id)
+				text: coalesce(entity.canonical_text, entity.name, entity.id)
 			} END) AS subjects
 		}
-		CALL {
-			WITH norm
+		CALL (norm) {
 			OPTIONAL MATCH (norm)-[:HAS_ACTION]->(entity:UKG_NODE)
 			RETURN collect(DISTINCT CASE WHEN entity IS NULL THEN null ELSE {
 				id: entity.id,
-				text: coalesce(entity.canonical_text, entity.preferred_name, entity.id)
+				text: coalesce(entity.canonical_text, entity.name, entity.id)
 			} END) AS actions
 		}
-		CALL {
-			WITH norm
+		CALL (norm) {
 			OPTIONAL MATCH (norm)-[:HAS_OBJECT]->(entity:UKG_NODE)
 			RETURN collect(DISTINCT CASE WHEN entity IS NULL THEN null ELSE {
 				id: entity.id,
-				text: coalesce(entity.canonical_text, entity.preferred_name, entity.id)
+				text: coalesce(entity.canonical_text, entity.name, entity.id)
 			} END) AS objects
 		}
-		CALL {
-			WITH norm
+		CALL (norm) {
 			OPTIONAL MATCH (norm)-[:HAS_CONDITION]->(entity:UKG_NODE)
 			RETURN collect(DISTINCT CASE WHEN entity IS NULL THEN null ELSE {
 				id: entity.id,
-				text: coalesce(entity.canonical_text, entity.preferred_name, entity.id)
+				text: coalesce(entity.canonical_text, entity.name, entity.id)
 			} END) AS conditions
 		}
-		CALL {
-			WITH norm
+		CALL (norm) {
 			OPTIONAL MATCH (norm)-[:HAS_EXCEPTION]->(entity:UKG_NODE)
 			RETURN collect(DISTINCT CASE WHEN entity IS NULL THEN null ELSE {
 				id: entity.id,
-				text: coalesce(entity.canonical_text, entity.preferred_name, entity.id)
+				text: coalesce(entity.canonical_text, entity.name, entity.id)
 			} END) AS exceptions
 		}
-		CALL {
-			WITH norm
+		CALL (norm) {
 			OPTIONAL MATCH (norm)-[:HAS_CONSEQUENCE]->(entity:UKG_NODE)
 			RETURN collect(DISTINCT CASE WHEN entity IS NULL THEN null ELSE {
 				id: entity.id,
-				text: coalesce(entity.canonical_text, entity.preferred_name, entity.id)
+				text: coalesce(entity.canonical_text, entity.name, entity.id)
 			} END) AS consequences
 		}
-			 OPTIONAL MATCH (anchor)-[:BELONG_TO*0..3]->(article:UKG_NODE:ARTICLE)
-		RETURN anchor.id AS anchor_id,
-			   anchor.text AS anchor_text,
-			   anchor.number AS anchor_number,
-				 labels(anchor) AS anchor_labels,
-			   anchor.title AS anchor_title,
-			   anchor.law_code AS law_code,
-				 article.number AS article_number,
+		OPTIONAL MATCH (source_node)-[:BELONG_TO*0..3]->(article:UKG_NODE:ARTICLE)
+		RETURN DISTINCT
+			   source_node.id AS anchor_id,
+			   source_node.text AS anchor_text,
+			   source_node.number AS anchor_number,
+			   labels(source_node) AS anchor_labels,
+			   source_node.title AS anchor_title,
+			   source_node.law_code AS law_code,
+			   article.number AS article_number,
 			   norm.id AS norm_id,
 			   norm.modality AS modality,
 			   norm.status AS status,
