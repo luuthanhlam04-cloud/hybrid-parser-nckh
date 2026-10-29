@@ -255,6 +255,12 @@
       "extraction": {
         "entities": [
           {
+            "id": "e0",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Quyền chung của người sử dụng đất"
+          },
+          {
             "id": "e1",
             "text": "bồi thường",
             "entity_type": "ACTION",
@@ -287,24 +293,24 @@
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e0",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất"
           },
           {
-            "source": null,
+            "source": "e0",
             "relation_type": "ALLOW",
             "target": "e2",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất"
           },
           {
-            "source": null,
+            "source": "e0",
             "relation_type": "ALLOW",
             "target": "e3",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất"
           },
           {
@@ -868,6 +874,12 @@
             "text": "các thành viên cùng nhau thực hiện hoặc ủy quyền cho người đại diện để thực hiện quyền và nghĩa vụ của nhóm người sử dụng đất",
             "entity_type": "ACTION",
             "evidence": "thì các thành viên cùng nhau thực hiện hoặc ủy quyền cho người đại diện để thực hiện quyền và nghĩa vụ của nhóm người sử dụng đất"
+          },
+          {
+            "id": "e9",
+            "text": "từng thành viên của nhóm",
+            "entity_type": "SUBJECT",
+            "evidence": "nếu từng thành viên của nhóm muốn thực hiện quyền đối với phần quyền sử dụng đất của mình"
           }
         ],
         "relations": [
@@ -886,24 +898,24 @@
             "evidence": "nếu từng thành viên của nhóm muốn thực hiện quyền đối với phần quyền sử dụng đất của mình"
           },
           {
-            "source": null,
+            "source": "e9",
             "relation_type": "REQUIRE",
             "target": "e4",
-            "source_status": "UNRESOLVED",
+            "source_status": "RESOLVED",
             "evidence": "thì phải thực hiện đăng ký biến động hoặc tách thửa theo quy định"
           },
           {
-            "source": null,
+            "source": "e9",
             "relation_type": "REQUIRE",
             "target": "e5",
-            "source_status": "UNRESOLVED",
+            "source_status": "RESOLVED",
             "evidence": "thì phải thực hiện đăng ký biến động hoặc tách thửa theo quy định"
           },
           {
-            "source": null,
+            "source": "e9",
             "relation_type": "REQUIRE",
             "target": "e6",
-            "source_status": "UNRESOLVED",
+            "source_status": "RESOLVED",
             "evidence": "làm thủ tục cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất"
           },
           {
@@ -3331,14 +3343,20 @@
             "text": "quy định của pháp luật",
             "entity_type": "REFERENCE",
             "evidence": "quy định của pháp luật"
+          },
+          {
+            "id": "e3",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Nghĩa vụ chung của người sử dụng đất"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e3",
             "relation_type": "REQUIRE",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Thực hiện nghĩa vụ tài chính về đất đai"
           },
           {
@@ -3420,21 +3438,27 @@
             "text": "không làm tổn hại đến tài sản và lợi ích hợp pháp của người sử dụng đất có liên quan",
             "entity_type": "ACTION",
             "evidence": "không làm tổn hại đến tài sản và lợi ích hợp pháp của người sử dụng đất có liên quan"
+          },
+          {
+            "id": "e3",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Nghĩa vụ chung của người sử dụng đất"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e3",
             "relation_type": "REQUIRE",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Tuân thủ quy định về bảo vệ môi trường"
           },
           {
-            "source": null,
+            "source": "e3",
             "relation_type": "PROHIBIT",
             "target": "e2",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "không làm tổn hại đến tài sản và lợi ích hợp pháp của người sử dụng đất có liên quan"
           }
         ]
@@ -6060,14 +6084,20 @@
             "text": "Quyền sử dụng đất nông nghiệp",
             "entity_type": "OBJECT",
             "evidence": "Chuyển đổi quyền sử dụng đất nông nghiệp với cá nhân khác"
+          },
+          {
+            "id": "e3",
+            "text": "Cá nhân sử dụng đất nông nghiệp",
+            "entity_type": "SUBJECT",
+            "evidence": "Cá nhân sử dụng đất nông nghiệp được Nhà nước giao trong hạn mức"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e3",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Chuyển đổi quyền sử dụng đất nông nghiệp với cá nhân khác"
           },
           {
@@ -6444,14 +6474,20 @@
             "text": "theo quy định của pháp luật",
             "entity_type": "REFERENCE",
             "evidence": "theo quy định của pháp luật"
+          },
+          {
+            "id": "e7",
+            "text": "Cá nhân sử dụng đất nông nghiệp",
+            "entity_type": "SUBJECT",
+            "evidence": "Cá nhân sử dụng đất nông nghiệp được Nhà nước giao trong hạn mức"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e7",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất"
           },
           {
@@ -8434,14 +8470,33 @@
             "text": "Thực hiện nghĩa vụ tài chính theo quy định",
             "entity_type": "ACTION",
             "evidence": "người thuê lại quyền sử dụng đất phải sử dụng đất đúng mục đích và thực hiện nghĩa vụ tài chính theo quy định"
+          },
+          {
+            "id": "e8",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước cho thuê đất thu tiền thuê đất hằng năm"
+          },
+          {
+            "id": "e9",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước cho thuê đất thu tiền thuê đất hằng năm"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e8",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
+            "evidence": "Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê đất hằng năm"
+          },
+          {
+            "source": "e9",
+            "relation_type": "ALLOW",
+            "target": "e1",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê đất hằng năm"
           },
           {
@@ -8553,22 +8608,7 @@
             "evidence": "Điều 31"
           }
         ],
-        "relations": [
-          {
-            "source": "e1",
-            "relation_type": "REFERENCE_TO",
-            "target": "e1",
-            "source_status": "RESOLVED",
-            "evidence": "Quyền và nghĩa vụ chung quy định tại Điều 26"
-          },
-          {
-            "source": "e2",
-            "relation_type": "REFERENCE_TO",
-            "target": "e2",
-            "source_status": "RESOLVED",
-            "evidence": "Quyền và nghĩa vụ chung quy định tại Điều 31"
-          }
-        ]
+        "relations": []
       }
     },
     {
@@ -8598,14 +8638,33 @@
             "text": "Trong thời hạn sử dụng đất",
             "entity_type": "CONDITION",
             "evidence": "Chuyển nhượng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn sử dụng đất"
+          },
+          {
+            "id": "e5",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài"
+          },
+          {
+            "id": "e6",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e5",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
+            "evidence": "Chuyển nhượng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn sử dụng đất"
+          },
+          {
+            "source": "e6",
+            "relation_type": "ALLOW",
+            "target": "e1",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Chuyển nhượng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn sử dụng đất"
           },
           {
@@ -8760,14 +8819,33 @@
             "text": "tại các tổ chức tín dụng được phép hoạt động tại Việt Nam",
             "entity_type": "CONDITION",
             "evidence": "tại các tổ chức tín dụng được phép hoạt động tại Việt Nam"
+          },
+          {
+            "id": "e5",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài"
+          },
+          {
+            "id": "e6",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e5",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
+            "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất"
+          },
+          {
+            "source": "e6",
+            "relation_type": "ALLOW",
+            "target": "e1",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất"
           },
           {
@@ -8815,14 +8893,33 @@
             "text": "tài sản thuộc sở hữu của mình gắn liền với đất",
             "entity_type": "OBJECT",
             "evidence": "Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất."
+          },
+          {
+            "id": "e4",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài"
+          },
+          {
+            "id": "e5",
+            "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e4",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
+            "evidence": "Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất."
+          },
+          {
+            "source": "e5",
+            "relation_type": "ALLOW",
+            "target": "e1",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất."
           },
           {
@@ -9797,42 +9894,48 @@
             "text": "Luật này",
             "entity_type": "REFERENCE",
             "evidence": "theo quy định của Luật này"
+          },
+          {
+            "id": "e8",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng quy định tại khoản 1 Điều này",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng quy định tại khoản 1 Điều này có các quyền và nghĩa vụ sau đây"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e8",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Chuyển nhượng, cho thuê, tặng cho, để thừa kế, góp vốn bằng quyền sử dụng đất ở"
           },
           {
-            "source": null,
+            "source": "e8",
             "relation_type": "ALLOW",
             "target": "e2",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Chuyển nhượng, cho thuê, tặng cho, để thừa kế, góp vốn bằng quyền sử dụng đất ở"
           },
           {
-            "source": null,
+            "source": "e8",
             "relation_type": "ALLOW",
             "target": "e3",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Chuyển nhượng, cho thuê, tặng cho, để thừa kế, góp vốn bằng quyền sử dụng đất ở"
           },
           {
-            "source": null,
+            "source": "e8",
             "relation_type": "ALLOW",
             "target": "e4",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Chuyển nhượng, cho thuê, tặng cho, để thừa kế, góp vốn bằng quyền sử dụng đất ở"
           },
           {
-            "source": null,
+            "source": "e8",
             "relation_type": "ALLOW",
             "target": "e5",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Chuyển nhượng, cho thuê, tặng cho, để thừa kế, góp vốn bằng quyền sử dụng đất ở"
           },
           {
@@ -9895,6 +9998,12 @@
             "text": "nhà ở gắn liền với quyền sử dụng đất ở",
             "entity_type": "OBJECT",
             "evidence": "Thế chấp nhà ở gắn liền với quyền sử dụng đất ở tại tổ chức tín dụng được phép hoạt động tại Việt Nam"
+          },
+          {
+            "id": "e3",
+            "text": "Người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng quy định tại khoản 1 Điều này",
+            "entity_type": "SUBJECT",
+            "evidence": "Người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng quy định tại khoản 1 Điều này có các quyền và nghĩa vụ sau đây"
           }
         ],
         "relations": [
@@ -9906,10 +10015,10 @@
             "evidence": "Thế chấp nhà ở gắn liền với quyền sử dụng đất ở tại tổ chức tín dụng được phép hoạt động tại Việt Nam"
           },
           {
-            "source": null,
+            "source": "e3",
             "relation_type": "ALLOW",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "Thế chấp nhà ở gắn liền với quyền sử dụng đất ở tại tổ chức tín dụng được phép hoạt động tại Việt Nam"
           }
         ]
@@ -11113,14 +11222,20 @@
             "text": "Điều 47 của Luật này",
             "entity_type": "REFERENCE",
             "evidence": "Điều 47 của Luật này"
+          },
+          {
+            "id": "e3",
+            "text": "Người sử dụng đất",
+            "entity_type": "SUBJECT",
+            "evidence": "Người sử dụng đất khi thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất"
           }
         ],
         "relations": [
           {
-            "source": null,
+            "source": "e3",
             "relation_type": "REQUIRE",
             "target": "e1",
-            "source_status": "UNRESOLVED",
+            "source_status": "CONTEXT_INFERRED",
             "evidence": "phải đáp ứng điều kiện quy định tại Điều 47 của Luật này"
           },
           {

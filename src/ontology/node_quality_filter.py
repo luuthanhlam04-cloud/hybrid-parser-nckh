@@ -127,9 +127,15 @@ class NodeQualityFilter:
 
         # Filter entities
         valid_entities, entity_ids = self._filter_entities(raw_entities)
+        entity_types = {
+            ent["id"]: str(ent.get("entity_type", "")).upper().strip()
+            for ent in valid_entities
+        }
 
-        # Filter relations (chỉ giữ nếu endpoint thuộc entity đã pass)
-        valid_relations = self._filter_relations(raw_relations, entity_ids)
+        # Filter relations. Partial Norm được phép source=None theo M7 contract.
+        valid_relations = self._filter_relations(
+            raw_relations, entity_ids, entity_types
+        )
 
         # Node bị reject nếu sau khi filter không còn gì
         if not valid_entities and not valid_relations:
@@ -205,7 +211,10 @@ class NodeQualityFilter:
         return valid, valid_ids
 
     def _filter_relations(
-        self, raw_relations: Any, entity_ids: set[str]
+        self,
+        raw_relations: Any,
+        entity_ids: set[str],
+        entity_types: Dict[str, str],
     ) -> List[Dict[str, Any]]:
         if not isinstance(raw_relations, list):
             return []
@@ -223,8 +232,20 @@ class NodeQualityFilter:
             rtype = str(rel.get("relation_type", "")).upper().strip()
             ev   = rel.get("evidence", "")
 
-            # Source và target phải có trong entity đã pass
-            if not src or src not in entity_ids:
+            # Partial Norm hợp lệ: chỉ ba modality được source=None, phải được
+            # đánh dấu UNRESOLVED, target là ACTION và evidence có thật.
+            if not src:
+                partial_norm_ok = (
+                    rtype in {"ALLOW", "REQUIRE", "PROHIBIT"}
+                    and str(rel.get("source_status", "")).upper() == "UNRESOLVED"
+                    and tgt in entity_ids
+                    and entity_types.get(tgt) == "ACTION"
+                    and _is_valid_evidence(ev)
+                )
+                if not partial_norm_ok:
+                    self._reject_relation("invalid_unresolved_source")
+                    continue
+            elif src not in entity_ids:
                 self._reject_relation("orphan_source")
                 continue
             if not tgt or tgt not in entity_ids:

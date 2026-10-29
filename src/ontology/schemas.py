@@ -96,6 +96,7 @@ class MentionStatus(str, Enum):
 class NormStatus(str, Enum):
     VALID   = "VALID"
     FLAGGED = "FLAGGED"
+    QUARANTINED = "QUARANTINED"
 
 
 class LogicOperator(str, Enum):
@@ -283,6 +284,7 @@ class NormAssertion(BaseModel):
 
     # Status
     status: NormStatus = Field(default=NormStatus.VALID)
+    norm_completeness: Literal["COMPLETE", "PARTIAL"] = Field(default="COMPLETE")
     notes: Optional[str] = Field(default=None)
 
     @model_validator(mode='after')
@@ -357,6 +359,24 @@ class ValidationReport(BaseModel):
     ambiguous_references: int = 0
 
     total_concepts: int = 0
+    input_mentions: int = 0
+    active_mentions: int = 0
+    input_norms: int = 0
+    active_norms: int = 0
+    quarantined_norms: int = 0
+    partial_norms: int = 0
+    input_edges: int = 0
+    active_edges: int = 0
+    filtered_edges: int = 0
+    broken_endpoints: int = 0
+    broken_norm_references: int = 0
+    broken_reference_owners: int = 0
+    active_quarantine_overlap: int = 0
+    duplicate_ids: int = 0
+    duplicate_edges: int = 0
+    domain_range_violations: int = 0
+    provenance_violations: int = 0
+    conservation_ok: bool = False
     rejected_reasons: List[Dict[str, Any]] = Field(default_factory=list)
 
 
@@ -367,6 +387,8 @@ class ValidationReport(BaseModel):
 class QuarantineStore(BaseModel):
     mentions: List[Dict[str, Any]] = Field(default_factory=list, description="Chứa reason, rule_id, suggested_type, original_source, và entity data")
     edges: List[Dict[str, Any]] = Field(default_factory=list, description="Chứa reason, rule_id, suggested_type, original_source, và edge data")
+    norms: List[Dict[str, Any]] = Field(default_factory=list, description="Norm bị cách ly sau dependency closure")
+    references: List[Dict[str, Any]] = Field(default_factory=list, description="Reference không còn owner hợp lệ")
 
 
 class CanonicalSemanticGraph(BaseModel):
