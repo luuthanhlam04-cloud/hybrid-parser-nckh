@@ -19,7 +19,7 @@ Pipeline:
 
 Usage:
   # DOCX mode (tận dụng Word Style)
-  parser = LegalParser(law_prefix="ldd-2024", law_code="59/2024/QH15")
+  parser = LegalParser(law_prefix="ldd-2024", law_code="31/2024/QH15")
   nodes = parser.parse_docx("Luat_dat_dai_chuong_3.docx")
   parser.save_json(nodes, "legal_nodes_ch3.json")
 
@@ -30,6 +30,7 @@ Usage:
 import json
 import sys
 import os
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -199,8 +200,18 @@ class LegalParser:
         has_metadata = any(getattr(p, "has_metadata", False) for p in paragraphs)
         mode = "structured_docx" if has_metadata else "structured_txt"
 
-        # Chuyển StructuredParagraph → dict (RegexEngine nhận dict)
-        para_dicts = [p.to_engine_dict() for p in paragraphs]
+        # Chuyển StructuredParagraph → dict (RegexEngine nhận dict).
+        # Với marker được M1 phục hồi/tách riêng, render marker tạm thời vào
+        # engine input để RegexEngine tạo MatchResult. StructuredParagraph gốc
+        # vẫn giữ text thuần theo đúng data contract.
+        para_dicts = []
+        for para in paragraphs:
+            engine_dict = para.to_engine_dict()
+            marker = getattr(para, "marker", None)
+            text = engine_dict.get("text", "")
+            if marker and not re.match(r"^\s*[a-zđ]\)\s+", text, re.UNICODE):
+                engine_dict["text"] = f"{marker}) {text}"
+            para_dicts.append(engine_dict)
 
         # Lớp 1+2 matching — RegexEngine sẽ dùng ilvl+num_fmt từ dict
         match_results = self.regex_engine.match_paragraphs(para_dicts)
@@ -329,7 +340,7 @@ def main():
     ap.add_argument("--law-prefix", default="doc",
                     help="Prefix cho document ID (vd: ldd-2024)")
     ap.add_argument("--law-code", default=None,
-                    help="Mã văn bản pháp luật (vd: 59/2024/QH15)")
+                    help="Mã văn bản pháp luật (vd: 31/2024/QH15)")
     args = ap.parse_args()
 
     input_path = Path(args.input)
