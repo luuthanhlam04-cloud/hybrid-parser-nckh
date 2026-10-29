@@ -66,8 +66,11 @@ Trong quá trình benchmark trên Kaggle, hệ thống vô tình tải mô hình
 Sau khi trực tiếp kiểm tra file output `outputs/candidate_nodes/routing_candidates.json` chạy với chiến lược **Max-Fusion (EXP-C) và Fixed Threshold 0.85**:
 
 **1. Khả năng Tối ưu Cost (Reduction Rate):**
-- Trong tổng số `222 nodes` nhận từ Module 4, hệ thống đã duyệt và chỉ định **179 nodes làm Candidate** (nhãn `LLM_CANDIDATE`). Phần còn lại được gắn nhãn `REJECT` (không đủ ngữ nghĩa) hoặc `RULE_ONLY` (các tiêu đề cấu trúc).
-- Hệ thống đã thành công tiết kiệm khoảng **20% gánh nặng Token & Chi phí API** cho hệ thống LLM ở Module 6, đồng thời tự tin giữ mức Recall tiệm cận tuyệt đối trên các cấu trúc có chứa điều kiện, ngoại lệ.
+- Kết quả chạy E2E trên tổng số **223 node** nhận từ Module 4:
+  - `RULE_ONLY`: **6 node**;
+  - `LLM_CANDIDATE`: **180 node**;
+  - `REJECT`: **37 node**.
+- Module 6 chỉ cần gửi **180/223 node** tới LLM. Tổng cộng **43 node** (`RULE_ONLY` + `REJECT`) không cần gọi LLM, tương ứng mức giảm tải theo số node khoảng **19,28%**. Đây là tỷ lệ giảm số lượt/node đầu vào LLM; chi phí token thực tế cần được tính riêng từ tổng token của từng nhóm node.
 
 **2. Bảo toàn Cấu trúc (Immutable Graph):**
-Việc một Node nhận nhãn `REJECT` hoàn toàn KHÔNG có nghĩa là Node đó bị xóa khỏi đồ thị vật lý. Toàn bộ 222 Node vẫn nằm nguyên trên Database. `routing_candidates.json` thực chất chỉ là một "Bản đồ Dẫn đường", nói cho Module 6 biết: *"Đừng đọc những node này, hãy tập trung vào 179 node kia"*. Nhờ vậy, RAG sau này vẫn có thể truy vấn lại các văn bản gốc nếu cần.
+Việc một Node nhận nhãn `REJECT` hoàn toàn KHÔNG có nghĩa là Node đó bị xóa khỏi đồ thị vật lý. Toàn bộ 223 Node vẫn nằm nguyên trên Database. `routing_candidates.json` thực chất chỉ là một "Bản đồ Dẫn đường", nói cho Module 6 biết: *"Đừng đọc những node này, hãy tập trung vào 180 node `LLM_CANDIDATE`"*. Nhờ vậy, RAG sau này vẫn có thể truy vấn lại các văn bản gốc nếu cần.
