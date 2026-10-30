@@ -39,7 +39,7 @@ def main():
         extractor = StructuredExtractor(candidates_path, physical_graph_path)
     except ValueError as e:
         print(f"Lỗi khởi tạo: {e}")
-        print("Hãy chắc chắn bạn đã tạo file .env và điền OPENROUTER_API_KEY.")
+        print("Hãy chắc chắn file .env có OPENROUTER_API_KEY hoặc LLM_API_KEY.")
         return
         
     print("Khởi tạo Extractor thành công. Đang tiến hành bóc tách các nodes.")

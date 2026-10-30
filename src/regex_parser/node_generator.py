@@ -124,7 +124,7 @@ class NodeGenerator:
         """
         Args:
             law_prefix: Prefix cho document (vd: 'ldd-2024', 'ldoanhnghiep-2020').
-            law_code:   Mã văn bản pháp luật (vd: '59/2024/QH15').
+            law_code:   Mã văn bản pháp luật (vd: '31/2024/QH15').
             source_doc: Tên file nguồn.
         """
         self.law_prefix = law_prefix
@@ -212,8 +212,9 @@ class NodeGenerator:
             return "unknown"
         # La Mã → lowercase
         marker = marker.strip().lower()
-        # Chuyển 'đ' thành 'd' cho an toàn URL/ID
-        marker = marker.replace('đ', 'd')
+        # Giữ phân biệt ngữ nghĩa giữa điểm d và điểm đ trong ID ASCII.
+        # "đ" → "dd" thay vì "d" để không tạo cùng semantic prefix.
+        marker = marker.replace('đ', 'dd')
         # Loại ký tự đặc biệt (chỉ giữ alphanum và gạch ngang)
         marker = re.sub(r"[^a-z0-9\-]", "", marker)
         return marker or "unknown"

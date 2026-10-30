@@ -33,6 +33,7 @@ from typing import Any, Dict, List, Optional
 
 from src.ontology.canonical_mapper import CanonicalMapper
 from src.ontology.entity_normalizer import EntityNormalizer
+from src.ontology.graph_integrity import GraphIntegrityFinalizer
 from src.ontology.node_quality_filter import NodeQualityFilter
 from src.ontology.norm_builder import NormBuilder
 from src.ontology.ontology_validator import OntologyValidator
@@ -69,6 +70,7 @@ class OntologyBuilder:
         self.norm_builder         = NormBuilder(config_dir)
         self.reference_classifier = ReferenceClassifier(config_dir)
         self.validator            = OntologyValidator()
+        self.integrity_finalizer  = GraphIntegrityFinalizer()
 
     # -------------------------------------------------------------------------
     # PUBLIC API
@@ -92,6 +94,11 @@ class OntologyBuilder:
             CanonicalSemanticGraph đã validated
         """
         logger.info("=" * 60)
+
+        # build() có thể được gọi lặp lại trong test hoặc service process.
+        # Reset các component có state để output idempotent.
+        self.node_quality_filter = NodeQualityFilter()
+        self.canonical_mapper = CanonicalMapper(self.config_dir)
         logger.info("MODULE 7 — Ontology Builder START")
         logger.info("=" * 60)
 
@@ -205,7 +212,7 @@ class OntologyBuilder:
             metadata={
                 "m6_source": str(m6_path),
                 "physical_graph_source": str(physical_graph_path) if physical_graph_path else None,
-                "m7_version": "1.2.0",
+                "m7_version": "1.3.0",
                 "pipeline": [
                     "node_quality_filter",   # v1.2: mới thêm
                     "entity_normalizer",
@@ -214,9 +221,19 @@ class OntologyBuilder:
                     "norm_builder",
                     "reference_classifier",
                     "ontology_validator",
-                    "orphan_quarantine",      # v1.2: mới thêm
+                    "dependency_closure",
+                    "reference_owner_repair",
+                    "final_integrity_gate",
                 ],
                 "node_quality_filter_report": nqf_summary,
+                "phase_metrics": {
+                    "assembled": {
+                        "mentions": len(all_mentions),
+                        "norms": len(all_norms),
+                        "references": len(all_references),
+                        "edges": len(all_edges),
+                    }
+                },
             },
             active_nodes=all_mentions,
             references=all_references,
@@ -228,33 +245,32 @@ class OntologyBuilder:
         # Step 6: Validate
         logger.info("Running ontology validation...")
         graph = self.validator.validate(graph)
+        graph.metadata["phase_metrics"]["ontology_validator"] = {
+            "active_mentions": len(graph.active_nodes),
+            "quarantined_mentions": len(graph.quarantine.mentions),
+            "active_edges": len(graph.active_edges),
+            "quarantined_edges": len(graph.quarantine.edges),
+        }
 
-        # Step 7: Orphan → Quarantine (v1.2)
-        # Tìm mention không có bất kỳ active edge nào → quarantine, không xóa
-        # Tuân thủ R2: preserve data, không delete
-        active_mention_ids = set()
-        for edge in graph.active_edges:
-            active_mention_ids.add(edge.source_id)
-            active_mention_ids.add(edge.target_id)
+        # Step 7: Dependency closure + reference-aware orphan policy + final gate
+        physical_node_ids = {
+            str(node.get("id"))
+            for node in physical_graph.get("nodes", [])
+            if isinstance(node, dict) and node.get("id")
+        }
+        graph = self.integrity_finalizer.finalize(graph, physical_node_ids)
+        graph.metadata["phase_metrics"]["finalized"] = {
+            "active_mentions": len(graph.active_nodes),
+            "quarantined_mentions": len(graph.quarantine.mentions),
+            "active_norms": len(graph.norms),
+            "quarantined_norms": len(graph.quarantine.norms),
+            "active_references": len(graph.references),
+            "quarantined_references": len(graph.quarantine.references),
+            "active_edges": len(graph.active_edges),
+            "quarantined_edges": len(graph.quarantine.edges),
+        }
 
-        orphan_nodes: List[LocalMention] = []
-        non_orphan_nodes: List[LocalMention] = []
-        for mention in graph.active_nodes:
-            if mention.id not in active_mention_ids:
-                orphan_nodes.append(mention)
-            else:
-                non_orphan_nodes.append(mention)
-
-        if orphan_nodes:
-            logger.info(f"Orphan → Quarantine: {len(orphan_nodes)} mentions không có active edge")
-            for orphan in orphan_nodes:
-                q_dict = orphan.model_dump()
-                q_dict["quarantine_reason"] = "ORPHAN_NO_ACTIVE_EDGE"
-                graph.quarantine.mentions.append(q_dict)
-            graph.active_nodes = non_orphan_nodes
-
-
-        # Step 8: Export
+        # Step 8: Export only after final gate passes
         if output_path:
             self._export(graph, output_path)
 
@@ -263,9 +279,6 @@ class OntologyBuilder:
         logger.info("=" * 60)
         if nqf_summary["filtered_nodes"] > 0 or nqf_summary["filtered_entities"] > 0:
             logger.info(f"NodeQualityFilter: {nqf_summary}")
-        if orphan_nodes:
-            logger.info(f"Orphan quarantine: {len(orphan_nodes)} nodes")
-
         return graph
 
     # -------------------------------------------------------------------------

@@ -102,7 +102,10 @@ class HierarchyBuilder:
         """
         nodes: list[HierarchyNode] = []
         stack: list[HierarchyNode] = []   # Stack of HierarchyNode
-        position_counter: dict[Optional[str], int] = {}  # parent_id → count
+        # Object identity của parent là duy nhất trong lần build. Không dùng
+        # temp parent_id vì các Khoản khác Điều có thể cùng temp ID "khoan_1",
+        # khiến position của Điểm bị đếm tiếp toàn cục.
+        position_counter: dict[tuple[Optional[int], NodeType], int] = {}
 
         for boundary in boundaries:
             node = HierarchyNode(boundary=boundary)
@@ -124,7 +127,10 @@ class HierarchyBuilder:
                 node.parent_id = None
 
             # Gán position TRƯỚC khi gọi temp_id (temp_id dùng position khi marker=None)
-            parent_key = (node.parent_id, node.node_type)
+            parent_key = (
+                id(node.parent_node) if node.parent_node is not None else None,
+                node.node_type,
+            )
             position_counter[parent_key] = position_counter.get(parent_key, 0) + 1
             node.position = position_counter[parent_key]
 

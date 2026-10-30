@@ -15,6 +15,7 @@ SEMANTIC_CANDIDATES = (
 )
 OUTPUT = ROOT / "outputs" / "unified_graphs" / "unified_knowledge_graph.json"
 CONFLICTS = ROOT / "outputs" / "unified_graphs" / "fusion_conflicts.json"
+CONFLICT_REVIEWS = ROOT / "outputs" / "unified_graphs" / "fusion_conflict_reviews.json"
 SHACL_REPORT = ROOT / "outputs" / "unified_graphs" / "fusion_shacl_report.json"
 CALIBRATOR = ROOT / "outputs" / "evaluation" / "fusion_confidence_calibrator.json"
 
@@ -39,6 +40,10 @@ def main() -> None:
     CONFLICTS.parent.mkdir(parents=True, exist_ok=True)
     CONFLICTS.write_text(
         json.dumps(result["conflicts"], ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    CONFLICT_REVIEWS.write_text(
+        json.dumps(result["conflict_reviews"], ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     conforms, report_text, report_turtle = ShaclValidator().validate(result)

@@ -21,11 +21,17 @@ class StructuredExtractor:
         self.candidates_path = Path(candidates_path)
         self.physical_graph_path = Path(physical_graph_path)
         
-        # Nạp biến môi trường từ .env
-        load_dotenv()
-        api_key = os.getenv("OPENROUTER_API_KEY")
+        # Nạp .env từ thư mục gốc dự án để không phụ thuộc thư mục chạy lệnh.
+        project_root = Path(__file__).resolve().parents[2]
+        load_dotenv(dotenv_path=project_root / ".env")
+
+        # Tương thích cả tên biến chuyên biệt cho OpenRouter và tên biến chung
+        # đang được khai báo trong .env.example.
+        api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("LLM_API_KEY")
         if not api_key:
-            raise ValueError("OPENROUTER_API_KEY không được tìm thấy trong file .env")
+            raise ValueError(
+                "OPENROUTER_API_KEY hoặc LLM_API_KEY không được tìm thấy trong file .env"
+            )
             
         # Khởi tạo client OpenAI và trỏ Base URL tới OpenRouter
         # Dùng instructor để bọc client
@@ -36,7 +42,7 @@ class StructuredExtractor:
             ),
             mode=instructor.Mode.JSON
         )
-        self.model_name = "openai/gpt-4o"
+        self.model_name = os.getenv("LLM_MODEL", "openai/gpt-4o-mini")
         
         self.candidates = self._load_json(self.candidates_path)
         self.physical_graph = self._load_json(self.physical_graph_path)

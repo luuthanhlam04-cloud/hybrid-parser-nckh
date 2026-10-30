@@ -35,3 +35,7 @@ pytest>=8.2.0
 pytest-cov>=5.0.0
 numpy>=1.26.0
 sentence-transformers>=3.0.0
+
+# --- Module 8: Fusion / SHACL Validation ---
+rdflib>=7.6.0
+pyshacl>=0.40.2

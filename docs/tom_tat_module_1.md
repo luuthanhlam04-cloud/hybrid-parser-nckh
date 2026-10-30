@@ -58,7 +58,31 @@ Sau khi kiểm tra file kết quả đầu ra `clean_Luat_dat_dai_chuong_3.txt`,
 - **Nối câu hoàn hảo:** Các câu luật bị rớt dòng giữa chừng đã được nối lại thành một đoạn văn (paragraph) nguyên vẹn.
 - **Chuẩn hóa Unicode:** File text hiển thị tiếng Việt mượt mà, không có hiện tượng vỡ font, đáp ứng 100% chuẩn NFC để phục vụ Regex ở các bước sau.
 
-**Phát hiện bất ngờ - Giới hạn của file TXT (Cons & Insights):**
-- Khi đọc file `.txt`, chúng ta dễ dàng nhận thấy **toàn bộ số thứ tự (Khoản 1, Khoản 2, Điểm a, b, c) ĐÃ BIẾN MẤT!** Ví dụ, dưới "Điều 26" chỉ có các dòng text trơn như *"Được cấp Giấy chứng nhận..."* thay vì *"1. Được cấp Giấy chứng nhận..."*. 
-- Thú vị hơn, duy nhất điểm `đ)` ở Khoản 1 Điều 28 lại xuất hiện. Lý do là vì MS Word không hỗ trợ điểm `đ` trong hệ thống Auto-numbering tiếng Anh mặc định, nên người soạn thảo đã phải "gõ tay" (hardcode) chữ `đ)` vào văn bản.
-- **Bản chất vấn đề:** Đây **KHÔNG PHẢI LÀ LỖI** của Module 1. Việc lưu ra file `.txt` chỉ đóng vai trò tạo ra một bản *Plain Text* tinh khiết dùng để huấn luyện mô hình ngôn ngữ (LLM Pre-training) hoặc lưu trữ thô. Trong kiến trúc thực tế, **Module 2 KHÔNG đọc file `.txt` này để dựng cây đồ thị**. Thay vào đó, Module 1 sẽ nạp file Word, bóc tách ra các đối tượng `StructuredParagraph` (chứa text đã làm sạch + giữ nguyên các con số bí mật trong bộ nhớ RAM) và trao tay trực tiếp cho Module 2 thông qua "Hợp đồng dữ liệu" (Data Contract).
+**Lịch sử lỗi mất numbering và trạng thái hiện tại:**
+- Ở phiên bản ban đầu, đường xuất `.txt` từng làm mất các marker Auto-numbering như Khoản `1.` và Điểm `a)`. Vấn đề này đã được xử lý bằng cách đọc trực tiếp `numbering.xml` và render marker trở lại clean text.
+- Phiên bản hiện tại của `clean_Luat_dat_dai_chuong_3.txt` giữ được các marker Khoản/Điểm. Tuy nhiên, `StructuredParagraph` vẫn là đường dữ liệu có độ tin cậy cao nhất vì giữ riêng `num_id`, `ilvl`, `num_fmt`, `number` và `marker`, thay vì yêu cầu M2 suy diễn lại hoàn toàn từ chuỗi text.
+- Các điểm `đ)` trong tài liệu có thể được người soạn thảo gõ tay (hardcode), vì hệ thống Auto-numbering tiếng Anh mặc định của MS Word không biểu diễn đầy đủ thứ tự chữ cái tiếng Việt. Vì vậy marker `đ)` có thể nằm ngay giữa một paragraph đang mang auto-numbering khác.
+
+## 5. Bản vá hồi quy Khoản Điểm ngày 29-10-2026
+
+Sau khi đối chiếu DOCX, clean text và Physical Graph, Module 1 được bổ sung xử lý cho trường hợp một paragraph Word chứa đồng thời auto-numbering và marker Điểm gõ tay ở giữa dòng.
+
+Ví dụ thực tế tại Điều 45 Khoản 6:
+
+```text
+d) Thời hạn sử dụng đất; đ) Tiến độ sử dụng đất.
+```
+
+Thay đổi trong `document_loader.py`:
+
+- Thêm `split_inline_point_markers()` để nhận diện marker dạng `a)`, `b)`, `đ)` xuất hiện sau dấu câu `;`, `.` hoặc `:`.
+- Chỉ tách marker sau dấu câu nhằm tránh nhận nhầm dẫn chiếu thông thường như “điểm a khoản 1”.
+- Đường `load()` xuất TXT giờ tạo hai dòng độc lập `d)` và `đ)`.
+- Đường `load_structured()` tạo thêm một `StructuredParagraph` tổng hợp cho Điểm inline, giữ marker gốc `đ` trong Data Contract M1→M2.
+- Index của danh sách structured được cấp lại tuần tự sau khi mở rộng để bảo đảm duy nhất và đúng thứ tự đọc.
+
+Kết quả hồi quy trên `Luat_dat_dai_chuong_3.docx`:
+
+- Số đơn vị M1 tăng từ 288 lên 289 paragraph sau khi tách Điểm inline.
+- Clean text đã có hai dòng riêng: `d) Thời hạn sử dụng đất;` và `đ) Tiến độ sử dụng đất.`.
+- Không thay đổi nội dung pháp lý ngoài việc khôi phục đúng boundary của hai Điểm.

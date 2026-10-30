@@ -67,3 +67,57 @@ Thay vì gán ID ngẫu nhiên (UUID) khiến dữ liệu trở thành một "h�
 
 **3. Sự toàn vẹn Cấu trúc (Structural Integrity):**
 Mọi Node đều lưu trữ chính xác `parent_id`. Các Node không hề bị mồ côi. Hệ gen từ Chương $\rightarrow$ Mục $\rightarrow$ Điều $\rightarrow$ Khoản $\rightarrow$ Điểm được đảm bảo liên tục. Các vị trí bắt đầu và kết thúc (`start_idx`, `end_idx`) đối chiếu về bản gốc được ghi nhận đầy đủ, tạo tiền đề hoàn hảo cho việc highlight văn bản khi người dùng click vào Đồ thị.
+
+## 5. Bản vá hồi quy Metadata ID và Position ngày 29-10-2026
+
+Đợt kiểm toán trực tiếp trên Chương III Luật Đất đai đã sửa bốn vấn đề:
+
+### 5.1. Chuẩn hóa mã văn bản
+
+- `run_parser.py` chuyển `law_code` từ giá trị sai `59/2024/QH15` sang đúng `31/2024/QH15`.
+- Ví dụ CLI và docstring của M2 cũng được cập nhật để tránh tái tạo output với metadata cũ.
+- Output được sinh lại; toàn bộ node hiện mang `law_code = 31/2024/QH15`.
+
+### 5.2. Hoàn tất contract marker từ M1 sang M2
+
+- Khi M1 cung cấp `StructuredParagraph.marker`, M2 render marker tạm thời vào input nội bộ của Regex Engine để tạo `MatchResult`.
+- Text gốc trong Data Contract vẫn giữ dạng thuần, không bị thêm label vĩnh viễn.
+- Điều 45 Khoản 6 hiện có đủ năm Điểm: `a, b, c, d, đ`; Điểm `đ` không còn bị nhập vào text của Điểm `d`.
+
+### 5.3. Reset position theo parent thật
+
+- Trước bản vá, `position_counter` dùng temporary `parent_id`. Các Khoản khác Điều nhưng cùng marker, ví dụ đều là `khoan_1`, có thể dùng chung counter khiến Điểm a bắt đầu ở 15, 29...
+- Bản vá dùng object identity của `parent_node` làm khóa nội bộ.
+- `position` của children giờ luôn bắt đầu lại từ 1 trong từng parent thực sự; ví dụ mỗi Khoản có chuỗi `1, 2, 3...` độc lập.
+
+### 5.4. Phân biệt điểm d và điểm đ trong Hybrid ID
+
+Quy tắc ASCII mới:
+
+```text
+d  → diem-d
+đ  → diem-dd
+```
+
+Hậu tố `_p{char_start}` vẫn được giữ để bảo đảm uniqueness. Thay đổi này bổ sung khả năng đọc và truy vấn marker pháp lý từ semantic prefix của ID.
+
+### 5.5. Kết quả chạy lại toàn corpus
+
+```text
+Tổng node: 223
+CHAPTER: 1
+SECTION: 5
+ARTICLE: 23
+CLAUSE: 84
+POINT: 110
+Orphan: 0
+Gap: 0
+Duplicate ID: 0
+```
+
+Các kiểm tra hồi quy xác nhận:
+
+- Điều 45 Khoản 6 có đúng năm POINT với position `1..5`.
+- Tất cả nhóm POINT trong corpus có position liên tục và reset theo parent.
+- `diem-d` và `diem-dd` khác nhau ngay trong semantic ID prefix.
+- Tất cả node sử dụng đúng mã `31/2024/QH15`.

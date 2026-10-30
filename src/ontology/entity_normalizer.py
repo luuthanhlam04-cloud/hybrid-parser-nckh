@@ -91,6 +91,26 @@ def _normalize_text(text: str) -> str:
     return text
 
 
+_SUBJECT_HEAD_PREFIXES = (
+    "người ",
+    "cá nhân ",
+    "tổ chức ",
+    "đại diện ",
+    "người đại diện ",
+    "cơ quan ",
+    "nhà nước",
+    "ủy ban ",
+    "uỷ ban ",
+    "bên ",
+)
+
+
+def _has_legal_subject_head(text: str) -> bool:
+    """True khi head noun của cụm từ biểu thị một chủ thể pháp lý."""
+    normalized = _normalize_text(text)
+    return any(normalized.startswith(prefix) for prefix in _SUBJECT_HEAD_PREFIXES)
+
+
 # =============================================================================
 # ENTITY NORMALIZER CLASS
 # =============================================================================
@@ -285,6 +305,19 @@ class EntityNormalizer:
                 rule_id = rule.get("id", "UNKNOWN_RULE")
                 target_subtype = rule.get("target_subtype")
                 target_concept_id = rule.get("target_concept_id")
+
+                # Head noun có độ ưu tiên cao hơn substring. Ví dụ
+                # "Người mua ... trong hợp đồng" vẫn là LegalSubject, không
+                # được cách ly chỉ vì bên trong cụm có chữ "hợp đồng".
+                if (
+                    m6_type == "SUBJECT"
+                    and (
+                        rule_id == "RULE_MAP_S_AUDIT_01"
+                        or str(target_concept_id).startswith("LO2024.OBJECT.")
+                    )
+                    and _has_legal_subject_head(raw_text)
+                ):
+                    continue
 
                 if action == "FLAG" or confidence == "LOW":
                     # Semantic role conflict
