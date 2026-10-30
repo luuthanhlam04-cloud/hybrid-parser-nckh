@@ -29,32 +29,32 @@
     },
     "phase_metrics": {
       "assembled": {
-        "mentions": 834,
+        "mentions": 837,
         "norms": 103,
         "references": 118,
-        "edges": 1015
+        "edges": 1017
       },
       "ontology_validator": {
-        "active_mentions": 834,
+        "active_mentions": 837,
         "quarantined_mentions": 0,
-        "active_edges": 966,
+        "active_edges": 968,
         "quarantined_edges": 49
       },
       "finalized": {
-        "active_mentions": 834,
+        "active_mentions": 837,
         "quarantined_mentions": 0,
         "active_norms": 103,
         "quarantined_norms": 0,
         "active_references": 115,
         "quarantined_references": 3,
-        "active_edges": 966,
+        "active_edges": 968,
         "quarantined_edges": 49
       }
     },
     "orphan_audit": {
       "policy": "reference-aware; valid unlinked evidence remains active",
       "reference_owner": 115,
-      "norm_component": 601,
+      "norm_component": 604,
       "unlinked_evidence": 51,
       "unlinked_evidence_ids": [
         "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-b_p2803#CONDITION#1",
@@ -120,9 +120,9 @@
       "duplicate_edges": 0,
       "domain_range_violations": 0,
       "provenance_violations": 0,
-      "input_mentions": 834,
+      "input_mentions": 837,
       "input_norms": 103,
-      "input_edges": 1015,
+      "input_edges": 1017,
       "conservation_ok": true
     }
   },
@@ -4178,6 +4178,22 @@
       ]
     },
     {
+      "id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#CONDITION#1",
+      "mention_type": "CONDITION",
+      "raw_text": "Được Nhà nước giao đất không thu tiền sử dụng đất",
+      "m6_local_id": "e10",
+      "semantic_type": "Condition",
+      "subtype": null,
+      "canonical_concept_id": null,
+      "provenance_node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896",
+      "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất",
+      "status": "VALID",
+      "audit_note": null,
+      "type_hierarchy": [
+        "Condition"
+      ]
+    },
+    {
       "id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_p11293#SUBJECT#1",
       "mention_type": "SUBJECT",
       "raw_text": "Tổ chức kinh tế",
@@ -4668,6 +4684,22 @@
       ]
     },
     {
+      "id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#3",
+      "mention_type": "CONDITION",
+      "raw_text": "Giao đất có thu tiền sử dụng đất hoặc thuê đất trả tiền một lần",
+      "m6_local_id": "e8",
+      "semantic_type": "Condition",
+      "subtype": null,
+      "canonical_concept_id": null,
+      "provenance_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256",
+      "evidence": "được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê",
+      "status": "VALID",
+      "audit_note": null,
+      "type_hierarchy": [
+        "Condition"
+      ]
+    },
+    {
       "id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-e_p12460#SUBJECT#1",
       "mention_type": "SUBJECT",
       "raw_text": "Tổ chức kinh tế",
@@ -4986,15 +5018,15 @@
     {
       "id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#ACTION#1",
       "mention_type": "ACTION",
-      "raw_text": "Thế chấp",
+      "raw_text": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất",
       "m6_local_id": "e4",
       "semantic_type": "LegalAction",
       "subtype": "MortgageAction",
-      "canonical_concept_id": "LO2024.ACTION.LAND_MORTGAGE",
+      "canonical_concept_id": "LO2024.ACTION.ATTACHED_ASSET_MORTGAGE",
       "provenance_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547",
       "evidence": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
       "status": "CORRECTED",
-      "audit_note": "[RULE_MAP_A02] Auto-corrected: 'Thế chấp' → subtype=MortgageAction, concept=LO2024.ACTION.LAND_MORTGAGE",
+      "audit_note": "[RULE_MAP_A_ASSET_MORTGAGE] Auto-corrected: 'Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất' → subtype=MortgageAction, concept=LO2024.ACTION.ATTACHED_ASSET_MORTGAGE",
       "type_hierarchy": [
         "LegalAction",
         "RealEstateTransaction",
@@ -5015,6 +5047,22 @@
       "audit_note": null,
       "type_hierarchy": [
         "LegalObject"
+      ]
+    },
+    {
+      "id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#CONDITION#1",
+      "mention_type": "CONDITION",
+      "raw_text": "Được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
+      "m6_local_id": "e6",
+      "semantic_type": "Condition",
+      "subtype": null,
+      "canonical_concept_id": null,
+      "provenance_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547",
+      "evidence": "được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
+      "status": "VALID",
+      "audit_note": null,
+      "type_hierarchy": [
+        "Condition"
       ]
     },
     {
@@ -7078,11 +7126,11 @@
       ]
     },
     {
-      "id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#1",
-      "mention_type": "SUBJECT",
-      "raw_text": "tổ chức tín dụng được phép hoạt động tại Việt Nam",
+      "id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#1",
+      "mention_type": "CONDITION",
+      "raw_text": "tại tổ chức tín dụng được phép hoạt động tại Việt Nam",
       "m6_local_id": "e4",
-      "semantic_type": "LegalSubject",
+      "semantic_type": "Condition",
       "subtype": null,
       "canonical_concept_id": null,
       "provenance_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125",
@@ -7090,29 +7138,27 @@
       "status": "VALID",
       "audit_note": null,
       "type_hierarchy": [
-        "LegalSubject"
+        "Condition"
       ]
     },
     {
-      "id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#2",
-      "mention_type": "SUBJECT",
-      "raw_text": "tổ chức kinh tế khác hoặc cá nhân",
+      "id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#2",
+      "mention_type": "CONDITION",
+      "raw_text": "tại tổ chức kinh tế khác hoặc cá nhân",
       "m6_local_id": "e5",
-      "semantic_type": "LegalSubject",
-      "subtype": "Organization",
-      "canonical_concept_id": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "semantic_type": "Condition",
+      "subtype": null,
+      "canonical_concept_id": null,
       "provenance_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125",
       "evidence": "tại tổ chức kinh tế khác hoặc cá nhân",
-      "status": "CORRECTED",
-      "audit_note": "[RULE_MAP_S08] Auto-corrected: 'tổ chức kinh tế khác hoặc cá nhân' → subtype=Organization, concept=LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
+      "status": "VALID",
+      "audit_note": null,
       "type_hierarchy": [
-        "LegalSubject",
-        "DomesticEntity",
-        "Organization"
+        "Condition"
       ]
     },
     {
-      "id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#3",
+      "id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#1",
       "mention_type": "SUBJECT",
       "raw_text": "Cá nhân sử dụng đất nông nghiệp",
       "m6_local_id": "e7",
@@ -12916,7 +12962,7 @@
     {
       "id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p43247#CONDITION#1",
       "mention_type": "CONDITION",
-      "raw_text": "pháp luật không cho phép",
+      "raw_text": "Pháp luật không cho phép nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất",
       "m6_local_id": "e11",
       "semantic_type": "Condition",
       "subtype": null,
@@ -16458,12 +16504,23 @@
         "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#ACTION#6"
       ],
       "object_ids": [],
-      "condition_ids": [],
-      "condition_groups": [],
+      "condition_ids": [
+        "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#CONDITION#1"
+      ],
+      "condition_groups": [
+        {
+          "group_id": "G1",
+          "operator": "AND",
+          "condition_ids": [
+            "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#CONDITION#1"
+          ],
+          "is_complex": false
+        }
+      ],
       "exception_ids": [],
       "consequence_ids": [],
       "provenance_node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_COMPLEX",
       "status": "VALID",
       "norm_completeness": "COMPLETE",
@@ -16553,7 +16610,8 @@
       ],
       "condition_ids": [
         "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#1",
-        "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#2"
+        "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#2",
+        "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#3"
       ],
       "condition_groups": [
         {
@@ -16561,7 +16619,8 @@
           "operator": "AND",
           "condition_ids": [
             "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#1",
-            "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#2"
+            "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#2",
+            "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#3"
           ],
           "is_complex": false
         }
@@ -16674,12 +16733,23 @@
       "object_ids": [
         "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#OBJECT#1"
       ],
-      "condition_ids": [],
-      "condition_groups": [],
+      "condition_ids": [
+        "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#CONDITION#1"
+      ],
+      "condition_groups": [
+        {
+          "group_id": "G1",
+          "operator": "AND",
+          "condition_ids": [
+            "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#CONDITION#1"
+          ],
+          "is_complex": false
+        }
+      ],
       "exception_ids": [],
       "consequence_ids": [],
       "provenance_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547",
-      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
+      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật | được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
       "rule_id": "RULE_NORM_COMPLEX",
       "status": "VALID",
       "norm_completeness": "COMPLETE",
@@ -17099,9 +17169,7 @@
       "id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#NORM#1",
       "modality": "ALLOW",
       "subject_ids": [
-        "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#1",
-        "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#2",
-        "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#3"
+        "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#1"
       ],
       "subject_status": "RESOLVED",
       "action_ids": [
@@ -17111,8 +17179,21 @@
         "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#OBJECT#1",
         "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#OBJECT#2"
       ],
-      "condition_ids": [],
-      "condition_groups": [],
+      "condition_ids": [
+        "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#1",
+        "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#2"
+      ],
+      "condition_groups": [
+        {
+          "group_id": "G1",
+          "operator": "AND",
+          "condition_ids": [
+            "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#1",
+            "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#2"
+          ],
+          "is_complex": false
+        }
+      ],
       "exception_ids": [],
       "consequence_ids": [],
       "provenance_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125",
@@ -18996,7 +19077,7 @@
         "doanh nghiệp"
       ],
       "taxonomy_path": "LegalSubject.DomesticEntity.Organization",
-      "source_mention_count": 37
+      "source_mention_count": 36
     },
     {
       "id": "LO2024.SUBJECT.STATE",
@@ -19051,7 +19132,17 @@
         "thế chấp quyền sử dụng đất"
       ],
       "taxonomy_path": "LegalAction.RealEstateTransaction.MortgageAction",
-      "source_mention_count": 14
+      "source_mention_count": 13
+    },
+    {
+      "id": "LO2024.ACTION.ATTACHED_ASSET_MORTGAGE",
+      "concept_type": "LegalAction",
+      "preferred_name": "Thế chấp tài sản gắn liền với đất",
+      "alt_labels": [
+        "thế chấp tài sản thuộc sở hữu của mình gắn liền với đất"
+      ],
+      "taxonomy_path": "LegalAction.RealEstateTransaction.MortgageAction",
+      "source_mention_count": 1
     },
     {
       "id": "LO2024.ACTION.CERTIFICATION",
@@ -22492,7 +22583,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#SUBJECT#1",
       "relation_type": "HAS_SUBJECT",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_SUBJECT",
       "status": "VALID",
       "logic_group": null,
@@ -22503,7 +22594,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#SUBJECT#2",
       "relation_type": "HAS_SUBJECT",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_SUBJECT",
       "status": "VALID",
       "logic_group": null,
@@ -22514,7 +22605,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#SUBJECT#3",
       "relation_type": "HAS_SUBJECT",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_SUBJECT",
       "status": "VALID",
       "logic_group": null,
@@ -22525,7 +22616,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#ACTION#1",
       "relation_type": "HAS_ACTION",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_ACTION",
       "status": "VALID",
       "logic_group": null,
@@ -22536,7 +22627,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#ACTION#2",
       "relation_type": "HAS_ACTION",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_ACTION",
       "status": "VALID",
       "logic_group": null,
@@ -22547,7 +22638,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#ACTION#3",
       "relation_type": "HAS_ACTION",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_ACTION",
       "status": "VALID",
       "logic_group": null,
@@ -22558,7 +22649,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#ACTION#4",
       "relation_type": "HAS_ACTION",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_ACTION",
       "status": "VALID",
       "logic_group": null,
@@ -22569,7 +22660,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#ACTION#5",
       "relation_type": "HAS_ACTION",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_ACTION",
       "status": "VALID",
       "logic_group": null,
@@ -22580,8 +22671,19 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#ACTION#6",
       "relation_type": "HAS_ACTION",
-      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
       "rule_id": "RULE_NORM_HAS_ACTION",
+      "status": "VALID",
+      "logic_group": null,
+      "operator": null,
+      "object_binding": null
+    },
+    {
+      "source_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#NORM#1",
+      "target_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896#CONDITION#1",
+      "relation_type": "HAS_CONDITION",
+      "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc | chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất | được Nhà nước giao đất không thu tiền sử dụng đất",
+      "rule_id": "RULE_NORM_HAS_CONDITION",
       "status": "VALID",
       "logic_group": null,
       "operator": null,
@@ -23017,6 +23119,17 @@
       "object_binding": null
     },
     {
+      "source_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#NORM#1",
+      "target_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256#CONDITION#3",
+      "relation_type": "HAS_CONDITION",
+      "evidence": "Tổ chức kinh tế | Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | quyền sử dụng đất",
+      "rule_id": "RULE_NORM_HAS_CONDITION",
+      "status": "VALID",
+      "logic_group": null,
+      "operator": null,
+      "object_binding": null
+    },
+    {
       "source_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-e_p12460#SUBJECT#1",
       "target_id": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
       "relation_type": "DENOTES",
@@ -23227,7 +23340,7 @@
     },
     {
       "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#ACTION#1",
-      "target_id": "LO2024.ACTION.LAND_MORTGAGE",
+      "target_id": "LO2024.ACTION.ATTACHED_ASSET_MORTGAGE",
       "relation_type": "DENOTES",
       "evidence": null,
       "rule_id": "RULE_MAP_DENOTES",
@@ -23240,7 +23353,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#SUBJECT#1",
       "relation_type": "HAS_SUBJECT",
-      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
+      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật | được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
       "rule_id": "RULE_NORM_HAS_SUBJECT",
       "status": "VALID",
       "logic_group": null,
@@ -23251,7 +23364,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#SUBJECT#2",
       "relation_type": "HAS_SUBJECT",
-      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
+      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật | được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
       "rule_id": "RULE_NORM_HAS_SUBJECT",
       "status": "VALID",
       "logic_group": null,
@@ -23262,7 +23375,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#SUBJECT#3",
       "relation_type": "HAS_SUBJECT",
-      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
+      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật | được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
       "rule_id": "RULE_NORM_HAS_SUBJECT",
       "status": "VALID",
       "logic_group": null,
@@ -23273,7 +23386,7 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#ACTION#1",
       "relation_type": "HAS_ACTION",
-      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
+      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật | được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
       "rule_id": "RULE_NORM_HAS_ACTION",
       "status": "VALID",
       "logic_group": null,
@@ -23284,12 +23397,23 @@
       "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#NORM#1",
       "target_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#OBJECT#1",
       "relation_type": "HAS_OBJECT",
-      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật",
+      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật | được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
       "rule_id": "RULE_NORM_HAS_OBJECT",
       "status": "VALID",
       "logic_group": null,
       "operator": null,
       "object_binding": "NORM_ARGUMENT"
+    },
+    {
+      "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#NORM#1",
+      "target_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547#CONDITION#1",
+      "relation_type": "HAS_CONDITION",
+      "evidence": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây | Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật | được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
+      "rule_id": "RULE_NORM_HAS_CONDITION",
+      "status": "VALID",
+      "logic_group": null,
+      "operator": null,
+      "object_binding": null
     },
     {
       "source_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-c_p14732#SUBJECT#1",
@@ -24623,41 +24747,8 @@
       "object_binding": null
     },
     {
-      "source_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#2",
-      "target_id": "LO2024.SUBJECT.DOMESTIC_ORGANIZATION",
-      "relation_type": "DENOTES",
-      "evidence": null,
-      "rule_id": "RULE_MAP_DENOTES",
-      "status": "VALID",
-      "logic_group": null,
-      "operator": null,
-      "object_binding": null
-    },
-    {
       "source_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#NORM#1",
       "target_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#1",
-      "relation_type": "HAS_SUBJECT",
-      "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | tài sản thuộc sở hữu của mình gắn liền với đất",
-      "rule_id": "RULE_NORM_HAS_SUBJECT",
-      "status": "VALID",
-      "logic_group": null,
-      "operator": null,
-      "object_binding": null
-    },
-    {
-      "source_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#NORM#1",
-      "target_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#2",
-      "relation_type": "HAS_SUBJECT",
-      "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | tài sản thuộc sở hữu của mình gắn liền với đất",
-      "rule_id": "RULE_NORM_HAS_SUBJECT",
-      "status": "VALID",
-      "logic_group": null,
-      "operator": null,
-      "object_binding": null
-    },
-    {
-      "source_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#NORM#1",
-      "target_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#SUBJECT#3",
       "relation_type": "HAS_SUBJECT",
       "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | tài sản thuộc sở hữu của mình gắn liền với đất",
       "rule_id": "RULE_NORM_HAS_SUBJECT",
@@ -24698,6 +24789,28 @@
       "logic_group": null,
       "operator": null,
       "object_binding": "NORM_ARGUMENT"
+    },
+    {
+      "source_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#NORM#1",
+      "target_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#1",
+      "relation_type": "HAS_CONDITION",
+      "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | tài sản thuộc sở hữu của mình gắn liền với đất",
+      "rule_id": "RULE_NORM_HAS_CONDITION",
+      "status": "VALID",
+      "logic_group": null,
+      "operator": null,
+      "object_binding": null
+    },
+    {
+      "source_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#NORM#1",
+      "target_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125#CONDITION#2",
+      "relation_type": "HAS_CONDITION",
+      "evidence": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất | tài sản thuộc sở hữu của mình gắn liền với đất",
+      "rule_id": "RULE_NORM_HAS_CONDITION",
+      "status": "VALID",
+      "logic_group": null,
+      "operator": null,
+      "object_binding": null
     },
     {
       "source_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23325#OBJECT#1",
@@ -30377,29 +30490,29 @@
     ]
   },
   "validation_report": {
-    "total_mentions": 834,
-    "valid_mentions": 579,
-    "corrected_mentions": 255,
+    "total_mentions": 837,
+    "valid_mentions": 583,
+    "corrected_mentions": 254,
     "unresolved_mentions": 0,
     "total_norms": 103,
     "valid_norms": 103,
     "flagged_norms": 0,
-    "total_edges": 1015,
+    "total_edges": 1017,
     "rejected_edges": 0,
     "quarantined_edges": 49,
     "quarantined_mentions": 0,
     "total_references": 118,
     "classified_references": 97,
     "ambiguous_references": 18,
-    "total_concepts": 13,
-    "input_mentions": 834,
-    "active_mentions": 834,
+    "total_concepts": 14,
+    "input_mentions": 837,
+    "active_mentions": 837,
     "input_norms": 103,
     "active_norms": 103,
     "quarantined_norms": 0,
     "partial_norms": 6,
-    "input_edges": 1015,
-    "active_edges": 966,
+    "input_edges": 1017,
+    "active_edges": 968,
     "filtered_edges": 0,
     "broken_endpoints": 0,
     "broken_norm_references": 0,

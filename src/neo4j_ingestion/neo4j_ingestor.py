@@ -21,7 +21,8 @@ class Neo4jIngestor:
         "GLOBAL_NORM",
         "LEGAL_SUBJECT", "LEGAL_ACTION", "LEGAL_OBJECT",
         "LEGAL_DOCUMENT_REF",
-        "CONDITION", "EXCEPTION", "PENALTY", "CANONICAL_CONCEPT"
+        "CONDITION", "EXCEPTION", "PENALTY", "CANONICAL_CONCEPT",
+        "REVIEW_FINDING"
     }
 
     def __init__(

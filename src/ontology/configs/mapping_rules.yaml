@@ -128,6 +128,17 @@ mapping_rules:
   # =============================
   # ACTION → LegalAction mapping
   # =============================
+  - id: RULE_MAP_A_ASSET_MORTGAGE
+    m6_type: ACTION
+    triggers:
+      - "thế chấp tài sản thuộc sở hữu của mình gắn liền với đất"
+      - "thế chấp tài sản gắn liền với đất"
+    negative_triggers: []
+    target_subtype: MortgageAction
+    target_concept_id: LO2024.ACTION.ATTACHED_ASSET_MORTGAGE
+    confidence: HIGH
+    action: CORRECT
+
   - id: RULE_MAP_A01
     m6_type: ACTION
     triggers:

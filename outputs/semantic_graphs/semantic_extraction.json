@@ -3683,6 +3683,12 @@
             "text": "Góp vốn bằng quyền sử dụng đất",
             "entity_type": "ACTION",
             "evidence": "chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất"
+          },
+          {
+            "id": "e10",
+            "text": "Được Nhà nước giao đất không thu tiền sử dụng đất",
+            "entity_type": "CONDITION",
+            "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất"
           }
         ],
         "relations": [
@@ -3811,6 +3817,48 @@
             "target": "e9",
             "source_status": "RESOLVED",
             "evidence": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc không có quyền góp vốn bằng quyền sử dụng đất"
+          },
+          {
+            "source": "e4",
+            "relation_type": "HAS_CONDITION",
+            "target": "e10",
+            "source_status": "RESOLVED",
+            "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất"
+          },
+          {
+            "source": "e5",
+            "relation_type": "HAS_CONDITION",
+            "target": "e10",
+            "source_status": "RESOLVED",
+            "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất"
+          },
+          {
+            "source": "e6",
+            "relation_type": "HAS_CONDITION",
+            "target": "e10",
+            "source_status": "RESOLVED",
+            "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất"
+          },
+          {
+            "source": "e7",
+            "relation_type": "HAS_CONDITION",
+            "target": "e10",
+            "source_status": "RESOLVED",
+            "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất"
+          },
+          {
+            "source": "e8",
+            "relation_type": "HAS_CONDITION",
+            "target": "e10",
+            "source_status": "RESOLVED",
+            "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất"
+          },
+          {
+            "source": "e9",
+            "relation_type": "HAS_CONDITION",
+            "target": "e10",
+            "source_status": "RESOLVED",
+            "evidence": "được Nhà nước giao đất không thu tiền sử dụng đất"
           }
         ]
       }
@@ -4173,6 +4221,12 @@
             "text": "Quy định của pháp luật",
             "entity_type": "REFERENCE",
             "evidence": "theo quy định của pháp luật"
+          },
+          {
+            "id": "e8",
+            "text": "Giao đất có thu tiền sử dụng đất hoặc thuê đất trả tiền một lần",
+            "entity_type": "CONDITION",
+            "evidence": "được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê"
           }
         ],
         "relations": [
@@ -4217,6 +4271,13 @@
             "target": "e7",
             "source_status": "RESOLVED",
             "evidence": "theo quy định của pháp luật"
+          },
+          {
+            "source": "e2",
+            "relation_type": "HAS_CONDITION",
+            "target": "e8",
+            "source_status": "CONTEXT_INFERRED",
+            "evidence": "được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê"
           }
         ]
       }
@@ -4507,7 +4568,7 @@
           },
           {
             "id": "e4",
-            "text": "Thế chấp",
+            "text": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất",
             "entity_type": "ACTION",
             "evidence": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật"
           },
@@ -4516,6 +4577,12 @@
             "text": "Tài sản thuộc sở hữu của mình gắn liền với đất",
             "entity_type": "OBJECT",
             "evidence": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật"
+          },
+          {
+            "id": "e6",
+            "text": "Được Nhà nước cho thuê đất thu tiền thuê đất hằng năm",
+            "entity_type": "CONDITION",
+            "evidence": "được Nhà nước cho thuê đất thu tiền thuê đất hằng năm"
           }
         ],
         "relations": [
@@ -4546,6 +4613,13 @@
             "target": "e5",
             "source_status": "RESOLVED",
             "evidence": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật"
+          },
+          {
+            "source": "e4",
+            "relation_type": "HAS_CONDITION",
+            "target": "e6",
+            "source_status": "CONTEXT_INFERRED",
+            "evidence": "được Nhà nước cho thuê đất thu tiền thuê đất hằng năm"
           }
         ]
       }
@@ -6459,14 +6533,14 @@
           },
           {
             "id": "e4",
-            "text": "tổ chức tín dụng được phép hoạt động tại Việt Nam",
-            "entity_type": "SUBJECT",
+            "text": "tại tổ chức tín dụng được phép hoạt động tại Việt Nam",
+            "entity_type": "CONDITION",
             "evidence": "tại tổ chức tín dụng được phép hoạt động tại Việt Nam"
           },
           {
             "id": "e5",
-            "text": "tổ chức kinh tế khác hoặc cá nhân",
-            "entity_type": "SUBJECT",
+            "text": "tại tổ chức kinh tế khác hoặc cá nhân",
+            "entity_type": "CONDITION",
             "evidence": "tại tổ chức kinh tế khác hoặc cá nhân"
           },
           {
@@ -6510,6 +6584,20 @@
             "target": "e6",
             "source_status": "RESOLVED",
             "evidence": "theo quy định của pháp luật"
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_CONDITION",
+            "target": "e4",
+            "source_status": "RESOLVED",
+            "evidence": "tại tổ chức tín dụng được phép hoạt động tại Việt Nam"
+          },
+          {
+            "source": "e1",
+            "relation_type": "HAS_CONDITION",
+            "target": "e5",
+            "source_status": "RESOLVED",
+            "evidence": "tại tổ chức kinh tế khác hoặc cá nhân"
           }
         ]
       }
@@ -11911,7 +11999,7 @@
           },
           {
             "id": "e11",
-            "text": "pháp luật không cho phép",
+            "text": "Pháp luật không cho phép nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất",
             "entity_type": "CONDITION",
             "evidence": "pháp luật không cho phép nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất"
           }

@@ -199,10 +199,21 @@ class FusionEngine:
                     ))
                     mentions.add(key)
 
-        conflicts = self.conflict_resolver.detect_deontic_conflicts(nodes, semantic_edges)
+        conflict_findings = self.conflict_resolver.detect_deontic_conflicts(nodes, semantic_edges)
+        conflict_reviews = [finding for finding in conflict_findings if finding["flag"] != "POTENTIAL_LEGAL_CONFLICT"]
+        conflicts = [finding for finding in conflict_findings if finding["flag"] == "POTENTIAL_LEGAL_CONFLICT"]
         conflicts.extend(self.conflict_resolver.validate_endpoints(
             edges, {node["id"] for node in nodes}
         ))
+
+        # Keep review-only findings queryable in the UKG without presenting
+        # them as confirmed legal conflicts.  Each finding becomes a technical
+        # REVIEW node linked to both norms and their physical source nodes.
+        review_nodes, review_edges = self._materialize_conflict_reviews(
+            conflict_reviews, nodes
+        )
+        nodes.extend(review_nodes)
+        edges.extend(review_edges)
         result = {
             "metadata": {
                 "schema_version": "fusion.v1",
@@ -222,6 +233,7 @@ class FusionEngine:
                 "conflict_count": len(conflicts),
             },
             "nodes": nodes, "edges": edges, "conflicts": conflicts,
+            "conflict_reviews": conflict_reviews,
             "fusion_report": {
                 "rejected_relations": rejected_relations,
                 "rejected_relation_count": len(rejected_relations),
@@ -258,6 +270,7 @@ class FusionEngine:
                     }
                     for conflict in conflicts
                 ),
+                "conflict_review_count": len(conflict_reviews),
                 "reference_targets_not_found_in_m4_count": sum(
                     report["resolution_status"] == "TARGET_NOT_FOUND_IN_M4"
                     for report in reference_reports
@@ -269,3 +282,67 @@ class FusionEngine:
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         return result
+
+    @staticmethod
+    def _materialize_conflict_reviews(
+        reviews: list[dict[str, Any]], nodes: list[dict[str, Any]]
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        """Turn review findings into queryable UKG nodes and provenance edges."""
+        node_ids = {node["id"] for node in nodes}
+        review_nodes: list[dict[str, Any]] = []
+        review_edges: list[dict[str, Any]] = []
+        for index, finding in enumerate(reviews, start=1):
+            review_id = f"REVIEW_{index:03d}"
+            review_nodes.append({
+                "id": review_id,
+                "node_kind": "REVIEW",
+                "labels": ["REVIEW_FINDING"],
+                "properties": {
+                    "review_index": index,
+                    "flag": finding.get("flag"),
+                    "conflict_type": finding.get("conflict_type"),
+                    "context_status": finding.get("context_status"),
+                    "subject": finding.get("subject"),
+                    "action": finding.get("action"),
+                    "relation_types": finding.get("relation_types", []),
+                    "positive_conditions": finding.get("positive_conditions", []),
+                    "prohibit_conditions": finding.get("prohibit_conditions", []),
+                    "source_node_ids": finding.get("source_node_ids", {}),
+                    "provenance": "M8",
+                },
+                "provenance": ["M8"],
+            })
+
+            norm_ids = finding.get("global_norm_ids", [])
+            edge_specs = (
+                ("REVIEW_POSITIVE_NORM", norm_ids[0] if len(norm_ids) > 0 else None),
+                ("REVIEW_PROHIBITIVE_NORM", norm_ids[1] if len(norm_ids) > 1 else None),
+            )
+            for edge_type, target in edge_specs:
+                if target in node_ids:
+                    review_edges.append({
+                        "source": review_id,
+                        "target": target,
+                        "type": edge_type,
+                        "properties": {
+                            "review_flag": finding.get("flag"),
+                            "context_status": finding.get("context_status"),
+                            "provenance": "M8",
+                        },
+                        "provenance": ["M8"],
+                    })
+
+            for side, source_ids in finding.get("source_node_ids", {}).items():
+                for source_id in source_ids:
+                    if source_id in node_ids:
+                        review_edges.append({
+                            "source": review_id,
+                            "target": source_id,
+                            "type": "REVIEW_SOURCE_NODE",
+                            "properties": {
+                                "global_norm_id": side,
+                                "provenance": "M8",
+                            },
+                            "provenance": ["M8"],
+                        })
+        return review_nodes, review_edges
