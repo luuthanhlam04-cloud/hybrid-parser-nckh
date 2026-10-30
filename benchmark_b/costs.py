@@ -33,6 +33,9 @@ class CostLedger:
         if not isinstance(usage, dict):
             self._phases[phase]["missing_usage_calls"] += 1
             return
+        if not any(k in usage for k in ('prompt_tokens','input_tokens')) or not any(k in usage for k in ('completion_tokens','output_tokens')):
+            self._phases[phase]['missing_usage_calls'] += 1
+            return
         prompt = usage.get("prompt_tokens", usage.get("input_tokens", 0)) or 0
         completion = usage.get("completion_tokens", usage.get("output_tokens", 0)) or 0
         total = usage.get("total_tokens", prompt + completion) or (prompt + completion)
@@ -53,7 +56,8 @@ class CostLedger:
                 },
                 "input_cost_usd": input_cost,
                 "output_cost_usd": output_cost,
-                "observed_cost_usd": input_cost + output_cost,
+                "estimated_tariff_cost_usd": input_cost + output_cost,
+                "observed_cost_usd": input_cost + output_cost,  # legacy name; tariff estimate, not billed cost
             }
         return {
             "model": self.model,

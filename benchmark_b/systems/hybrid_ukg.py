@@ -88,7 +88,16 @@ class HybridUKGSystem(BenchmarkSystem):
     def answer(self, question: dict[str, Any], *, top_k: int) -> dict[str, Any]:
         started = time.perf_counter()
         result = self._get_pipeline().answer(question["question"], mode=self.mode, top_k=top_k)
+        from benchmark_b.prepare import MAP
+        from benchmark_b.alignment import hybrid_evidence, hybrid_paths
+        evidence, context_evidence = hybrid_evidence(result, json.loads(MAP.read_text(encoding='utf-8')))
         return {
+            "evidence": evidence,
+            "context_evidence": context_evidence,
+            "reference_paths": hybrid_paths(result.get('retrieval_records',[]),json.loads(MAP.read_text(encoding='utf-8'))) if str(result.get('mode','')).startswith('B') else None,
+            "reference_path_status": "M10 traversal does not expose directed typed reference edges",
+            "context": result.get("context"),
+            "retrieval_records": result.get("retrieval_records"),
             "question_id": question["question_id"],
             "system": self.name,
             "answer": result["answer"],

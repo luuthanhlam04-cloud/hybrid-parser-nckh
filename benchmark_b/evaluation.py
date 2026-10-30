@@ -53,7 +53,7 @@ def evaluate_record(question: dict[str, Any], result: dict[str, Any]) -> dict[st
         "retrieval_mrr_at_5": reciprocal_rank(retrieved, gold),
         "cited_articles": cited,
         "expected_articles": expected_numbers,
-        "citation_article_overlap": len(set(cited) & set(expected_numbers)) / len(expected_numbers) if expected_numbers else None,
+        "citation_article_overlap": len(set(cited) & set(expected_numbers)) / len(expected_numbers) if expected_numbers and positive else None,
         "abstention_keyword_present": any(marker in answer.lower() for marker in INSUFFICIENT_MARKERS) if not positive else None,
         "latency_ms": result.get("latency_ms"),
         "retrieval_measurement": "available" if retrieved is not None else "not_measured",

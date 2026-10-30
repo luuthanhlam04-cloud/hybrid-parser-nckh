@@ -1,5 +1,7 @@
 # Benchmark B: Hybrid Parser/UKG vs LightRAG
 
+> Hướng dẫn này mô tả v0.1. Với code hiện tại dùng docs/benchmark_b_v02.md: lệnh index/run yêu cầu --run-id, workspace cũ không bị xóa và dataset v0.2 cần được chuẩn bị trước. Báo cáo triển khai ở docs/bao_cao_benchmark_b_v02.md.
+
 ## Mục tiêu và phạm vi
 
 Benchmark B đánh giá hai hệ thống độc lập trên đúng một phạm vi dữ liệu: Chương III, Luật Đất đai số 31/2024/QH15 (Điều 26--48). Bộ câu hỏi cố định là `datasets/benchmarks/benchmark_B_50_chuong_III.json`: 50 câu, gồm 47 câu trả lời được trong phạm vi và 3 câu buộc hệ thống thừa nhận thiếu căn cứ.

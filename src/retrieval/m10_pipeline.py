@@ -82,6 +82,7 @@ class M10Pipeline:
             "mode": actual_mode,
             "anchors": anchors,
             "retrieved_count": len(records),
+            "retrieval_records": records,
             "context": context,
             "answer": generation["answer"],
             "model": generation["model"],

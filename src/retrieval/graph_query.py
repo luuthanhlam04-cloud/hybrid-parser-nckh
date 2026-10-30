@@ -92,6 +92,8 @@ class GraphQuery:
 			   }] AS nodes,
 			   [rel IN relationships(path) | {
 				   type: type(rel),
+				   source_id: startNode(rel).id,
+				   target_id: endNode(rel).id,
 				   properties: properties(rel)
 			   }] AS relationships
 		LIMIT $max_paths

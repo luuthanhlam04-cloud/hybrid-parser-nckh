@@ -16,6 +16,21 @@ from typing import Any
 
 DEFAULT_GRAPH = Path("outputs/physical_graphs/physical_graph.json")
 DEFAULT_CORPUS_DIR = Path("outputs/benchmark_b/corpus")
+DEFAULT_CLEAN_TEXT = Path("outputs/clean_texts/clean_Luat_dat_dai_chuong_3.txt")
+
+
+def build_clean_text_corpus(text_path: str | Path = DEFAULT_CLEAN_TEXT) -> list[dict[str, Any]]:
+    """Return the cleaned TXT as one source document for the LightRAG baseline."""
+    source = Path(text_path)
+    text = source.read_text(encoding="utf-8")
+    if not text.strip():
+        raise ValueError(f"Clean text input is empty: {source}")
+    return [{
+        "article_id": "clean_Luat_dat_dai_chuong_3.txt",
+        "text": text,
+        "evidence_ids": [],
+        "source_path": str(source),
+    }]
 
 
 def _node_kind(node: dict[str, Any]) -> str:
@@ -49,6 +64,7 @@ def build_article_corpus(graph_path: str | Path = DEFAULT_GRAPH) -> list[dict[st
         law_code = article_properties.get("law_code", "31/2024/QH15")
         article_id = f"{law_code.lower()}#{article_number}"
         evidence_ids: list[str] = []
+        spans = []
         lines = [
             f"[ARTICLE_ID: {article_id}]",
             f"Điều {article_number}. {article_properties.get('title') or ''}".strip(),
@@ -57,8 +73,10 @@ def build_article_corpus(graph_path: str | Path = DEFAULT_GRAPH) -> list[dict[st
         # Preserve that source node instead of silently emitting an empty document.
         article_text = (article_properties.get("text") or "").strip()
         if article_text:
+            start = len('\n'.join(lines)) + 1
             lines.append(article_text)
             evidence_ids.append(article["id"])
+            spans.append(dict(physical_node_id=article['id'],start=start,end=start+len(article_text)))
         stack = list(reversed(children.get(article["id"], [])))
         while stack:
             node = stack.pop()
@@ -73,7 +91,9 @@ def build_article_corpus(graph_path: str | Path = DEFAULT_GRAPH) -> list[dict[st
                     prefix = f"{number}. "
                 elif kind == "POINT" and marker:
                     prefix = f"{marker}) "
+                start = len('\n'.join(lines)) + 1
                 lines.append(prefix + text)
+                spans.append(dict(physical_node_id=node['id'],start=start,end=start+len(prefix+text)))
                 evidence_ids.append(node["id"])
             stack.extend(reversed(children.get(node["id"], [])))
         documents.append(
@@ -82,6 +102,7 @@ def build_article_corpus(graph_path: str | Path = DEFAULT_GRAPH) -> list[dict[st
                 "article_number": article_number,
                 "physical_article_node_id": article["id"],
                 "physical_evidence_node_ids": evidence_ids,
+                "source_spans": spans,
                 "text": "\n".join(lines),
             }
         )
