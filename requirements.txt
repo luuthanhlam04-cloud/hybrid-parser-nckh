@@ -39,3 +39,7 @@ sentence-transformers>=3.0.0
 # --- Module 8: Fusion / SHACL Validation ---
 rdflib>=7.6.0
 pyshacl>=0.40.2
+
+# --- Benchmark B: LightRAG baseline (installed only when this baseline is run) ---
+# Package imports as `lightrag`; Benchmark B refuses to produce mock results.
+lightrag-hku

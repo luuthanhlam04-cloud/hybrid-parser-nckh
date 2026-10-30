@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .env
 
+# Runtime artefacts created by the independent Benchmark B runs.
+outputs/benchmark_b/
+
