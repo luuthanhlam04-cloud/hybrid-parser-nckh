@@ -107,7 +107,13 @@ def test_ingestor_batches_nodes_and_edges_and_initializes_schema():
         "node_batches": 2,
         "edge_batches": 1,
     }
-    assert driver.write_batch_sizes == [1, 1, 1]
+    # Current ingestor uses session.run; older driver variants used execute_write.
+    observed_batch_sizes = driver.write_batch_sizes or [
+        len(parameters["rows"])
+        for query, parameters in driver.queries
+        if "UNWIND $rows AS row" in query and "rows" in parameters
+    ]
+    assert observed_batch_sizes == [1, 1, 1]
     assert any("CREATE CONSTRAINT ukg_node_id" in query for query, _ in driver.queries)
     assert any("CREATE FULLTEXT INDEX ukg_node_text" in query for query, _ in driver.queries)
     assert any("UNWIND $rows AS row" in query for query, _ in driver.queries)

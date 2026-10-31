@@ -22,6 +22,16 @@ def citations(text):
     return found
 
 
+def _normalise_path(path):
+    """Canonicalise a path representation while preserving legal step order."""
+    steps=[]
+    for step in path.get('steps',[]):
+        item=(str(step.get('source','')).strip(),str(step.get('relation_type','')).strip(),str(step.get('target','')).strip())
+        if all(item) and (not steps or steps[-1] != item):
+            steps.append(item)
+    return tuple(steps)
+
+
 def evaluate(q, result):
     positive=q['answerability']=='ANSWERABLE_IN_CHAPTER_III'
     evidence=result.get('evidence')
@@ -40,20 +50,22 @@ def evaluate(q, result):
         put('hierarchy_'+role,recall(locs,context_found),positive and bool(locs),context is not None and all(x['alignment_status']=='EXACT' for x in context))
     chain_sets=q.get('accepted_chain_sets',[])
     paths=result.get('reference_paths')
-    tuples=lambda path:[(s['source'],s['relation_type'],s['target']) for s in path['steps']]
+    tuples=_normalise_path
     labels_reviewed=all(s.get('review_status') in {'REVIEWED','STRUCTURAL'} for group in chain_sets for p in group['required_paths'] for s in p['steps'])
     if chain_sets and paths is not None:
-        actual=[tuples(p) for p in paths]; actual_edges={s for p in actual for s in p}
+        actual=list(dict.fromkeys(tuples(p) for p in paths if tuples(p))); actual_edges={s for p in actual for s in p}
         candidates=[]
         for group in chain_sets:
-            expected=[tuples(p) for p in group['required_paths']]; edges={s for p in expected for s in p}
+            expected=list(dict.fromkeys(tuples(p) for p in group['required_paths'] if tuples(p))); edges={s for p in expected for s in p}
             intersection=len(edges&actual_edges); precision=intersection/len(actual_edges) if actual_edges else 0
             r=intersection/len(edges) if edges else 0
             candidates.append(dict(chain_step_precision=precision,chain_step_recall=r,chain_step_f1=2*precision*r/(precision+r) if precision+r else 0,
                 chain_exact_match=float(all(p in actual for p in expected) and all(p in expected for p in actual)),
                 reference_target_recall=recall({s[2] for s in edges},{s[2] for s in actual_edges}),
                 edge_label_accuracy=intersection/len({s for s in actual_edges if (s[0],s[2]) in {(e[0],e[2]) for e in edges}}) if any((s[0],s[2]) in {(e[0],e[2]) for e in edges} for s in actual_edges) else 0))
-        best=max(candidates,key=lambda x:(x['chain_step_f1'],x['chain_exact_match']))
+        # A fully matching accepted alternative is strictly preferable to a
+        # partially overlapping alternative; otherwise report its best F1.
+        best=max(candidates,key=lambda x:(x['chain_exact_match'],x['chain_step_f1']))
     else: best={}
     for name in ['chain_step_precision','chain_step_recall','chain_step_f1','chain_exact_match','reference_target_recall','edge_label_accuracy']:
         put(name,best.get(name),positive and bool(chain_sets),paths is not None and labels_reviewed)

@@ -15,9 +15,9 @@ def main():
     parser.add_argument("question", type=str, help="Câu hỏi pháp lý bằng tiếng Việt")
     parser.add_argument(
         "--mode",
-        choices=["A", "B", "AUTO"],
-        default="AUTO",
-        help="Mode A (Norm), Mode B (k-hop), hoặc AUTO (Ưu tiên A, tự fallback sang B nếu rỗng)",
+        choices=["A", "B", "AUTO", "AUTO_FUSION"],
+        default="AUTO_FUSION",
+        help="Mode A, Mode B legacy, hoặc AUTO_FUSION (Jev + norm + typed reference + hierarchy)",
     )
     parser.add_argument("--top-k", type=int, default=5, help="Số lượng mỏ neo (Anchor nodes) cần tìm")
     args = parser.parse_args()
@@ -42,11 +42,13 @@ def main():
     
     print(f"[*] Khởi tạo M10 Pipeline (Đang load model nhúng sentence-transformers, có thể hơi lâu chút)...")
     try:
+        from src.retrieval.jev_client import JevClient
         pipeline = M10Pipeline(
             anchor_search=AnchorSearch(driver=driver),
             graph_query=GraphQuery(driver=driver),
             answer_generator=AnswerGenerator.from_environment(),
-            context_assembler=ContextAssembler()
+            context_assembler=ContextAssembler(),
+            jev_client=JevClient.from_environment(),
         )
         
         print(f"\n[*] Đang truy vấn câu hỏi (Mode {args.mode}): '{args.question}'")

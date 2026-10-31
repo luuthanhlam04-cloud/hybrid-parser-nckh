@@ -205,6 +205,12 @@ def _validate(
         if not isinstance(raw.get(field), (int, float)) or not 0 <= raw[field] <= 1:
             raise ValueError(f"Judge returned invalid {field}")
     negative = question["answerability"] == "INSUFFICIENT_CORPUS"
+    # These fields are semantically N/A for an answerable question. Some providers
+    # still emit a boolean/score despite the strict response schema, which should
+    # not discard an otherwise valid judgement or force a full benchmark rerun.
+    if not negative:
+        raw["correctly_abstained"] = None
+        raw["refusal_quality"] = None
     abstained = raw.get("correctly_abstained")
     if negative and not isinstance(abstained, bool):
         raise ValueError("Negative question requires boolean correctly_abstained")

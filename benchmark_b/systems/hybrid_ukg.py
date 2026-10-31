@@ -14,11 +14,12 @@ from .base import BenchmarkSystem
 class HybridUKGSystem(BenchmarkSystem):
     name = "hybrid_ukg"
 
-    def __init__(self, output_dir: str | Path, *, mode: str = "AUTO") -> None:
+    def __init__(self, output_dir: str | Path, *, mode: str = "AUTO_FUSION") -> None:
         super().__init__(output_dir)
         self.mode = mode
         self._pipeline: Any | None = None
         self._driver: Any | None = None
+        self._jev_events: Any | None = None
 
     def readiness(self) -> dict[str, Any]:
         required = [
@@ -54,6 +55,7 @@ class HybridUKGSystem(BenchmarkSystem):
             from src.retrieval.answer_generator import AnswerGenerator
             from src.retrieval.context_assembler import ContextAssembler
             from src.retrieval.graph_query import GraphQuery
+            from src.retrieval.jev_client import JevClient
             from src.retrieval.m10_pipeline import M10Pipeline
         except ImportError as exc:
             raise RuntimeError("Hybrid benchmark dependencies are missing; install requirements.txt.") from exc
@@ -61,12 +63,20 @@ class HybridUKGSystem(BenchmarkSystem):
             os.getenv("NEO4J_URI", "neo4j+s://59bbc655.databases.neo4j.io"),
             auth=(os.getenv("NEO4J_USERNAME", "neo4j"), os.getenv("NEO4J_PASSWORD", "")),
         )
+        from benchmark_b.events import EventLog
+        self._jev_events = EventLog(
+            self.output_dir / "jev_api_events.jsonl",
+            self.name,
+            self.output_dir.name,
+        )
+        jev_client = JevClient.from_environment(event_log=self._jev_events)
         self._pipeline = M10Pipeline(
             anchor_search=AnchorSearch(driver=self._driver),
             graph_query=GraphQuery(driver=self._driver),
             answer_generator=AnswerGenerator.from_environment(),
             context_assembler=ContextAssembler(),
             log_path=None,
+            jev_client=jev_client,
         )
         return self._pipeline
 
@@ -85,32 +95,68 @@ class HybridUKGSystem(BenchmarkSystem):
                 articles.append(article_id)
         return articles
 
+    @staticmethod
+    def _articles_from_evidence(evidence: list[dict[str, Any]]) -> list[str]:
+        articles=[]
+        for item in evidence:
+            locator=str(item.get('canonical_locator') or '')
+            if ':A' not in locator:
+                continue
+            number=locator.split(':A',1)[1].split(':',1)[0]
+            article_id=f"31/2024/qh15#{number}"
+            if article_id not in articles:
+                articles.append(article_id)
+        return articles
+
     def answer(self, question: dict[str, Any], *, top_k: int) -> dict[str, Any]:
         started = time.perf_counter()
-        result = self._get_pipeline().answer(question["question"], mode=self.mode, top_k=top_k)
+        result = self._get_pipeline().answer(
+            question["question"], mode=self.mode, top_k=top_k, question_id=question["question_id"]
+        )
         from benchmark_b.prepare import MAP
         from benchmark_b.alignment import hybrid_evidence, hybrid_paths
         evidence, context_evidence = hybrid_evidence(result, json.loads(MAP.read_text(encoding='utf-8')))
+        anchor_articles=self._articles_from_anchors(result["anchors"])
+        expanded_articles=self._articles_from_evidence(result.get('expanded_evidence',[]))
+        context_articles=self._articles_from_evidence(result.get('context_evidence',[]))
         return {
             "evidence": evidence,
             "context_evidence": context_evidence,
-            "reference_paths": hybrid_paths(result.get('retrieval_records',[]),json.loads(MAP.read_text(encoding='utf-8'))) if str(result.get('mode','')).startswith('B') else None,
-            "reference_path_status": "M10 traversal does not expose directed typed reference edges",
+            "reference_paths": result.get('reference_paths') if result.get('reference_paths') is not None else hybrid_paths(result.get('retrieval_records',[]),json.loads(MAP.read_text(encoding='utf-8'))),
+            "answer_paths": result.get("answer_paths"),
+            "explicit_reference_edges": result.get("explicit_reference_edges"),
+            "selected_hierarchy_steps": result.get("selected_hierarchy_steps"),
+            "answer_path_trace": result.get("answer_path_trace"),
+            "reference_path_status": "OBSERVED_EXPLICIT_TEXT_TYPED_PATHS" if result.get('reference_paths') is not None else "LEGACY_MODE",
             "context": result.get("context"),
             "retrieval_records": result.get("retrieval_records"),
             "question_id": question["question_id"],
             "system": self.name,
             "answer": result["answer"],
-            "retrieved_article_ids": self._articles_from_anchors(result["anchors"]),
+            "retrieved_article_ids": anchor_articles,
+            "anchor_article_ids": anchor_articles,
+            "expanded_article_ids": expanded_articles,
+            "context_article_ids": context_articles,
             "retrieval_evidence": "anchor_article_projection",
             "latency_ms": round((time.perf_counter() - started) * 1000, 2),
             "model": result.get("model"),
             "usage": result.get("usage"),
             "mode": result.get("mode"),
             "retrieved_count": result.get("retrieved_count"),
+            "routing_trace": result.get("routing_trace"),
+            "answerability_trace": result.get("answerability_trace"),
+            "expanded_evidence": result.get("expanded_evidence"),
+            "context_budget": result.get("context_budget"),
+            "retrieval_stage_counts": result.get("retrieval_stage_counts"),
         }
 
+    def jev_cost_summary(self) -> dict[str, Any] | None:
+        return self._jev_events.summary(phase='jev',scope='m10_jev_routing_and_gating') if self._jev_events else None
+
     def close(self) -> None:
+        if self._pipeline is not None and hasattr(self._pipeline,'close'):
+            self._pipeline.close()
+        self._pipeline = None
         if self._driver is not None:
             self._driver.close()
             self._driver = None

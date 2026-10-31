@@ -17,13 +17,14 @@ from .prepare import V2, MAP, prepare, verify_mapping, sha
 from .structural_metrics import evaluate, aggregate
 from .review import template, scores as review_scores
 from .llm_judge import LLMJudge, DEFAULT_JUDGE_MODEL
+from .events import EventLog
 
 
 OUTPUT_ROOT = Path("outputs/benchmark_b")
 FINAL_GOLD = Path("datasets/benchmarks/benchmark_B_v03.json")
 
 
-def get_system(name: str, *, mode: str = "AUTO") -> Any:
+def get_system(name: str, *, mode: str = "AUTO_FUSION") -> Any:
     if name == "hybrid":
         return HybridUKGSystem(OUTPUT_ROOT / "hybrid", mode=mode)
     if name == "lightrag":
@@ -52,6 +53,7 @@ def run_benchmark(
     run_id=None,
     dataset_path: str | Path = FINAL_GOLD,
     judge_model: str | None = DEFAULT_JUDGE_MODEL,
+    question_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     system = get_system(system_name, mode=mode)
     if run_id:
@@ -70,6 +72,11 @@ def run_benchmark(
     if (system.output_dir / 'answers.jsonl').exists(): raise ValueError('Run already exists; use another --run-id')
     if limit is not None:
         questions = questions[:limit]
+    if question_ids:
+        unknown=question_ids-{question['question_id'] for question in questions}
+        if unknown:
+            raise ValueError(f"Unknown or excluded question IDs: {sorted(unknown)}")
+        questions=[question for question in questions if question['question_id'] in question_ids]
     results: list[dict[str, Any]] = []
     started = time.perf_counter()
     try:
@@ -109,6 +116,12 @@ def run_benchmark(
     deterministic_metrics = summarise(scores)
     if judge_model:
         deterministic_metrics["legal_correctness"] = f"llm_judged:{judge_model}"
+    query_cost=system.ledger.to_dict() if isinstance(system, LightRAGSystem) else aggregate_hybrid_usage(results)
+    jev_cost=system.jev_cost_summary() if isinstance(system, HybridUKGSystem) else None
+    unresolved_context=sum(
+        item.get('alignment_status')=='UNRESOLVED'
+        for result in results for item in (result.get('context_evidence') or [])
+    )
     report = {
         "system": system.name,
         "questions_run": len(results),
@@ -117,7 +130,22 @@ def run_benchmark(
         "structural_metrics": structural_report,
         "dataset_sha256": sha(dataset_path),
         "physical_graph_sha256": sha('outputs/physical_graphs/physical_graph.json'),
-        "query_cost_ledger": system.ledger.to_dict() if isinstance(system, LightRAGSystem) else aggregate_hybrid_usage(results),
+        "query_cost_ledger": query_cost,
+        "jev_cost_ledger": jev_cost,
+        "cost_separation": {
+            "query_answer_model": query_cost,
+            "jev_routing_and_gating": jev_cost,
+            "llm_judge": judge_summary,
+        },
+        "provenance_audit": {
+            "context_evidence_items": sum(len(result.get('context_evidence') or []) for result in results),
+            "context_evidence_unresolved": unresolved_context,
+            "all_context_items_mapped_or_marked_unresolved": all(
+                item.get('alignment_status') in {'EXACT','UNRESOLVED'}
+                for result in results for item in (result.get('context_evidence') or [])
+            ),
+            "gold_fields_passed_to_m10": False,
+        },
         "dataset": str(dataset_path),
         "dataset_status": dataset_report.get("status"),
         "llm_judge": judge_summary,
@@ -157,6 +185,24 @@ def judge_existing_answers(
         )
     finally:
         judge.close()
+    # A failed/resumed judge run may have more than one run_id in the same durable ledger.
+    # The final benchmark cost must include every paid judge attempt, including invalid-schema retries.
+    judge_event_path = output_dir / "judge_api_events.jsonl"
+    judge_events = [
+        json.loads(line) for line in judge_event_path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and json.loads(line).get("phase") == "judge"
+    ] if judge_event_path.is_file() else []
+    judge_summary["all_run_attempts"] = {
+        "calls": len(judge_events),
+        "prompt_tokens": sum(event.get("prompt_tokens") or 0 for event in judge_events),
+        "completion_tokens": sum(event.get("completion_tokens") or 0 for event in judge_events),
+        "known_provider_cost_usd": sum(event.get("provider_cost_usd") or 0 for event in judge_events),
+        "missing_usage_calls": sum(
+            event.get("prompt_tokens") is None or event.get("completion_tokens") is None
+            for event in judge_events
+        ),
+        "missing_cost_calls": sum(event.get("provider_cost_usd") is None for event in judge_events),
+    }
     for result, question, decision in zip(results, questions, decisions, strict=True):
         result["human_review"] = review_scores(question, decision)
         result["llm_judge_provenance"] = {
@@ -176,7 +222,48 @@ def judge_existing_answers(
         [dict(question_id=q["question_id"], metrics=m) for q, m in zip(questions, structural, strict=True)],
     )
     report_path = output_dir / "metrics.json"
-    report = json.loads(report_path.read_text(encoding="utf-8"))
+    if report_path.is_file():
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+    else:
+        # Resume path: answers completed but the original run stopped during judging.
+        # Reconstruct the deterministic report without rerunning M10, Jev, or generation.
+        query_cost = aggregate_hybrid_usage(results)
+        jev_cost = EventLog(
+            output_dir / "jev_api_events.jsonl", "hybrid_ukg", output_dir.name,
+        ).summary(phase="jev", scope="m10_jev_routing_and_gating")
+        unresolved_context = sum(
+            item.get("alignment_status") == "UNRESOLVED"
+            for result in results for item in (result.get("context_evidence") or [])
+        )
+        report = {
+            "system": "hybrid_ukg",
+            "questions_run": len(results),
+            "metrics": summarise([
+                evaluate_record(question, result)
+                for question, result in zip(questions, results, strict=True)
+            ]),
+            "dataset_sha256": sha(dataset_path),
+            "physical_graph_sha256": sha("outputs/physical_graphs/physical_graph.json"),
+            "query_cost_ledger": query_cost,
+            "jev_cost_ledger": jev_cost,
+            "cost_separation": {
+                "query_answer_model": query_cost,
+                "jev_routing_and_gating": jev_cost,
+                "llm_judge": judge_summary,
+            },
+            "provenance_audit": {
+                "context_evidence_items": sum(len(result.get("context_evidence") or []) for result in results),
+                "context_evidence_unresolved": unresolved_context,
+                "all_context_items_mapped_or_marked_unresolved": all(
+                    item.get("alignment_status") in {"EXACT", "UNRESOLVED"}
+                    for result in results for item in (result.get("context_evidence") or [])
+                ),
+                "gold_fields_passed_to_m10": False,
+            },
+            "dataset": str(dataset_path),
+            "dataset_status": dataset_report.get("status"),
+            "recovered_after_judge_interruption": True,
+        }
     report["structural_metrics"] = structural_report
     report["llm_judge"] = judge_summary
     report["metrics"]["legal_correctness"] = f"llm_judged:{judge_model}"
@@ -241,10 +328,11 @@ def main() -> None:
     run_parser.add_argument("--limit", type=int)
     run_parser.add_argument('--run-id',required=True)
     run_parser.add_argument("--top-k", type=int, default=5)
-    run_parser.add_argument("--mode", choices=["A", "B", "AUTO"], default="AUTO", help="Hybrid M10 retrieval mode")
+    run_parser.add_argument("--mode", choices=["A", "B", "AUTO", "AUTO_FUSION"], default="AUTO_FUSION", help="Hybrid M10 retrieval mode")
     run_parser.add_argument('--dataset',default=str(FINAL_GOLD))
     run_parser.add_argument('--judge-model',default=DEFAULT_JUDGE_MODEL)
     run_parser.add_argument('--skip-judge',action='store_true')
+    run_parser.add_argument('--question-id',action='append',default=[],help='Run selected IDs only (repeatable; evaluation harness only)')
     args = parser.parse_args()
 
     if args.command == 'prepare-v02':
@@ -305,6 +393,7 @@ def main() -> None:
     print(json.dumps(run_benchmark(
         args.system, limit=args.limit, top_k=args.top_k, mode=args.mode, run_id=args.run_id,
         dataset_path=args.dataset, judge_model=None if args.skip_judge else args.judge_model,
+        question_ids=set(args.question_id) or None,
     ), ensure_ascii=False, indent=2))
 
 

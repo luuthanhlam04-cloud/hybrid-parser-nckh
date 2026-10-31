@@ -90,3 +90,22 @@ def test_retrieval_rejects_invalid_limits_and_anchor_ids():
             pass
         else:
             raise AssertionError("Expected invalid retrieval arguments to be rejected.")
+
+
+def test_explicit_reference_parser_preserves_source_type_target_and_dd_locator():
+    refs=GraphQuery._extract_reference_locators(
+        "Ngoài điều kiện quy định tại điểm đ khoản 1 Điều 46 của Luật này.",
+        "LD2024:A45:K3:Da",
+    )
+    assert refs == [("LD2024:A46:K1:Dđ", "REQUIRES_CONDITION_FROM")]
+
+
+def test_explicit_reference_parser_handles_inheritance_and_multiple_articles():
+    refs=GraphQuery._extract_reference_locators(
+        "Có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
+        "LD2024:A32:K1",
+    )
+    assert refs == [
+        ("LD2024:A26", "INHERITS_RIGHTS_OBLIGATIONS"),
+        ("LD2024:A31", "INHERITS_RIGHTS_OBLIGATIONS"),
+    ]

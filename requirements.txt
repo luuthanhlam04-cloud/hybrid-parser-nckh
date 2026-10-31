@@ -13,6 +13,7 @@ lxml>=5.2.0                 # Phân tích XML word/numbering.xml (tầng dự ph
 
 # --- Tiện ích ---
 python-dotenv>=1.0.0        # Quản lý biến môi trường từ .env
+httpx>=0.27.0               # OpenRouter Decisions API (Jev)
 
 # ============================================================
 # Các module sắp tới (placeholder cho Module 2+)

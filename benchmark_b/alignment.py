@@ -22,6 +22,28 @@ def align(source_id, text, rank, mapping, score=None, stage='retrieved', article
 
 
 def hybrid_evidence(result, mapping):
+    if result.get('expanded_evidence') is not None:
+        def from_candidates(rows, stage):
+            output=[]
+            known=mapping['mappings']
+            for candidate in rows:
+                locator=candidate.get('canonical_locator')
+                mapped=bool(locator and locator in known)
+                output.append(EvidenceItem(
+                    rank=len(output)+1,
+                    raw_source_id=str(candidate.get('node_id') or 'UNRESOLVED'),
+                    canonical_locators=[locator] if mapped else [],
+                    granularity='POINT' if locator and ':D' in locator else 'CLAUSE' if locator and ':K' in locator else 'ARTICLE',
+                    alignment_status='EXACT' if mapped else 'UNRESOLVED',
+                    retrieval_score=candidate.get('rank_score'),
+                    text=str(candidate.get('text') or ''),
+                    stage=stage,
+                ).model_dump())
+            return output
+        return (
+            from_candidates(result.get('expanded_evidence',[]),'expanded'),
+            from_candidates(result.get('context_evidence',[]),'generation_context'),
+        )
     evidence = []
     context = result.get('context','')
     for record in result.get('retrieval_records', []):

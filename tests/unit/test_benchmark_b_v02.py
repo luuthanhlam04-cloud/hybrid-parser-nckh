@@ -57,6 +57,13 @@ def test_branches_required_alternatives_and_order():
     assert evaluate(q,result)['chain_exact_match']['value']==1
 
 
+def test_chain_matching_normalises_duplicate_runtime_steps():
+    q=question(); a=dict(source='A',target='B',relation_type='DIRECT_REFERENCE',review_status='REVIEWED'); b=dict(source='B',target='C',relation_type='DIRECT_REFERENCE',review_status='REVIEWED')
+    q['accepted_chain_sets']=[dict(required_paths=[dict(steps=[a,b])])]
+    result=dict(answer='',evidence=[],reference_paths=[dict(steps=[a,a,b])])
+    assert evaluate(q,result)['chain_exact_match']['value']==1
+
+
 def test_denominators_and_explicit_citations():
     rows=[evaluate(question(),dict(answer='',evidence=[]))]
     report=aggregate(rows)
