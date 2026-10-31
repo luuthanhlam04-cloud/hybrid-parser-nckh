@@ -1,0 +1,1959 @@
+{
+  "benchmark_version": "B-v0.2",
+  "physical_graph_sha256": "fca49285c206607f6ed1cdd931917705f781e4d4deda5453c18c2b733823f6f3",
+  "mappings": {
+    "LD2024:A26": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_p180",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 13,
+      "source_end_idx": 14
+    },
+    "LD2024:A26:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-1_p223",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất khi có đủ điều kiện theo quy định của pháp luật về đất đai.",
+      "text_sha256": "ae273500d7042886203dbfa6329172e7946b420bb3642c5467fc9f7c7cc985bf",
+      "source_start_idx": 14,
+      "source_end_idx": 15
+    },
+    "LD2024:A26:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-2_p365",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Hưởng thành quả lao động, kết quả đầu tư trên đất sử dụng hợp pháp.",
+      "text_sha256": "10eaac09bf87a939565ff5ec6777563b7fbe68556d06d89fa35ff0eef72277bb",
+      "source_start_idx": 15,
+      "source_end_idx": 16
+    },
+    "LD2024:A26:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-3_p433",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Hưởng các lợi ích khi Nhà nước đầu tư để bảo vệ, cải tạo và phát triển đất nông nghiệp.",
+      "text_sha256": "1eedf5ac8cd2480c5a737029b944fbb66da1ac5252f7b9e1f2ff18fe90c2fd77",
+      "source_start_idx": 16,
+      "source_end_idx": 17
+    },
+    "LD2024:A26:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-4_p521",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Được Nhà nước hướng dẫn và giúp đỡ trong việc cải tạo, phục hồi đất nông nghiệp.",
+      "text_sha256": "8e59f1d975936bf5c8e4223886a79016b40f7c24d1d9326a7ada35101d0b80cd",
+      "source_start_idx": 17,
+      "source_end_idx": 18
+    },
+    "LD2024:A26:K5": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-5_p602",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Được Nhà nước bảo hộ khi người khác xâm phạm quyền, lợi ích hợp pháp về đất đai của mình.",
+      "text_sha256": "f4319f7ce15d54568c3cd675bd97a83164555092b975014062a970d6a548ccc5",
+      "source_start_idx": 18,
+      "source_end_idx": 19
+    },
+    "LD2024:A26:K6": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-6_p692",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Được quyền chuyển mục đích sử dụng đất theo quy định của Luật này và quy định khác của pháp luật có liên quan.",
+      "text_sha256": "0ce3e835c0fccf44e3ecfd1b6c556bb8c0be65964970439ea2cfdcfa8b5e5285",
+      "source_start_idx": 19,
+      "source_end_idx": 20
+    },
+    "LD2024:A26:K7": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-7_p803",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Được bồi thường, hỗ trợ, tái định cư khi Nhà nước thu hồi đất theo quy định của Luật này.",
+      "text_sha256": "bb3c4fe016c4e1cc52b12d1fc72f09b90d28ec40dd17eb345ce215d3f88fedd1",
+      "source_start_idx": 20,
+      "source_end_idx": 21
+    },
+    "LD2024:A26:K8": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-26_khoan-8_p893",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A26",
+      "text": "Khiếu nại, tố cáo, khởi kiện về những hành vi vi phạm quyền sử dụng đất hợp pháp của mình và những hành vi khác vi phạm pháp luật về đất đai.",
+      "text_sha256": "ef8ecd05d4d503b985ddbf28ae2771330fe3a8e41b6c2e494180ae6aeb4d3d34",
+      "source_start_idx": 21,
+      "source_end_idx": 22
+    },
+    "LD2024:A27": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_p1035",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 22,
+      "source_end_idx": 23
+    },
+    "LD2024:A27:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-1_p1179",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A27",
+      "text": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của Luật này và luật khác có liên quan.",
+      "text_sha256": "0d5ace6dfd1be161ac896ff5368fd244672aab25dc277fc7bd13c212e28cefe6",
+      "source_start_idx": 23,
+      "source_end_idx": 24
+    },
+    "LD2024:A27:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_p1405",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A27",
+      "text": "Nhóm người sử dụng đất mà có chung quyền sử dụng đất thì có các quyền và nghĩa vụ như sau:",
+      "text_sha256": "3f3baa6d45368e6fe11a1bb8d438a566cba3b92253d6086116423916ab41dff1",
+      "source_start_idx": 24,
+      "source_end_idx": 25
+    },
+    "LD2024:A27:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-a_p1496",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A27:K2",
+      "text": "Nhóm người sử dụng đất bao gồm thành viên hộ gia đình, cá nhân thì có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân theo quy định của Luật này.\nTrường hợp trong nhóm người sử dụng đất có thành viên là tổ chức kinh tế thì có quyền và nghĩa vụ như quyền và nghĩa vụ của tổ chức kinh tế theo quy định của Luật này;",
+      "text_sha256": "6d8bc575cddd2227c8d79ef31901fc7d28118c6297cd83b864140091e25671e9",
+      "source_start_idx": 25,
+      "source_end_idx": 27
+    },
+    "LD2024:A27:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-2_diem-b_p1817",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A27:K2",
+      "text": "Trường hợp nhóm người sử dụng đất mà quyền sử dụng đất phân chia được theo phần cho từng thành viên trong nhóm, nếu từng thành viên của nhóm muốn thực hiện quyền đối với phần quyền sử dụng đất của mình thì phải thực hiện đăng ký biến động hoặc tách thửa theo quy định, làm thủ tục cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất và được thực hiện quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này.\nTrường hợp quyền sử dụng đất của nhóm người sử dụng đất không phân chia được theo phần thì các thành viên cùng nhau thực hiện hoặc ủy quyền cho người đại diện để thực hiện quyền và nghĩa vụ của nhóm người sử dụng đất.",
+      "text_sha256": "cdfdd109947af592d2e32ddac428713bc5a70a47b9f5081125de0a8b4f0a1d68",
+      "source_start_idx": 27,
+      "source_end_idx": 29
+    },
+    "LD2024:A27:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_p2482",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A27",
+      "text": "Việc công chứng, chứng thực hợp đồng, văn bản thực hiện các quyền của người sử dụng đất được thực hiện như sau:",
+      "text_sha256": "aa54a8dbfd818bc9863b5ed8d87aceab7ecf98c0ce0a944db2666e9438515481",
+      "source_start_idx": 29,
+      "source_end_idx": 30
+    },
+    "LD2024:A27:K3:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-a_p2594",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A27:K3",
+      "text": "Hợp đồng chuyển nhượng, tặng cho, thế chấp, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất phải được công chứng hoặc chứng thực, trừ trường hợp quy định tại điểm b khoản này;",
+      "text_sha256": "3cd9219275be489d0748efec15ae3ceef859eb1e2ad37759f1e80f9a3eb4372c",
+      "source_start_idx": 30,
+      "source_end_idx": 31
+    },
+    "LD2024:A27:K3:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-b_p2803",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A27:K3",
+      "text": "Hợp đồng cho thuê, cho thuê lại quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, hợp đồng chuyển đổi quyền sử dụng đất nông nghiệp; hợp đồng chuyển nhượng, góp vốn bằng quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất, tài sản gắn liền với đất mà một bên hoặc các bên tham gia giao dịch là tổ chức hoạt động kinh doanh bất động sản được công chứng hoặc chứng thực theo yêu cầu của các bên;",
+      "text_sha256": "a1d89bb74db23fcc0f5a2d3618da795315986e3ed87deb6a6d3ca00c65b12d48",
+      "source_start_idx": 31,
+      "source_end_idx": 32
+    },
+    "LD2024:A27:K3:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-c_p3229",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A27:K3",
+      "text": "Văn bản về thừa kế quyền sử dụng đất, quyền sử dụng đất và tài sản gắn liền với đất được công chứng hoặc chứng thực theo quy định của pháp luật về dân sự;",
+      "text_sha256": "e12d90865aa0840e0a7d9328d0ed8c095ae8830d048999c91c9b0bf6725fa5d0",
+      "source_start_idx": 32,
+      "source_end_idx": 33
+    },
+    "LD2024:A27:K3:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-27_khoan-3_diem-d_p3387",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A27:K3",
+      "text": "Việc công chứng, chứng thực thực hiện theo quy định của pháp luật về công chứng, chứng thực.",
+      "text_sha256": "6e52b206db56f51e542535ff7a889c962c41eee4b6b8cacec92dd6341132b983",
+      "source_start_idx": 33,
+      "source_end_idx": 34
+    },
+    "LD2024:A28": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_p3483",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 34,
+      "source_end_idx": 35
+    },
+    "LD2024:A28:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_p3515",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A28",
+      "text": "Người nhận quyền sử dụng đất được quy định như sau:",
+      "text_sha256": "02d9e40aa6c0deb4524dc4a5d450bffbf4a942245129642344ac2456f0024805",
+      "source_start_idx": 35,
+      "source_end_idx": 36
+    },
+    "LD2024:A28:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-a_p3567",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Cá nhân được nhận chuyển đổi quyền sử dụng đất quy định tại điểm b khoản 1 Điều 37 của Luật này;",
+      "text_sha256": "b99eb0ef6992d2c98a43c84c467ee90631d026a99abd7a59d1aca6f9493f6f1c",
+      "source_start_idx": 36,
+      "source_end_idx": 37
+    },
+    "LD2024:A28:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-b_p3667",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức kinh tế, cá nhân được nhận chuyển nhượng quyền sử dụng đất;",
+      "text_sha256": "6c159e7bdfee06e76f57e89699bfc8b4e285d6c790f6e08e0f50ed42fa22396c",
+      "source_start_idx": 37,
+      "source_end_idx": 38
+    },
+    "LD2024:A28:K1:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-c_p3738",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao;",
+      "text_sha256": "0acd79b1f040638f86dc9e0abfa5f2f890f673cc7487458f5e0bf079193cf824",
+      "source_start_idx": 38,
+      "source_end_idx": 39
+    },
+    "LD2024:A28:K1:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-d_p3957",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài được nhận chuyển nhượng vốn đầu tư là giá trị quyền sử dụng đất theo quy định của Chính phủ;",
+      "text_sha256": "02ee26a4e7b756184bb33d8a4c64ac5adf14f2fb7b578f547bac9c6644d2ca7d",
+      "source_start_idx": 39,
+      "source_end_idx": 40
+    },
+    "LD2024:A28:K1:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-dd_p4094",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức kinh tế, tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất;",
+      "text_sha256": "7d02d51175dac6a1cb26e7439c0adbcb94f5b361e5e45c0cb445b091c33ea1b0",
+      "source_start_idx": 40,
+      "source_end_idx": 41
+    },
+    "LD2024:A28:K1:De": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-e_p4192",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận tặng cho quyền sử dụng đất theo quy định của Luật này;",
+      "text_sha256": "96af8957e17fb8cbf0d5aa250919ed31f3bddac514e9c92f0cef978f719ca826",
+      "source_start_idx": 41,
+      "source_end_idx": 42
+    },
+    "LD2024:A28:K1:Dg": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-g_p4306",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức trong nước, cá nhân, cộng đồng dân cư được nhận thừa kế quyền sử dụng đất;",
+      "text_sha256": "ae3d3804052c85100c9ce52b96175027422ea4d455c089501ae4ea27a903b41b",
+      "source_start_idx": 42,
+      "source_end_idx": 43
+    },
+    "LD2024:A28:K1:Dh": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-h_p4392",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam được mua, thuê mua nhà ở gắn liền với quyền sử dụng đất ở, nhận quyền sử dụng đất ở trong dự án phát triển nhà ở; nhận thừa kế quyền sử dụng đất ở và các loại đất khác trong cùng thửa đất có nhà ở theo quy định của pháp luật về dân sự; nhận tặng cho nhà ở gắn liền với quyền sử dụng đất ở từ những người thuộc hàng thừa kế theo quy định của pháp luật về dân sự;",
+      "text_sha256": "bab5301e44457e0274927db28fa07aa9e840277270fdd439e9f48c344d324473",
+      "source_start_idx": 43,
+      "source_end_idx": 44
+    },
+    "LD2024:A28:K1:Di": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4830",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài được Nhà nước giao đất; tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước giao đất để thực hiện các dự án đầu tư xây dựng nhà ở để bán hoặc để bán kết hợp cho thuê;",
+      "text_sha256": "522834283610a48ed83cdf8247a5318ad4c64b8bdc84d8d004d3858fbe7a48cf",
+      "source_start_idx": 44,
+      "source_end_idx": 45
+    },
+    "LD2024:A28:K1:Dk": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-k_p5137",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài, tổ chức nước ngoài có chức năng ngoại giao được Nhà nước cho thuê đất;",
+      "text_sha256": "349126952306f5c2ded3edd69fd33d7c603c4d725031ab5819a0e40aba020056",
+      "source_start_idx": 45,
+      "source_end_idx": 47
+    },
+    "LD2024:A28:K1:Dl": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-l_p5395",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức trong nước, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước công nhận quyền sử dụng đất đối với đất đang được sử dụng ổn định;",
+      "text_sha256": "44b757795d1ae56eec6052f20ab62aa8b28226d5a2933887e30ca3b40cdcde12",
+      "source_start_idx": 47,
+      "source_end_idx": 48
+    },
+    "LD2024:A28:K1:Dm": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-m_p5572",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam, tổ chức kinh tế có vốn đầu tư nước ngoài được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai được Ủy ban nhân dân cấp có thẩm quyền công nhận; thỏa thuận trong hợp đồng thế chấp để xử lý nợ; quyết định của cơ quan nhà nước có thẩm quyền về giải quyết tranh chấp đất đai, khiếu nại, tố cáo về đất đai, bản án, quyết định của Tòa án, quyết định thi hành án của cơ quan thi hành án đã được thi hành; quyết định hoặc phán quyết của Trọng tài thương mại Việt Nam; văn bản công nhận kết quả đấu giá quyền sử dụng đất phù hợp với pháp luật; văn bản về việc chia, tách quyền sử dụng đất phù hợp với pháp luật đối với nhóm người sử dụng đất mà có chung quyền sử dụng đất;",
+      "text_sha256": "2315e10071422c25fedb910a878779d2826d808d3fe31b08bce55ea89d5e447d",
+      "source_start_idx": 48,
+      "source_end_idx": 49
+    },
+    "LD2024:A28:K1:Dn": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-n_p6367",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được nhận quyền sử dụng đất theo kết quả hòa giải thành về tranh chấp đất đai được Ủy ban nhân dân cấp có thẩm quyền công nhận; quyết định của cơ quan nhà nước có thẩm quyền về giải quyết tranh chấp đất đai, khiếu nại, tố cáo về đất đai, bản án, quyết định của Tòa án, quyết định thi hành án của cơ quan thi hành án đã được thi hành; quyết định hoặc phán quyết của Trọng tài thương mại Việt Nam;",
+      "text_sha256": "fe971e7e2668cabb0a02bfd99c25e37c3f47f7ed64b8407f0a3dd701b53cfce5",
+      "source_start_idx": 49,
+      "source_end_idx": 50
+    },
+    "LD2024:A28:K1:Do": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-o_p6830",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A28:K1",
+      "text": "Tổ chức trong nước là pháp nhân mới được hình thành thông qua việc chia, tách, sáp nhập, hợp nhất, chuyển đổi mô hình tổ chức theo quyết định của cơ quan, tổ chức có thẩm quyền hoặc văn bản về việc chia, tách, sáp nhập, hợp nhất, chuyển đổi mô hình tổ chức của tổ chức kinh tế phù hợp với pháp luật được nhận quyền sử dụng đất từ các tổ chức là pháp nhân bị chia, tách, sáp nhập, hợp nhất, chuyển đổi.",
+      "text_sha256": "a9a6188886d9911b9dfbb3d7a48884233290ecbae831a7a5ad7affc99ae73856",
+      "source_start_idx": 50,
+      "source_end_idx": 51
+    },
+    "LD2024:A28:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-2_p7235",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A28",
+      "text": "Tổ chức trong nước, cá nhân được nhận chuyển nhượng quyền sử dụng đất theo quy định của pháp luật không phụ thuộc vào nơi cư trú, nơi đóng trụ sở, trừ trường hợp quy định tại khoản 8 Điều 45 và Điều 48 của Luật này.",
+      "text_sha256": "2ef9b3a393ab11bc5249e8177e2fff0d15a2e423a01f2c43ab1e40818b1d9bfd",
+      "source_start_idx": 51,
+      "source_end_idx": 52
+    },
+    "LD2024:A28:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-28_khoan-3_p7451",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A28",
+      "text": "Đối với khu vực hạn chế tiếp cận đất đai thì việc nhận quyền sử dụng đất quy định tại khoản 1 và khoản 2 Điều này thực hiện theo trình tự, thủ tục do Chính phủ quy định.",
+      "text_sha256": "d04c2cf0708ce6908493f8331be228bd42711ed4257e1f62f28c1e8d4215b5b8",
+      "source_start_idx": 52,
+      "source_end_idx": 54
+    },
+    "LD2024:A29": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-29_p7622",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 54,
+      "source_end_idx": 55
+    },
+    "LD2024:A29:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-29_khoan-1_p7662",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A29",
+      "text": "Quyền đối với thửa đất liền kề bao gồm quyền về lối đi; cấp nước, thoát nước; tưới nước, tiêu nước trong canh tác; cấp khí ga; lắp đường dây tải điện, thông tin liên lạc và các nhu cầu cần thiết khác theo quy định của pháp luật.",
+      "text_sha256": "436d418cb2a886a9b61ead1fb330ff186d971547a7f4cf6335fc74ce5f426cd5",
+      "source_start_idx": 55,
+      "source_end_idx": 56
+    },
+    "LD2024:A29:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-29_khoan-2_p7891",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A29",
+      "text": "Việc xác lập, thay đổi hoặc chấm dứt quyền đối với thửa đất liền kề thực hiện theo quy định của pháp luật về dân sự; đồng thời phải thực hiện đăng ký theo quy định tại Điều 133 của Luật này đối với trường hợp quyền về lối đi; cấp nước, thoát nước; tưới nước, tiêu nước trong canh tác.",
+      "text_sha256": "5c6ce88a1f0a38dd88570868cadc70a6c877a48f4c4c4e08ec8321c95eee314c",
+      "source_start_idx": 56,
+      "source_end_idx": 57
+    },
+    "LD2024:A30": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-30_p8176",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 57,
+      "source_end_idx": 58
+    },
+    "LD2024:A30:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-1_p8228",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A30",
+      "text": "Tổ chức kinh tế, đơn vị sự nghiệp công lập, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài đang được Nhà nước cho thuê đất thu tiền thuê đất hằng năm nhưng thuộc trường hợp được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê theo quy định của Luật này được lựa chọn chuyển sang thuê đất trả tiền thuê đất một lần cho thời gian thuê đất còn lại và phải xác định lại giá đất để tính tiền thuê đất tại thời điểm có quyết định cho phép chuyển sang thuê đất theo hình thức trả tiền thuê đất một lần cho cả thời gian thuê theo quy định của Luật này.",
+      "text_sha256": "1122eed554eb265ba519acdf0d041c5d30da70d145565a8c8ba9487eba21cab7",
+      "source_start_idx": 58,
+      "source_end_idx": 59
+    },
+    "LD2024:A30:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-2_p8839",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A30",
+      "text": "Tổ chức kinh tế, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài đang được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê được lựa chọn chuyển sang thuê đất thu tiền thuê đất hằng năm. Tiền thuê đất đã nộp được khấu trừ vào tiền thuê đất hằng năm phải nộp theo quy định của Chính phủ.",
+      "text_sha256": "1eeaeb554b080603ed3440d69101275ef369a11bc1cd1a17729236b1626e701f",
+      "source_start_idx": 59,
+      "source_end_idx": 60
+    },
+    "LD2024:A30:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-30_khoan-3_p9190",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A30",
+      "text": "Đơn vị sự nghiệp công lập được Nhà nước giao đất không thu tiền sử dụng đất mà có nhu cầu sử dụng một phần hoặc toàn bộ diện tích được giao để sản xuất, kinh doanh, cung cấp dịch vụ thì được lựa chọn chuyển sang hình thức Nhà nước cho thuê đất thu tiền thuê đất hằng năm đối với phần diện tích đó.",
+      "text_sha256": "ab3bbb3792db6576b4a9963d9b84b1876495ab5b1ccbe9a6aed87c712d7c73d3",
+      "source_start_idx": 60,
+      "source_end_idx": 61
+    },
+    "LD2024:A31": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_p9488",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 61,
+      "source_end_idx": 62
+    },
+    "LD2024:A31:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-1_p9534",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A31",
+      "text": "Sử dụng đất đúng mục đích, đúng ranh giới thửa đất, đúng quy định về sử dụng độ sâu trong lòng đất và chiều cao trên không, bảo vệ các công trình công cộng trong lòng đất và tuân thủ quy định khác của pháp luật có liên quan.",
+      "text_sha256": "5be056e47e0ddfd86d499c1507bea2c2cc8fab4d390ad0dfd351b0987b9cbaf9",
+      "source_start_idx": 62,
+      "source_end_idx": 64
+    },
+    "LD2024:A31:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-2_p9760",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A31",
+      "text": "Thực hiện kê khai đăng ký đất đai; thực hiện đầy đủ thủ tục khi chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất theo quy định của pháp luật.",
+      "text_sha256": "bf159a592b446efe7768cd1a6389e8c1fc850e840c5cf1d7b6917cebf277c3d5",
+      "source_start_idx": 64,
+      "source_end_idx": 65
+    },
+    "LD2024:A31:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-3_p9982",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A31",
+      "text": "Thực hiện nghĩa vụ tài chính về đất đai theo quy định của pháp luật.",
+      "text_sha256": "bdb232ef6ea053741a178028daa4ae6b1dd14dfc26e3b0e2e2d47e47b07966d8",
+      "source_start_idx": 65,
+      "source_end_idx": 66
+    },
+    "LD2024:A31:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-4_p10051",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A31",
+      "text": "Thực hiện biện pháp bảo vệ đất; xử lý, cải tạo và phục hồi đất đối với khu vực đất bị ô nhiễm, thoái hóa do mình gây ra.",
+      "text_sha256": "a1aec7618c9f0b55912b3c6abc7b982176193781cfde6a918b2959be910951ff",
+      "source_start_idx": 66,
+      "source_end_idx": 67
+    },
+    "LD2024:A31:K5": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-5_p10172",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A31",
+      "text": "Tuân thủ quy định về bảo vệ môi trường, không làm tổn hại đến tài sản và lợi ích hợp pháp của người sử dụng đất có liên quan.",
+      "text_sha256": "11277f29b9fc946b7246645bca4744828332d6b433c0b2b9f92c848c1f8fd50e",
+      "source_start_idx": 67,
+      "source_end_idx": 68
+    },
+    "LD2024:A31:K6": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-6_p10298",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A31",
+      "text": "Tuân thủ quy định của pháp luật về việc tìm thấy vật trong lòng đất.",
+      "text_sha256": "fbebb6329baed49297e19ace8a6b025aa6132badd670da5cd94152690cdeda27",
+      "source_start_idx": 68,
+      "source_end_idx": 69
+    },
+    "LD2024:A31:K7": {
+      "physical_node_id": "doc_chuong-iii_muc-1_dieu-31_khoan-7_p10367",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A31",
+      "text": "Bàn giao lại đất khi Nhà nước có quyết định thu hồi đất theo quy định của pháp luật.",
+      "text_sha256": "5533957f21275c990297495dae729f9cec5cdfce9089f9fad057834f2201e517",
+      "source_start_idx": 69,
+      "source_end_idx": 71
+    },
+    "LD2024:A32": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-32_p10560",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 75,
+      "source_end_idx": 76
+    },
+    "LD2024:A32:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-1_p10707",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A32",
+      "text": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước giao đất không thu tiền sử dụng đất có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
+      "text_sha256": "60b678ada86018473c98abd8c941d3a7a5a1095ddd23e7116b3c9d191f12eaa2",
+      "source_start_idx": 76,
+      "source_end_idx": 77
+    },
+    "LD2024:A32:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-32_khoan-2_p10896",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A32",
+      "text": "Tổ chức trong nước, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước giao đất không thu tiền sử dụng đất không có quyền chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất.",
+      "text_sha256": "c47fef663aaf227900e36864fb875e73d691356bf4804bc8d39e41a47d5ba2be",
+      "source_start_idx": 77,
+      "source_end_idx": 78
+    },
+    "LD2024:A33": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_p11134",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 78,
+      "source_end_idx": 79
+    },
+    "LD2024:A33:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_p11293",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A33",
+      "text": "Tổ chức kinh tế được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê có quyền và nghĩa vụ sau đây:",
+      "text_sha256": "fba8145d8ad97755d90d2bc66654d9bc427da7c5a42096b5709452ee0355e9f6",
+      "source_start_idx": 79,
+      "source_end_idx": 81
+    },
+    "LD2024:A33:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-a_p11449",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K1",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 81,
+      "source_end_idx": 82
+    },
+    "LD2024:A33:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-b_p11522",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K1",
+      "text": "Chuyển nhượng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất;",
+      "text_sha256": "573f664d3fc611300e0cb636180c4602bc0f5fa7f2975be1e7ce2d2c1442da25",
+      "source_start_idx": 82,
+      "source_end_idx": 83
+    },
+    "LD2024:A33:K1:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-c_p11606",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K1",
+      "text": "Cho thuê quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất đối với trường hợp được Nhà nước giao đất có thu tiền sử dụng đất; cho thuê lại quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất đối với trường hợp được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê;",
+      "text_sha256": "9584047d82260c0bd97df5eb08e6e6223bdd714dbed2a14de78a63e2873cb3a1",
+      "source_start_idx": 83,
+      "source_end_idx": 84
+    },
+    "LD2024:A33:K1:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-d_p11925",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K1",
+      "text": "Tặng cho quyền sử dụng đất cho Nhà nước; tặng cho quyền sử dụng đất cho cộng đồng dân cư để xây dựng các công trình phục vụ lợi ích chung của cộng đồng hoặc mở rộng đường giao thông theo quy hoạch; tặng cho quyền sử dụng đất để làm nhà tình nghĩa, nhà tình thương, nhà đại đoàn kết gắn liền với đất theo quy định của pháp luật;",
+      "text_sha256": "37378bd6f2d9a92d3f005648fe41815806c933ac22a400a6a4c444d0e51f5368",
+      "source_start_idx": 84,
+      "source_end_idx": 85
+    },
+    "LD2024:A33:K1:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-dd_p12256",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K1",
+      "text": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật;",
+      "text_sha256": "977d6c00d993837e07cd5ace14c34d201786ad7df265149b07494bce6cef1db6",
+      "source_start_idx": 85,
+      "source_end_idx": 86
+    },
+    "LD2024:A33:K1:De": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-1_diem-e_p12460",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K1",
+      "text": "Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất với tổ chức trong nước, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài theo quy định của pháp luật.",
+      "text_sha256": "1be0cf9bb3364bc622f650b1b0df2f289b9460cbe2922f4644d69f40525e2aaa",
+      "source_start_idx": 86,
+      "source_end_idx": 87
+    },
+    "LD2024:A33:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-2_p12686",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A33",
+      "text": "Đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê để đầu tư xây dựng kinh doanh kết cấu hạ tầng khu công nghiệp, cụm công nghiệp quy định tại khoản 2 Điều 202 của Luật này thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này.",
+      "text_sha256": "8d167fab84d04d81031c822d212e828e4f5d0fc06988192d59d0718b94f21d11",
+      "source_start_idx": 87,
+      "source_end_idx": 88
+    },
+    "LD2024:A33:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_p12965",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A33",
+      "text": "Tổ chức trong nước được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê nhưng được miễn, giảm tiền sử dụng đất, tiền thuê đất thì có các quyền và nghĩa vụ theo quy định sau đây:",
+      "text_sha256": "e8642789a1cdecf205e7040c52020d372b79ad61aa2296b8bd841a4dd0be3d3c",
+      "source_start_idx": 88,
+      "source_end_idx": 89
+    },
+    "LD2024:A33:K3:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-a_p13199",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K3",
+      "text": "Trường hợp được Nhà nước giao đất để thực hiện dự án đầu tư xây dựng nhà ở xã hội, nhà ở cho lực lượng vũ trang nhân dân, dự án đầu tư cải tạo, xây dựng lại nhà chung cư mà được miễn hoặc giảm tiền sử dụng đất thì có quyền và nghĩa vụ như trường hợp không được miễn hoặc không được giảm tiền sử dụng đất;",
+      "text_sha256": "9888a1f5c3b4f6e1270429aa292c1b5d17e7176b7baf7e80a4dc08fd7f098dd0",
+      "source_start_idx": 89,
+      "source_end_idx": 91
+    },
+    "LD2024:A33:K3:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-33_khoan-3_diem-b_p13508",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A33:K3",
+      "text": "Tổ chức trong nước được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê để thực hiện dự án đầu tư có mục đích kinh doanh mà được miễn, giảm tiền sử dụng đất, tiền thuê đất thì có quyền và nghĩa vụ như trường hợp không được miễn hoặc không được giảm tiền sử dụng đất, tiền thuê đất; trường hợp chuyển nhượng, góp vốn bằng quyền sử dụng đất thì phải nộp cho Nhà nước một khoản tiền tương ứng với số tiền sử dụng đất, tiền thuê đất đã được miễn, giảm tại thời điểm giao đất, cho thuê đất, cho phép chuyển mục đích sử dụng đất, trừ trường hợp pháp luật có liên quan có quy định khác.",
+      "text_sha256": "91e4d52474ea44da0dfb035e31d6610e81cc47ea1d350a2d64c6181f207a7e08",
+      "source_start_idx": 91,
+      "source_end_idx": 92
+    },
+    "LD2024:A34": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_p14147",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 92,
+      "source_end_idx": 93
+    },
+    "LD2024:A34:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_p14323",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A34",
+      "text": "Tổ chức kinh tế, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "7c75cbef927f0e4e44463218fef787608810cf67eb737406925d20114cb5dc34",
+      "source_start_idx": 93,
+      "source_end_idx": 94
+    },
+    "LD2024:A34:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-a_p14474",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K1",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 94,
+      "source_end_idx": 95
+    },
+    "LD2024:A34:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-b_p14547",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K1",
+      "text": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật;",
+      "text_sha256": "aa22a362e7b1f1fa121d089312399cfde4194da113628fb7a4120f80e1fc8d86",
+      "source_start_idx": 95,
+      "source_end_idx": 96
+    },
+    "LD2024:A34:K1:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-c_p14732",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K1",
+      "text": "Bán tài sản thuộc sở hữu của mình gắn liền với đất, bán tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất khi đáp ứng điều kiện quy định tại Điều 46 của Luật này. Người mua tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất được tiếp tục thuê đất theo mục đích đã được xác định và thời hạn sử dụng đất còn lại, được kế thừa các quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này và quy định khác của pháp luật có liên quan;",
+      "text_sha256": "8573f39966b88d50179e1e7751a233d6694255e06a23a13a2fd041eaed5d5047",
+      "source_start_idx": 96,
+      "source_end_idx": 97
+    },
+    "LD2024:A34:K1:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-d_p15222",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K1",
+      "text": "Góp vốn bằng tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn thuê đất; người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định trong thời hạn còn lại;",
+      "text_sha256": "87ac29d2d2539b0c3a14f662b475319128e46c9df3e73fde4f4387a47b2a67b0",
+      "source_start_idx": 97,
+      "source_end_idx": 98
+    },
+    "LD2024:A34:K1:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-dd_p15433",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K1",
+      "text": "Cho thuê tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất;",
+      "text_sha256": "7faf4fc6e14827b1e2a3a2437c416fd042e4f4532f6f5a57300b451aa420e065",
+      "source_start_idx": 98,
+      "source_end_idx": 100
+    },
+    "LD2024:A34:K1:De": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-1_diem-e_p15532",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K1",
+      "text": "Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê đất hằng năm đối với đất đã được xây dựng xong kết cấu hạ tầng trong trường hợp được phép đầu tư xây dựng kinh doanh kết cấu hạ tầng đối với đất khu công nghiệp, cụm công nghiệp, khu công nghệ cao; người thuê lại quyền sử dụng đất phải sử dụng đất đúng mục đích và thực hiện nghĩa vụ tài chính theo quy định của pháp luật.",
+      "text_sha256": "eba0372fd136790e2d60bd8479e813f854283fe695949fe51d31e20aaeccdb62",
+      "source_start_idx": 100,
+      "source_end_idx": 101
+    },
+    "LD2024:A34:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_p15918",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A34",
+      "text": "Đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thu tiền thuê đất hằng năm không thuộc trường hợp sử dụng đất để đầu tư xây dựng kinh doanh kết cấu hạ tầng khu công nghiệp, cụm công nghiệp quy định tại khoản 2 Điều 202 của Luật này thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này, trừ quyền bán, quyền thế chấp và quyền góp vốn bằng tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất. Việc khai thác, sử dụng quỹ đất đã được Nhà nước cho thuê đất kết hợp vào mục đích khác thực hiện theo quy định sau đây:",
+      "text_sha256": "4883f4fc2d7e5dcc8b56f4b32eb5436f699876b244711ac0995f28dc8d518e81",
+      "source_start_idx": 101,
+      "source_end_idx": 102
+    },
+    "LD2024:A34:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-a_p16448",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K2",
+      "text": "Đối với đất đơn vị sự nghiệp công lập được Nhà nước cho thuê đất thì được phép chủ động khai thác, sử dụng kết hợp đa mục đích theo phương án được cơ quan chủ quản phê duyệt phù hợp với quy định của Luật này và pháp luật có liên quan; trường hợp có đầu tư xây dựng công trình trên đất phải phù hợp với pháp luật về xây dựng. Việc khai thác, sử dụng đất kết hợp đa mục đích phải được hạch toán theo quy định của pháp luật;",
+      "text_sha256": "69cc16facd47298fcc66b783533d0a6f7cfa73188daf38a22f2e2b962487a21f",
+      "source_start_idx": 102,
+      "source_end_idx": 103
+    },
+    "LD2024:A34:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-2_diem-b_p16873",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A34:K2",
+      "text": "Đối với đất do đơn vị sự nghiệp công lập đang sử dụng mà có nhu cầu cho thuê, liên doanh, liên kết với tổ chức kinh tế thì phải có đề án sử dụng tài sản công vào mục đích cho thuê, liên doanh, liên kết được cấp có thẩm quyền phê duyệt theo quy định của pháp luật về quản lý, sử dụng tài sản công.",
+      "text_sha256": "369238d7b7ca7d45b1856fb1a012f8da552ec5932479cf9ca6e336da8aa2e576",
+      "source_start_idx": 103,
+      "source_end_idx": 104
+    },
+    "LD2024:A34:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-34_khoan-3_p17173",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A34",
+      "text": "Tổ chức kinh tế, đơn vị sự nghiệp công lập sử dụng đất thuê của tổ chức, cá nhân ngoài khu công nghiệp, cụm công nghiệp, khu công nghệ cao thì có các quyền và nghĩa vụ theo quy định của pháp luật về dân sự.",
+      "text_sha256": "edab05db69dda3e29dd8b29243e0778f02cb4b734063e933e81c20e02adb55d4",
+      "source_start_idx": 104,
+      "source_end_idx": 105
+    },
+    "LD2024:A35": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_p17380",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 105,
+      "source_end_idx": 106
+    },
+    "LD2024:A35:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-1_p17493",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A35",
+      "text": "Tổ chức kinh tế nhận chuyển nhượng quyền sử dụng đất, chuyển mục đích sử dụng đất có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
+      "text_sha256": "94d2fce9d398ce304c75d3b3f0454c5111fc8fccdacd71d80eb446fddc79dd45",
+      "source_start_idx": 106,
+      "source_end_idx": 107
+    },
+    "LD2024:A35:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-2_p17648",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A35",
+      "text": "Tổ chức kinh tế nhận chuyển nhượng quyền sử dụng đất có nguồn gốc do được Nhà nước giao có thu tiền sử dụng đất hoặc Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này.",
+      "text_sha256": "d217dfc57d05c8d476c0ee0673bc6037577064cc8280f008e6276ba21fcc87cc",
+      "source_start_idx": 107,
+      "source_end_idx": 109
+    },
+    "LD2024:A35:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_p17915",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A35",
+      "text": "Tổ chức kinh tế nhận chuyển nhượng quyền sử dụng đất nông nghiệp theo quy định của pháp luật thì có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "1d34e82149ef0a94c5fd9e3ec26b2e9ebe07fb0d49ceea479bb3e3da162d3a89",
+      "source_start_idx": 109,
+      "source_end_idx": 110
+    },
+    "LD2024:A35:K3:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-a_p18046",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A35:K3",
+      "text": "Trường hợp nhận chuyển nhượng và không chuyển mục đích sử dụng đất thì có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này;",
+      "text_sha256": "25bf9cef5b8b31de24edbc45803717c01f9f068cd740de7ec9a521093888812e",
+      "source_start_idx": 110,
+      "source_end_idx": 111
+    },
+    "LD2024:A35:K3:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-b_p18195",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A35:K3",
+      "text": "Trường hợp nhận chuyển nhượng và chuyển mục đích sử dụng đất mà thuộc trường hợp được Nhà nước giao đất có thu tiền sử dụng đất hoặc cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này;",
+      "text_sha256": "6b7e6f8c29c88f1175726e28113b76ecfbcdafd8ceaff8cc69e5d9a2bd3d27fc",
+      "source_start_idx": 111,
+      "source_end_idx": 112
+    },
+    "LD2024:A35:K3:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-3_diem-c_p18471",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A35:K3",
+      "text": "Trường hợp nhận chuyển nhượng và chuyển mục đích sử dụng đất mà thuộc trường hợp được Nhà nước cho thuê đất thu tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này.",
+      "text_sha256": "a87715479085a569f037ba88c4be473d4e8cf46e5738ce65bf1d95a877b4eca5",
+      "source_start_idx": 112,
+      "source_end_idx": 113
+    },
+    "LD2024:A35:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_p18677",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A35",
+      "text": "Quyền và nghĩa vụ của tổ chức kinh tế sử dụng đất được cơ quan nhà nước có thẩm quyền cho phép chuyển mục đích sử dụng đất từ đất không thu tiền sử dụng đất sang đất có thu tiền sử dụng đất hoặc cho thuê đất được quy định như sau:",
+      "text_sha256": "4bd2db1986bb3d2d6903d186cbac1631a7df81bd7bb8db84b2f5f8c6d0e37ef4",
+      "source_start_idx": 113,
+      "source_end_idx": 114
+    },
+    "LD2024:A35:K4:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_diem-a_p18908",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A35:K4",
+      "text": "Trường hợp thuộc hình thức Nhà nước giao đất có thu tiền sử dụng đất hoặc cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này;",
+      "text_sha256": "bce3687e970dd4f6cf3091b14301a29a3adaf97824319288689e93fb40af8a1b",
+      "source_start_idx": 114,
+      "source_end_idx": 115
+    },
+    "LD2024:A35:K4:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-35_khoan-4_diem-b_p19125",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A35:K4",
+      "text": "Trường hợp thuộc hình thức Nhà nước cho thuê đất thu tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này.",
+      "text_sha256": "d13931a7336be8a0d67a4bb9ebba7ce66d10d95f4fddbe3c988550372c30357a",
+      "source_start_idx": 115,
+      "source_end_idx": 116
+    },
+    "LD2024:A36": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_p19272",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 116,
+      "source_end_idx": 117
+    },
+    "LD2024:A36:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_p19416",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A36",
+      "text": "Tổ chức kinh tế nhận góp vốn bằng quyền sử dụng đất của cá nhân, tổ chức kinh tế khác thì có quyền và nghĩa vụ quy định tại Điều 33 của Luật này trong các trường hợp sau đây:",
+      "text_sha256": "62b35aaadb9711621105eeb56b183830fcb71201f90abf042334eee4a2bfec9b",
+      "source_start_idx": 117,
+      "source_end_idx": 118
+    },
+    "LD2024:A36:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-a_p19591",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A36:K1",
+      "text": "Đất của tổ chức kinh tế góp vốn có nguồn gốc do được Nhà nước giao có thu tiền sử dụng đất hoặc được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê, do nhận chuyển nhượng quyền sử dụng đất;",
+      "text_sha256": "5558793c48191281decbd0edbdaf9b3d8b08ae52b94a621ee9c075561c42047f",
+      "source_start_idx": 118,
+      "source_end_idx": 119
+    },
+    "LD2024:A36:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-1_diem-b_p19807",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A36:K1",
+      "text": "Đất của cá nhân góp vốn mà không phải là đất được Nhà nước cho thuê thu tiền thuê đất hằng năm.",
+      "text_sha256": "cc8bdb28ac8d3f92ea723613a2797587e0033d5b2fa4e27194f7ab116c232f84",
+      "source_start_idx": 119,
+      "source_end_idx": 121
+    },
+    "LD2024:A36:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_p19907",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A36",
+      "text": "Quyền sử dụng đất của hợp tác xã, liên hiệp hợp tác xã khi giải thể, phá sản thực hiện theo quy định sau đây:",
+      "text_sha256": "8f3338cff9b86cc67fe688991388b8cb1c4255115f79a36180a20287eb02fea6",
+      "source_start_idx": 121,
+      "source_end_idx": 122
+    },
+    "LD2024:A36:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-a_p20017",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A36:K2",
+      "text": "Đối với đất được Nhà nước giao đất không thu tiền sử dụng đất; được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất, do mua tài sản gắn liền với đất hoặc nhận chuyển nhượng quyền sử dụng đất hợp pháp từ người khác mà tiền sử dụng đất, tiền thuê đất, tiền mua tài sản gắn liền với đất, tiền nhận chuyển nhượng quyền sử dụng đất có nguồn gốc do Nhà nước hỗ trợ thì Nhà nước thu hồi đất đó theo quy định của Luật này và pháp luật về hợp tác xã;",
+      "text_sha256": "cb926ce2ab836ca560a7275bd0bdaca4d776b70b027e05f34d031bb465708247",
+      "source_start_idx": 122,
+      "source_end_idx": 123
+    },
+    "LD2024:A36:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-2_diem-b_p20470",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A36:K2",
+      "text": "Đối với đất được Nhà nước giao đất có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê, do mua tài sản gắn liền với đất hoặc nhận chuyển nhượng quyền sử dụng đất hợp pháp từ người khác mà tiền sử dụng đất, tiền thuê đất, tiền mua tài sản gắn liền với đất, tiền nhận chuyển nhượng quyền sử dụng đất không có nguồn gốc do Nhà nước hỗ trợ; đất do thành viên góp quyền sử dụng vào hợp tác xã, liên hiệp hợp tác xã thì Nhà nước không thu hồi đất, quyền sử dụng đất đó là của hợp tác xã, liên hiệp hợp tác xã và được xử lý theo điều lệ của hợp tác xã, liên hiệp hợp tác xã, nghị quyết của đại hội thành viên.",
+      "text_sha256": "0da3cb60bcca2e40150478551bc472f9e0636e162d82c73f74b921b6cd72bd2d",
+      "source_start_idx": 123,
+      "source_end_idx": 124
+    },
+    "LD2024:A36:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-2_dieu-36_khoan-3_p21110",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A36",
+      "text": "Quyền sử dụng đất của tổ chức kinh tế là doanh nghiệp khi giải thể, phá sản được xử lý theo quy định của pháp luật về doanh nghiệp, pháp luật về phá sản và quy định khác của pháp luật có liên quan.",
+      "text_sha256": "cc2fdb1b776bf49e4bfe97e39255bc0fc5e0f8d9e9785d7575b174872e97fde8",
+      "source_start_idx": 124,
+      "source_end_idx": 126
+    },
+    "LD2024:A37": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_p21376",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 130,
+      "source_end_idx": 131
+    },
+    "LD2024:A37:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_p21427",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A37",
+      "text": "Cá nhân sử dụng đất nông nghiệp được Nhà nước giao trong hạn mức; đất được Nhà nước giao có thu tiền sử dụng đất, cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê, được Nhà nước công nhận quyền sử dụng đất; đất nhận chuyển đổi, nhận chuyển nhượng, nhận tặng cho, nhận thừa kế thì có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "513d0fa90a85e12b24d865eea96811a4b0155b8b019123c98ec66f59795c4742",
+      "source_start_idx": 131,
+      "source_end_idx": 132
+    },
+    "LD2024:A37:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-a_p21753",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 132,
+      "source_end_idx": 134
+    },
+    "LD2024:A37:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-b_p21827",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Chuyển đổi quyền sử dụng đất nông nghiệp với cá nhân khác;",
+      "text_sha256": "fb8235931a46d41db86ca1e231986d9e10884771604fe8080a86bd59975c3d44",
+      "source_start_idx": 134,
+      "source_end_idx": 135
+    },
+    "LD2024:A37:K1:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-c_p21889",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Chuyển nhượng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất theo quy định của pháp luật;",
+      "text_sha256": "486be4d1b4504e13af1705b43c522a85b53570d72ebf925c12a40ad866b43e8b",
+      "source_start_idx": 135,
+      "source_end_idx": 136
+    },
+    "LD2024:A37:K1:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-d_p22001",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Cho tổ chức, cá nhân khác, người gốc Việt Nam định cư ở nước ngoài đầu tư tại Việt Nam thuê quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất;",
+      "text_sha256": "c589a0e0f2f411cff7ba54f2c2553c0e0f3c582a653ca4c81c70e7c0b2ab31d6",
+      "source_start_idx": 136,
+      "source_end_idx": 137
+    },
+    "LD2024:A37:K1:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-dd_p22163",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Cá nhân sử dụng đất có quyền để thừa kế quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất của mình theo di chúc hoặc theo pháp luật.\nTrường hợp người được thừa kế là người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng quy định tại khoản 1 Điều 44 của Luật này thì được nhận thừa kế quyền sử dụng đất; nếu không thuộc đối tượng quy định tại khoản 1 Điều 44 của Luật này thì được hưởng giá trị của phần thừa kế đó;",
+      "text_sha256": "b323bc1b086a4c9fcd458abb0934d2c3555998f32f3e8ee0eeb852d88698d2b3",
+      "source_start_idx": 137,
+      "source_end_idx": 139
+    },
+    "LD2024:A37:K1:De": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-e_p22599",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Tặng cho quyền sử dụng đất cho Nhà nước; tặng cho quyền sử dụng đất cho cộng đồng dân cư để xây dựng các công trình phục vụ lợi ích chung của cộng đồng hoặc mở rộng đường giao thông theo quy hoạch; tặng cho quyền sử dụng đất để làm nhà tình nghĩa, nhà tình thương, nhà đại đoàn kết gắn liền với đất theo quy định của pháp luật; tặng cho quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất đối với cá nhân hoặc người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng quy định tại khoản 1 Điều 44 của Luật này;",
+      "text_sha256": "eb4bb9c59e9e53e08d9497f00b5546151abe23fc3c90ee86c5efbd3f7121b2bb",
+      "source_start_idx": 139,
+      "source_end_idx": 140
+    },
+    "LD2024:A37:K1:Dg": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-g_p23125",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất tại tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật;",
+      "text_sha256": "fd3176069be5ec7594f7a6b371cffdcef1ac8d2b2587da50090e9e81f403ccda",
+      "source_start_idx": 140,
+      "source_end_idx": 141
+    },
+    "LD2024:A37:K1:Dh": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-1_diem-h_p23325",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K1",
+      "text": "Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất với tổ chức, góp quyền sử dụng đất với cá nhân, người gốc Việt Nam định cư ở nước ngoài để hợp tác sản xuất, kinh doanh.",
+      "text_sha256": "2fac7a7f7e3b9505905a6f77567b9795aad588fb8bc1f264e4574674d6921238",
+      "source_start_idx": 141,
+      "source_end_idx": 142
+    },
+    "LD2024:A37:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_p23528",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A37",
+      "text": "Cá nhân được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "d753c569a2442bada065277315c8c977cf492895c9a733cca998a0720b086293",
+      "source_start_idx": 142,
+      "source_end_idx": 143
+    },
+    "LD2024:A37:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-a_p23624",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K2",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 143,
+      "source_end_idx": 144
+    },
+    "LD2024:A37:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-b_p23697",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K2",
+      "text": "Bán tài sản thuộc sở hữu của mình gắn liền với đất, bán tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất khi đáp ứng điều kiện quy định tại Điều 46 của Luật này. Người mua tài sản gắn liền với đất và\nquyền thuê trong hợp đồng thuê đất được tiếp tục thuê đất theo mục đích đã được xác định và thời hạn sử dụng đất còn lại theo mục đích đã được xác định; được kế thừa các quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này và pháp luật có liên quan;",
+      "text_sha256": "32518852879a44483b3bbf76c8e7406f51d5f1e1829542e4e3210e3438164b39",
+      "source_start_idx": 144,
+      "source_end_idx": 147
+    },
+    "LD2024:A37:K2:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-c_p24201",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K2",
+      "text": "Để thừa kế, tặng cho tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất; người nhận thừa kế, người được tặng cho tài sản và quyền thuê trong hợp đồng thuê đất được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định;",
+      "text_sha256": "fdee81cec6db8cee973e874bfc2e0cb75282c35bea6cda0e553de58fe9de78e4",
+      "source_start_idx": 147,
+      "source_end_idx": 148
+    },
+    "LD2024:A37:K2:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-d_p24465",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K2",
+      "text": "Cho thuê tài sản thuộc sở hữu của mình gắn liền với đất, cho thuê lại quyền thuê trong hợp đồng thuê đất;",
+      "text_sha256": "d3527599cd077246a069d994b0b237f3b6b06da6148ac3334feb9462f4b0eafe",
+      "source_start_idx": 148,
+      "source_end_idx": 149
+    },
+    "LD2024:A37:K2:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-dd_p24574",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K2",
+      "text": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam, tại tổ chức kinh tế khác hoặc cá nhân theo quy định của pháp luật;",
+      "text_sha256": "aa22a362e7b1f1fa121d089312399cfde4194da113628fb7a4120f80e1fc8d86",
+      "source_start_idx": 149,
+      "source_end_idx": 150
+    },
+    "LD2024:A37:K2:De": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-2_diem-e_p24759",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K2",
+      "text": "Góp vốn bằng tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn thuê đất với tổ chức, cá nhân, người gốc Việt Nam định cư ở nước ngoài; người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo mục đích đã được xác định trong thời hạn còn lại.",
+      "text_sha256": "4b55a6ce67b5e43174ecd2f56aa93ced9583a3042a33c35fbec1ffadfce18cf9",
+      "source_start_idx": 150,
+      "source_end_idx": 151
+    },
+    "LD2024:A37:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_p25032",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A37",
+      "text": "Cá nhân thuê lại đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao thì có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "a0fea2704f2f8d36ba541cf0a4981b806166751491e12a5a0642402d9b23d022",
+      "source_start_idx": 151,
+      "source_end_idx": 152
+    },
+    "LD2024:A37:K3:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-a_p25149",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K3",
+      "text": "Trường hợp thuê đất, thuê lại đất trả tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 1 Điều này;",
+      "text_sha256": "d4097f6f4eed2ed77e97a0d4e2e571838a22ad9d855f90222efc6e974371d2f4",
+      "source_start_idx": 152,
+      "source_end_idx": 153
+    },
+    "LD2024:A37:K3:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-3_diem-b_p25290",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A37:K3",
+      "text": "Trường hợp thuê đất, thuê lại đất trả tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 2 Điều này.",
+      "text_sha256": "e0942f516684e0d2029d804ffcd7e3bfccc6c314b2eda95d74509e1f720ca14c",
+      "source_start_idx": 153,
+      "source_end_idx": 154
+    },
+    "LD2024:A37:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-4_p25410",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A37",
+      "text": "Cá nhân được Nhà nước giao đất, cho thuê đất mà được miễn, giảm tiền sử dụng đất, tiền thuê đất thì có quyền và nghĩa vụ như trường hợp không được miễn, không được giảm tiền sử dụng đất, tiền thuê đất.",
+      "text_sha256": "7dfeaa8f37f079baf3bf8a025d2135d043c40ea2c6bc72a39be9bde69084bd02",
+      "source_start_idx": 154,
+      "source_end_idx": 155
+    },
+    "LD2024:A37:K5": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-37_khoan-5_p25612",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A37",
+      "text": "Cá nhân sử dụng đất thuê của tổ chức, cá nhân không thuộc trường hợp quy định tại khoản 3 Điều này thì có quyền và nghĩa vụ theo quy định của pháp luật về dân sự.",
+      "text_sha256": "7c0cba42c4bc8d51d180ea66b78cf82d6e97759dc01748285c88ac04c8242e43",
+      "source_start_idx": 155,
+      "source_end_idx": 157
+    },
+    "LD2024:A38": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-38_p25776",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 157,
+      "source_end_idx": 158
+    },
+    "LD2024:A38:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-1_p25924",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A38",
+      "text": "Cá nhân được phép chuyển mục đích sử dụng đất từ đất được Nhà nước giao đất không thu tiền sử dụng đất sang đất được Nhà nước giao đất có thu tiền sử dụng đất hoặc Nhà nước cho thuê đất có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
+      "text_sha256": "4c9fc51a788e31a24c9f601c7aa7404f98f9e7fc94150860ba4672d244f93645",
+      "source_start_idx": 158,
+      "source_end_idx": 159
+    },
+    "LD2024:A38:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_p26183",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A38",
+      "text": "Cá nhân sử dụng đất được cơ quan nhà nước có thẩm quyền cho phép chuyển mục đích sử dụng đất từ đất được Nhà nước giao đất không thu tiền sử dụng đất sang đất được Nhà nước giao đất có thu tiền sử dụng đất hoặc Nhà nước cho thuê đất có quyền và nghĩa vụ như sau:",
+      "text_sha256": "a5a2f26fe7df9a1650b59533151be9b375a31588cc260102452807b123ed7ba8",
+      "source_start_idx": 159,
+      "source_end_idx": 160
+    },
+    "LD2024:A38:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-a_p26446",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A38:K2",
+      "text": "Trường hợp được Nhà nước giao đất có thu tiền sử dụng đất hoặc cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 1 Điều 37 của Luật này;",
+      "text_sha256": "f41c0c183652f8029f0156ef337f0aa8497ea0d33cb827615d9d335a67e329fa",
+      "source_start_idx": 160,
+      "source_end_idx": 161
+    },
+    "LD2024:A38:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-38_khoan-2_diem-b_p26641",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A38:K2",
+      "text": "Trường hợp được Nhà nước cho thuê đất thu tiền thuê đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 2 Điều 37 của Luật này.",
+      "text_sha256": "b823199e02dc87b644152a5e41e645b31107084cf90f6c5650a7453ea5ca7bed",
+      "source_start_idx": 161,
+      "source_end_idx": 162
+    },
+    "LD2024:A39": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-39_p26777",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 162,
+      "source_end_idx": 163
+    },
+    "LD2024:A39:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-39_khoan-1_p26837",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A39",
+      "text": "Cộng đồng dân cư sử dụng đất có quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này.",
+      "text_sha256": "6c7d8cc21fed4934f5b66e47a9cc6d96c4be6ec4def9bdb6605d5b16d8507017",
+      "source_start_idx": 163,
+      "source_end_idx": 164
+    },
+    "LD2024:A39:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-3_dieu-39_khoan-2_p26939",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A39",
+      "text": "Cộng đồng dân cư sử dụng đất có quyền và nghĩa vụ như quyền và nghĩa vụ của cá nhân có hình thức sử dụng đất tương ứng, trừ quyền để thừa kế.\nTrường hợp cộng đồng dân cư được Nhà nước giao đất không thu tiền sử dụng đất, công nhận quyền sử dụng đất theo hình thức giao đất không thu tiền sử dụng đất thì không có quyền chuyển đổi, chuyển nhượng, tặng cho, cho thuê quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất.",
+      "text_sha256": "16e8a8b6cd4b44a98291fa3e7643267aa64d24ed9aabdb1c7d837bdc99b26b96",
+      "source_start_idx": 164,
+      "source_end_idx": 167
+    },
+    "LD2024:A40": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-40_p27533",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 171,
+      "source_end_idx": 173
+    },
+    "LD2024:A40:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_p27608",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A40",
+      "text": "Tổ chức nước ngoài có chức năng ngoại giao sử dụng đất tại Việt Nam có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "b9c7bebcb8c9f33774f6a3493e50ff0e4d47b852fc4c1d013bb05cd779ecd9d6",
+      "source_start_idx": 173,
+      "source_end_idx": 174
+    },
+    "LD2024:A40:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-a_p27710",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A40:K1",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 174,
+      "source_end_idx": 175
+    },
+    "LD2024:A40:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-b_p27783",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A40:K1",
+      "text": "Xây dựng các công trình trên đất theo giấy phép của cơ quan nhà nước Việt Nam có thẩm quyền;",
+      "text_sha256": "928c575c79709ebd810d1114fffe3311649fdb749244d77a8409ca82d253131b",
+      "source_start_idx": 175,
+      "source_end_idx": 176
+    },
+    "LD2024:A40:K1:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-c_p27879",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A40:K1",
+      "text": "Sở hữu công trình do mình xây dựng trên đất thuê trong thời hạn thuê đất;",
+      "text_sha256": "633314911351b0cf55bd82d3fd43cfdbe53292ca219fdf634a18ec29f78a993a",
+      "source_start_idx": 176,
+      "source_end_idx": 177
+    },
+    "LD2024:A40:K1:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-1_diem-d_p27956",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A40:K1",
+      "text": "Việc trả lại đất, chuyển quyền sử dụng đất của tổ chức nước ngoài có chức năng ngoại giao khi không còn nhu cầu sử dụng vào mục đích đã được thuê đất thì thực hiện theo điều ước quốc tế, thỏa thuận quốc tế và quy định của pháp luật.",
+      "text_sha256": "e083d95618362628c5d800359990a5a7a83702213844f9dcfe09d2bf0886b15e",
+      "source_start_idx": 177,
+      "source_end_idx": 178
+    },
+    "LD2024:A40:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-40_khoan-2_p28192",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A40",
+      "text": "Trường hợp điều ước quốc tế mà nước Cộng hòa xã hội chủ nghĩa Việt Nam là thành viên có quy định khác thì tổ chức nước ngoài có chức năng ngoại giao có quyền và nghĩa vụ theo điều ước quốc tế đó.",
+      "text_sha256": "7c2bacb201bd18f1a843fd186a31e0defe5ccff9bb6d3b9e15c9d1a3bf9fb5b2",
+      "source_start_idx": 178,
+      "source_end_idx": 179
+    },
+    "LD2024:A41": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_p28388",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 179,
+      "source_end_idx": 180
+    },
+    "LD2024:A41:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-1_p28552",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A41",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài về đầu tư tại Việt Nam được Nhà nước giao đất có thu tiền sử dụng đất có các quyền và nghĩa vụ quy định tại khoản 1 Điều 33 của Luật này.",
+      "text_sha256": "1acea5faf3ebea5dc56e4abe8651ee4cfed2214d9f593cce38fe4b4bd649b078",
+      "source_start_idx": 180,
+      "source_end_idx": 181
+    },
+    "LD2024:A41:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_p28730",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A41",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước cho thuê đất thu tiền thuê đất hằng năm có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "25fa15dcb2711a541628d2af5193e20f16fa80c0d44049708ad50fa2ecf8f79f",
+      "source_start_idx": 181,
+      "source_end_idx": 182
+    },
+    "LD2024:A41:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-a_p28900",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K2",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 182,
+      "source_end_idx": 183
+    },
+    "LD2024:A41:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-b_p28973",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K2",
+      "text": "Thế chấp tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam;",
+      "text_sha256": "16c6016f67eb9e2afc66ded59e2d98a16e9596a58b55ca01457008de228f1465",
+      "source_start_idx": 183,
+      "source_end_idx": 184
+    },
+    "LD2024:A41:K2:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-c_p29091",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K2",
+      "text": "Góp vốn bằng tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn thuê đất; người nhận góp vốn bằng tài sản được Nhà nước tiếp tục cho thuê đất theo đúng mục đích đã được xác định trong thời hạn còn lại;",
+      "text_sha256": "2cac9005da8608480e113899c1bb1160aaddd42ab18c90b6e99cebcc0766b9ba",
+      "source_start_idx": 184,
+      "source_end_idx": 185
+    },
+    "LD2024:A41:K2:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-d_p29307",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K2",
+      "text": "Bán tài sản thuộc sở hữu của mình gắn liền với đất, bán tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất khi đáp ứng điều kiện quy định tại Điều 46 của Luật này. Người mua tài sản gắn liền với đất và\nquyền thuê trong hợp đồng thuê đất được tiếp tục thuê đất theo mục đích đã được xác định và thời hạn sử dụng đất còn lại, có các quyền và nghĩa vụ của người sử dụng đất theo quy định của Luật này và pháp luật có liên quan;",
+      "text_sha256": "0330edd694439a5deb1c7276aa21ebecf517c22b1a2e2952bf1ee764514b00d6",
+      "source_start_idx": 185,
+      "source_end_idx": 188
+    },
+    "LD2024:A41:K2:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-dd_p29770",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K2",
+      "text": "Cho thuê tài sản thuộc sở hữu của mình gắn liền với đất và quyền thuê trong hợp đồng thuê đất;",
+      "text_sha256": "7faf4fc6e14827b1e2a3a2437c416fd042e4f4532f6f5a57300b451aa420e065",
+      "source_start_idx": 188,
+      "source_end_idx": 189
+    },
+    "LD2024:A41:K2:De": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-2_diem-e_p29868",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K2",
+      "text": "Cho thuê lại quyền sử dụng đất theo hình thức trả tiền thuê đất hằng năm đối với đất đã được xây dựng xong kết cấu hạ tầng trong trường hợp được phép đầu tư xây dựng kinh doanh kết cấu hạ tầng đối với đất khu công nghiệp, cụm công nghiệp, khu công nghệ cao; người thuê lại quyền sử dụng đất phải sử dụng đất đúng mục đích và thực hiện nghĩa vụ tài chính theo quy định.",
+      "text_sha256": "ba05325cd96c365ec3dc51b8ebd03c3ea57c8c3e0182d2022d5d064c6f1229cf",
+      "source_start_idx": 189,
+      "source_end_idx": 190
+    },
+    "LD2024:A41:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_p30240",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A41",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê; tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước giao đất có thu tiền sử dụng đất để thực hiện dự án có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "3ae009c5b97addcca3cb4d7a8233b1301686684f094dd5bbf288a45f8f0905a1",
+      "source_start_idx": 190,
+      "source_end_idx": 191
+    },
+    "LD2024:A41:K3:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-a_p30539",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K3",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 191,
+      "source_end_idx": 192
+    },
+    "LD2024:A41:K3:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-b_p30612",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K3",
+      "text": "Chuyển nhượng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn sử dụng đất;",
+      "text_sha256": "5a5c3e147b1271edea91f8fe76b655ca9ac04dd0792b9208337739647b6c8d4a",
+      "source_start_idx": 192,
+      "source_end_idx": 193
+    },
+    "LD2024:A41:K3:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-c_p30723",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K3",
+      "text": "Cho thuê, cho thuê lại quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất trong thời hạn sử dụng đất;",
+      "text_sha256": "476bf69f9210fec3724c46958af0cbc4828b21e561cb6287bd7c6941a6d5ed04",
+      "source_start_idx": 193,
+      "source_end_idx": 194
+    },
+    "LD2024:A41:K3:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-d_p30843",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K3",
+      "text": "Thế chấp quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất tại các tổ chức tín dụng được phép hoạt động tại Việt Nam;",
+      "text_sha256": "6e852bc8d2dbb93f0a80bec55cd55e43583ba0fe206a1f073ce045fb2fa2723b",
+      "source_start_idx": 194,
+      "source_end_idx": 195
+    },
+    "LD2024:A41:K3:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-3_diem-dd_p30980",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A41:K3",
+      "text": "Góp vốn bằng quyền sử dụng đất, tài sản thuộc sở hữu của mình gắn liền với đất.",
+      "text_sha256": "a0afe9ad22b4a23c7beef6988c58f0cc8a1f8e05b5b84480c8a7445ed927076d",
+      "source_start_idx": 195,
+      "source_end_idx": 196
+    },
+    "LD2024:A41:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-4_p31063",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A41",
+      "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài có sử dụng đất được hình thành do nhà đầu tư nước ngoài mua cổ phần, phần vốn góp thì có các quyền và nghĩa vụ quy định tại khoản 2 và khoản 3 Điều này tương ứng với hình thức nộp tiền sử dụng đất, trả tiền thuê đất.",
+      "text_sha256": "4448fb45ca2a630e7584ae149c05705723d703a08a7803f449d579c9ea20268a",
+      "source_start_idx": 196,
+      "source_end_idx": 197
+    },
+    "LD2024:A41:K5": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-41_khoan-5_p31321",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A41",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài sử dụng đất để thực hiện các dự án đầu tư tại Việt Nam được Nhà nước\ngiao đất, cho thuê đất trả tiền thuê đất một lần cho cả thời gian thuê nhưng được miễn, giảm tiền sử dụng đất, tiền thuê đất thì có quyền và nghĩa vụ quy định tại khoản 3 Điều 33 của Luật này.",
+      "text_sha256": "22c679022abce7bdcc83e28c3cb6efd37c28fd3dc7c4538d5721312fe4a6c633",
+      "source_start_idx": 197,
+      "source_end_idx": 200
+    },
+    "LD2024:A42": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-42_p31666",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 200,
+      "source_end_idx": 201
+    },
+    "LD2024:A42:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-1_p31794",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A42",
+      "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài nhận góp vốn bằng quyền sử dụng đất có nguồn gốc được Nhà nước giao có thu tiền sử dụng đất, quyền sử dụng đất được thuê trả tiền thuê đất một lần cho cả thời gian thuê thì có quyền và nghĩa vụ quy định tại khoản 3 Điều 41 của Luật này.",
+      "text_sha256": "6afc0f190767ffd19c6cd13ad5cb2d19c07cbf4a8b782f2b813e0e4ed874b729",
+      "source_start_idx": 201,
+      "source_end_idx": 202
+    },
+    "LD2024:A42:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_p32072",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A42",
+      "text": "Tổ chức kinh tế có vốn đầu tư nước ngoài được chuyển đổi từ doanh nghiệp liên doanh mà bên Việt Nam góp vốn bằng quyền sử dụng đất thì có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "3461389b40c07f36d1a06cf3a42f267b90d41baa543017baf5ae9ad13fe8362f",
+      "source_start_idx": 202,
+      "source_end_idx": 203
+    },
+    "LD2024:A42:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-a_p32241",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A42:K2",
+      "text": "Quyền và nghĩa vụ quy định tại khoản 2 Điều 41 của Luật này đối với trường hợp quyền sử dụng đất do nhận góp vốn trước đó không thuộc trường hợp được sử dụng để thực hiện các dự án đầu tư nhà ở để bán và tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước cho thuê đất thu tiền thuê đất hằng năm theo quy định của Luật này;",
+      "text_sha256": "34707c52a892e1c2f8222a3239c18f893b36d72811e145a3a4aded3e6954bc3e",
+      "source_start_idx": 203,
+      "source_end_idx": 204
+    },
+    "LD2024:A42:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-b_p32571",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A42:K2",
+      "text": "Quyền và nghĩa vụ quy định tại khoản 3 Điều 41 của Luật này đối với trường hợp quyền sử dụng đất do nhận góp vốn trước đó không thuộc trường hợp được sử dụng để thực hiện các dự án đầu tư nhà ở để bán và tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước cho thuê đất thu tiền thuê đất một lần cho cả thời gian thuê theo quy định của Luật này;",
+      "text_sha256": "0cea9f29939c74007cd8cb27c9ebf02659181454bdae7ab582ea5a925136a7fe",
+      "source_start_idx": 204,
+      "source_end_idx": 205
+    },
+    "LD2024:A42:K2:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-2_diem-c_p32922",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A42:K2",
+      "text": "Quyền và nghĩa vụ quy định tại khoản 3 Điều 41 của Luật này đối với trường hợp quyền sử dụng đất do nhận góp vốn trước đó được sử dụng để thực hiện các dự án đầu tư nhà ở để bán và tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước giao đất có thu tiền sử dụng đất theo quy định của Luật này.",
+      "text_sha256": "f38f66c4aefac4c0863c5c4107d0cd0c098f86e39cb2b930336d3cc1372e1383",
+      "source_start_idx": 205,
+      "source_end_idx": 206
+    },
+    "LD2024:A42:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-42_khoan-3_p33222",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A42",
+      "text": "Doanh nghiệp nhà nước được Nhà nước cho thuê đất trước ngày 01 tháng 7 năm 2004 mà được sử dụng giá trị quyền sử dụng đất như ngân sách nhà nước cấp cho doanh nghiệp, không phải ghi nhận nợ và không phải hoàn trả tiền thuê đất theo quy định của pháp luật về đất đai góp vốn liên doanh với tổ chức nước ngoài,\ncá nhân nước ngoài thì doanh nghiệp liên doanh có quyền, nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này. Giá trị quyền sử dụng đất là phần vốn của Nhà nước đóng góp vào doanh nghiệp liên doanh.",
+      "text_sha256": "77c76d8428b8786e1d1f9e627f2fd41257391999226c8db77ad5283e4aac6056",
+      "source_start_idx": 206,
+      "source_end_idx": 209
+    },
+    "LD2024:A43": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-43_p33741",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 209,
+      "source_end_idx": 210
+    },
+    "LD2024:A43:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-1_p33924",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A43",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài nhận chuyển nhượng quyền sử dụng đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này.",
+      "text_sha256": "19bc44d2be968ecf41f33970f2bbf1eace6e923fc49e4db903a62df09523fe98",
+      "source_start_idx": 210,
+      "source_end_idx": 211
+    },
+    "LD2024:A43:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_p34134",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A43",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài thuê đất, thuê lại đất trong khu công nghiệp, cụm công nghiệp, khu công nghệ cao có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "367eb67104b31a42926fbe6e07780c3d8ece6b4baa5ceda4088ea54b6322c3d8",
+      "source_start_idx": 211,
+      "source_end_idx": 212
+    },
+    "LD2024:A43:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-a_p34331",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A43:K2",
+      "text": "Trường hợp trả tiền thuê đất một lần cho cả thời gian thuê, trả tiền thuê lại đất một lần cho cả thời gian thuê lại thì có quyền và nghĩa vụ quy định tại khoản 1 và khoản 3 Điều 33 của Luật này;",
+      "text_sha256": "1c1fb2a50c28b7726ecc2a6735f4260e34d092d61960be59d7d28728a3f9fbfe",
+      "source_start_idx": 212,
+      "source_end_idx": 213
+    },
+    "LD2024:A43:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-43_khoan-2_diem-b_p34529",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A43:K2",
+      "text": "Trường hợp trả tiền thuê đất, thuê lại đất hằng năm thì có quyền và nghĩa vụ quy định tại khoản 1 Điều 34 của Luật này.",
+      "text_sha256": "f663df75ab263809ea72e1804747c5093b94a29f8b6dfa1c4083b6be8bd48dd4",
+      "source_start_idx": 213,
+      "source_end_idx": 214
+    },
+    "LD2024:A44": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_p34652",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 214,
+      "source_end_idx": 215
+    },
+    "LD2024:A44:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-1_p34920",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A44",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài được phép nhập cảnh vào Việt Nam thì được sở hữu nhà ở gắn liền với quyền sử dụng đất ở tại Việt Nam; có quyền sử dụng đất ở do nhận chuyển quyền sử dụng đất ở trong các dự án phát triển nhà ở.",
+      "text_sha256": "e755a64b82523e39f54daef61e8bcb8fc96f57f044617cb091938515c28e0954",
+      "source_start_idx": 215,
+      "source_end_idx": 216
+    },
+    "LD2024:A44:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_p35154",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A44",
+      "text": "Người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng quy định tại khoản 1 Điều này có các quyền và nghĩa vụ sau đây:",
+      "text_sha256": "4c302cc384fcc8c36872a07c7a3203fd1da024a4274a2bdee1ad884ac9f276d8",
+      "source_start_idx": 216,
+      "source_end_idx": 217
+    },
+    "LD2024:A44:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-a_p35274",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A44:K2",
+      "text": "Quyền và nghĩa vụ chung quy định tại Điều 26 và Điều 31 của Luật này;",
+      "text_sha256": "1061e4b08fc386ed0f209756192c550a0a09aa4c666a9c3541c3ec5f5019bcd8",
+      "source_start_idx": 217,
+      "source_end_idx": 218
+    },
+    "LD2024:A44:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-b_p35347",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A44:K2",
+      "text": "Chuyển quyền sử dụng đất ở khi bán, tặng cho, để thừa kế, đổi nhà ở cho tổ chức, cá nhân, người gốc Việt Nam định cư ở nước ngoài thuộc đối tượng được\nsở hữu nhà ở tại Việt Nam; tặng cho nhà ở gắn liền với quyền sử dụng đất ở cho Nhà nước, cộng đồng dân cư, tặng cho để làm nhà tình nghĩa, nhà tình thương, nhà đại đoàn kết. Trường hợp tặng cho, để thừa kế cho đối tượng không được sở hữu nhà ở tại Việt Nam thì đối tượng này chỉ được hưởng giá trị của nhà ở gắn liền với quyền sử dụng đất ở và không được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất;",
+      "text_sha256": "d2495abd39ebdf298ae017d6144d615431fe78e5d7d4336efc28419fb7e2afd4",
+      "source_start_idx": 218,
+      "source_end_idx": 221
+    },
+    "LD2024:A44:K2:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-c_p35935",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A44:K2",
+      "text": "Chuyển nhượng, cho thuê, tặng cho, để thừa kế, góp vốn bằng quyền sử dụng đất ở theo quy định của Luật này;",
+      "text_sha256": "3a5a697613a096b119b1a6511d7e159047c4557bcc2b5a878e60448980040944",
+      "source_start_idx": 221,
+      "source_end_idx": 222
+    },
+    "LD2024:A44:K2:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-2_diem-d_p36046",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A44:K2",
+      "text": "Thế chấp nhà ở gắn liền với quyền sử dụng đất ở tại tổ chức tín dụng được phép hoạt động tại Việt Nam.",
+      "text_sha256": "c2aad9ff9ded96ae1266639070202833c9edd9c451e19b93576a213fa462d9f1",
+      "source_start_idx": 222,
+      "source_end_idx": 223
+    },
+    "LD2024:A44:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_p36152",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A44",
+      "text": "Trường hợp tất cả người nhận thừa kế quyền sử dụng đất, quyền sở hữu nhà ở, tài sản khác gắn liền với đất đều là người nước ngoài hoặc người gốc Việt Nam định cư ở nước ngoài không thuộc đối tượng được sở hữu nhà ở gắn liền với quyền sử dụng đất ở tại Việt Nam quy định tại khoản 1 Điều này thì người nhận thừa kế không được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất nhưng được chuyển nhượng hoặc được tặng cho quyền sử dụng đất thừa kế theo quy định sau đây:",
+      "text_sha256": "e631547a5ea05a11737be386eda1b3ccc4868bd8f1279e8684ad1a994c2193e9",
+      "source_start_idx": 223,
+      "source_end_idx": 224
+    },
+    "LD2024:A44:K3:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-a_p36647",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A44:K3",
+      "text": "Trong trường hợp chuyển nhượng quyền sử dụng đất thì bên chuyển nhượng trong hợp đồng chuyển nhượng quyền sử dụng đất là người nhận thừa kế;",
+      "text_sha256": "75386a62baf4fc4fbf5338ece07d2c7649a9adcf86d1b684076047032aaf4e05",
+      "source_start_idx": 224,
+      "source_end_idx": 225
+    },
+    "LD2024:A44:K3:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-b_p36791",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A44:K3",
+      "text": "Trong trường hợp tặng cho quyền sử dụng đất thì người được tặng cho phải là đối tượng được quy định tại điểm e khoản 1 Điều 37 của Luật này và phù hợp với quy định của pháp luật về nhà ở, trong đó người nhận thừa kế được đứng tên là bên tặng cho trong hợp đồng hoặc văn bản cam kết tặng cho;",
+      "text_sha256": "971ade485ad5dd14994604af05359afdc736f5e74b383e330bd096fe0f9be568",
+      "source_start_idx": 225,
+      "source_end_idx": 226
+    },
+    "LD2024:A44:K3:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-3_diem-c_p37086",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A44:K3",
+      "text": "Trong trường hợp chưa chuyển nhượng hoặc chưa tặng cho quyền sử dụng đất thì người nhận thừa kế hoặc người đại diện theo ủy quyền bằng văn bản nộp hồ sơ về việc nhận thừa kế tại tổ chức đăng ký đất đai để cập nhật vào Sổ địa chính.",
+      "text_sha256": "738c175cc88719bef5416ba52917b3a7f1e077e9d9a82e17cd3019095fe6ccec",
+      "source_start_idx": 226,
+      "source_end_idx": 227
+    },
+    "LD2024:A44:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-4_p37321",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A44",
+      "text": "Trường hợp trong số những người nhận thừa kế có người gốc Việt Nam định cư ở nước ngoài không thuộc đối tượng được sở hữu nhà ở gắn liền với quyền sử dụng đất ở tại Việt Nam còn những người khác thuộc diện được nhận thừa kế quyền sử dụng đất theo quy định của pháp luật về đất đai mà chưa phân chia thừa\nkế quyền sử dụng đất cho từng người nhận thừa kế thì những người nhận thừa kế hoặc người đại diện theo ủy quyền bằng văn bản nộp hồ sơ về việc nhận thừa kế tại tổ chức đăng ký đất đai để cập nhật vào Sổ địa chính.\nSau khi giải quyết xong việc phân chia thừa kế thì cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất cho người thuộc đối tượng được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất; đối với người gốc Việt Nam định cư ở nước ngoài không thuộc đối tượng được sở hữu nhà ở gắn liền với quyền sử dụng đất ở tại Việt Nam thì phần thừa kế được giải quyết theo quy định tại khoản 3 Điều này.",
+      "text_sha256": "daa77c199a95bb7c4daf44a72ccdbe14ac12d2f2ac9eae5fea522845ca81abfc",
+      "source_start_idx": 227,
+      "source_end_idx": 231
+    },
+    "LD2024:A44:K5": {
+      "physical_node_id": "doc_chuong-iii_muc-4_dieu-44_khoan-5_p38280",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A44",
+      "text": "Người nhận thừa kế trong các trường hợp quy định tại điểm c khoản 3 và khoản 4 Điều này được ủy quyền bằng văn bản cho người khác trông nom hoặc tạm sử dụng đất và thực hiện nghĩa vụ theo quy định của pháp luật về đất đai và quy định khác của pháp luật có liên quan.",
+      "text_sha256": "91005934dd12f627df1e75a0cc70401273eaa50849e8bc13ce323c3ad67e8081",
+      "source_start_idx": 231,
+      "source_end_idx": 233
+    },
+    "LD2024:A45": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_p38607",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 236,
+      "source_end_idx": 237
+    },
+    "LD2024:A45:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_p38828",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Người sử dụng đất được thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất khi có đủ các điều kiện sau đây:",
+      "text_sha256": "5e7227e6d15cb8da2da6a65ab194eae2acf494e474c4704f776d2a3230c9405b",
+      "source_start_idx": 237,
+      "source_end_idx": 238
+    },
+    "LD2024:A45:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-a_p39033",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K1",
+      "text": "Có Giấy chứng nhận quyền sử dụng đất hoặc Giấy chứng nhận quyền sở hữu nhà ở và quyền sử dụng đất ở hoặc Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất hoặc Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất, trừ trường hợp thừa kế quyền sử dụng đất, chuyển đổi đất nông nghiệp khi dồn điền, đổi thửa, tặng cho quyền sử dụng đất cho Nhà nước, cộng đồng dân cư và trường hợp quy định tại khoản 7 Điều 124 và điểm a khoản 4 Điều 127 của Luật này;",
+      "text_sha256": "d8e39fa888e17b5d177fb232e20f0eb03d55baf777f6944a731875f63e1062a4",
+      "source_start_idx": 238,
+      "source_end_idx": 240
+    },
+    "LD2024:A45:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-b_p39544",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K1",
+      "text": "Đất không có tranh chấp hoặc tranh chấp đã được giải quyết bởi cơ quan nhà nước có thẩm quyền, bản án, quyết định của Tòa án, quyết định hoặc phán quyết của Trọng tài đã có hiệu lực pháp luật;",
+      "text_sha256": "140afd03571985897efd4d2116374f1da343654e55ed52e0892d846879d50cb8",
+      "source_start_idx": 240,
+      "source_end_idx": 241
+    },
+    "LD2024:A45:K1:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-c_p39740",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K1",
+      "text": "Quyền sử dụng đất không bị kê biên, áp dụng biện pháp khác để bảo đảm thi hành án theo quy định của pháp luật thi hành án dân sự;",
+      "text_sha256": "ff5243bd0c6fab3fe5d8f5cd1bfaaec8801a2da42a846db247c771983514ba68",
+      "source_start_idx": 241,
+      "source_end_idx": 242
+    },
+    "LD2024:A45:K1:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-d_p39873",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K1",
+      "text": "Trong thời hạn sử dụng đất;",
+      "text_sha256": "f1248e9e70b2b4b9df9a5bd9a5a415edf967637987f467b41a11fa7fbb8ee6fd",
+      "source_start_idx": 242,
+      "source_end_idx": 243
+    },
+    "LD2024:A45:K1:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-1_diem-dd_p39904",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K1",
+      "text": "Quyền sử dụng đất không bị áp dụng biện pháp khẩn cấp tạm thời theo quy định của pháp luật.",
+      "text_sha256": "1507f6b5bf3d8dff56c5dc6198b06f97944e3d587220e9b0eb05557aa3e0e5d7",
+      "source_start_idx": 243,
+      "source_end_idx": 244
+    },
+    "LD2024:A45:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-2_p39999",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Trường hợp chủ đầu tư chuyển nhượng quyền sử dụng đất đã có hạ tầng kỹ thuật trong dự án bất động sản thì ngoài các điều kiện quy định tại khoản 1 Điều này còn phải đáp ứng điều kiện khác theo quy định của Luật Kinh doanh bất động sản, Luật Nhà ở.",
+      "text_sha256": "1b4941dd583777264100e3a700f3034b12021aeeece5df55586d56e48e3dc7d1",
+      "source_start_idx": 244,
+      "source_end_idx": 245
+    },
+    "LD2024:A45:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_p40247",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Người sử dụng đất khi thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, thừa kế, tặng cho quyền sử dụng đất; thế chấp, góp vốn bằng quyền sử dụng đất thì ngoài các điều kiện quy định tại khoản 1 Điều này còn phải đáp ứng các điều kiện theo các trường hợp sau đây:",
+      "text_sha256": "4843f09dfc9e3388677cead230c096529ca458d20a8878b38c3fb82429d3729e",
+      "source_start_idx": 245,
+      "source_end_idx": 246
+    },
+    "LD2024:A45:K3:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-a_p40532",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K3",
+      "text": "Đối với trường hợp mua, bán tài sản gắn liền với đất, quyền thuê trong hợp đồng thuê đất được Nhà nước cho thuê thu tiền thuê đất hằng năm thì phải đáp ứng điều kiện quy định tại Điều 46 của Luật này;",
+      "text_sha256": "cfd6f2fe4b45a9e3630c68fbc7f49f433ee38be3b3d6e8255aab996c3a3ba5ee",
+      "source_start_idx": 246,
+      "source_end_idx": 247
+    },
+    "LD2024:A45:K3:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-b_p40736",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K3",
+      "text": "Đối với trường hợp chuyển đổi quyền sử dụng đất nông nghiệp thì phải đáp ứng điều kiện quy định tại Điều 47 của Luật này;",
+      "text_sha256": "bb85b3da8895643905c55fd8f2e89f01da10c0916c49381ad2477df7a1666c8a",
+      "source_start_idx": 247,
+      "source_end_idx": 248
+    },
+    "LD2024:A45:K3:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-3_diem-c_p40861",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K3",
+      "text": "Đối với trường hợp thực hiện quyền sử dụng đất của cá nhân là người dân tộc thiểu số được giao đất, cho thuê đất theo quy định tại khoản 3 Điều 16 của Luật này thì phải đáp ứng điều kiện quy định tại Điều 48 của Luật này.",
+      "text_sha256": "7e2baccbcc7dbdde02db83b9fcc7e3ac6fc1c586b1fc5fd669b1a49a40c3b7ba",
+      "source_start_idx": 248,
+      "source_end_idx": 249
+    },
+    "LD2024:A45:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-4_p41086",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Trường hợp nhận thừa kế quyền sử dụng đất thì người nhận thừa kế được thực hiện quyền khi có Giấy chứng nhận quyền sử dụng đất hoặc Giấy chứng nhận quyền sở hữu nhà ở và quyền sử dụng đất ở hoặc Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất hoặc Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất hoặc đủ điều kiện để cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất theo quy định của Luật này.",
+      "text_sha256": "3b723df00cdc4477604a3700541489cf8ec69455d60b78afe9449e0401714c98",
+      "source_start_idx": 249,
+      "source_end_idx": 251
+    },
+    "LD2024:A45:K5": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-5_p41573",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Trường hợp người sử dụng đất được chậm thực hiện nghĩa vụ tài chính hoặc được ghi nợ nghĩa vụ tài chính thì phải thực hiện xong nghĩa vụ tài chính trước khi thực hiện các quyền chuyển đổi, chuyển nhượng, cho thuê, cho thuê lại, tặng cho quyền sử dụng đất, thế chấp, góp vốn bằng quyền sử dụng đất.",
+      "text_sha256": "605214b50fe917dcf1fa2909c78d24d42a633cddce5c9bea4b126d36b1403ba4",
+      "source_start_idx": 251,
+      "source_end_idx": 252
+    },
+    "LD2024:A45:K6": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_p41871",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Tổ chức kinh tế được nhận chuyển nhượng quyền sử dụng đất nông nghiệp phải có phương án sử dụng đất nông nghiệp được Ủy ban nhân dân cấp huyện chấp thuận. Phương án sử dụng đất nông nghiệp phải có các nội dung chính sau đây:",
+      "text_sha256": "b27a8a7c34c030d40138490e35782c2fba4c201591d1690dfa963c16280dd51c",
+      "source_start_idx": 252,
+      "source_end_idx": 253
+    },
+    "LD2024:A45:K6:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-a_p42096",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K6",
+      "text": "Địa điểm, diện tích, mục đích sử dụng đất;",
+      "text_sha256": "fbeece458bdb65ee2fb6050625c88d44065f5d06a42119717148211726c4d4b9",
+      "source_start_idx": 253,
+      "source_end_idx": 254
+    },
+    "LD2024:A45:K6:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-b_p42142",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K6",
+      "text": "Kế hoạch sản xuất, kinh doanh nông nghiệp;",
+      "text_sha256": "1aa1af7ed45e0c0311f64b1f9f1a55b7d79b9c280236574ea90a185d3d8dc00e",
+      "source_start_idx": 254,
+      "source_end_idx": 255
+    },
+    "LD2024:A45:K6:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-c_p42188",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K6",
+      "text": "Vốn đầu tư;",
+      "text_sha256": "9cef57da85ece1600ff6d8f3db6bfe442b55c667acff749c3be84f2e10ee4caf",
+      "source_start_idx": 255,
+      "source_end_idx": 256
+    },
+    "LD2024:A45:K6:Dd": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-d_p42203",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K6",
+      "text": "Thời hạn sử dụng đất;",
+      "text_sha256": "1850d5a98a62c4920f8c25d47051ef03dc54e02f6d4313d0cec4c2b53c6c9df7",
+      "source_start_idx": 256,
+      "source_end_idx": 257
+    },
+    "LD2024:A45:K6:Dđ": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-6_diem-dd_p42228",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K6",
+      "text": "Tiến độ sử dụng đất.",
+      "text_sha256": "e5a2b28a9f95c68e1579f985e792efc94c0e5960b29c65dd9019a31ff0346eea",
+      "source_start_idx": 257,
+      "source_end_idx": 258
+    },
+    "LD2024:A45:K7": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-7_p42252",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Cá nhân không trực tiếp sản xuất nông nghiệp nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất trồng lúa quá hạn mức quy định tại Điều 176 của Luật này thì phải thành lập tổ chức kinh tế và có phương án sử dụng đất trồng lúa bao gồm các nội dung theo quy định tại khoản 6 Điều này và được Ủy ban nhân dân cấp huyện phê duyệt, trừ trường hợp người nhận tặng cho là người thuộc hàng thừa kế.",
+      "text_sha256": "80172042f7dfe6f57a246cb1df80de29f8b2e107af1fbf63ac853514e4f470c8",
+      "source_start_idx": 258,
+      "source_end_idx": 259
+    },
+    "LD2024:A45:K8": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_p42644",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A45",
+      "text": "Các trường hợp không được nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất quy định như sau:",
+      "text_sha256": "8cb5ad2cf9899e3624b441167d2e5d817c128897e12384d7058eeb2167e583f8",
+      "source_start_idx": 259,
+      "source_end_idx": 260
+    },
+    "LD2024:A45:K8:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-a_p42740",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K8",
+      "text": "Tổ chức kinh tế không được nhận chuyển nhượng quyền sử dụng đất rừng phòng hộ, đất rừng đặc dụng của cá nhân, trừ trường hợp được chuyển mục đích sử dụng đất theo quy hoạch, kế hoạch sử dụng đất đã được cơ quan có thẩm quyền phê duyệt;",
+      "text_sha256": "9f0450b94a1de20f9f6c768f8aa72b7eac8aac3dd46a3dd7fa4490f36f44f9b9",
+      "source_start_idx": 260,
+      "source_end_idx": 261
+    },
+    "LD2024:A45:K8:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-b_p42979",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K8",
+      "text": "Cá nhân không sinh sống trong khu vực rừng phòng hộ, rừng đặc dụng thì không được nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất ở và đất khác trong khu vực rừng phòng hộ, trong phân khu bảo vệ nghiêm ngặt, phân khu phục hồi sinh thái thuộc rừng đặc dụng đó;",
+      "text_sha256": "0db2ca5ecea373a6992632eb20002c0783d7ca7dfe2a454774d4c7617f176774",
+      "source_start_idx": 261,
+      "source_end_idx": 263
+    },
+    "LD2024:A45:K8:Dc": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-45_khoan-8_diem-c_p43247",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A45:K8",
+      "text": "Tổ chức, cá nhân, cộng đồng dân cư, tổ chức tôn giáo, tổ chức tôn giáo trực thuộc, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài mà pháp luật không cho phép nhận chuyển nhượng, nhận tặng cho quyền sử dụng đất.",
+      "text_sha256": "9c66560ca3d617ce3e38359e9b6f52f40f72d80145dcf824e7d522d70d1ebce6",
+      "source_start_idx": 263,
+      "source_end_idx": 264
+    },
+    "LD2024:A46": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_p43496",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 264,
+      "source_end_idx": 265
+    },
+    "LD2024:A46:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_p43634",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A46",
+      "text": "Tổ chức kinh tế, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài được bán tài sản gắn liền với đất được Nhà nước cho thuê đất thu tiền thuê đất hằng năm khi có đủ các điều kiện sau đây:",
+      "text_sha256": "ac4a5b1ce1b89a72f73e42fa65aaa19cb652ae42c5843793255f4320b9bf831c",
+      "source_start_idx": 265,
+      "source_end_idx": 266
+    },
+    "LD2024:A46:K1:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-a_p43863",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A46:K1",
+      "text": "Tài sản gắn liền với đất thuê được tạo lập hợp pháp và đã được đăng ký theo quy định của pháp luật;",
+      "text_sha256": "0ff15c147608cfa5759462bfe36c933b27a900d5f2b1be2ba42340ab10cd0865",
+      "source_start_idx": 266,
+      "source_end_idx": 267
+    },
+    "LD2024:A46:K1:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-1_diem-b_p43966",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A46:K1",
+      "text": "Đã hoàn thành việc xây dựng theo đúng quy hoạch xây dựng chi tiết và dự án đầu tư đã được phê duyệt, chấp thuận (nếu có), trừ trường hợp phải thực hiện theo bản án, quyết định của Tòa án đã có hiệu lực thi hành, quyết định cưỡng chế của cơ quan thi hành án dân sự hoặc kết luận của cơ quan nhà nước có thẩm quyền về thanh tra, kiểm tra.",
+      "text_sha256": "df98d5b407a91957b58a881647c6da844787a8eb15da9a594ffff3d1178480f6",
+      "source_start_idx": 267,
+      "source_end_idx": 268
+    },
+    "LD2024:A46:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_p44306",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A46",
+      "text": "Tổ chức kinh tế, cá nhân, người gốc Việt Nam định cư ở nước ngoài, tổ chức kinh tế có vốn đầu tư nước ngoài được Nhà nước cho thuê đất trả tiền thuê đất hằng năm được bán tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê khi có đủ các điều kiện sau đây:",
+      "text_sha256": "b0fe04ef585c81a2564c3b0c677d8e13e07da4d50a37364bd0055bfa25f26296",
+      "source_start_idx": 268,
+      "source_end_idx": 269
+    },
+    "LD2024:A46:K2:Da": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_diem-a_p44569",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A46:K2",
+      "text": "Các điều kiện quy định tại khoản 1 Điều này;",
+      "text_sha256": "53202b85822144a6f7da0747ce49827defda086eaea45d779cb1d4fca4929c1c",
+      "source_start_idx": 269,
+      "source_end_idx": 270
+    },
+    "LD2024:A46:K2:Db": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-2_diem-b_p44617",
+      "node_type": "POINT",
+      "parent_locator": "LD2024:A46:K2",
+      "text": "Đã ứng trước tiền bồi thường, hỗ trợ, tái định cư mà chưa khấu trừ hết vào tiền thuê đất phải nộp.",
+      "text_sha256": "d38bd2895f0dec01d7f99b37841df3ebeee0ebea9e7d8233fc0a09148575dc6d",
+      "source_start_idx": 270,
+      "source_end_idx": 271
+    },
+    "LD2024:A46:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-3_p44719",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A46",
+      "text": "Người mua tài sản gắn liền với đất hoặc mua tài sản gắn liền với đất và quyền thuê trong hợp đồng thuê đất được tiếp tục sử dụng đất đúng mục đích trong thời hạn sử dụng đất còn lại, được tiếp tục khấu trừ tiền đã ứng trước mà chưa được khấu trừ quy định tại điểm b khoản 2 Điều này và phải thực hiện thủ tục đăng ký đất đai theo quy định của Luật này.",
+      "text_sha256": "8300905ab5fc6e154b11e645184b613011dfb7157e163a9c446aab44471c6dd8",
+      "source_start_idx": 271,
+      "source_end_idx": 272
+    },
+    "LD2024:A46:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-4_p45072",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A46",
+      "text": "Trường hợp bán tài sản gắn liền với đất là công trình xây dựng mà đủ điều kiện tách thửa thì được tách thửa để cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất.",
+      "text_sha256": "52902fc0671f1e34669a73520919e18ebdd0887dc00324e48106e9e7aa7466f2",
+      "source_start_idx": 272,
+      "source_end_idx": 274
+    },
+    "LD2024:A46:K5": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-46_khoan-5_p45262",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A46",
+      "text": "Trường hợp được Nhà nước cho thuê đất trả tiền thuê đất hằng năm để thực hiện dự án xây dựng kinh doanh kết cấu hạ tầng thì được bán tài sản gắn liền với đất khi có đủ điều kiện quy định tại khoản 1 Điều 45 của Luật này và điều kiện khác theo quy định của Luật Kinh doanh bất động sản.",
+      "text_sha256": "1bf5e7db5fcea983b59b4905d645cbe385878015a752775a4c1ae2b8277b7ea1",
+      "source_start_idx": 274,
+      "source_end_idx": 275
+    },
+    "LD2024:A47": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-47_p45548",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "Cá nhân sử dụng đất nông nghiệp do được Nhà nước giao đất, do chuyển đổi, nhận chuyển nhượng, nhận thừa kế, nhận tặng cho quyền sử dụng đất hợp pháp từ người khác thì chỉ được chuyển đổi quyền sử dụng đất nông nghiệp trong cùng đơn vị hành chính cấp tỉnh cho cá nhân khác và không phải nộp thuế thu nhập từ việc chuyển đổi quyền sử dụng đất và lệ phí trước bạ.",
+      "text_sha256": "0b4f3fe420848a9c53b960f888e022db38cee9f7c6b0367518f7f25b8fb7ee9d",
+      "source_start_idx": 275,
+      "source_end_idx": 277
+    },
+    "LD2024:A48": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-48_p45969",
+      "node_type": "ARTICLE",
+      "parent_locator": null,
+      "text": "",
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_start_idx": 277,
+      "source_end_idx": 278
+    },
+    "LD2024:A48:K1": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-1_p46030",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A48",
+      "text": "Cá nhân là người dân tộc thiểu số được Nhà nước giao đất, cho thuê đất theo quy định tại khoản 3 Điều 16 của Luật này được để thừa kế, tặng cho, chuyển nhượng quyền sử dụng đất cho người thuộc hàng thừa kế là đối tượng quy định tại khoản 2 Điều 16 của Luật này.\nTrường hợp người sử dụng đất chết mà không có người thừa kế thuộc hàng thừa kế là đối tượng quy định tại khoản 2 Điều 16 của Luật này thì Nhà nước thu hồi đất và bồi thường tài sản gắn liền với đất cho người thừa kế theo quy định của pháp luật; trường hợp người sử dụng đất chuyển khỏi địa bàn cấp tỉnh nơi có đất đến nơi khác sinh sống hoặc không còn nhu cầu sử dụng mà không tặng cho, chuyển nhượng quyền sử dụng đất cho người thuộc hàng thừa kế là đối tượng quy định tại khoản 2 Điều 16 của Luật này thì Nhà nước thu hồi đất và bồi thường tài sản gắn liền với đất theo quy định của pháp luật cho người có đất thu hồi. Diện tích đất đã thu hồi được dùng để tiếp tục giao đất, cho thuê đất cho cá nhân khác là người dân tộc thiểu số theo chính sách quy định tại Điều 16 của Luật này.",
+      "text_sha256": "9c352c0e02837955640d8cf63dcbd2a2fe92e5689380bd19d39c23ecd239cfa4",
+      "source_start_idx": 278,
+      "source_end_idx": 280
+    },
+    "LD2024:A48:K2": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-2_p47077",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A48",
+      "text": "Cá nhân là người dân tộc thiểu số được Nhà nước giao đất, cho thuê đất theo quy định tại khoản 3 Điều 16 của Luật này thì được thế chấp quyền sử dụng đất tại ngân hàng chính sách.",
+      "text_sha256": "7479379bd83700c45b5c5c47644702898ad6ae2d64f240508561b1cb6bc5127c",
+      "source_start_idx": 280,
+      "source_end_idx": 281
+    },
+    "LD2024:A48:K3": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-3_p47257",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A48",
+      "text": "Cá nhân là người dân tộc thiểu số được Nhà nước giao đất, cho thuê đất theo quy định tại khoản 3 Điều 16 của Luật này không được chuyển nhượng, góp vốn, tặng cho, thừa kế, thế chấp quyền sử dụng đất, trừ trường hợp quy định tại khoản 1 và khoản 2 Điều này.",
+      "text_sha256": "beec4a69025b577f4a2b346336fefe82935e0ad015a47ba349772fbc4ff840ed",
+      "source_start_idx": 281,
+      "source_end_idx": 283
+    },
+    "LD2024:A48:K4": {
+      "physical_node_id": "doc_chuong-iii_muc-5_dieu-48_khoan-4_p47515",
+      "node_type": "CLAUSE",
+      "parent_locator": "LD2024:A48",
+      "text": "Ủy ban nhân dân cấp xã có trách nhiệm quản lý diện tích đất thu hồi theo quy định tại khoản 1 Điều này.",
+      "text_sha256": "658106675e5dac4321ece07715298b0af2973c260465d69a92d9ce2bb8fa3ae4",
+      "source_start_idx": 283,
+      "source_end_idx": 289
+    }
+  }
+}

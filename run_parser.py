@@ -27,7 +27,7 @@ if __name__ == "__main__":
     paragraphs = loader.load_structured(docx_path)
     
     print("[M2] Đang parse văn bản (Sử dụng metadata M1 + Hybrid ID)...")
-    parser = LegalParser(law_prefix="doc", law_code="59/2024/QH15", source_doc="Luat_dat_dai_chuong_3.docx")
+    parser = LegalParser(law_prefix="doc", law_code="31/2024/QH15", source_doc="Luat_dat_dai_chuong_3.docx")
     result = parser.parse_structured(paragraphs, source_doc="Luat_dat_dai_chuong_3.docx")
     
     # Fail-Fast: duplicate ID check

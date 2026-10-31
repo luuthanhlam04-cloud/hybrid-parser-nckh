@@ -28,6 +28,22 @@ Module 6 chỉ được sử dụng 8 loại Relation sau và phải tuân thủ
 | `HAS_OBJECT` | `ACTION`, `SUBJECT` | `OBJECT` |
 | `HAS_PENALTY` | `ACTION` | `PENALTY` |
 
+### Ngoại lệ có kiểm soát cho Partial Norm
+
+M6 nên resolve chủ thể từ parent khi có đủ căn cứ. Nếu vẫn không xác định được
+chủ thể mà không được phép suy diễn thêm, chỉ `ALLOW`, `REQUIRE`, `PROHIBIT`
+được phép có `source: null`, với các điều kiện bắt buộc:
+
+- `source_status: "UNRESOLVED"`;
+- target tồn tại và có type `ACTION`;
+- evidence không rỗng;
+- các relation cấu trúc (`HAS_OBJECT`, `HAS_CONDITION`, `HAS_EXCEPTION`,
+  `HAS_PENALTY`) vẫn bắt buộc có source.
+
+M7 chuyển trường hợp này thành `NormAssertion` có `subject_ids: []`,
+`subject_status: "UNRESOLVED"`, `norm_completeness: "PARTIAL"`. Không tạo
+phantom node mang ID `UNRESOLVED`.
+
 **⚠️ CHÚ Ý QUAN TRỌNG:**
 - KHÔNG BAO GIỜ gán `ALLOW`, `REQUIRE`, `PROHIBIT` xuất phát từ `OBJECT` (Hợp đồng, sổ đỏ không có quyền hay nghĩa vụ).
 
@@ -37,7 +53,7 @@ Module 6 chỉ được sử dụng 8 loại Relation sau và phải tuân thủ
 
 1. **Cấm gán Quyền/Nghĩa vụ cho OBJECT (Action-Object Fallacy):** `OBJECT` chỉ được làm Target của `HAS_OBJECT`.
 2. **Dịch ngược Câu Bị Động (Passive Voice Inversion):** Khi văn bản ở thể bị động (VD: "Người dân được Nhà nước bồi thường"), KHÔNG gán "Nhà nước" làm Source của `ALLOW`. Phải lật lại: `(Người dân) --ALLOW--> (Bồi thường)` VÀ `(Nhà nước) --REQUIRE--> (Bồi thường)`.
-3. **Suy luận Chủ thể Ẩn (Implicit Subject Resolution):** Khi gặp khoản liệt kê chỉ có hành vi (VD: "- Được chuyển nhượng"), BẮT BUỘC tìm ngược lên câu mở đoạn để xác định Chủ thể. KHÔNG để rỗng Source.
+3. **Suy luận Chủ thể Ẩn (Implicit Subject Resolution):** Khi gặp khoản liệt kê chỉ có hành vi (VD: "- Được chuyển nhượng"), phải tìm ngược lên câu mở đoạn để xác định chủ thể. Chỉ khi không đủ căn cứ và việc điền chủ thể sẽ tạo semantic amplification mới dùng ngoại lệ Partial Norm ở trên.
 4. **Tách bạch Đối tượng và Hành động (Relation Chaining):** Không gộp "Chuyển nhượng quyền sử dụng đất" thành 1 Action. Phải rã ra: `(Chủ thể) --ALLOW--> (Chuyển nhượng)` VÀ `(Chuyển nhượng) --HAS_OBJECT--> (Quyền sử dụng đất)`.
 5. **Gán CONDITION:** Cấu trúc "X khi Y" / "X nếu Y" -> `(Action X) --HAS_CONDITION--> (Condition Y)`.
 6. **Gán EXCEPTION:** Cấu trúc "trừ trường hợp Y" -> `(Action/Condition) --HAS_EXCEPTION--> (Exception Y)`.

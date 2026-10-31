@@ -25,6 +25,35 @@ from xml.etree import ElementTree as ET
 
 logger = logging.getLogger(__name__)
 
+
+# Marker Điểm bị gõ tay có thể nằm giữa cùng một paragraph Word, trong khi
+# marker đầu paragraph lại đến từ auto-numbering. Ví dụ thực tế ở Điều 45,
+# Khoản 6: "Thời hạn sử dụng đất; đ) Tiến độ sử dụng đất.".
+# Chỉ tách marker sau dấu câu để tránh nhầm các dẫn chiếu như "điểm a khoản 1".
+_INLINE_POINT_RE = re.compile(
+    r"(?<=[;.:])\s+(?P<marker>[a-zđ])\)\s+",
+    re.UNICODE,
+)
+
+
+def split_inline_point_markers(text: str) -> list[tuple[Optional[str], str]]:
+    """Tách Điểm gõ tay nằm giữa paragraph thành các đơn vị độc lập."""
+    matches = list(_INLINE_POINT_RE.finditer(text))
+    if not matches:
+        return [(None, text)]
+
+    parts: list[tuple[Optional[str], str]] = []
+    first = text[:matches[0].start()].strip()
+    if first:
+        parts.append((None, first))
+
+    for idx, match in enumerate(matches):
+        end = matches[idx + 1].start() if idx + 1 < len(matches) else len(text)
+        body = text[match.end():end].strip()
+        if body:
+            parts.append((match.group("marker").lower(), body))
+    return parts
+
 # ---------------------------------------------------------------------------
 # Namespace XML của OOXML (dùng cho fallback parser)
 # ---------------------------------------------------------------------------
@@ -309,13 +338,18 @@ class DocxLoader(BaseLoader):
                     text_parts.append(t_el.text or "")
             para_text = "".join(text_parts).strip()
 
-            # --- Gắn nhãn đánh số nếu có ---
+            # --- Gắn nhãn đánh số và tách marker Điểm inline nếu có ---
+            segments = split_inline_point_markers(para_text)
+            label = ""
             if num_id > 0 and para_text:
                 label = num_parser.get_label(num_id, ilvl)
-                if label:
-                    para_text = f"{label} {para_text}"
 
-            lines.append(para_text)
+            for segment_idx, (inline_marker, segment_text) in enumerate(segments):
+                if segment_idx == 0 and label:
+                    segment_text = f"{label} {segment_text}"
+                elif inline_marker:
+                    segment_text = f"{inline_marker}) {segment_text}"
+                lines.append(segment_text)
 
         return lines
 
@@ -424,17 +458,22 @@ class DocxLoader(BaseLoader):
                     else:
                         p_number = count  # fallback
 
-            paragraphs.append(StructuredParagraph(
-                index=idx,
-                text=para_text,
-                word_style=word_style,
-                num_id=p_num_id,
-                ilvl=p_ilvl,
-                num_fmt=p_num_fmt,
-                number=p_number,
-                marker=p_marker,
-                is_empty=(para_text.strip() == ""),
-            ))
+            segments = split_inline_point_markers(para_text)
+            for segment_idx, (inline_marker, segment_text) in enumerate(segments):
+                is_first = segment_idx == 0
+                paragraphs.append(StructuredParagraph(
+                    # Index tuần tự sau khi mở rộng giúp synthetic paragraph
+                    # có vị trí duy nhất và giữ đúng thứ tự đọc.
+                    index=len(paragraphs),
+                    text=segment_text,
+                    word_style=word_style if is_first else "Body Text",
+                    num_id=p_num_id if is_first else None,
+                    ilvl=p_ilvl if is_first else None,
+                    num_fmt=p_num_fmt if is_first else None,
+                    number=p_number if is_first else None,
+                    marker=p_marker if is_first else inline_marker,
+                    is_empty=(segment_text.strip() == ""),
+                ))
 
         logger.info("[load_structured] Đã trích xuất %d paragraphs.", len(paragraphs))
         return paragraphs

@@ -176,6 +176,14 @@ concepts:
       - "nhận thế chấp"
     neo4j_labels: ["LegalAction", "RealEstateTransaction", "MortgageAction"]
 
+  - id: "LO2024.ACTION.ATTACHED_ASSET_MORTGAGE"
+    semantic_type: "LegalAction"
+    taxonomy_path: "LegalAction.RealEstateTransaction.MortgageAction"
+    preferred_name: "Thế chấp tài sản gắn liền với đất"
+    alt_labels:
+      - "thế chấp tài sản thuộc sở hữu của mình gắn liền với đất"
+    neo4j_labels: ["LegalAction", "RealEstateTransaction", "MortgageAction"]
+
   - id: "LO2024.ACTION.LAND_LEASE"
     semantic_type: "LegalAction"
     taxonomy_path: "LegalAction.RealEstateTransaction.LeaseAction"
