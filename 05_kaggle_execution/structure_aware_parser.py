@@ -147,9 +147,18 @@ class StructureAwareParser:
 
         return chunks
 
-    def parse_corpus(self, corpus_path: str) -> List[Dict[str, Any]]:
-        with open(corpus_path, "r", encoding="utf-8") as f:
-            corpus = json.load(f)
+    def parse_corpus(self, corpus_input: Any) -> List[Dict[str, Any]]:
+        """
+        Nhận vào đường dẫn file JSON (str) HOẶC danh sách các điều luật đã nạp (list).
+        Tự động thích ứng để tương thích 100% với cả 2 cách gọi.
+        """
+        if isinstance(corpus_input, (str, os.PathLike)):
+            with open(corpus_input, "r", encoding="utf-8") as f:
+                corpus = json.load(f)
+        elif isinstance(corpus_input, list):
+            corpus = corpus_input
+        else:
+            raise TypeError(f"Expected str path or list of dicts, got {type(corpus_input)}")
             
         all_structured_chunks = []
         for doc in corpus:
