@@ -57,6 +57,8 @@ Benchmark/
 │   └── README_BENCHMARK_B.md          # Ghi chú hướng dẫn mở rộng cho đợt 2
 │
 ├── 📁 docs/                     # 📚 [TOÀN BỘ TÀI LIỆU KỸ THUẬT & NGHIÊN CỨU]
+│   ├── system_architecture.md         # 🏛️ ĐẶC TẢ KIẾN TRÚC HỆ THỐNG PHỄU RAG ĐA TẦNG (Bản vẽ kỹ thuật & sơ đồ)
+│   ├── dataset_analysis_and_defense_strategy.md # ⚖️ PHÂN TÍCH CHUYÊN SÂU 205/512 CÂU & CẨM NANG DEFEND TRƯỚC HỘI ĐỒNG
 │   ├── research_notes_benchmark_system.md # Master Technical Blueprint & Cẩm nang Nghiên cứu
 │   ├── benchmark_walkthrough.md       # Báo cáo tổng quan quy trình đo kiểm
 │   ├── data_audit_report.md           # Báo cáo kiểm toán dữ liệu
