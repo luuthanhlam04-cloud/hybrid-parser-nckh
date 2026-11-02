@@ -52,15 +52,19 @@ Benchmark/
 │   ├── run_ttest.py                   # Tính kiểm định Paired t-test và Wilcoxon
 │   └── calc_exact_metrics.py          # Tính Recall@5, MRR@5 theo định nghĩa toán học
 │
-├── 📁 07_reports_and_docs/      # [BÁO CÁO & TÀI LIỆU] Các tài liệu kỹ thuật & ghi chú nghiên cứu
-│   ├── data_audit_report.md           # Báo cáo kiểm toán dữ liệu
-│   ├── benchmark_walkthrough.md       # Báo cáo tổng quan quy trình đo kiểm
-│   ├── leakage_report.txt             # Báo cáo kiểm định không rò rỉ dữ liệu
-│   └── context/                       # Ảnh chụp thảo luận và tài liệu Word/TXT gốc
-│
-├── 📁 08_benchmark_b_pending/   # ⏳ [BENCHMARK 2] Dữ liệu đợt 2 (Đang xếp hàng chờ chạy)
+├── 📁 07_benchmark_b_pending/   # ⏳ [BENCHMARK 2] Dữ liệu đợt 2 (Đang xếp hàng chờ chạy)
 │   ├── funnel_evaluation/             # Khung đánh giá đa tầng cũ & Tier 3 Benchmark B
 │   └── README_BENCHMARK_B.md          # Ghi chú hướng dẫn mở rộng cho đợt 2
+│
+├── 📁 docs/                     # 📚 [TOÀN BỘ TÀI LIỆU KỸ THUẬT & NGHIÊN CỨU]
+│   ├── research_notes_benchmark_system.md # Master Technical Blueprint & Cẩm nang Nghiên cứu
+│   ├── benchmark_walkthrough.md       # Báo cáo tổng quan quy trình đo kiểm
+│   ├── data_audit_report.md           # Báo cáo kiểm toán dữ liệu
+│   ├── leakage_report.txt             # Báo cáo kiểm định không rò rỉ dữ liệu
+│   ├── verify_benchmark_report.txt    # Báo cáo xác minh nhãn ground-truth
+│   ├── benchmark.docx / benchmark.txt # Tài liệu benchmark gốc
+│   ├── indexing.docx / indexing.txt   # Tài liệu hướng dẫn indexing
+│   └── context/                       # Ảnh chụp thảo luận và ghi chú nghiên cứu
 │
 └── 📦 kaggle_ablation_package.zip # Bản sao tiện ích tại root để nạp nhanh lên Kaggle
 ```
@@ -81,6 +85,7 @@ Benchmark/
 ---
 
 ### B. Dành cho người viết Luận văn / Báo cáo NCKH:
+- **Tài liệu tham khảo toàn diện:** Đọc ngay [`docs/research_notes_benchmark_system.md`](file:///c:/Users/luuth/NCKH/Benchmark/docs/research_notes_benchmark_system.md) — văn bản chứa đầy đủ giả thuyết phễu, phân tích Failure Mode V1, lý thuyết toán học (MaxP, RRF $k=60$) và sơ đồ thư mục.
 - **Viết Chương 3 (Thiết kế Hệ thống):**
   - Trích dẫn file [`05_kaggle_execution/structure_aware_parser.py`](file:///c:/Users/luuth/NCKH/Benchmark/05_kaggle_execution/structure_aware_parser.py) (Module M1-M3 bóc tách và kế thừa ngữ cảnh).
   - Trích dẫn thuật toán Article-level MaxP Aggregation (Dai & Callan, SIGIR 2019) và RRF $k=60$ (Cormack et al., SIGIR 2009).
@@ -98,5 +103,4 @@ Benchmark/
 ### C. Dành cho người kiểm tra mã nguồn & dữ liệu:
 - Kiểm tra tính rò rỉ: chạy script tại [`06_tools_and_audits/leakage_check.py`](file:///c:/Users/luuth/NCKH/Benchmark/06_tools_and_audits/leakage_check.py).
 - Kiểm tra tính nhất quán nhãn: chạy [`06_tools_and_audits/verify_benchmark.py`](file:///c:/Users/luuth/NCKH/Benchmark/06_tools_and_audits/verify_benchmark.py).
-- Xem xét kế hoạch Benchmark 2: tham khảo [`08_benchmark_b_pending/README_BENCHMARK_B.md`](file:///c:/Users/luuth/NCKH/Benchmark/08_benchmark_b_pending/README_BENCHMARK_B.md).
-
+- Xem xét kế hoạch Benchmark 2: tham khảo [`07_benchmark_b_pending/README_BENCHMARK_B.md`](file:///c:/Users/luuth/NCKH/Benchmark/07_benchmark_b_pending/README_BENCHMARK_B.md).
