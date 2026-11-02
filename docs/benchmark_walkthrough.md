@@ -1,6 +1,13 @@
 # Hướng Dẫn Kỹ Thuật (Walkthrough) - Benchmark Harness 
 *(Cập nhật theo kiến trúc End-to-End RAG mới nhất - 512 câu hỏi)*
 
+> ⚠️ **LƯU Ý QUAN TRỌNG:** Tài liệu này mô tả khung chạy harness ban đầu cho các hệ thống Baseline ở Giai đoạn 1. 
+> Đối với **Kiến trúc Hệ thống Phễu Đa Tầng đề xuất**, **Bộ phân tích Structure-Aware Parser v2**, và **Quy trình Thực nghiệm Ablation hiện tại (Giai đoạn 2)**, vui lòng đọc các tài liệu kỹ thuật cập nhật mới nhất:
+> 1. [system_architecture.md](system_architecture.md): Bản vẽ thiết kế kỹ thuật, sơ đồ luồng dữ liệu 5 tầng và công thức toán học MaxP, RRF =60$.
+> 2. [dataset_analysis_and_defense_strategy.md](dataset_analysis_and_defense_strategy.md): Phân tích chuyên sâu 205 vs 512 câu, chiến lược 3 giai đoạn và cẩm nang phản biện bảo vệ luận văn.
+> 3. [research_notes_benchmark_system.md](research_notes_benchmark_system.md): Master technical blueprint và hướng dẫn trích dẫn số liệu vào từng chương mục của Luận văn.
+> 4. [README_KAGGLE.md](../05_kaggle_execution/README_KAGGLE.md): Hướng dẫn thực thi 1-click trên Kaggle GPU (T4/P100).
+
 Hệ thống Benchmark đã được khởi tạo toàn vẹn kiến trúc (Skeleton & Logic Flow) theo **Adapter Pattern**. Đây là hướng dẫn để Team Dev hiểu cách "cắm" (plug-in) các hệ thống RAG vào và cách luồng dữ liệu di chuyển.
 
 ## 1. Khung Kiến Trúc (Architecture Diagram)

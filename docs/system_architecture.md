@@ -186,3 +186,4 @@ flowchart TD
    - Đưa công thức Toán học MaxP và RRF (Mục 3.3, 3.4) vào phần phương pháp luận.
 4. **Ứng dụng vào Mục 4.2 (Phân tích Kết quả Thực nghiệm):**
    - Sử dụng Bảng so sánh Mục 4 để chứng minh Kiến trúc Phễu đạt biên cân bằng Pareto hoàn hảo so với Naive RAG và LightRAG.
+

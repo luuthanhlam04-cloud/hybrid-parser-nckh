@@ -136,3 +136,4 @@ Khi viết báo cáo, nhóm đưa 2 bảng số liệu độc lập này vào c�
 | **2. Parser (Vi mô)** | BM25 Only | *~0.7300* | *~0.6000* | *~65.00%* | $\sim 45.0\text{ ms}$ | Bị nghẽn cổ chai CPU của rank-bm25 |
 | | Dense Only (MaxP) | *~0.9400* | *~0.8800* | ***~89.00%*** | **$\sim 1.5\text{ ms}$** | **GPU CUDA tăng tốc; Citation nhảy vọt** |
 | | **Hybrid RRF (MaxP)** | ***> 0.9450*** | ***> 0.9000*** | ***~90.00%*** | $\sim 50.0\text{ ms}$ | **Cấu hình tối ưu toàn diện (SOTA Đề xuất)** |
+

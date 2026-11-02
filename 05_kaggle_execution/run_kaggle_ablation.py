@@ -690,6 +690,30 @@ def run_benchmark():
     print("   7. runtime_performance_and_cost_report.json & .md")
     print("=" * 80)
 
+    # 8. TỰ ĐỘNG ĐÓNG GÓI TOÀN BỘ ARTIFACTS THÀNH KAGGLE_BENCHMARK_RESULTS.ZIP
+    import zipfile
+    zip_target = os.path.join(args.output_dir, "kaggle_benchmark_results.zip")
+    files_to_pack = [
+        "six_configurations_ablation_matrix.csv",
+        "tier1_fair_subset_205_matrix.csv",
+        "results_ablation_bm25_parser.csv",
+        "results_ablation_vector_parser.csv",
+        "results_ablation_hybrid_parser.csv",
+        "results_lightrag_approx_retrieval.csv",
+        "parser_citation_llm_judge_50.json",
+        "runtime_performance_and_cost_report.json",
+        "runtime_performance_and_cost_report.md"
+    ]
+    with zipfile.ZipFile(zip_target, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for fname in files_to_pack:
+            fpath = os.path.join(args.output_dir, fname)
+            if os.path.exists(fpath):
+                zf.write(fpath, arcname=fname)
+                print(f"  + Đã nén vào ZIP: {fname} ({os.path.getsize(fpath):,} bytes)")
+
+    print(f"\n📦 GÓI KẾT QUẢ ĐÃ TẠO TỰ ĐỘNG THÀNH CÔNG: {zip_target}")
+    print("   -> Bạn có thể tải ngay file 'kaggle_benchmark_results.zip' từ tab Output của Kaggle!")
+
 
 if __name__ == "__main__":
     run_benchmark()
