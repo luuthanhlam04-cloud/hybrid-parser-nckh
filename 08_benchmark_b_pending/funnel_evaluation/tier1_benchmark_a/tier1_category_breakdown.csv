@@ -1,0 +1,13 @@
+Category,System,N_Samples,recall_at_5,mrr_at_5,strict_match,context_precision,faithfulness,citation_accuracy,refusal_correct
+clean_factoid,Vector RAG,307,0.9349,0.8535,N/A,0.9469,0.9414,0.3645,N/A
+clean_factoid,Hybrid RAG,307,0.9479,0.9137,N/A,0.958,0.9427,0.3704,N/A
+clean_factoid,LightRAG,307,N/A,N/A,N/A,0.397,0.4114,0.099,N/A
+conditional,Vector RAG,123,0.8374,0.7007,N/A,0.9301,0.9301,0.487,N/A
+conditional,Hybrid RAG,123,0.8943,0.8102,N/A,0.9618,0.9528,0.4878,N/A
+conditional,LightRAG,123,N/A,N/A,N/A,0.328,0.3636,0.0682,N/A
+multi_hop,Vector RAG,67,0.9701,0.84,0.9701,0.9746,0.9552,0.3463,N/A
+multi_hop,Hybrid RAG,67,0.9403,0.8918,0.9403,0.9791,0.9537,0.3209,N/A
+multi_hop,LightRAG,67,N/A,N/A,N/A,0.5116,0.4957,0.1029,N/A
+negative,Vector RAG,15,0.8667,0.78,N/A,0.7133,0.3733,0.6533,0.0667
+negative,Hybrid RAG,15,0.8667,0.6967,N/A,0.72,0.2667,0.5933,0.0667
+negative,LightRAG,15,N/A,N/A,N/A,0.1993,0.227,0.2598,0.2143

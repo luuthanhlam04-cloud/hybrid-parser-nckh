@@ -1,0 +1,69 @@
+{
+  "hardware": {
+    "device": "cuda",
+    "gpu_name": "Tesla T4",
+    "vram_peak_mb": 10288.92
+  },
+  "indexing_stages": {
+    "parsing_sec": 0.0516,
+    "bm25_sec": 10.8014,
+    "dense_encode_sec": 279.2618
+  },
+  "retrieval_latencies": {
+    "vector_parser": {
+      "mean": 0.75,
+      "median": 0.665,
+      "p95": 0.783,
+      "p99": 0.876
+    },
+    "hybrid_parser": {
+      "mean": 43.462,
+      "median": 43.052,
+      "p95": 61.878,
+      "p99": 69.519
+    },
+    "lightrag_approx": {
+      "mean": 0.08,
+      "median": 0.057,
+      "p95": 0.104,
+      "p99": 0.252
+    }
+  },
+  "five_systems_cost_latency_comparison": [
+    {
+      "system": "1. Naive Vector (Baseline)",
+      "retrieval_latency": "~1.2 ms (Local)",
+      "end_to_end_latency_mean": "3968.3 ms",
+      "query_cost_total": "$0.2255",
+      "indexing_cost": "$0.00 (Local Offline)"
+    },
+    {
+      "system": "2. Naive Hybrid (Baseline)",
+      "retrieval_latency": "~3.5 ms (Local)",
+      "end_to_end_latency_mean": "3693.1 ms",
+      "query_cost_total": "$0.2108",
+      "indexing_cost": "$0.00 (Local Offline)"
+    },
+    {
+      "system": "3. Vector + Parser (Ours)",
+      "retrieval_latency": "0.75 ms (P95: 0.783 ms)",
+      "end_to_end_latency_mean": "N/A (Pure Retrieval)",
+      "query_cost_total": "$0.0000 (Local GPU)",
+      "indexing_cost": "$0.00 (Local GPU)"
+    },
+    {
+      "system": "4. Hybrid + Parser (Ours)",
+      "retrieval_latency": "43.462 ms (P95: 61.878 ms)",
+      "end_to_end_latency_mean": "N/A (Pure Retrieval)",
+      "query_cost_total": "$0.0000 (Local GPU)",
+      "indexing_cost": "$0.00 (Local GPU)"
+    },
+    {
+      "system": "5. LightRAG (Generic GraphRAG)",
+      "retrieval_latency": "0.08 ms (P95: 0.104 ms)",
+      "end_to_end_latency_mean": "3674.3 ms",
+      "query_cost_total": "$0.1130",
+      "indexing_cost": "$3.00 (API 500 docs)"
+    }
+  ]
+}

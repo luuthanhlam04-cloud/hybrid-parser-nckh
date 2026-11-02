@@ -1,0 +1,86 @@
+{
+  "total_tokens": 8911,
+  "total_cost_usd": 0.002976,
+  "details": [
+    {
+      "question_id": "q-454",
+      "latency_ms": 6021.6,
+      "tokens": 843,
+      "cost": 0.000285,
+      "faithfulness": 1.0,
+      "citation_accuracy": 1.0
+    },
+    {
+      "question_id": "q-455",
+      "latency_ms": 5492.89,
+      "tokens": 970,
+      "cost": 0.000331,
+      "faithfulness": 0.95,
+      "citation_accuracy": 0.9
+    },
+    {
+      "question_id": "q-456",
+      "latency_ms": 6285.32,
+      "tokens": 891,
+      "cost": 0.000299,
+      "faithfulness": 1.0,
+      "citation_accuracy": 1.0
+    },
+    {
+      "question_id": "q-457",
+      "latency_ms": 4964.95,
+      "tokens": 741,
+      "cost": 0.000238,
+      "faithfulness": 0.9,
+      "citation_accuracy": 0.8
+    },
+    {
+      "question_id": "q-458",
+      "latency_ms": 5975.14,
+      "tokens": 942,
+      "cost": 0.000315,
+      "faithfulness": 0.9,
+      "citation_accuracy": 0.8
+    },
+    {
+      "question_id": "q-459",
+      "latency_ms": 6157.27,
+      "tokens": 1104,
+      "cost": 0.000378,
+      "faithfulness": 0.95,
+      "citation_accuracy": 0.9
+    },
+    {
+      "question_id": "q-460",
+      "latency_ms": 4923.51,
+      "tokens": 1080,
+      "cost": 0.000368,
+      "faithfulness": 1.0,
+      "citation_accuracy": 1.0
+    },
+    {
+      "question_id": "q-461",
+      "latency_ms": 3639.03,
+      "tokens": 664,
+      "cost": 0.00021,
+      "faithfulness": 1.0,
+      "citation_accuracy": 1.0
+    },
+    {
+      "question_id": "q-462",
+      "latency_ms": 5709.21,
+      "tokens": 888,
+      "cost": 0.000293,
+      "faithfulness": 0.9,
+      "citation_accuracy": 0.8
+    },
+    {
+      "question_id": "q-463",
+      "latency_ms": 4039.18,
+      "tokens": 788,
+      "cost": 0.000259,
+      "faithfulness": 1.0,
+      "citation_accuracy": 1.0
+    }
+  ]
+}

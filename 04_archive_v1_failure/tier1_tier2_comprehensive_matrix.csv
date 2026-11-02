@@ -1,0 +1,6 @@
+System,Scope,Recall@5,MRR@5,Citation,P95 Latency
+1. Naive Vector (Baseline),Full (512 qs),0.9141,0.8129,0.4,3968.3 ms (API)
+2. Naive Hybrid (Baseline),Full (512 qs),0.9316,0.8796,0.3986,3693.2 ms (API)
+3. Vector + Parser (Ours),Full (512 qs),0.8906,0.8077,Preserved (Hierarchical ID),0.783 ms
+4. Hybrid + Parser (Ours),Full (512 qs),0.8652,0.726,Preserved (Hierarchical ID),61.878 ms
+5. LightRAG (Approx Retrieval),Full (512 qs - 24% docs),0.3867,0.3478,0.0968,0.104 ms

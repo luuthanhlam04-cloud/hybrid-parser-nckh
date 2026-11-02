@@ -1,0 +1,154 @@
+TẦNG 1 — RETRIEVAL METRICS
+1.1. Cơ chế
+Input: Câu hỏi + Corpus (1,500 điều luật).
+Output: Danh sách điều luật được retrieve, xếp hạng theo relevance.
+Cách tính: So sánh danh sách retrieve với ground truth (điều luật chứa đáp án).
+1.2. Các chỉ số cụ thể
+MRR (Mean Reciprocal Rank):
+text
+MRR = (1/|Q|) × Σ (1/rank_i)
+rank_i = vị trí của điều luật đúng đầu tiên trong danh sách retrieve.
+Ví dụ: Retrieve [Điều 45, Điều 27, Điều 30], đáp án là Điều 45 → rank = 1 → 1/1 = 1.0
+Ví dụ: Retrieve [Điều 27, Điều 45, Điều 30], đáp án là Điều 45 → rank = 2 → 1/2 = 0.5
+Ý nghĩa: Hệ thống đặt điều luật đúng ở vị trí nào?
+Recall@k:
+text
+Recall@k = (Số điều luật đúng trong top-k) / (Tổng điều luật đúng)
+Ví dụ: Cần 2 điều để trả lời, retrieve top-5 có 1 điều → Recall@5 = 1/2 = 0.5
+Ý nghĩa: Hệ thống có bỏ sót điều luật cần thiết không?
+Precision@k:
+text
+Precision@k = (Số điều luật đúng trong top-k) / k
+Ví dụ: Top-5 có 1 điều đúng → Precision@5 = 1/5 = 0.2
+Ý nghĩa: Trong top-k, bao nhiêu % là đúng?
+NDCG@k (Normalized Discounted Cumulative Gain):
+Đo chất lượng ranking có trọng số vị trí.
+Điều luật đúng ở vị trí 1 quan trọng hơn ở vị trí 5.
+Ý nghĩa: Chất lượng ranking tổng thể.
+1.3. Tác dụng
+1.4. Hạn chế
+Không đo được chất lượng câu trả lời cuối cùng.
+Phụ thuộc vào ground truth — nếu ground truth sai → metric sai.
+Không capture được "đúng một phần" — điều luật có thể liên quan một phần.
+1.5. Cách dùng trong báo cáo
+"Tầng 1 đo khả năng tìm đúng văn bản luật của từng hệ thống. Đây là tầng objective, không phụ thuộc LLM Judge. Kết quả cho thấy hệ thống nào có retrieval quality tốt nhất trên legal domain."
+
+TẦNG 2 — SEMANTIC METRICS (RAGAS)
+2.1. Cơ chế
+Input: Câu hỏi + Context (điều luật retrieve) + Answer (câu trả lời sinh ra).
+Output: 4 chỉ số semantic.
+Cách tính: LLM Judge (GPT-4o) đọc và chấm điểm 0-1.
+2.2. Các chỉ số cụ thể
+Faithfulness:
+text
+Faithfulness = (Số mệnh đề trong Answer có trong Context) / (Tổng mệnh đề trong Answer)
+Ví dụ: Answer có 5 mệnh đề, 4 mệnh đề có trong Context → Faithfulness = 0.8
+Ý nghĩa: Câu trả lời có bịa không?
+Answer Relevance:
+text
+Answer Relevance = Điểm LLM Judge (0-1)
+LLM Judge đọc câu hỏi + câu trả lời → đánh giá mức độ liên quan.
+Ý nghĩa: Câu trả lời có trả lời đúng câu hỏi không?
+Context Precision:
+text
+Context Precision = (Số context hữu ích) / (Tổng context retrieve)
+Ý nghĩa: Trong context retrieve, bao nhiêu % là hữu ích?
+Context Recall:
+text
+Context Recall = (Số context cần thiết được retrieve) / (Tổng context cần thiết)
+Ý nghĩa: Có bỏ sót context cần thiết không?
+2.3. Tác dụng
+2.4. Hạn chế
+Phụ thuộc LLM Judge → có bias.
+RAGAS gốc tiếng Anh → cần custom prompt tiếng Việt.
+Không capture đặc thù pháp lý — semantic similarity ≠ legal correctness.
+Tốn chi phí — cần LLM Judge cho mỗi câu.
+2.5. Cách dùng trong báo cáo
+"Tầng 2 đo chất lượng ngữ nghĩa của câu trả lời. Sử dụng RAGAS với custom prompt tiếng Việt. Kết quả cho thấy hệ thống nào có Faithfulness cao nhất — tức ít hallucination nhất."
+
+TẦNG 3 — LEGAL-SPECIFIC METRICS
+3.1. Cơ chế
+Input: Câu hỏi + Answer + Ground truth (điều luật đúng).
+Output: 3 chỉ số pháp lý.
+Cách tính: Hybrid — Rule-based + LLM Judge.
+3.2. Các chỉ số cụ thể
+Citation Accuracy:
+text
+Citation Accuracy = (Số câu trả lời cite đúng điều luật) / (Tổng câu)
+Ví dụ: Answer nói "Theo Điều 45 Luật Đất đai 2024" → check xem Điều 45 có đúng là điều luật chứa đáp án không.
+Ý nghĩa: Hệ thống có dẫn chiếu đúng điều khoản không?
+Tại sao quan trọng: Nghiên cứu cho thấy citation accuracy là yếu tố dự báo mạnh nhất cho legal correctness (Cohen's d = 1.099).
+Statutory Inclusion Rate:
+text
+Statutory Inclusion Rate = (Số điều luật cần thiết được đề cập) / (Tổng điều luật cần thiết)
+Ví dụ: Câu hỏi cần 3 điều để trả lời, Answer đề cập 2 điều → 0.67
+Ý nghĩa: Câu trả lời có bao gồm đủ các điều luật liên quan không?
+Legal Entity Preservation Rate:
+text
+Legal Entity Preservation Rate = (Số entity pháp lý giữ nguyên) / (Tổng entity trong ground truth)
+Entity: chủ thể, hành vi, điều kiện, ngoại lệ.
+Ý nghĩa: Hệ thống có bảo toàn các thực thể pháp lý quan trọng không?
+3.3. Tác dụng
+3.4. Hạn chế
+Cần ground truth chi tiết — phải biết điều luật đúng cho mỗi câu.
+LLM Judge có thể sai khi đánh giá citation.
+Phức tạp — cần parse citation từ câu trả lời.
+3.5. Cách dùng trong báo cáo
+"Tầng 3 đo đặc thù pháp lý: khả năng dẫn chiếu đúng điều khoản và bảo toàn thực thể pháp lý. Đây là tầng phân biệt hệ thống legal RAG với hệ thống RAG tổng quát."
+
+TẦNG 4 — ONTOLOGY METRICS (Contribution của nhóm)
+4.1. Cơ chế
+Input: Answer + NormAssertion Ontology (M7).
+Output: 2 chỉ số ontology.
+Cách tính: Rule-based — kiểm tra cấu trúc câu trả lời với ontology rules.
+4.2. Các chỉ số cụ thể
+Norm Structure Validity:
+text
+Norm Structure Validity = (Số câu trả lời có cấu trúc hợp lệ) / (Tổng câu)
+Check cấu trúc: Subject + Action + Object + Modality + Condition/Exception.
+Ví dụ: Answer có "DTTS được chuyển nhượng đất" → structure: Subject=DTTS, Action=chuyển nhượng, Object=đất, Modality=ALLOW.
+Ý nghĩa: Câu trả lời có cấu trúc quy phạm hợp lệ không?
+Domain-Range Compliance:
+text
+Domain-Range Compliance = (Số câu trả lời không vi phạm domain-range) / (Tổng câu)
+Check rules:
+Subject không được là OBJECT.
+Action không được là Subject.
+Không có Action → REQUIRE → Action.
+Không có Subject → HAS_OBJECT → Object.
+Ý nghĩa: Câu trả lời có vi phạm logic pháp lý không?
+4.3. Tác dụng
+4.4. Hạn chế
+Phụ thuộc vào ontology của nhóm → có thể bias.
+Không đo được nội dung — chỉ đo cấu trúc.
+Cần answer có cấu trúc — nếu answer tự do → không check được.
+4.5. Cách dùng trong báo cáo
+"Tầng 4 sử dụng NormAssertion Ontology (M7) để kiểm tra tính hợp lệ cấu trúc của câu trả lời. Đây là contribution độc quyền của nhóm — không hệ thống RAG nào có ontology để validate legal structure."
+
+So sánh 4 tầng
+
+Cách 4 tầng bổ sung cho nhau
+Ví dụ cụ thể:
+Câu hỏi: "DTTS có được chuyển nhượng đất không?"
+→ Kết luận: Hệ thống retrieve đúng, semantic tốt, cite đúng, structure hợp lệ. Nhưng thiếu 1 điều luật cần thiết.
+Nếu chỉ có Tầng 1: Biết retrieve đúng nhưng không biết answer đúng.
+Nếu chỉ có Tầng 2: Biết semantic tốt nhưng không biết legal đúng.
+Nếu có cả 4: Biết chính xác hệ thống mạnh/yếu ở đâu.
+
+Ưu nhược điểm tổng thể
+Ưu điểm
+Nhược điểm
+
+Khuyến nghị triển khai
+Nếu đủ thời gian: Chạy cả 4 tầng.
+Nếu eo hẹp:
+Bắt buộc: Tầng 1 (Retrieval) + Tầng 3 (Legal-specific).
+Optional: Tầng 2 (Semantic) + Tầng 4 (Ontology).
+Lý do:
+Tầng 1: Objective, dễ chạy, không tốn chi phí.
+Tầng 3: Đo legal correctness — quan trọng nhất cho đề tài pháp lý.
+Tầng 2: Tốn chi phí, có thể bỏ nếu cần.
+Tầng 4: Contribution độc quyền — nên giữ nếu có thời gian.
+
+Câu chốt khi defend
+"Nhóm đánh giá 3 hệ thống RAG qua 4 tầng: Retrieval (tìm đúng văn bản), Semantic (đúng nghĩa), Legal (đúng luật), và Ontology (đúng cấu trúc). Tầng 4 sử dụng NormAssertion Ontology của nhóm — đây là contribution độc quyền, không hệ thống RAG nào có."

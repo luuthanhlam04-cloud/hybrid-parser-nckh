@@ -1,0 +1,19 @@
+Metric_Category,Metric_Name,LightRAG (Generic),Hybrid Parser/UKG (Ours),Delta_Improvement,Assessment
+Retrieval & Evidence,Retrieval Recall@5,0.7358,0.9184,+18.26%,UKG áp đảo độ phủ căn cứ Top-5
+Retrieval & Evidence,Retrieval MRR@5,0.5539,0.8848,+33.09%,Căn cứ đúng được đẩy lên vị trí Top-1
+Retrieval & Evidence,Expanded Evidence Recall,N/A,0.9770,N/A,97.7% căn cứ liên quan được đưa vào context
+Retrieval & Evidence,Context Evidence Items / câu,N/A,7.64,N/A,Mật độ căn cứ pháp lý tập trung cao
+Citation Granularity,Citation Điều (Precision),0.3333,0.8369,+50.36%,Định vị cấp Điều chính xác vượt trội
+Citation Granularity,Citation Điều (Recall),0.2961,0.9078,+61.17%,Bắt trọn vẹn 90.78% Điều luật liên quan
+Citation Granularity,Citation Khoản (Precision / Recall),0.0435 / 0.0435,0.7757 / 0.8170,+77.35%,LightRAG sụp đổ ở cấp Khoản; UKG giữ vững >81%
+Citation Granularity,Citation Điểm (Precision / Recall),0.0270 / 0.0270,0.6797 / 0.6374,+61.04%,Khả năng truy vết tới tiểu tiết Điểm quy phạm
+Answer Quality (Judge),Legal Correctness,0.8210,0.8777,+5.67%,Độ chính xác pháp lý cao hơn
+Answer Quality (Judge),Atomic Fact Coverage,0.8551,0.8686,+1.35%,Bao quát đầy đủ các sự kiện nguyên tử
+Answer Quality (Judge),Exception Coverage (14 câu),0.3929,0.6786,+28.57%,UKG bắt ngoại lệ tốt hơn rõ rệt
+Answer Quality (Judge),Subject-Scope Accuracy (18 câu),0.7639,0.8889,+12.50%,Phân định rõ chủ thể được/không được phép
+Answer Quality (Judge),Unsupported Claim Rate,0.1240,0.0807,-4.33% (tốt hơn),Tỷ lệ khẳng định không căn cứ thấp hơn
+Answer Quality (Judge),Abstention Accuracy (3 câu Negative),1.0000,1.0000,0.00%,Cả hai từ chối đúng 100% câu ngoài corpus
+Economic & Runtime Cost,Offline Indexing Cost,$0.0218,$0.1500,-$0.1282,UKG tốn phí trích xuất ban đầu cao hơn
+Economic & Runtime Cost,Runtime Query Cost (50 câu),$0.0811,$0.0474,+41.55% tiết kiệm,Hệ thống của ta RẺ HƠN 41.5% khi vận hành!
+Economic & Runtime Cost,Cost per Query,$0.00162,$0.00095,+41.36% tiết kiệm,Tiết kiệm chi phí gọi LLM nhờ Jev routing
+Reasoning & Limitations,Chain Exact Match (18 câu đa bước),N/A (không xuất path),0.0000,Open Problem,Hệ thống tìm đủ căn cứ (97.7%) nhưng chưa nối hoàn hảo chuỗi dẫn chiếu

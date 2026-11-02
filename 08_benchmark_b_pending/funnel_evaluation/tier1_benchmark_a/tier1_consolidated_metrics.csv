@@ -1,0 +1,5 @@
+System,N,recall_at_5,mrr_at_5,strict_match,context_precision,faithfulness,citation_accuracy,refusal_correct,refusal_appropriate,eval_latency_ms,total_tokens,estimated_cost
+Vector RAG,512,0.9141,0.8129,0.9701,0.9396,0.9238,0.4,0.0667,0.0667,3968.2713,2207.5879,0.0004
+Hybrid RAG,512,0.9316,0.8796,0.9403,0.9547,0.9268,0.3986,0.0667,0.0667,3693.1491,2007.2305,0.0004
+LightRAG (N=512),512,N/A,N/A,N/A,0.3896,0.4056,0.0968,0.2143,0.2143,3641.4924,739.6836,0.0002
+LightRAG (N=502 valid),502,N/A,N/A,N/A,0.3896,0.4056,0.0968,0.2143,0.2143,3641.4925,739.6773,0.0002

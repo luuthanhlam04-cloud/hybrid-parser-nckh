@@ -1,0 +1,6 @@
+System,Scope,Recall@5,MRR@5,Citation
+1. Naive Vector,Fair (205 qs),0.9561,0.8589,0.3259
+2. Naive Hybrid,Fair (205 qs),0.9659,0.9243,0.2902
+3. Vector + Parser,Fair (205 qs),0.8683,0.7949,Preserved
+4. Hybrid + Parser,Fair (205 qs),0.8732,0.7299,Preserved
+5. LightRAG (Equal Docs),Fair (205 qs),0.9659,0.8687,0.1371

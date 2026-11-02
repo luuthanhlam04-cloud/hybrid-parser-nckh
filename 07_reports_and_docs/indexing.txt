@@ -1,0 +1,393 @@
+I1.2. Tại sao indexing quyết định chất lượng benchmark
+Indexing tốt → retrieval tốt → benchmark có ý nghĩa.
+Indexing kém → retrieval kém → benchmark vô nghĩa.
+
+2. Pre-Indexing — Chuẩn bị dữ liệu
+2.1. Cấu trúc corpus
+Input: 1,500 điều luật từ ViLegalExpert context + nhiễu.
+Format chuẩn:
+json
+{
+  "id": "dieu_45_ldd_2024",
+  "law_code": "59/2024/QH15",
+  "law_name": "Luật Đất đai 2024",
+  "chapter": "Chương III",
+  "section": "Mục 1",
+  "article_number": "45",
+  "article_title": "Điều kiện chuyển nhượng quyền sử dụng đất",
+  "text": "1. Có Giấy chứng nhận... 2. Đất không có tranh chấp...",
+  "full_text": "Điều 45. Điều kiện chuyển nhượng...",
+  "char_start": 12345,
+  "char_end": 13456,
+  "domain": "dat_dai",
+  "is_noise": false
+}
+2.2. Metadata cần thiết
+2.3. Cleaning
+Bước 1 — Chuẩn hóa Unicode NFC.
+python
+import unicodedata
+text = unicodedata.normalize('NFC', text)
+Bước 2 — Loại bỏ ký tự đặc biệt.
+python
+import re
+text = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', text)  # Control chars
+text = re.sub(r'\s+', ' ', text)  # Multiple spaces
+Bước 3 — Chuẩn hóa dấu câu.
+python
+text = text.replace('“', '"').replace('”', '"')
+text = text.replace('‘', "'").replace('’', "'")
+2.4. Chunking Strategy
+Đây là bước quan trọng nhất.
+Option A — Structure-aware chunking (khuyến nghị)
+Cơ chế: Cắt theo ranh giới Điều/Khoản/Điểm.
+python
+def structure_aware_chunk(article):
+    chunks = []
+    
+    # Nếu điều ngắn (< 500 tokens) → giữ nguyên
+    if count_tokens(article['full_text']) < 500:
+        chunks.append({
+            'id': f"{article['id']}_full",
+            'text': article['full_text'],
+            'chunk_type': 'article_full',
+            'parent_id': article['id']
+        })
+    else:
+        # Cắt theo Khoản
+        for clause in article['clauses']:
+            chunks.append({
+                'id': f"{article['id']}_khoan_{clause['number']}",
+                'text': clause['text'],
+                'chunk_type': 'clause',
+                'parent_id': article['id'],
+                'article_number': article['article_number']
+            })
+    
+    return chunks
+Ưu điểm:
+Giữ nguyên cấu trúc pháp lý.
+Citation chính xác.
+Không cắt giữa câu.
+Nhược điểm:
+Điều dài → chunk dài → embedding kém.
+Điều ngắn → chunk ngắn → thiếu context.
+Option B — Token-based chunking với overlap
+python
+def token_chunk(text, chunk_size=512, overlap=50):
+    tokens = tokenize(text)
+    chunks = []
+    
+    for i in range(0, len(tokens), chunk_size - overlap):
+        chunk_tokens = tokens[i:i + chunk_size]
+        chunks.append({
+            'text': detokenize(chunk_tokens),
+            'chunk_type': 'token_chunk',
+            'char_start': i,
+            'char_end': i + chunk_size
+        })
+    
+    return chunks
+Ưu điểm: Đơn giản, chunk size đồng đều.
+Nhược điểm: Cắt giữa câu, mất cấu trúc.
+Option C — Hybrid chunking (khuyến nghị cho benchmark)
+Cơ chế:
+Điều ngắn (< 500 tokens) → 1 chunk.
+Điều dài (≥ 500 tokens) → cắt theo Khoản.
+Khoản dài (≥ 1,000 tokens) → cắt theo Điểm.
+python
+def hybrid_chunk(article, max_tokens=512):
+    if count_tokens(article['full_text']) <= max_tokens:
+        return [article_full_chunk(article)]
+    
+    chunks = []
+    for clause in article['clauses']:
+        if count_tokens(clause['text']) <= max_tokens:
+            chunks.append(clause_chunk(clause))
+        else:
+            # Cắt tiếp theo Điểm
+            for point in clause['points']:
+                chunks.append(point_chunk(point))
+    
+    return chunks
+Kết quả: Chunk size 200-500 tokens, giữ cấu trúc.
+2.5. Số lượng chunk sau khi cắt
+Số chunk ~2,800 — đây là con số cần cho indexing.
+
+3. Indexing cho từng hệ thống
+3.1. Vector RAG
+Bước 1 — Chọn embedding model
+Khuyến nghị: BGE-M3 — multilingual, hỗ trợ tiếng Việt tốt, free.
+Bước 2 — Generate embeddings
+python
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+model = SentenceTransformer('BAAI/bge-m3')
+model.to('cuda')  # Kaggle GPU
+
+# Batch processing
+def embed_chunks(chunks, batch_size=32):
+    texts = [c['text'] for c in chunks]
+    
+    embeddings = model.encode(
+        texts,
+        batch_size=batch_size,
+        show_progress_bar=True,
+        normalize_embeddings=True
+    )
+    
+    return embeddings
+
+# Output: numpy array (2800, 1024)
+embeddings = embed_chunks(chunks)
+np.save('embeddings.npy', embeddings)
+Thời gian: ~5-10 phút trên Kaggle T4 (2,800 chunks).
+Bước 3 — Lưu vào Vector DB
+Option A — LanceDB (khuyến nghị cho Kaggle):
+python
+import lancedb
+import pyarrow as pa
+
+db = lancedb.connect('./vector_db')
+
+# Schema
+schema = pa.schema([
+    pa.field('id', pa.string()),
+    pa.field('text', pa.string()),
+    pa.field('vector', pa.list_(pa.float32(), 1024)),
+    pa.field('law_code', pa.string()),
+    pa.field('article_number', pa.string()),
+    pa.field('domain', pa.string())
+])
+
+# Create table
+table = db.create_table('legal_chunks', schema=schema)
+
+# Insert
+data = [
+    {
+        'id': chunks[i]['id'],
+        'text': chunks[i]['text'],
+        'vector': embeddings[i].tolist(),
+        'law_code': chunks[i]['law_code'],
+        'article_number': chunks[i]['article_number'],
+        'domain': chunks[i]['domain']
+    }
+    for i in range(len(chunks))
+]
+
+table.add(data)
+
+# Create index
+table.create_index(num_partitions=256, num_sub_vectors=96)
+Option B — Qdrant:
+python
+from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, VectorParams, PointStruct
+
+client = QdrantClient(path='./qdrant_db')
+
+client.create_collection(
+    collection_name='legal_chunks',
+    vectors_config=VectorParams(size=1024, distance=Distance.COSINE)
+)
+
+client.upsert(
+    collection_name='legal_chunks',
+    points=[
+        PointStruct(
+            id=i,
+            vector=embeddings[i].tolist(),
+            payload={
+                'id': chunks[i]['id'],
+                'text': chunks[i]['text'],
+                'article_number': chunks[i]['article_number']
+            }
+        )
+        for i in range(len(chunks))
+    ]
+)
+Thời gian indexing: ~2-3 phút.
+3.2. Hybrid RAG + Reranker
+Bước 1 — Sparse Index (BM25)
+python
+from rank_bm25 import BM25Okapi
+
+# Tokenize (cần tokenizer tiếng Việt)
+from underthesea import word_tokenize
+
+def tokenize_vietnamese(text):
+    return word_tokenize(text, format='text').split()
+
+corpus_tokens = [tokenize_vietnamese(c['text']) for c in chunks]
+bm25 = BM25Okapi(corpus_tokens)
+Lưu ý: Không dùng tokenizer tiếng Anh cho tiếng Việt. Dùng underthesea hoặc pyvi.
+Bước 2 — Dense Index
+Dùng cùng BGE-M3 như Vector RAG. Không cần embedding lại nếu đã có từ Vector RAG.
+Bước 3 — Reranker
+Chọn model:
+Khuyến nghị: BGE-reranker-large — multilingual, free, hiệu quả.
+python
+from sentence_transformers import CrossEncoder
+
+reranker = CrossEncoder('BAAI/bge-reranker-large')
+reranker.to('cuda')
+
+def rerank(query, candidates, top_k=5):
+    pairs = [[query, c['text']] for c in candidates]
+    scores = reranker.predict(pairs)
+    
+    ranked = sorted(zip(candidates, scores), key=lambda x: -x[1])
+    return [c for c, s in ranked[:top_k]]
+Bước 4 — Hybrid Search
+Cơ chế:
+BM25 retrieve top-50.
+Dense retrieve top-50.
+Reciprocal Rank Fusion (RRF) gộp 2 danh sách.
+Reranker top-20.
+python
+def hybrid_search(query, top_k=5):
+    # BM25
+    bm25_scores = bm25.get_scores(tokenize_vietnamese(query))
+    bm25_top = np.argsort(bm25_scores)[-50:][::-1]
+    
+    # Dense
+    query_emb = model.encode(query, normalize_embeddings=True)
+    dense_scores = np.dot(embeddings, query_emb)
+    dense_top = np.argsort(dense_scores)[-50:][::-1]
+    
+    # RRF
+    rrf_scores = {}
+    for rank, idx in enumerate(bm25_top):
+        rrf_scores[idx] = rrf_scores.get(idx, 0) + 1/(60 + rank)
+    for rank, idx in enumerate(dense_top):
+        rrf_scores[idx] = rrf_scores.get(idx, 0) + 1/(60 + rank)
+    
+    # Top 20 cho reranker
+    top_20 = sorted(rrf_scores.keys(), key=lambda x: -rrf_scores[x])[:20]
+    candidates = [chunks[i] for i in top_20]
+    
+    # Rerank
+    return rerank(query, candidates, top_k)
+Thời gian: BM25 index ~1 phút, reranker load ~2 phút.
+3.3. LightRAG
+Bước 1 — Chọn LLM cho entity extraction
+Bước 2 — Cấu hình LightRAG
+python
+from lightrag import LightRAG
+from lightrag.llm import openai_complete_if_cache
+from lightrag.llm import gpt_4o_mini_complete
+import os
+
+os.environ['OPENAI_API_KEY'] = 'sk-...'
+
+rag = LightRAG(
+    working_dir='./lightrag_db',
+    llm_model_func=gpt_4o_mini_complete,
+    embedding_func=...  # BGE-M3
+)
+Bước 3 — Insert corpus
+python
+# Insert theo batch để tránh timeout
+for i in range(0, len(chunks), 100):
+    batch = chunks[i:i+100]
+    texts = [c['text'] for c in batch]
+    
+    rag.insert(texts)
+    print(f"Inserted batch {i//100 + 1}/{(len(chunks)+99)//100}")
+Thời gian: ~30-60 phút cho 2,800 chunks.
+Chi phí: ~$0.36 (GPT-4o-mini).
+Bước 4 — Kiểm tra entity extraction
+python
+# Xem entities extracted
+import json
+with open('./lightrag_db/graph_chunk_entity_relation.graphml', 'r') as f:
+    # Parse graphml
+    ...
+Kỳ vọng:
+1,500-3,000 entities (LegalSubject, LegalAction, etc.).
+3,000-5,000 relations (ALLOW, REQUIRE, HAS_CONDITION).
+
+4. So sánh Indexing 3 hệ thống
+
+5. Khó khăn và bất cập
+5.1. Khó khăn chung
+1. Kaggle GPU limit.
+T4x2: 16GB VRAM, 30h/tuần.
+BGE-M3: ~2GB VRAM.
+BGE-reranker-large: ~2GB VRAM.
+→ Đủ chạy cùng lúc.
+2. Session timeout.
+Kaggle session tối đa 12h.
+Indexing 3 hệ thống: ~2h → OK.
+3. Storage limit.
+Kaggle output: 20GB.
+Vector DB + Graph: ~100MB → OK.
+5.2. Khó khăn riêng từng hệ thống
+Vector RAG:
+Embedding model download lần đầu ~2GB → cần internet.
+LanceDB/Qdrant cần config đúng.
+Hybrid RAG:
+BM25 cần tokenizer tiếng Việt (underthesea).
+RRF cần tune tham số k=60.
+Reranker chậm hơn (mỗi query ~0.5s).
+LightRAG:
+LLM extraction có thể fail → cần retry.
+Entity dedup là vấn đề.
+Graph có thể bị fragment nếu extraction kém.
+5.3. Bất cập trong benchmark
+1. Chunking không đồng nhất giữa 3 hệ thống.
+Vector RAG dùng 1 chunk strategy.
+Hybrid dùng cùng strategy.
+LightRAG có internal chunking riêng.
+→ Không hoàn toàn fair.
+Cách xử lý: Document rõ chunking strategy trong luận.
+2. Embedding model không giống nhau.
+Nếu LightRAG dùng model khác → không fair.
+Cách xử lý: Cấu hình LightRAG dùng cùng BGE-M3.
+3. Reranker ảnh hưởng đến kết quả.
+Hybrid RAG có reranker → lợi thế.
+Vector RAG không có → thiệt.
+Cách xử lý: Đây là điểm khác biệt paradigm. Document rõ.
+
+6. Tối ưu hóa cho Kaggle
+6.1. Setup
+python
+# 1. Cài dependencies
+!pip install -q lightrag-hku lancedb sentence-transformers underthesea rank-bm25
+
+# 2. Download models về local
+from sentence_transformers import SentenceTransformer
+model = SentenceTransformer('BAAI/bge-m3', cache_folder='./models')
+reranker = CrossEncoder('BAAI/bge-reranker-large', cache_folder='./models')
+
+# 3. Chuyển sang GPU
+model.to('cuda')
+reranker.to('cuda')
+6.2. Batch processing
+python
+# Batch size tối ưu cho T4
+BATCH_SIZE = 32  # Cho BGE-M3
+RERANK_BATCH = 16  # Cho reranker
+6.3. Save/Load
+python
+# Save everything to Kaggle output
+import shutil
+shutil.copytree('./vector_db', '/kaggle/working/vector_db')
+shutil.copytree('./lightrag_db', '/kaggle/working/lightrag_db')
+shutil.copytree('./models', '/kaggle/working/models')
+
+7. Checklist Indexing
+□ Corpus cleaned + normalized (NFC).
+□ Chunking theo structure-aware.
+□ Metadata đầy đủ.
+□ Embedding model loaded (BGE-M3).
+□ Vector DB indexed.
+□ BM25 indexed.
+□ Reranker loaded.
+□ LightRAG configured.
+□ LightRAG insert thành công.
+□ Entity extraction verify.
+□ Save tất cả artifacts.
+

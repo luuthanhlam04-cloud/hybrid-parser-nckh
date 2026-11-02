@@ -1,0 +1,9 @@
+Category,N_Questions,LightRAG_Recall@5,Hybrid_UKG_Recall@5,LightRAG_MRR@5,Hybrid_UKG_MRR@5,Core_Advantage
+DIRECT_RIGHT_OBLIGATION,8,0.7500,1.0000,0.4479,1.0000,UKG đạt điểm tuyệt đối 100%
+MULTI_CONDITION,10,0.9000,0.9000,0.7200,0.8500,UKG xếp hạng căn cứ điều kiện cao hơn
+EXCEPTION_PROHIBITION,7,0.7143,1.0000,0.5476,0.9286,UKG cô lập điều cấm và ngoại lệ xuất sắc
+CROSS_REF_ONE_HOP,6,0.6667,0.7500,0.6806,0.7083,Dẫn chiếu 1 bước cải thiện
+CROSS_REF_MULTI_HOP,4,0.6458,0.7917,0.8125,0.7708,Độ phủ căn cứ đa bước tăng từ 64.5% lên 79.2%
+SUBJECT_DISAMBIGUATION,5,0.8000,0.8000,0.2500,0.8000,MRR tăng từ 0.25 lên 0.80 (định vị đúng chủ thể ngay Top 1)
+PARENT_CHILD_SYNTHESIS,4,0.5000,1.0000,0.3750,1.0000,LightRAG rớt thảm hại ở 50%; UKG đạt 100% nhờ cấu trúc cây
+LEGAL_SCENARIO,3,0.6667,1.0000,0.4444,1.0000,Tình huống phức tạp giải quyết triệt để
