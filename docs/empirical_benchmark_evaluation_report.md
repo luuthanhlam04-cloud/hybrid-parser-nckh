@@ -16,7 +16,7 @@ Quá trình thực nghiệm đã hoàn tất trọn vẹn 100% các giai đoạn
 
 | TT | Mô hình Chunking | Cơ chế Truy xuất (Retrieval) | Recall@5 | MRR@5 | Citation Accuracy | Độ trễ P95 (ms) | Chi phí API/query |
 | :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **C1** | 1. Naive (Điều thô) | BM25 Only | 0.7051 | 0.5794 | N/A (Không có chunk) | ~2.5 ms | $0.00 |
+| **C1** | 1. Naive (Điều thô) | BM25 Only | 0.7051 | 0.5794 | 0.6637 (66.4%) | ~2.5 ms | $0.00 |
 | **C2** | 1. Naive (Điều thô) | Dense Only (BGE-M3 API) | 0.9141 | 0.8129 | 0.4000 (40.0%) | 3.968,3 ms | ~$0.0004 |
 | **C3** | 1. Naive (Điều thô) | Hybrid RRF (k=60) | 0.9316 | 0.8796 | 0.3986 (39.8%) | 3.693,2 ms | ~$0.0004 |
 | **C4** | 2. Parser M1-M3 (Vi mô) | BM25 Only + MaxP | 0.7402 | 0.6052 | 0.6973 (69.7%) | 70.789 ms | $0.00 |
@@ -130,3 +130,4 @@ Từ các chứng cứ thực nghiệm vững chắc trên:
    Không nên dùng BM25 để cộng dồn RRF mù quáng ở lớp Top-5. Thay vào đó, BM25 được giữ ở tầng **Candidate Generation (Top-100)** để đảm bảo bao phủ các trường hợp câu hỏi tra cứu chính xác số hiệu văn bản/điều luật cụ thể, sau đó để Re-ranker (Cross-Encoder / LLM Judge) sắp xếp lại.
 3. **Sẵn sàng Tích hợp:**  
    Số liệu thực nghiệm này đã hoàn tất đầy đủ mọi yêu cầu khoa học và sẵn sàng được đưa vào báo cáo nghiệm thu đề tài NCKH cũng như các chương tài liệu kỹ thuật của hệ thống.
+
