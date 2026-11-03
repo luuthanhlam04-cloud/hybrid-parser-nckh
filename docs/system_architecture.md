@@ -98,7 +98,7 @@ flowchart TD
         TopChunks --> DetVerify
         TopChunks --> LLMJudge
         
-        FinalOut["Kết quả: Recall@5 > 94% | Citation ~90% | Latency < 80ms"]
+        FinalOut["Kết quả Thực nghiệm T4: Recall@5 = 96.59% | Citation = 94.24% | P95 Latency = 0.76ms"]
         DetVerify --> FinalOut
         LLMJudge --> FinalOut
     end
@@ -168,10 +168,10 @@ flowchart TD
 | **Bảo tồn Tiêu đề (Inheritance)** | Không | Không | Không | **Có (Khôi phục & Kế thừa)** |
 | **Phương thức Indexing** | Dense Vector duy nhất | BM25 + Dense RRF | Vector + Knowledge Graph | **BM25Okapi + Dense BGE-M3 (CUDA)** |
 | **Cơ chế Tổng hợp Điểm** | Không (Flat) | Không (Flat) | Duyệt Đồ thị (Community) | **Article-level MaxP Pooling** |
-| **Chi phí Indexing 2.087 Điều** | Thấp (~1 phút) | Thấp (~2 phút) | Cực lớn ($> \$50$ USD API) | **Thấp (~1.5 phút trên GPU T4)** |
-| **Độ trễ Truy xuất (P95 Latency)** | $\sim 3\text{ ms}$ | $\sim 45\text{ ms}$ (CPU BM25) | $\sim 3.000\text{ ms}$ (LLM Graph) | **$< 60\text{ ms}$ (CUDA Tensor Core)** |
-| **Recall@5 trên 500 Điều** | 0.9561 | 0.9659 | 0.9659 | **> 0.9700** |
-| **Citation Accuracy** | 32.59% | 29.02% | 13.71% (Boundary Smear) | **~90.00% (Strict Match)** |
+| **Chi phí Indexing 2.087 Điều** | Thấp (~1 phút) | Thấp (~2 phút) | Cực lớn ($> \$50$ USD API) | **Thực tế: 45.2s trên GPU T4 ($0)** |
+| **Độ trễ Truy xuất (P95 Latency)** | $\sim 3\text{ ms}$ | $\sim 45\text{ ms}$ (CPU BM25) | $\sim 3.000\text{ ms}$ (LLM Graph) | **0.764 ms (CUDA Tensor Core)** |
+| **Recall@5 trên Fair Subset** | 0.9561 | 0.9659 | 0.9659 | **0.9659 (Ngang SOTA)** |
+| **Citation Accuracy** | 32.59% | 29.02% | 13.71% (Boundary Smear) | **94.24% (Gấp 6.87 lần LightRAG)** |
 
 ---
 

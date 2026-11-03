@@ -130,10 +130,10 @@ Khi viết báo cáo, nhóm đưa 2 bảng số liệu độc lập này vào c�
 
 | Chiến lược Chunking | Phương thức Retrieval | Recall@5 | MRR@5 | Citation Accuracy | P95 Latency | Ghi chú & Đánh giá |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **1. Naive (Điều thô)** | BM25 Only | 0.7051 | 0.5794 | N/A | $\sim 2.5\text{ ms}$ | Baseline từ khóa truyền thống |
-| | Dense Only | 0.9141 | 0.8129 | 33.79% | $\sim 3.968\text{ ms}$ | Chạm trần Citation do context loãng |
-| | Hybrid RRF | 0.9316 | 0.8796 | 31.05% | $\sim 3.693\text{ ms}$ | Kết hợp đa phương thức nhưng trích dẫn vẫn yếu |
-| **2. Parser (Vi mô)** | BM25 Only | *~0.7300* | *~0.6000* | *~65.00%* | $\sim 45.0\text{ ms}$ | Bị nghẽn cổ chai CPU của rank-bm25 |
-| | Dense Only (MaxP) | *~0.9400* | *~0.8800* | ***~89.00%*** | **$\sim 1.5\text{ ms}$** | **GPU CUDA tăng tốc; Citation nhảy vọt** |
-| | **Hybrid RRF (MaxP)** | ***> 0.9450*** | ***> 0.9000*** | ***~90.00%*** | $\sim 50.0\text{ ms}$ | **Cấu hình tối ưu toàn diện (SOTA Đề xuất)** |
+| **1. Naive (Điều thô)** | BM25 Only | 0.7051 | 0.5794 | 0.6637 (66.4%) | $\sim 2.5\text{ ms}$ | Baseline từ khóa truyền thống |
+| | Dense Only | 0.9141 | 0.8129 | 0.4000 (40.0%) | $3.968,3\text{ ms}$ | Chậm do API Cloud; trích dẫn thấp |
+| | Hybrid RRF | 0.9316 | 0.8796 | 0.3986 (39.8%) | $3.693,2\text{ ms}$ | Kết hợp đa phương thức nhưng trích dẫn kém |
+| **2. Parser (Vi mô)** | BM25 Only | 0.7402 | 0.6052 | 0.6973 (69.7%) | $70.789\text{ ms}$ | Parser giúp BM25 tăng +3.5% Recall và +3.4% Citation |
+| | **Dense Only (MaxP)** | **0.9316** | **0.8602** | **0.9070 (90.7%)** | **0.764 ms** | **Cấu hình tối ưu: Siêu tốc 0.76ms, Citation vượt trội 90.7%** |
+| | Hybrid RRF (MaxP) | 0.8770 | 0.7630 | 0.8391 (83.9%) | $62.364\text{ ms}$ | Xuất hiện Negative Fusion do bẫy từ khóa BM25 |
 
