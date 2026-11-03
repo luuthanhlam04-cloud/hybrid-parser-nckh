@@ -1,0 +1,7 @@
+Chunking,Retrieval,Recall@5,MRR@5,Citation,P95_Latency
+1. Naive (Điều thô),BM25 Only,0.7051,0.5794,N/A,~2.5 ms
+1. Naive (Điều thô),Dense Only,0.9141,0.8129,0.4,3968.3 ms (API)
+1. Naive (Điều thô),Hybrid RRF,0.9316,0.8796,0.3986,3693.2 ms (API)
+2. Parser (Vi mô),BM25 Only,0.7402,0.6052,0.6973,70.789 ms
+2. Parser (Vi mô),Dense Only,0.9316,0.8602,0.907,0.764 ms
+2. Parser (Vi mô),Hybrid RRF,0.877,0.763,0.8391,62.364 ms

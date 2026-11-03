@@ -1,0 +1,357 @@
+{
+  "sample_size": 50,
+  "mean_citation_accuracy": 0.948,
+  "total_cost_usd": 0.0,
+  "details": [
+    {
+      "question_id": "01-DS-2",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-7",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-9",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-10",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-11",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-14",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-31",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-38",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-43",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-DS-46",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-TN-13",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-TN-14",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-TN-18",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-TN-22",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-TN-35",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "01-TL-6",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-1",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-2",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-3",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-4",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-5",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-6",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-7",
+      "citation_accuracy": 0.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-8",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-9",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-10",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-11",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-12",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-13",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-14",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-15",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-16",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-17",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-18",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-19",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-20",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-21",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-22",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-23",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-24",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-25",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-26",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-27",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-28",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-29",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-30",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-31",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-32",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-33",
+      "citation_accuracy": 1.0,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    },
+    {
+      "question_id": "q-34",
+      "citation_accuracy": 0.8,
+      "context_precision": 0.9,
+      "faithfulness": 0.95,
+      "cost_usd": 0.0
+    }
+  ]
+}

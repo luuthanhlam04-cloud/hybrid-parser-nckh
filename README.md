@@ -56,7 +56,18 @@ Benchmark/
 │   ├── funnel_evaluation/             # Khung đánh giá đa tầng cũ & Tier 3 Benchmark B
 │   └── README_BENCHMARK_B.md          # Ghi chú hướng dẫn mở rộng cho đợt 2
 │
+├── 📁 08_empirical_results/     # 🏆 [KẾT QUẢ THỰC NGHIỆM ĐỘC LẬP TỪ KAGGLE T4]
+│   ├── six_configurations_ablation_matrix.csv  # Ma trận 6 cấu hình hoàn chỉnh (512 queries)
+│   ├── tier1_fair_subset_205_matrix.csv        # Đối chuẩn công bằng với LightRAG (205 queries)
+│   ├── results_ablation_vector_parser.csv      # Kết quả Cấu hình đề xuất (Recall 0.9316, Citation 0.9070)
+│   ├── results_ablation_hybrid_parser.csv      # Kết quả Hybrid RRF Parser (Recall 0.8770, Citation 0.8391)
+│   ├── results_ablation_bm25_parser.csv        # Kết quả BM25 Parser (Recall 0.7402, Citation 0.6973)
+│   ├── results_lightrag_approx_retrieval.csv   # Kết quả đo kiểm LightRAG trên 512 câu
+│   ├── parser_citation_llm_judge_50.json       # Kết quả xác minh LLM Judge (Mean Citation: 0.948)
+│   └── runtime_performance_and_cost_report.json # Báo cáo độ trễ GPU P95 (0.764 ms) & chi phí $0
+│
 ├── 📁 docs/                     # 📚 [TOÀN BỘ TÀI LIỆU KỸ THUẬT & NGHIÊN CỨU]
+│   ├── empirical_benchmark_evaluation_report.md # 🏆 BÁO CÁO PHÂN TÍCH THỰC NGHIỆM KAGGLE CHUYÊN SÂU
 │   ├── system_architecture.md         # 🏛️ ĐẶC TẢ KIẾN TRÚC HỆ THỐNG PHỄU RAG ĐA TẦNG (Bản vẽ kỹ thuật & sơ đồ)
 │   ├── dataset_analysis_and_defense_strategy.md # ⚖️ PHÂN TÍCH CHUYÊN SÂU 205/512 CÂU & CẨM NANG DEFEND TRƯỚC HỘI ĐỒNG
 │   ├── research_notes_benchmark_system.md # Master Technical Blueprint & Cẩm nang Nghiên cứu
@@ -92,8 +103,9 @@ Benchmark/
   - Trích dẫn file [`05_kaggle_execution/structure_aware_parser.py`](file:///c:/Users/luuth/NCKH/Benchmark/05_kaggle_execution/structure_aware_parser.py) (Module M1-M3 bóc tách và kế thừa ngữ cảnh).
   - Trích dẫn thuật toán Article-level MaxP Aggregation (Dai & Callan, SIGIR 2019) và RRF $k=60$ (Cormack et al., SIGIR 2009).
 - **Viết Chương 4.2 (Bảng Kết quả Chính):**
-  - Sử dụng số liệu đối chuẩn từ thư mục [`02_baselines/`](file:///c:/Users/luuth/NCKH/Benchmark/02_baselines/).
-  - Đối chiếu với kết quả v2 mới nhất từ `05_kaggle_execution/`.
+  - Trích xuất bảng số liệu chính xác từ [`08_empirical_results/six_configurations_ablation_matrix.csv`](file:///c:/Users/luuth/NCKH/Benchmark/08_empirical_results/six_configurations_ablation_matrix.csv) và [`08_empirical_results/tier1_fair_subset_205_matrix.csv`](file:///c:/Users/luuth/NCKH/Benchmark/08_empirical_results/tier1_fair_subset_205_matrix.csv).
+  - Đọc phân tích chi tiết tại [`docs/empirical_benchmark_evaluation_report.md`](file:///c:/Users/luuth/NCKH/Benchmark/docs/empirical_benchmark_evaluation_report.md).
+  - Đối chiếu với baselines tại [`02_baselines/`](file:///c:/Users/luuth/NCKH/Benchmark/02_baselines/).
 - **Viết Chương 4.3 (Failure Mode Analysis — Điểm nhấn Học thuật):**
   - Toàn bộ luận cứ nằm tại [`04_archive_v1_failure/FAILURE_MODE_ANALYSIS_V1.md`](file:///c:/Users/luuth/NCKH/Benchmark/04_archive_v1_failure/FAILURE_MODE_ANALYSIS_V1.md).
   - Phân tích 3 nguyên nhân: *Context Orphanage*, *Dedup Collapse*, và *Boundary Smearing của LightRAG*.

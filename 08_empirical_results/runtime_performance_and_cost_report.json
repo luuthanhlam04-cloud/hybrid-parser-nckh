@@ -1,0 +1,32 @@
+{
+  "device": "Tesla T4",
+  "parsing_time_sec": 0.0849,
+  "bm25_build_time_sec": 12.0613,
+  "dense_encode_time_sec": 45.2253,
+  "latencies": {
+    "bm25_parser": {
+      "mean": 51.754,
+      "median": 51.189,
+      "p95": 70.789,
+      "p99": 77.121,
+      "min": 19.031,
+      "max": 90.616
+    },
+    "vector_parser": {
+      "mean": 0.673,
+      "median": 0.656,
+      "p95": 0.764,
+      "p99": 0.871,
+      "min": 0.6,
+      "max": 4.314
+    },
+    "hybrid_parser": {
+      "mean": 43.471,
+      "median": 43.146,
+      "p95": 62.364,
+      "p99": 72.85,
+      "min": 12.743,
+      "max": 82.057
+    }
+  }
+}
