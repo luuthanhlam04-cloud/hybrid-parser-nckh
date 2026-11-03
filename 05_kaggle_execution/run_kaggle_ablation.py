@@ -61,7 +61,7 @@ def parse_args():
     parser.add_argument("--lightrag_map_path", type=str, default="lightrag_chunk_to_article_id.json")
     parser.add_argument("--model_name", type=str, default="BAAI/bge-m3")
     parser.add_argument("--device", type=str, default=None)
-    parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--top_k", type=int, default=5)
     parser.add_argument("--top_candidates", type=int, default=100)
     parser.add_argument("--test_limit", type=int, default=None)
@@ -258,24 +258,17 @@ def run_benchmark():
         chunk_tensor = torch.from_numpy(chunk_embeddings).to(device)
     else:
         from sentence_transformers import SentenceTransformer
+        if device == "cuda":
+            torch.cuda.empty_cache()
         embed_model = SentenceTransformer(args.model_name, device=device)
-        try:
-            chunk_embeddings = embed_model.encode(
-                chunk_texts, batch_size=args.batch_size, show_progress_bar=True,
-                normalize_embeddings=True, convert_to_numpy=True
-            )
-        except RuntimeError as e:
-            if "out of memory" in str(e).lower():
-                torch.cuda.empty_cache()
-                print("    [CẢNH BÁO] OOM! Giảm batch size xuống 32...")
-                chunk_embeddings = embed_model.encode(
-                    chunk_texts, batch_size=32, show_progress_bar=True,
-                    normalize_embeddings=True, convert_to_numpy=True
-                )
-            else:
-                raise e
-
-        chunk_tensor = torch.from_numpy(chunk_embeddings).to(device)
+        if device == "cuda":
+            embed_model = embed_model.half()
+        embed_model.max_seq_length = 512
+        chunk_embeddings = embed_model.encode(
+            chunk_texts, batch_size=args.batch_size, show_progress_bar=True,
+            normalize_embeddings=True, convert_to_numpy=True
+        )
+        chunk_tensor = torch.from_numpy(chunk_embeddings).float().to(device)
         if device == "cuda":
             vram_peak_mb = round(torch.cuda.max_memory_allocated() / (1024 * 1024), 2)
 
@@ -292,13 +285,13 @@ def run_benchmark():
     if args.mock_dense:
         q_embeddings = np.random.randn(len(questions), 1024).astype(np.float32)
         q_embeddings /= np.linalg.norm(q_embeddings, axis=1, keepdims=True)
-        q_tensor = torch.from_numpy(q_embeddings).to(device)
+        q_tensor = torch.from_numpy(q_embeddings).float().to(device)
     else:
         q_embeddings = embed_model.encode(
             q_texts, batch_size=args.batch_size, show_progress_bar=False,
             normalize_embeddings=True, convert_to_numpy=True
         )
-        q_tensor = torch.from_numpy(q_embeddings).to(device)
+        q_tensor = torch.from_numpy(q_embeddings).float().to(device)
 
     # =========================================================================
     # BƯỚC 5: CẤU HÌNH 4 — BM25 ONLY + PARSER (MaxP Aggregation)
