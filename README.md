@@ -63,11 +63,12 @@ Benchmark/
 │   ├── results_ablation_hybrid_parser.csv      # Kết quả Hybrid RRF Parser (Recall 0.8770, Citation 0.8391)
 │   ├── results_ablation_bm25_parser.csv        # Kết quả BM25 Parser (Recall 0.7402, Citation 0.6973)
 │   ├── results_lightrag_approx_retrieval.csv   # Kết quả đo kiểm LightRAG trên 512 câu
-│   ├── parser_citation_llm_judge_50.json       # Kết quả xác minh LLM Judge (Mean Citation: 0.948)
-│   └── runtime_performance_and_cost_report.json # Báo cáo độ trễ GPU P95 (0.764 ms) & chi phí $0
+│   ├── parser_citation_llm_judge_50.json       # Kết quả xác minh LLM Judge (Mean Citation: 0.9000, Chi phí: $0.006210 USD)
+│   └── runtime_performance_and_cost_report.json # Báo cáo độ trễ GPU P95 (0.762 ms) & chi phí $0
 │
 ├── 📁 docs/                     # 📚 [TOÀN BỘ TÀI LIỆU KỸ THUẬT & NGHIÊN CỨU]
 │   ├── empirical_benchmark_evaluation_report.md # 🏆 BÁO CÁO PHÂN TÍCH THỰC NGHIỆM KAGGLE CHUYÊN SÂU
+│   ├── llm_judge_audit_trail.md       # 🔍 BÁO CÁO KIỂM TOÁN THẨM ĐỊNH THỰC NGHIỆM LLM-AS-A-JUDGE (50 Giao dịch OpenRouter)
 │   ├── system_architecture.md         # 🏛️ ĐẶC TẢ KIẾN TRÚC HỆ THỐNG PHỄU RAG ĐA TẦNG (Bản vẽ kỹ thuật & sơ đồ)
 │   ├── dataset_analysis_and_defense_strategy.md # ⚖️ PHÂN TÍCH CHUYÊN SÂU 205/512 CÂU & CẨM NANG DEFEND TRƯỚC HỘI ĐỒNG
 │   ├── research_notes_benchmark_system.md # Master Technical Blueprint & Cẩm nang Nghiên cứu
