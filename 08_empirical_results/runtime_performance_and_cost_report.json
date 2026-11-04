@@ -1,32 +1,56 @@
 {
-  "device": "Tesla T4",
-  "parsing_time_sec": 0.0969,
-  "bm25_build_time_sec": 12.5073,
-  "dense_encode_time_sec": 56.5245,
-  "latencies": {
-    "bm25_parser": {
-      "mean": 50.683,
-      "median": 49.936,
-      "p95": 68.895,
-      "p99": 76.866,
-      "min": 18.509,
-      "max": 84.63
+  "hardware": {
+    "device": "cuda",
+    "gpu_name": "Tesla T4",
+    "total_vram_gb": 14.56
+  },
+  "indexing_stages": {
+    "parsing": {
+      "duration_seconds": 0.1002,
+      "total_chunks": 12754,
+      "throughput_chunks_per_sec": 127264.0
     },
-    "vector_parser": {
-      "mean": 0.68,
-      "median": 0.666,
-      "p95": 0.762,
-      "p99": 0.894,
-      "min": 0.579,
-      "max": 5.019
+    "bm25_build": {
+      "duration_seconds": 12.4973
     },
-    "hybrid_parser": {
-      "mean": 41.703,
-      "median": 41.202,
-      "p95": 59.426,
-      "p99": 67.091,
-      "min": 11.814,
-      "max": 82.786
+    "dense_encode": {
+      "duration_seconds": 60.354,
+      "vram_peak_mb": 2654.22
     }
-  }
+  },
+  "latency_stats": {
+    "bm25_parser_latency_ms": {
+      "mean": 46.701,
+      "median": 46.117,
+      "p95": 65.007,
+      "p99": 78.056,
+      "min": 16.598,
+      "max": 109.423
+    },
+    "vector_parser_latency_ms": {
+      "mean": 0.825,
+      "median": 0.755,
+      "p95": 0.865,
+      "p99": 0.945,
+      "min": 0.658,
+      "max": 31.139
+    },
+    "hybrid_parser_latency_ms": {
+      "mean": 42.941,
+      "median": 42.35,
+      "p95": 60.835,
+      "p99": 69.712,
+      "min": 11.613,
+      "max": 80.977
+    },
+    "lightrag_approx_latency_ms": {
+      "mean": 0.073,
+      "median": 0.061,
+      "p95": 0.087,
+      "p99": 0.237,
+      "min": 0.055,
+      "max": 1.98
+    }
+  },
+  "cost_summary": {}
 }

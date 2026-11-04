@@ -1,0 +1,909 @@
+﻿ĐỀ XUẤT ĐỀ CƯƠNG BÁO CÁO NCKH V2
+Đề tài: ĐÁNH GIÁ VÀ TỐI ƯU HÓA CÁC KIẾN TRÚC RAG TRÊN NỀN TẢNG DỮ LIỆU CẤU TRÚC ĐẶC THÙ
+Sau khi đối chiếu bản báo cáo v1 dài 68 trang với định hướng nghiên cứu mới, tôi đề xuất xây dựng báo cáo v2 theo mô hình ba giai đoạn nghiên cứu, giữ kết cấu Mở đầu – 3 chương – Kết luận.
+Đây là phương án phù hợp hơn việc viết lại toàn bộ báo cáo hoặc tách thành ba nghiên cứu độc lập. Nó giúp hội đồng thấy rõ quá trình nhóm đi từ đánh giá các phương pháp hiện có → kiểm chứng một hướng cải tiến → thiết kế và đánh giá kiến trúc đề xuất.
+GIAI ĐOẠN 1 — ĐÁNH GIÁ BASELINE
+Naive Vector RAG · Hybrid RAG · LightRAG
+Benchmark gốc: 2.088 điều luật, 512 câu hỏi
+GIAI ĐOẠN 2 — MỞ RỘNG PIPELINE
+Naive · Hybrid · Naive + Parser · Hybrid + Parser
+Đánh giá tác động của Regex Parser + Validation bằng thực nghiệm đối sánh và ablation
+GIAI ĐOẠN 3 — KIẾN TRÚC ĐỀ XUẤT
+LightRAG ↔ Hybrid Parser/UKG
+Benchmark B: 50 câu chuyên biệt về cấu trúc pháp lý, điều kiện, ngoại lệ và dẫn chiếu chéo
+1. Nguyên tắc tổ chức báo cáo v2
+Tôi đề xuất tuân thủ bốn nguyên tắc:
+* Kế thừa có chọn lọc bản v1. Giữ cơ sở lý thuyết, mô tả ba baseline và những kết quả thực nghiệm đã được xác minh; không sao chép nguyên vẹn các kết luận cũ.
+* Tách rõ hai bộ benchmark. Bộ 512 câu phục vụ đánh giá tổng quát và kiểm chứng tác động của parser; Benchmark B gồm 50 câu phục vụ đánh giá chuyên sâu LightRAG và Hybrid Parser/UKG. Không gộp trực tiếp điểm của hai tập.
+* Phân biệt phương pháp đề xuất với kết quả thực nghiệm. Chương 2 giải thích kiến trúc và thiết kế đo lường; Chương 3 trình bày số liệu, phân tích nguyên nhân và kiểm chứng giả thuyết.
+* Không đưa phần chi phí LightRAG–Hybrid Parser vào v2, theo yêu cầu của bạn. Giai đoạn 3 tập trung vào retrieval, evidence, citation, legal answer, safety, hierarchy và cross-reference. Không xây dựng mục M6 extraction token cost, indexing cost hay so sánh chi phí API của hai hệ thống.
+Trong bản v1, Chương 1 đã có tổng quan RAG, BM25, Dense Retrieval, Cross-Encoder và LightRAG; Chương 2 đã mô tả Benchmark Harness, tiền xử lý dữ liệu và ba pipeline; Chương 3 trình bày thực nghiệm đối sánh. Như vậy, nhóm đã có một nền tài liệu có thể tái sử dụng đáng kể.
+bao_cao_nckh_14_sv_2026_RIPT.docx
+Một lưu ý quan trọng: bản v1 có sự không nhất quán giữa 2.088 điều luật trong phần phạm vi dữ liệu và 59.636 điều luật ở một số đoạn bàn luận, kết luận. Trước khi chuyển số liệu sang v2, nhóm cần xác định corpus nào thực sự được dùng trong từng run và hiệu chỉnh toàn bộ phát biểu tương ứng.
+bao_cao_nckh_14_sv_2026_RIPT.docx
+2. Cấu trúc tổng thể tôi khuyến nghị
+MỞ ĐẦU
+Giới thiệu vấn đề, khoảng trống, mục tiêu, giả thuyết và ba giai đoạn nghiên cứu.
+CHƯƠNG 1. TỔNG QUAN NGHIÊN CỨU VÀ CƠ SỞ LÝ THUYẾT
+Cơ sở về RAG, phân tích cấu trúc văn bản luật, ontology, knowledge graph và các công trình liên quan.
+CHƯƠNG 2. THIẾT KẾ HỆ THỐNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU
+Thiết kế Benchmark Harness, hai bộ dữ liệu, ba giai đoạn thực nghiệm, bốn biến thể RAG và Hybrid Parser/UKG.
+CHƯƠNG 3. THỰC NGHIỆM, KẾT QUẢ VÀ THẢO LUẬN
+Trình bày kết quả theo ba giai đoạn, phân tích nguyên nhân, kiểm chứng giả thuyết và giới hạn nghiên cứu.
+KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+Trả lời các câu hỏi nghiên cứu, xác định đóng góp đã được chứng minh và những vấn đề chưa giải quyết.
+Tôi đề xuất đổi tên Chương 2 từ “Thiết kế hệ thống và phương pháp đề xuất” thành “Thiết kế hệ thống và phương pháp nghiên cứu”. Lý do là Chương 2 không chỉ mô tả Hybrid Parser/UKG mà còn bao gồm các nghiên cứu baseline, ablation và thiết kế benchmark.
+PHẦN A. DÀN Ý CHI TIẾT BÁO CÁO NCKH V2
+MỞ ĐẦU
+Đề xuất khoảng 5–7 trang, ưu tiên nêu vấn đề nghiên cứu và phương pháp kiểm chứng, không đi sâu vào thuật toán.
+1. Tính cấp thiết của đề tài
+Nội dung cần trình bày:
+* Nhu cầu truy vấn văn bản quy phạm pháp luật bằng ngôn ngữ tự nhiên và yêu cầu xác định căn cứ pháp lý.
+* Ba đặc trưng ảnh hưởng trực tiếp đến RAG: cấu trúc phân cấp Điều–Khoản–Điểm, dẫn chiếu chéo và sự khác biệt giữa ngôn ngữ truy vấn với ngôn ngữ quy phạm.
+* Hạn chế tiềm ẩn của phân đoạn theo token và truy hồi dựa trên độ tương đồng.
+* Nhu cầu đánh giá có kiểm soát các kiến trúc RAG trước khi đề xuất cải tiến.
+* Dẫn đến hướng tiếp cận ba giai đoạn của nhóm.
+Điểm cần thay đổi so với v1: Không kết thúc phần Tính cấp thiết bằng mục tiêu chỉ so sánh ba baseline. Phải dẫn được người đọc đến nhu cầu bổ sung khả năng xử lý cấu trúc pháp lý và truy hồi dẫn chiếu chéo.
+2. Khoảng trống nghiên cứu
+Tôi đề xuất xác định ba khoảng trống:
+2.1. Khoảng trống về đánh giá đối sánh trong điều kiện thống nhất
+Các hệ thống RAG có kiến trúc khác nhau, nên cần một quy trình đánh giá để hạn chế ảnh hưởng của các yếu tố gây nhiễu và phân tích rõ sự khác biệt về kết quả.
+2.2. Khoảng trống về đánh giá tác động của phân đoạn theo cấu trúc pháp lý
+Chưa đủ bằng chứng trong phạm vi các nghiên cứu nhóm khảo sát về mức cải thiện khi bổ sung việc nhận diện Điều–Khoản–Điểm vào những pipeline truy hồi vector và hybrid.
+2.3. Khoảng trống về đánh giá khả năng truy nguyên căn cứ và dẫn chiếu pháp lý
+Cần nghiên cứu sâu hơn việc thu thập đầy đủ điều kiện, ngoại lệ, xác định chủ thể, trích dẫn ở cấp Khoản–Điểm và tái dựng chuỗi dẫn chiếu.
+Ở mục này cần trích dẫn, đối chiếu công trình đã sử dụng ontology và knowledge graph trong pháp luật Việt Nam. Không xem việc dùng ontology hoặc Neo4j là ý tưởng lần đầu được đề xuất.
+3. Mục tiêu và nhiệm vụ nghiên cứu
+3.1. Mục tiêu tổng quát
+Đánh giá tác động của các chiến lược truy hồi và biểu diễn cấu trúc pháp lý đến chất lượng hệ thống RAG trên văn bản quy phạm pháp luật Việt Nam; từ đó nghiên cứu, triển khai và kiểm chứng những phương án cải tiến có khả năng bảo toàn cấu trúc và truy nguyên căn cứ pháp lý.
+3.2. Mục tiêu cụ thể
+1. Xây dựng khung đánh giá và chuẩn hóa bộ dữ liệu thực nghiệm.
+2. Đánh giá ba kiến trúc cơ sở Naive Vector RAG, Hybrid RAG và LightRAG.
+3. Kiểm chứng tác động của Regex Parser và Validation đối với Naive và Hybrid RAG.
+4. Thiết kế kiến trúc Hybrid Parser/UKG kết hợp biểu diễn cấu trúc và ngữ nghĩa pháp lý.
+5. Đánh giá chuyên sâu Hybrid Parser/UKG và LightRAG bằng Benchmark B với các metric pháp lý có khả năng truy nguyên.
+4. Câu hỏi và giả thuyết nghiên cứu
+Tôi đề xuất thay RQ1–RQ3 cũ bằng bốn câu hỏi nghiên cứu có phạm vi rõ ràng.
+Câu hỏi
+	Nội dung nghiên cứu
+	Giả thuyết kiểm chứng
+	RQ1
+	Các kiến trúc Naive, Hybrid và LightRAG có sự khác biệt như thế nào về truy hồi và chất lượng trả lời trên dữ liệu pháp luật Việt Nam?
+	Hybrid multi-stage được kỳ vọng cải thiện thứ hạng bằng chứng so với Naive, nhưng mức cải thiện phải được xác định thực nghiệm
+	RQ2
+	Bổ sung Regex Parser và Validation có cải thiện retrieval và citation của Naive/Hybrid RAG không?
+	Phân đoạn theo cấu trúc pháp lý được kỳ vọng giảm mất ngữ cảnh phân cấp
+	RQ3
+	Hybrid Parser/UKG khác LightRAG như thế nào về truy hồi căn cứ pháp lý, bao phủ điều kiện, ngoại lệ và độ chính xác trích dẫn?
+	Kiến trúc kết hợp cấu trúc và ngữ nghĩa được kỳ vọng cải thiện khả năng định vị căn cứ pháp lý
+	RQ4
+	Hybrid Parser/UKG có thể truy hồi và tái dựng chính xác các chuỗi dẫn chiếu chéo đến mức nào?
+	Typed reference expansion và Answer-Path Builder được kỳ vọng cải thiện khả năng tái dựng chuỗi, nhưng cần đánh giá riêng mức độ hoàn chỉnh
+	Ảnh hưởng của paraphrasing đến lexical overlap và retrieval nên giữ như một câu hỏi phụ của RQ1 hoặc một thí nghiệm kiểm soát dữ liệu. Nếu nhóm vẫn xem đây là đóng góp khoa học độc lập, có thể tách thành RQ0.
+5. Phương pháp nghiên cứu
+Giữ bốn phương pháp đã có trong v1, nhưng cập nhật phạm vi:
+5.1. Phương pháp nghiên cứu tài liệu: Khảo sát công trình về Legal RAG, structure-aware RAG, knowledge graph, ontology, đánh giá truy hồi và đánh giá tính đúng đắn pháp lý.
+5.2. Phương pháp thiết kế và hiện thực hóa: Xây dựng Benchmark Harness, Regex Parser, Validation, Physical Graph, Unified Knowledge Graph và M10 retrieval.
+5.3. Phương pháp thực nghiệm đối sánh và loại bỏ thành phần: Đánh giá các baseline, thực hiện thiết kế 2 × 2 đối với Parser/Validation và so sánh end-to-end LightRAG với Hybrid Parser/UKG.
+5.4. Phương pháp phân tích định lượng và định tính: Phân tích metric, kết quả theo từng câu, trường hợp sai, tính nhất quán của Judge và các yếu tố ảnh hưởng đến tính hợp lệ.
+6. Đóng góp của nghiên cứu
+Nên chia thành bốn đóng góp:
+* Xây dựng quy trình và khung đánh giá thống nhất cho các kiến trúc RAG.
+* Nghiên cứu thực nghiệm tác động của phân đoạn theo cấu trúc pháp lý đối với Vector/Hybrid RAG.
+* Thiết kế và đánh giá kiến trúc Hybrid Parser/UKG kết hợp Physical Graph và Semantic Graph.
+* Xây dựng và sử dụng Benchmark B để đánh giá evidence ở cấp Điều–Khoản–Điểm, điều kiện, ngoại lệ, phạm vi chủ thể và dẫn chiếu chéo.
+Phải phân biệt rõ đóng góp đã có kết quả thực nghiệm với thành phần đang tiếp tục cải tiến.
+7. Đối tượng và phạm vi nghiên cứu
+7.1. Đối tượng nghiên cứu: Các kiến trúc RAG, kỹ thuật phân đoạn pháp lý, mô hình truy hồi, phương pháp biểu diễn đồ thị và cơ chế đánh giá căn cứ pháp lý.
+7.2. Phạm vi dữ liệu: Tách riêng corpus/tập câu hỏi của Benchmark A và Benchmark B.
+7.3. Phạm vi thực nghiệm: Ba giai đoạn nghiên cứu, với hai thiết kế benchmark khác nhau.
+7.4. Giới hạn nghiên cứu: Văn bản pháp luật Việt Nam, phạm vi corpus cụ thể, giới hạn đánh giá tự động và giới hạn của dữ liệu kiểm thử.
+8. Bố cục báo cáo
+Giới thiệu ba chương theo chức năng đã xác định, không chỉ liệt kê thuật ngữ và các công cụ phần mềm.
+CHƯƠNG 1. TỔNG QUAN NGHIÊN CỨU VÀ CƠ SỞ LÝ THUYẾT
+Đề xuất khoảng 16–20 trang. Kế thừa phần lớn lý thuyết của v1, nhưng bổ sung cơ sở về cấu trúc pháp lý và ontology.
+1.1. Tổng quan về Retrieval-Augmented Generation
+1.1.1. Khái niệm và nguyên lý hoạt động của RAG
+* Kiến trúc Retrieval → Context Construction → Generation.
+* Vai trò của tri thức ngoài đối với câu trả lời.
+* Quan hệ giữa chất lượng truy hồi và chất lượng sinh.
+1.1.2. Các hướng phát triển của RAG
+* Naive RAG.
+* Advanced RAG.
+* Modular RAG.
+* Graph-based RAG và Structure-aware RAG.
+1.1.3. Phân cấp các thành phần của hệ thống RAG
+Kế thừa mô hình sáu mức đã có ở v1: biểu diễn dữ liệu, phương pháp truy hồi, reranking, pipeline, kiến trúc RAG và framework triển khai.
+1.1.4. Những thách thức khi áp dụng RAG cho văn bản pháp luật
+* Ngữ cảnh phụ thuộc cấu trúc.
+* Nhiều điều kiện và ngoại lệ.
+* Dẫn chiếu giữa các quy định.
+* Nhầm lẫn chủ thể và phạm vi.
+* Trích dẫn thiếu hoặc sai căn cứ pháp lý.
+1.2. Cơ sở lý thuyết về truy hồi thông tin
+1.2.1. Truy hồi từ vựng — Okapi BM25
+Nguyên lý, công thức, vai trò và giới hạn của từ khóa trong văn bản pháp luật.
+1.2.2. Truy hồi ngữ nghĩa — Dense Bi-Encoder
+Embedding, BGE-M3, độ tương đồng vector và FAISS.
+1.2.3. Truy hồi kết hợp — Hybrid Retrieval
+Kết hợp BM25 và Dense Retrieval, Reciprocal Rank Fusion.
+1.2.4. Tái xếp hạng — Cross-Encoder
+Nguyên lý reranking và tác động dự kiến đến thứ hạng bằng chứng.
+1.2.5. Các chiến lược phân đoạn văn bản
+Tiểu mục mới, rất quan trọng cho giai đoạn 2.
+* Fixed-size/token-based chunking.
+* Semantic chunking.
+* Structure-aware chunking.
+* Khác biệt giữa cắt theo token và cắt theo Điều–Khoản–Điểm.
+* Sự đánh đổi giữa kích thước đơn vị truy hồi và tính đầy đủ ngữ cảnh.
+Không nên viết rằng mọi phương pháp fixed-size đều làm mất cấu trúc; cần mô tả trường hợp và cơ chế có thể gây mất ngữ cảnh.
+1.3. Cấu trúc văn bản quy phạm pháp luật Việt Nam
+Tiểu mục mới, tạo cơ sở pháp lý và kỹ thuật cho Regex Parser.
+1.3.1. Hệ thống phân cấp văn bản pháp luật
+Các cấp cấu trúc có thể xuất hiện: Phần, Chương, Mục, Tiểu mục, Điều, Khoản, Điểm.
+1.3.2. Quan hệ phụ thuộc giữa Điều–Khoản–Điểm
+* Khoản thuộc Điều.
+* Điểm thuộc Khoản.
+* Nội dung điểm có thể phụ thuộc vào câu dẫn hoặc chủ thể ở cấp cha.
+* Một quy phạm có thể phải tổng hợp từ nhiều đơn vị cấu trúc.
+1.3.3. Điều kiện, ngoại lệ, chủ thể và phạm vi áp dụng
+Phân tích cách một quy định xác định chủ thể, quyền, nghĩa vụ, điều kiện áp dụng và ngoại lệ.
+1.3.4. Dẫn chiếu pháp lý và truy hồi nhiều bước
+* Dẫn chiếu nội bộ cùng văn bản.
+* Dẫn chiếu sang điều, khoản khác.
+* Dẫn chiếu ra ngoài corpus.
+* Phân biệt dẫn chiếu tường minh với quan hệ phân cấp.
+1.3.5. Yêu cầu đối với biểu diễn cấu trúc pháp lý
+* Giữ nguyên văn nội dung.
+* Bảo toàn locator.
+* Có khả năng truy ngược về nguồn.
+* Liên kết được parent–child và reference target.
+1.4. Đồ thị tri thức và ontology trong Legal RAG
+Phần cần bổ sung nhiều nhất so với v1.
+1.4.1. Khái niệm Knowledge Graph và Ontology
+Phân biệt đồ thị tri thức với hệ thống lớp, quan hệ và ràng buộc ngữ nghĩa.
+1.4.2. Biểu diễn tri thức cấu trúc và tri thức ngữ nghĩa
+* Physical/Structural Graph.
+* Semantic Knowledge Graph.
+* Quan hệ phân cấp.
+* Quan hệ giữa chủ thể, hành vi, điều kiện, ngoại lệ.
+1.4.3. Trích xuất thực thể và quan hệ bằng LLM
+Khả năng và giới hạn của LLM extraction, grounding và validation.
+1.4.4. Truy hồi trên đồ thị tri thức
+* Entity-centric retrieval.
+* Local/global retrieval.
+* Graph traversal và subgraph retrieval.
+* Evidence expansion.
+1.4.5. Truy nguyên bằng chứng và đường dẫn trả lời
+* Evidence provenance.
+* Reference path.
+* Phân biệt tìm thấy node đích với tìm đúng chuỗi dẫn chiếu.
+* Vai trò của các cạnh có kiểu.
+1.5. Tổng quan các công trình nghiên cứu liên quan
+1.5.1. Các nghiên cứu quốc tế về RAG và Legal RAG
+Kế thừa những công trình nền của v1 như RAG gốc, LegalBench-RAG, LightRAG, các hướng truy hồi kết hợp và đánh giá pháp lý.
+1.5.2. Các nghiên cứu xử lý cấu trúc và đồ thị tri thức pháp lý
+Tập trung vào các công trình sử dụng legal ontology, knowledge graph, structure-aware retrieval và legal cross-reference.
+1.5.3. Các nghiên cứu Legal RAG tại Việt Nam
+Bổ sung công trình Đại học Đà Nẵng năm 2025 sử dụng LLM, ontology và Neo4j, bên cạnh các nghiên cứu Việt Nam đã được khảo sát trong v1.
+1.5.4. Bảng so sánh các công trình liên quan
+Tôi đề xuất bảng có các cột:
+Công trình
+	Phân tích cấu trúc
+	Ontology/KG
+	Dẫn chiếu chéo
+	Benchmark retrieval
+	Citation cấp Khoản–Điểm
+	Các nghiên cứu được khảo sát
+	Theo công bố
+	Theo công bố
+	Theo công bố
+	Theo công bố
+	Theo công bố
+	Nghiên cứu của nhóm
+	Regex + Validation
+	Hybrid Parser/UKG
+	Typed references
+	Benchmark A, B
+	Có phép đo chuyên biệt
+	Các ô trong bảng phải được điền dựa trên bằng chứng từ tài liệu, không mặc định công trình khác “không có” chỉ vì bài báo không báo cáo.
+1.6. Tổng hợp khoảng trống và định hướng nghiên cứu
+1.6.1. Những vấn đề các nghiên cứu trước đã giải quyết
+Thừa nhận các thành tựu về Hybrid Retrieval, GraphRAG, ontology pháp lý và tự động hóa xây dựng đồ thị.
+1.6.2. Những vấn đề cần tiếp tục kiểm chứng
+Phân đoạn theo cấu trúc, tính đầy đủ ngữ cảnh, truy nguyên Khoản–Điểm và chain-level retrieval.
+1.6.3. Định vị đóng góp của nhóm
+Phân biệt đóng góp thực nghiệm, mở rộng pipeline và kiến trúc tích hợp.
+1.6.4. Mối liên hệ giữa khoảng trống và ba giai đoạn nghiên cứu
+Giải thích vì sao cần benchmark baseline trước, sau đó kiểm tra parser, cuối cùng mới nghiên cứu Hybrid Parser/UKG.
+Hình nên có trong Chương 1: Sơ đồ các cấp cấu trúc pháp luật; minh họa Điều–Khoản–Điểm và dẫn chiếu; sơ đồ phân biệt Physical Graph với Semantic Graph; bảng tổng quan nghiên cứu liên quan.
+CHƯƠNG 2. THIẾT KẾ HỆ THỐNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU
+Đề xuất khoảng 24–30 trang. Đây là chương trọng tâm kỹ thuật của báo cáo v2.
+2.1. Thiết kế nghiên cứu tổng thể
+2.1.1. Mô hình ba giai đoạn nghiên cứu
+Trình bày sơ đồ tổng thể đã thống nhất.
+2.1.2. Vai trò và mối liên hệ của hai bộ benchmark
+Benchmark
+	Vai trò
+	Các hệ thống
+	Benchmark A
+	Đánh giá RAG tổng quát và tác động của Parser/Validation
+	Naive, Hybrid, Naive + Parser, Hybrid + Parser; LightRAG là baseline giai đoạn 1
+	Benchmark B
+	Đánh giá chuyên sâu cấu trúc, căn cứ và dẫn chiếu
+	LightRAG, Hybrid Parser/UKG
+	2.1.3. Nguyên tắc kiểm soát biến thực nghiệm
+* Cùng dữ liệu và câu hỏi trong từng benchmark.
+* Cùng quy trình đánh giá và định nghĩa metric.
+* Phân biệt biến thể thuật toán với kiến trúc end-to-end.
+* Theo dõi phiên bản code, model, dataset và cấu hình.
+* Không đưa gold answer hoặc gold path vào runtime retrieval.
+2.1.4. Giới hạn của phép đối sánh
+Giải thích vì sao một số hệ thống giữ chiến lược chunking/retrieval riêng và kết quả so sánh khi đó phản ánh toàn bộ pipeline.
+2.2. Kiến trúc Benchmark Harness
+Kế thừa mục 2.1 của v1 và mở rộng:
+2.2.1. Kiến trúc Adapter Pattern
+2.2.2. Chuẩn hóa giao diện hệ thống RAG
+Các chức năng: indexing, query, trả answer, evidence, metadata.
+2.2.3. Chuẩn hóa dữ liệu bằng Pydantic Schema
+2.2.4. Quy trình điều phối thực nghiệm và lưu kết quả
+2.2.5. Cơ chế kiểm tra, xử lý lỗi và lưu vết
+2.2.6. Tích hợp các hệ thống và biến thể nghiên cứu
+Làm rõ adapter dùng cho các hệ thống giai đoạn 1, 2 và 3 có thể có những trường mở rộng khác nhau nhưng vẫn tuân thủ giao diện đánh giá chung.[a]
+2.3. Thiết kế bộ dữ liệu Benchmark A
+2.3.1. Nguồn dữ liệu và phạm vi corpus
+Trình bày tập 2.088 điều luật được sử dụng trong v1, kèm nguồn và mốc kiểm tra.
+2.3.2. Quy trình rà soát và chuẩn hóa dữ liệu
+2.3.3. Tập 512 câu hỏi và nhãn căn cứ
+2.3.4. Kiểm soát trùng lặp từ vựng
+Kế thừa quy trình paraphrasing v1; trình bày mức overlap trước/sau và kiểm tra bảo toàn nội dung câu hỏi.
+2.3.5. Chất lượng bộ dữ liệu và những giới hạn
+Làm rõ cách gán nhãn, tập câu hỏi một bước/nhiều bước, các trường hợp không đủ căn cứ nếu có.[b][c]
+2.4. Thiết kế ba kiến trúc RAG cơ sở — Giai đoạn 1
+2.4.1. Naive Vector RAG
+* Chuẩn bị các đơn vị văn bản.
+* BGE-M3 embedding.
+* FAISS.
+* Truy hồi Top-K.
+* Xây dựng context và sinh answer.
+2.4.2. Hybrid RAG
+* BM25.
+* BGE-M3 dense retrieval.
+* RRF.
+* BGE-reranker-v2-m3.
+* Sinh answer.
+2.4.3. LightRAG
+* Phân đoạn và trích xuất thực thể, quan hệ.
+* Xây dựng graph.
+* Dual-level retrieval.
+* Truy hồi và sinh answer.
+2.4.4. Bảng đối chiếu cấu hình ba hệ thống
+Nêu rõ thành phần chung, thành phần riêng và yếu tố chưa đồng nhất được trong v1.[d]
+2.5. Thiết kế phương pháp mở rộng bằng Parser và Validation — Giai đoạn 2[e]
+Đây là một trong hai phần mới quan trọng nhất của báo cáo v2.
+2.5.1. Động cơ bổ sung Structure-aware Parsing
+Giải thích vì sao những giới hạn trong phân đoạn và truy hồi ở giai đoạn 1 dẫn tới việc thử nghiệm parser.
+2.5.2. Regex Parser nhận diện cấu trúc pháp lý
+* Nhận diện tiêu đề Điều.
+* Nhận diện Khoản.
+* Nhận diện Điểm.
+* Xác định quan hệ cha–con.
+* Bảo toàn nội dung và định danh nguồn.
+* Xử lý những cấu trúc không có đủ ba cấp.
+2.5.3. Module Validation
+* Kiểm tra tính hợp lệ của phân cấp.
+* Kiểm tra locator và metadata.
+* Kiểm tra node thiếu parent, node trùng hoặc lỗi nhận diện.
+* Phát hiện những trường hợp cần xử lý ngoại lệ.
+2.5.4. Biến thể Naive RAG + Parser/Validation
+Mô tả cách dữ liệu đã được phân đoạn theo cấu trúc được đưa vào pipeline vector.
+2.5.5. Biến thể Hybrid RAG + Parser/Validation
+Mô tả cách các đơn vị cấu trúc được sử dụng trong BM25, Dense Retrieval và reranking.
+2.5.6. Thiết kế thực nghiệm 2 × 2
+Phương pháp truy hồi
+	Không Parser
+	Có Parser + Validation
+	Vector
+	Naive RAG
+	Naive + Parser
+	Hybrid
+	Hybrid RAG
+	Hybrid + Parser
+	2.5.7. Các biến được kiểm soát và yếu tố được thay đổi
+Đây là nơi nhóm giải thích rằng khác biệt cần kiểm chứng là gói xử lý Parser + Validation, không phải một thay đổi đồng thời về model, prompt và evaluator.
+Nếu muốn tách hiệu quả riêng của Parser với Validation, nhóm phải có thêm cấu hình thí nghiệm; thiết kế 2 × 2 hiện tại chỉ đo tác động kết hợp của hai thành phần.[f]
+2.6. Thiết kế kiến trúc Hybrid Parser/UKG — Giai đoạn 3
+Phần trọng tâm về kiến trúc do nhóm thiết kế. Nên dành dung lượng lớn nhất trong Chương 2.
+2.6.1. Mục tiêu và nguyên tắc thiết kế Hybrid Parser/UKG
+* Bảo toàn cấu trúc pháp lý.
+* Kết hợp thông tin cấu trúc và ngữ nghĩa.
+* Giữ khả năng truy nguyên evidence.
+* Hỗ trợ mở rộng dẫn chiếu có kiểu.
+2.6.2. Kiến trúc tổng thể của hệ thống
+Trình bày sơ đồ các module M1–M10 và quan hệ dữ liệu giữa các khối.
+2.6.3. Nhóm module tiền xử lý và xây dựng Physical Graph — M1–M4
+* M1: Tiền xử lý.
+* M2: Regex Parser.
+* M3: Validation.
+* M4: Xây dựng đồ thị cấu trúc vật lý.
+Giải thích đầu vào, đầu ra và trách nhiệm của từng module.
+2.6.4. Định tuyến và trích xuất ngữ nghĩa — M5–M6
+* M5: Phân tích/định tuyến những đơn vị cần xử lý ngữ nghĩa.
+* M6: Trích xuất thực thể và quan hệ bằng LLM.
+2.6.5. Xây dựng ontology và hợp nhất tri thức — M7–M8
+* Thiết kế các lớp thực thể và quan hệ.
+* Kiểm tra tính hợp lệ và grounding.
+* Liên kết dữ liệu ngữ nghĩa với physical locator.
+* Hợp nhất hai lớp biểu diễn tri thức.
+2.6.6. Lưu trữ Unified Knowledge Graph — M9
+* Mô hình node và edge.
+* Các quan hệ phân cấp.
+* Quan hệ dẫn chiếu.
+* Định danh và provenance.
+* Cấu trúc lưu trữ trong Neo4j.
+2.6.7. Truy hồi và tổng hợp evidence — M10
+* Truy hồi ứng viên.
+* Kết hợp các nhánh retrieval.
+* Typed reference expansion.
+* Context selection và pruning.
+* Chuẩn hóa locator.
+* Sinh câu trả lời.
+2.6.8. Answer-Path Builder
+Nên tách thành tiểu mục riêng vì đây là thành phần được bổ sung sau kết quả Benchmark B v04.
+Trình bày:
+* Vấn đề của explicit reference edge rời rạc.
+* Root selection.
+* Hierarchy descendants.
+* Kết nối reference edge với parent–child edge.
+* Tạo answer_paths và lưu answer_path_trace.
+* Giới hạn của cơ chế hiện tại.
+Lưu ý: chỉ mô tả các chức năng đã có trong phiên bản code mà nhóm thực sự sử dụng làm thực nghiệm. Không viết những cải tiến dự kiến như kết quả đã triển khai.
+2.6.9. Điểm khác biệt với LightRAG và các nghiên cứu ontology pháp lý trước
+Không so sánh kiểu “có ontology/không có ontology” một cách đơn giản. Nên đối chiếu ở các tiêu chí:
+* Đơn vị phân đoạn.
+* Cấp độ định danh pháp lý.
+* Cấu trúc graph.
+* Phương pháp trích xuất.
+* Quan hệ dẫn chiếu.
+* Khả năng truy nguyên.
+* Cơ chế tạo answer path.
+2.7. Thiết kế bộ dữ liệu Benchmark B
+2.7.1. Mục tiêu và phạm vi đánh giá
+50 câu hỏi từ Chương III Luật Đất đai 2024, Điều 26–48.
+2.7.2. Phân loại các câu hỏi
+Nhóm
+	Số câu
+	Quyền và nghĩa vụ trực tiếp
+	8
+	Nhiều điều kiện
+	10
+	Ngoại lệ và điều cấm
+	7
+	Dẫn chiếu một bước
+	6
+	Dẫn chiếu nhiều bước
+	4
+	Phân biệt chủ thể
+	5
+	Tổng hợp cha–con
+	4
+	Tình huống pháp lý
+	3
+	Không đủ căn cứ trong corpus
+	3
+	Tổng
+	50
+	2.7.3. Thiết kế schema của câu hỏi vàng
+* question_id.
+* question.
+* category.
+* answerability.
+* gold_locators.
+* reference_answer.
+* required_atomic_facts.
+* required_exceptions.
+* forbidden_claims.
+* reference_chain hoặc trường chain tương ứng.
+Chỉ liệt kê các trường thực sự tồn tại trong phiên bản gold chính thức; các trường bổ trợ có thể đưa vào phần mở rộng schema.
+2.7.4. Quy trình xây dựng và kiểm duyệt bộ dữ liệu
+* Lựa chọn phạm vi văn bản.
+* Biên soạn câu hỏi.
+* Gán locator và ground truth.
+* Kiểm tra tính đúng đắn pháp lý.
+* Sửa lỗi, cập nhật phiên bản.
+* Human sign-off và provenance.
+2.7.5. Chuẩn hóa locator và ánh xạ evidence
+Phân biệt locator pháp lý chuẩn với ID vật lý trong UKG và evidence chunk của LightRAG.
+2.7.6. Kiểm soát câu hỏi ngoài phạm vi corpus
+Các câu INSUFFICIENT_CORPUS và nguyên tắc không suy diễn căn cứ nằm ngoài Chương III.
+2.8. Thiết kế hệ thống chỉ số đánh giá
+Không nên ép mọi metric của Benchmark A và B vào một bảng duy nhất. Hai benchmark trả lời những câu hỏi nghiên cứu khác nhau.
+2.8.1. Chỉ số chung về truy hồi
+Recall@5 và MRR@5, cùng định nghĩa Top-K và đơn vị evidence.
+2.8.2. Chỉ số chất lượng câu trả lời
+Faithfulness, Legal Correctness, Atomic Fact Coverage và các metric thích hợp cho từng benchmark.
+2.8.3. Chỉ số đánh giá cấu trúc pháp lý
+* Exact Locator Recall@5.
+* Hierarchical Context Completeness.
+* Parent Context Coverage.
+* Child Evidence Coverage.
+2.8.4. Chỉ số đánh giá dẫn chiếu chéo
+* Reference-target Recall.
+* Chain-step Precision, Recall, F1.
+* Edge-label Accuracy.
+* Chain Exact Match.
+2.8.5. Chỉ số đánh giá câu trả lời pháp lý
+* Condition Coverage.
+* Exception Coverage.
+* Subject-Scope Accuracy.
+* Citation Precision/Recall cấp Điều–Khoản–Điểm.
+2.8.6. Chỉ số an toàn
+* Abstention Accuracy.
+* Refusal Quality.
+* Unsupported-Claim Rate.
+* Forbidden-Claim Rate.
+
+
+2.9. Phương pháp đánh giá tự động và kiểm chứng kết quả
+2.9.1. Kiến trúc LLM-as-a-Judge
+2.9.2. Cấu trúc prompt và JSON schema
+2.9.3. Quy trình đối chiếu atomic facts và forbidden claims
+2.9.4. Kiểm tra tính nhất quán và validation của Judge
+Cần nêu rõ việc Judge cùng model với generator không bảo đảm tính độc lập tuyệt đối của phép chấm.
+2.10. Thiết kế thực nghiệm và tính công bằng
+2.10.1. Các điều kiện chuẩn hóa cho Benchmark A[g]
+2.10.2. Các điều kiện chuẩn hóa cho Benchmark B
+* Cùng corpus Chương III.
+* Cùng 50 câu gold.
+* Cùng Top-5 benchmark.
+* Cùng context budget tối đa khoảng 10.000 token.
+* Cùng locator alignment.
+* Cùng evaluator và Judge.
+* Citation được tính từ answer cuối cùng.
+2.10.3. Những khác biệt kiến trúc được giữ nguyên
+LightRAG dùng token-based chunks và graph/chunk retrieval; Hybrid Parser dùng legal-structure nodes, UKG, typed references và pruning.
+2.10.4. Phân biệt đánh giá end-to-end và đánh giá tác động thành phần
+2.10.5. Quy trình lưu trữ cấu hình, log và phiên bản chạy
+CHƯƠNG 3. THỰC NGHIỆM, KẾT QUẢ VÀ THẢO LUẬN
+Đề xuất khoảng 28–35 trang. Tổ chức theo đúng ba giai đoạn nghiên cứu để người đọc theo dõi được quá trình hình thành và đánh giá giải pháp.
+3.1. Môi trường và thiết lập thực nghiệm
+3.1.1. Môi trường phần cứng và phần mềm
+Trình bày cấu hình phần cứng, các thư viện, phiên bản mô hình và hạ tầng chạy từng nhóm thực nghiệm. Nếu các giai đoạn dùng môi trường khác nhau, phải tách rõ, không viết như thể tất cả đều chạy trên một máy.
+3.1.2. Các bộ dữ liệu và phiên bản sử dụng 
+Bảng tóm tắt Benchmark A và B, số câu hỏi, corpus, nguồn dữ liệu và thời điểm tạo.
+3.1.3. Cấu hình chung của mô hình truy hồi và tạo sinh
+3.1.4. Quy trình thực hiện và lưu kết quả
+3.1.5. Phương pháp tổng hợp metric và kiểm định thống kê
+3.1.6. Kiểm soát tính tái lập
+Run ID, phiên bản dataset, checkpoint, log và các vấn đề phát sinh trong quá trình chạy.
+3.2. Giai đoạn 1 — Đánh giá ba kiến trúc RAG cơ sở
+Chủ yếu kế thừa các kết quả thực nghiệm có thể xác minh từ Chương 3 bản v1.
+3.2.1. Kết quả truy hồi của Naive và Hybrid RAG
+* Recall@5.
+* MRR@5.
+* So sánh thứ hạng căn cứ đúng.
+* Phân tích vai trò của BM25, Dense Retrieval và Cross-Encoder.
+3.2.2. Kết quả đánh giá LightRAG
+Trình bày những metric thực sự đo được trong phiên bản baseline gốc. Không tự bổ sung các metric không có evidence.
+3.2.3. Chất lượng câu trả lời và trích dẫn pháp lý
+Faithfulness, Context Precision và Citation Accuracy theo cách định nghĩa của benchmark gốc.
+3.2.4. Kiểm định chênh lệch hiệu năng
+Sử dụng các kết quả kiểm định hiện có nếu dữ liệu nguồn và phép kiểm định được xác minh. Không chỉ báo cáo p-value mà cần nêu mức chênh lệch, số câu được so sánh và khoảng tin cậy khi phù hợp.
+3.2.5. Phân tích lỗi điển hình
+* Sai lệch do từ khóa hoặc diễn đạt truy vấn.
+* Mất ngữ cảnh Điều–Khoản–Điểm.
+* Bỏ sót điều luật được dẫn chiếu.
+* Sai căn cứ hoặc trích dẫn.
+* Tác động của việc chuẩn hóa câu hỏi.
+3.2.6. Nhận xét và vấn đề đặt ra sau giai đoạn 1
+Đây là tiểu mục chuyển tiếp quan trọng nhất:
+Các kết quả đối sánh bước đầu cho thấy việc cải thiện thuật toán truy hồi chưa đủ để xử lý mọi khó khăn phát sinh từ cấu trúc pháp lý. Vì vậy, nhóm tiếp tục kiểm tra tác động của việc phân tích và bảo toàn các đơn vị Điều–Khoản–Điểm trong hai kiến trúc truy hồi cơ sở.
+Lưu ý khi kế thừa bản v1: Bản cũ báo cáo LightRAG chỉ hoàn thành 423/512 câu do lỗi API và để Recall@5, MRR@5 ở trạng thái N/A. Vì vậy, không được trình bày lại kết quả giai đoạn 1 như thể cả ba hệ thống đã được chấm đầy đủ trên 512 câu bằng cùng một tập metric. Đây là giới hạn phải giữ rõ trong v2.
+3.3. Giai đoạn 2 — Đánh giá tác động của Regex Parser và Validation
+Phần thực nghiệm mới, trực tiếp kiểm chứng đóng góp mở rộng pipeline.
+3.3.1. Mục tiêu và giả thuyết thực nghiệm
+Kiểm tra việc bổ sung Parser + Validation có cải thiện chất lượng truy hồi và trích dẫn không.
+3.3.2. Các cấu hình tham gia đối sánh
+* Naive Vector RAG.
+* Hybrid RAG.
+* Naive Vector RAG + Parser/Validation.
+* Hybrid RAG + Parser/Validation.
+3.3.3. Kết quả truy hồi của bốn cấu hình
+Đề xuất bảng:
+Metric
+	Naive
+	Naive + Parser
+	Hybrid
+	Hybrid + Parser
+	Recall@5
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	MRR@5
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	Citation Accuracy
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	Faithfulness
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	Kết quả đo
+	Các metric cụ thể có thể điều chỉnh theo những trường đã được runner ghi nhận. Không điền kết quả dự kiến vào bảng thực nghiệm.
+3.3.4. Phân tích tác động của Parser đối với Naive RAG
+So sánh Naive + Parser với Naive gốc. Phân tích những trường hợp parser giữ được một điều khoản nguyên vẹn hoặc đưa thêm parent context.
+3.3.5. Phân tích tác động của Parser đối với Hybrid RAG
+So sánh Hybrid + Parser với Hybrid gốc. Xem xét cải thiện về recall, thứ hạng và citation, cũng như những trường hợp parser không mang lại lợi ích.
+3.3.6. Phân tích tương tác giữa Parser và chiến lược truy hồi
+Đây là một tiểu mục tôi khuyến nghị bổ sung vì thiết kế 2 × 2 cho phép nghiên cứu không chỉ hai mức cải thiện riêng lẻ mà cả sự tương tác.
+Đặt:
+
+
+
+
+
+
+Trong đó  là một metric,  là Naive,  là Hybrid và  là gói Parser + Validation.
+Khi đó:
+
+
+
+Chỉ số này cho thấy Parser mang lại lợi ích khác nhau như thế nào khi kết hợp với hai chiến lược truy hồi.
+3.3.7. Phân tích lỗi và các trường hợp bất lợi
+* Parser nhận diện sai ranh giới.
+* Node pháp lý bị phân đoạn quá nhỏ.
+* Thiếu thông tin ở cấp cha.
+* Văn bản không có cấu trúc đầy đủ Điều–Khoản–Điểm.
+* Hiệu quả BM25/reranker thay đổi do độ dài đơn vị truy hồi.
+3.3.8. Kiểm định giả thuyết RQ2
+Đưa ra kết luận Parser + Validation có cải thiện không, cải thiện ở metric nào và kết quả có ổn định hay không.
+3.3.9. Kết luận giai đoạn 2
+Giải thích tại sao xử lý cấu trúc có thể là nền tảng cho một kiến trúc phức tạp hơn, nhưng không suy diễn rằng việc thêm Parser đã đủ để xử lý dẫn chiếu nhiều bước.[h]
+3.4. Giai đoạn 3 — Đối sánh LightRAG và Hybrid Parser/UKG trên Benchmark B
+Đây nên là phần phân tích chuyên sâu nhất của Chương 3.
+3.4.1. Mục tiêu của thực nghiệm
+Kiểm tra sự khác biệt giữa hai pipeline trong bài toán truy hồi căn cứ pháp lý có cấu trúc và tạo câu trả lời có thể truy nguyên.
+3.4.2. Mô tả bộ dữ liệu và phân bố câu hỏi
+Bảng 50 câu theo 9 nhóm; lưu ý 47 câu answerable và 3 câu thiếu căn cứ.
+3.4.3. Cấu hình và điều kiện đối sánh
+Xác nhận corpus, top_k, context budget, mô hình sinh, Judge, evaluator và locator mapping.
+Đồng thời công bố khác biệt token-based chunking của LightRAG với legal-structure-based indexing của Hybrid Parser.
+3.4.4. Kết quả hiệu năng truy hồi
+Trình bày:
+Metric
+	LightRAG
+	Hybrid Parser/UKG
+	Recall@5
+	0,7358
+	0,9184
+	MRR@5
+	0,5539
+	0,8848
+	Đây là các kết quả đã xuất hiện trong hai báo cáo Benchmark B mà nhóm cung cấp trước đó. Trong v2, nên lấy số liệu từ metrics.json của phiên bản được đóng băng để bảo đảm nhất quán.
+3.4.5. Kết quả truy hồi theo nhóm câu hỏi
+Phân tích riêng:
+* Direct rights.
+* Multi-condition.
+* Exception/prohibition.
+* One-hop reference.
+* Multi-hop reference.
+* Subject disambiguation.
+* Parent-child synthesis.
+* Legal scenario.
+Mục tiêu là xác định kiến trúc nào phù hợp hơn với từng dạng câu hỏi, không chỉ so sánh điểm trung bình.
+3.5. Đánh giá khả năng bảo toàn cấu trúc và truy nguyên evidence
+3.5.1. Exact Locator Recall@5
+3.5.2. Hierarchical Context Completeness
+3.5.3. Parent Context Coverage
+3.5.4. Child Evidence Coverage
+3.5.5. Phân tích sự khác biệt giữa retrieval và context expansion
+Đây là nơi trình bày việc một hệ thống có thể tìm được anchor đúng nhưng chưa cung cấp đầy đủ bằng chứng cấp con, hoặc đã mở rộng đủ evidence nhưng chưa sử dụng hết trong câu trả lời.
+3.6. Đánh giá khả năng truy hồi dẫn chiếu chéo
+3.6.1. Kết quả trên nhóm dẫn chiếu một bước
+3.6.2. Kết quả trên nhóm dẫn chiếu nhiều bước
+3.6.3. Reference-target Recall
+3.6.4. Chain-step Precision, Recall và F1 
+3.6.5. Edge-label Accuracy
+3.6.6. Chain Exact Match
+  
+
+3.6.7. Phân tích lỗi tái dựng đường dẫn
+3.6.8. Kết quả cải tiến Answer-Path Builder
+Nếu đã hoàn thành full v05 thì nên trình bày v04 và v05 trên cùng 18 câu đủ điều kiện chấm chain để xác định mức cải thiện.
+Nếu chưa có full v05, chỉ trình bày pilot 4 câu như một thí nghiệm thăm dò, không thay thế bảng kết quả chính.
+Trong phần này cần ghi rõ LightRAG có được chuẩn hóa để xuất reference path hay không. Không được coi N/A của LightRAG là điểm 0 khi so với Hybrid Parser.
+3.7. Đánh giá chất lượng câu trả lời pháp lý
+3.7.1. Legal Correctness
+3.7.2. Atomic Fact Coverage
+3.7.3. Condition Coverage
+3.7.4. Exception Coverage
+3.7.5. Subject-Scope Accuracy
+3.7.6. Citation Precision và Recall cấp Điều
+3.7.7. Citation Precision và Recall cấp Khoản–Điểm
+3.7.8. Phân tích khoảng cách giữa evidence retrieval và answer generation
+Đây là nội dung thảo luận quan trọng vì kết quả hiện tại cho thấy Hybrid Parser có Recall@5 cao hơn LightRAG, nhưng Condition Coverage lại thấp hơn.
+Nhóm cần phân tích liệu điều kiện bị thiếu ở retrieval, bị loại trong context selection hay có trong context nhưng không được đưa vào answer.
+3.8. Đánh giá tính an toàn và giới hạn của hệ thống
+3.8.1. Abstention Accuracy
+3.8.2. Refusal Quality
+3.8.3. Unsupported-Claim Rate
+3.8.4. Forbidden-Claim Rate
+3.8.5. Phân tích các câu trả lời có khẳng định pháp lý sai hoặc thiếu căn cứ
+Đặc biệt cần phân tích những câu có forbidden claim, bởi các kết quả trước đó cho thấy hai hệ thống vẫn có cùng mức điểm trên nhóm này.
+3.8.6. Độ tin cậy và giới hạn của LLM Judge
+Giải thích tính chất tự động của kết quả chấm, cách validation và mức độ kiểm toán thủ công.
+3.9. Thảo luận tổng hợp kết quả ba giai đoạn
+Tôi khuyến nghị dành riêng một mục để kết nối tất cả kết quả, thay vì mỗi giai đoạn có kết luận độc lập rồi kết thúc.
+3.9.1. Kết quả đối sánh các kiến trúc RAG cơ sở
+Trả lời RQ1.
+3.9.2. Vai trò của phân tích cấu trúc pháp lý
+Trả lời RQ2 và xác định Parser + Validation đóng góp ở đâu.
+3.9.3. Giá trị và giới hạn của kiến trúc Hybrid Parser/UKG
+Trả lời RQ3, làm rõ ưu thế retrieval, citation và những hạn chế về điều kiện, an toàn.
+3.9.4. Khả năng xử lý dẫn chiếu nhiều bước
+Trả lời RQ4 dựa trên kết quả target, chain step và exact match.
+3.9.5. Mối quan hệ giữa ba giai đoạn nghiên cứu
+Làm rõ việc các kết quả giai đoạn 1 và 2 đã hỗ trợ hình thành giả thuyết và lựa chọn thiết kế cho giai đoạn 3 như thế nào.
+3.10. Các yếu tố ảnh hưởng đến tính hợp lệ của kết quả nghiên cứu
+3.10.1. Tính hợp lệ nội tại
+* Khác biệt trong chiến lược phân đoạn và retrieval.
+* Giới hạn của việc đối sánh end-to-end.
+* Độ tin cậy của LLM Judge.
+* Nguy cơ điều chỉnh thuật toán dựa trên các câu pilot.
+* Khác biệt về ngân sách ngữ cảnh sử dụng thực tế.
+2. Đoạn đề xuất cho mục 3.9.1. Tính hợp lệ nội tại
+3.9.1. Tính hợp lệ nội tại
+Một yếu tố có thể ảnh hưởng đến tính hợp lệ nội tại của thực nghiệm là sự khác biệt về chiến lược xử lý và tổ chức dữ liệu giữa hai hệ thống. Mặc dù LightRAG và Hybrid Parser/UKG được đánh giá trên cùng kho ngữ liệu, tập câu hỏi, giới hạn ngữ cảnh và bộ chỉ số, mỗi kiến trúc vẫn sử dụng cơ chế phân đoạn, xây dựng chỉ mục và mở rộng bằng chứng riêng. Trong đó, Hybrid Parser/UKG sử dụng các đơn vị pháp lý đã được nhận diện theo cấu trúc Điều–Khoản–Điểm, còn LightRAG xây dựng biểu diễn đồ thị từ các đoạn văn bản được phân chia theo số token.
+Sự khác biệt này có thể tác động đến khả năng truy hồi và độ chính xác trích dẫn pháp lý. Vì vậy, mức chênh lệch quan sát được không thể quy hoàn toàn cho một thành phần riêng lẻ, chẳng hạn bộ phân tích cấu trúc hoặc cơ chế mở rộng dẫn chiếu. Nghiên cứu giới hạn kết luận ở hiệu quả của hai pipeline hoàn chỉnh và không xem đây là phép kiểm chứng độc lập tác động của từng mô-đun. Các thí nghiệm loại bỏ thành phần được xác định là hướng cần thiết để làm rõ nguyên nhân của những cải thiện quan sát được.
+
+
+3.10.2. Tính hợp lệ ngoại tại
+* Phạm vi dữ liệu pháp luật Việt Nam.
+* Benchmark B chỉ tập trung Chương III Luật Đất đai.
+* Số câu hỏi còn hạn chế.
+* Khả năng khái quát hóa sang văn bản có cấu trúc hoặc lĩnh vực khác.
+3.10.3. Tính hợp lệ của phép đo
+* Khác biệt giữa chunk, node và evidence.
+* Giới hạn của Citation Accuracy dựa vào biểu thức chính quy.
+* Khả năng khớp đường dẫn tương đương.
+* Metric không áp dụng cho một số loại câu.
+* Sai lệch có thể phát sinh từ tự động chấm.
+3.10.4. Tính hợp lệ của kết luận
+Tách riêng kết quả có ý nghĩa mô tả, kết quả được kiểm định thống kê và các giả thuyết giải thích nguyên nhân chưa được kiểm chứng trực tiếp.
+3.11. Tổng kết Chương 3
+Tóm tắt ngắn các phát hiện có căn cứ, những giả thuyết được hỗ trợ/chưa được hỗ trợ và các giới hạn còn tồn tại.[i]
+KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+1. Tóm tắt quá trình nghiên cứu
+Tổng hợp ba giai đoạn theo trình tự: đánh giá → mở rộng → kiến trúc đề xuất.
+2. Trả lời các câu hỏi nghiên cứu
+Trình bày lần lượt RQ1–RQ4, gắn với số liệu đã kiểm chứng.
+3. Các đóng góp của đề tài
+3.1. Đóng góp về khung đánh giá và dữ liệu kiểm thử
+3.2. Đóng góp thực nghiệm về xử lý cấu trúc pháp lý
+3.3. Đóng góp về thiết kế và đánh giá Hybrid Parser/UKG
+4. Giới hạn của nghiên cứu
+Những kết quả chưa đạt, chưa thể kết luận và những yếu tố ảnh hưởng đến khả năng khái quát hóa.
+5. Hướng phát triển tiếp theo
+* Hoàn thiện Answer-Path Builder.
+* Bổ sung nghiên cứu loại bỏ từng thành phần riêng của UKG.
+* Mở rộng benchmark qua nhiều loại văn bản luật.
+* Tăng cường kiểm duyệt đáp án và đánh giá pháp lý độc lập.[j]
+Tài liệu tham khảo và phụ lục
+Phụ lục A: Cấu hình benchmark và môi trường thực nghiệm.
+Phụ lục B: Schema Benchmark A và Benchmark B.
+Phụ lục C: Thống kê các nhóm câu hỏi và quy trình human review.
+Phụ lục D: Cấu trúc node, edge và định danh pháp lý.
+Phụ lục E: Các trường hợp lỗi điển hình và đường dẫn evidence.
+Phụ lục F: Bảng kết quả theo từng câu, kết quả kiểm định và thông tin tái lập.
+PHẦN B. KẾ HOẠCH CHUYỂN TỪ BÁO CÁO V1 SANG V2
+Để nhóm không mất công viết lại những nội dung đã có, tôi đề xuất ma trận kế thừa như sau.
+3. Phần nào của bản v1 nên giữ, sửa và bổ sung?
+Nội dung v1
+	Hướng xử lý trong v2
+	Lý do
+	Mở đầu
+	Viết lại phần lớn
+	Mục tiêu và đóng góp đã mở rộng sang ba giai đoạn
+	Chương 1 — Lý thuyết RAG, BM25, BGE-M3, Cross-Encoder
+	Giữ và biên tập
+	Các cơ sở lý thuyết vẫn phù hợp
+	Chương 1 — Tổng quan LightRAG
+	Giữ, bổ sung hạn chế
+	Vẫn là baseline và hệ thống đối sánh B
+	Chương 1 — Nghiên cứu liên quan
+	Cập nhật đáng kể
+	Phải bổ sung ontology, legal KG, structure-aware retrieval
+	Chương 2 — Benchmark Harness
+	Giữ, mở rộng
+	Bổ sung adapter và contract dành cho benchmark mới
+	Chương 2 — Corpus và paraphrasing
+	Giữ, kiểm tra lại số liệu
+	Phục vụ Benchmark A
+	Chương 2 — Ba pipeline
+	Giữ
+	Là nền tảng giai đoạn 1
+	Chương 2 — Regex Parser/Validation
+	Viết mới
+	Đóng góp giai đoạn 2
+	Chương 2 — Hybrid Parser/UKG
+	Viết mới
+	Đóng góp kiến trúc giai đoạn 3
+	Chương 2 — Benchmark B và metrics
+	Viết mới
+	Đánh giá chuyên biệt cấu trúc pháp lý
+	Chương 3 — Kết quả ba baseline
+	Giữ có kiểm toán
+	Kế thừa thực nghiệm đã hoàn thành
+	Chương 3 — Ablation Study cũ
+	Thay bằng kết quả thực đo
+	Bản v1 còn chứa các giá trị dự kiến
+	Chương 3 — Benchmark bốn cấu hình
+	Viết mới
+	Kết quả giai đoạn 2
+	Chương 3 — Benchmark B
+	Viết mới
+	Kết quả giai đoạn 3
+	Chương 3 — Cost-Latency
+	Bỏ phần chi phí LightRAG–Hybrid Parser
+	Theo phạm vi v2 đã thống nhất
+	Chương 3 — Threats to Validity
+	Viết lại
+	Bổ sung giới hạn của cả ba giai đoạn
+	Kết luận
+	Viết lại
+	Phải trả lời RQ và đóng góp của v2
+	Một điểm tôi đặc biệt lưu ý: mục Ablation Study trong v1 có các kết quả được ghi rõ là dự kiến dựa trên phân tích lý thuyết, chứ không phải kết quả đo đầy đủ. Sang v2, phải tách hoàn toàn chúng khỏi bảng thực nghiệm chính và thay bằng số liệu của bốn cấu hình khi benchmark hoàn thành.
+Ngoài ra, không nên sử dụng các con số độ trễ được ước tính từ độ phức tạp thuật toán như thể đó là latency đo thực tế. Nếu giữ phân tích độ trễ, chỉ đưa vào bảng thực nghiệm các giá trị có log đo trực tiếp.
+4. Danh mục bảng và hình nên chuẩn bị
+Để báo cáo dễ đọc, tôi đề xuất các hình/bảng sau. Đây là bộ tối thiểu ưu tiên, không phải yêu cầu phải có toàn bộ.
+Chương
+	Hình/bảng đề xuất
+	Vai trò
+	1
+	Sơ đồ phân cấp Điều–Khoản–Điểm
+	Làm rõ đặc thù dữ liệu
+	1
+	Sơ đồ quan hệ phân cấp và dẫn chiếu
+	Giải thích bài toán cross-reference
+	1
+	Bảng đối chiếu công trình liên quan
+	Xác lập khoảng trống nghiên cứu
+	2
+	Sơ đồ tổng thể ba giai đoạn nghiên cứu
+	Trục logic chính của v2
+	2
+	Kiến trúc Benchmark Harness
+	Cơ sở đối sánh chung
+	2
+	Sơ đồ ba baseline RAG
+	Giai đoạn 1
+	2
+	Sơ đồ Regex Parser + Validation
+	Giai đoạn 2
+	2
+	Ma trận thí nghiệm 2 × 2
+	Kiểm chứng tác động của parser
+	2
+	Sơ đồ M1–M10 của Hybrid Parser/UKG
+	Kiến trúc đề xuất
+	2
+	Sơ đồ Physical Graph và Semantic Graph
+	Làm rõ thành phần tích hợp
+	2
+	Sơ đồ Answer-Path Builder
+	Giải thích cách xử lý dẫn chiếu
+	2
+	Bảng phân bố 50 câu Benchmark B
+	Đặc tả tập kiểm thử
+	3
+	Bảng kết quả ba baseline
+	Giai đoạn 1
+	3
+	Bảng đối sánh bốn cấu hình
+	Giai đoạn 2
+	3
+	Biểu đồ tác động của Parser theo metric
+	Phân tích ablation
+	3
+	Bảng LightRAG và Hybrid Parser/UKG
+	Giai đoạn 3
+	3
+	Biểu đồ citation theo Điều–Khoản–Điểm
+	Chứng minh khả năng truy nguyên
+	3
+	Bảng Condition/Exception Coverage
+	Phân tích chất lượng pháp lý
+	3
+	Bảng reference/chain metrics
+	Đánh giá dẫn chiếu
+	3
+	Case study evidence và answer path
+	Giải thích nguyên nhân
+	3
+	Bảng đối chiếu RQ–giả thuyết–kết quả
+	Kết luận khoa học
+	PHẦN C. NHỮNG ĐIỂM PHẢI THỐNG NHẤT TRƯỚC KHI VIẾT
+5. Không để ba giai đoạn trở thành ba đề tài rời rạc
+Đây là rủi ro lớn nhất của báo cáo v2.
+Nếu Chương 3 chỉ lần lượt trình bày benchmark 3 hệ thống, benchmark 4 hệ thống rồi benchmark 2 hệ thống, người chấm có thể nhận xét:
+Nhóm thực hiện nhiều thử nghiệm, nhưng chưa cho thấy một câu hỏi nghiên cứu xuyên suốt.
+Để tránh điều đó, nên thống nhất một luận điểm xuyên suốt:
+Ảnh hưởng của việc bảo toàn và khai thác cấu trúc pháp lý đối với chất lượng truy hồi và khả năng cung cấp căn cứ của hệ thống RAG.
+Khi đó, mỗi giai đoạn trả lời một vấn đề tiếp nối:
+Giai đoạn
+	Câu hỏi cần trả lời
+	1
+	Các kiến trúc RAG hiện có đạt kết quả ra sao và còn những hạn chế gì?
+	2
+	Việc bổ sung cấu trúc Điều–Khoản–Điểm có cải thiện những hạn chế đó không?
+	3
+	Khi kết hợp cấu trúc với đồ thị ngữ nghĩa, hệ thống có xử lý tốt hơn các câu hỏi pháp lý phức tạp không?
+	Cách triển khai này phù hợp với tên đề tài hiện tại và giúp giải thích vì sao nhóm xây dựng Hybrid Parser/UKG sau khi thực hiện benchmark baseline.
+6. Phân biệt rõ Benchmark A và Benchmark B
+Hai bộ dữ liệu khác nhau về quy mô và mục đích.
+Benchmark A
+Đánh giá tổng quát và ablation
+512 câu
+Nhiều văn bản pháp luật, nhiều dạng truy vấn
+Benchmark B
+Đánh giá chuyên sâu pháp lý
+50 câu
+Chương III Luật Đất đai 2024
+Hai bộ benchmark không được sử dụng để so sánh trực tiếp điểm của những hệ thống chạy trên hai tập khác nhau.
+Ví dụ, không được lấy Recall@5 của Hybrid RAG trên 512 câu để so với Recall@5 của Hybrid Parser/UKG trên 50 câu rồi kết luận mô hình nào tốt hơn.
+Một điểm cần làm rõ thêm khi viết v2 là giai đoạn 2 dùng chính xác tập 512 câu và corpus của giai đoạn 1 hay một phiên bản dữ liệu đã chỉnh sửa. Nếu có thay đổi, phải trình bày rõ version, lý do và phạm vi so sánh.
+7. Không biến kết quả pilot thành kết luận chính
+Hiện tại, nhóm có kết quả Benchmark B full v04 và báo cáo pilot cải tiến Answer-Path Builder trên bốn câu.
+Trong bản v2:
+* Full v04 có thể đóng vai trò kết quả của kiến trúc trước khi cải tiến Answer-Path Builder.
+* Pilot trên bốn câu chỉ chứng minh cơ chế mới có thể hoạt động trong một số trường hợp.
+* Nếu full v05 hoàn thành, có thể thêm bảng đối sánh v04–v05 trên cùng tập câu.
+* Nếu full v05 chưa hoàn thành, nên trình bày việc nâng cấp như nghiên cứu thăm dò và công bố giới hạn.
+Đặc biệt, khi đã sử dụng các câu B012, B028, B030, B034 để cải tiến thuật toán, cần thừa nhận chúng là những trường hợp được dùng trong quá trình phát triển. Không được xem chúng là mẫu kiểm thử hoàn toàn độc lập sau tối ưu.
+8. Thứ tự triển khai viết báo cáo hiệu quả nhất
+Tôi đề xuất nhóm không viết tuần tự từ Mở đầu đến Kết luận. Nên làm theo trình tự:
+1. Khóa phạm vi và phiên bản benchmark. Xác định dataset, corpus, run và các metric nào được sử dụng trong v2.
+2. Hoàn thiện mục 2.1, 2.5 và 2.6. Ba mục này thể hiện mạch nghiên cứu và hai hướng mở rộng quan trọng.
+3. Hoàn thiện bảng kết quả Chương 3. Đặc biệt là benchmark bốn cấu hình và Benchmark B; không viết kết luận trước khi các bảng được khóa.
+4. Cập nhật Chương 1. Tập trung vào cơ sở của Regex Parser, cấu trúc pháp lý và KG/ontology, đồng thời cập nhật nghiên cứu liên quan.
+5. Viết lại phần Mở đầu và Kết luận. Hai phần này phải phản ánh những đóng góp thực sự đã được kiểm chứng, không chỉ những gì nhóm dự định triển khai.
+6. Rà soát tính nhất quán toàn văn. Kiểm tra tên hệ thống, số câu, số điều luật, định nghĩa metric, bản code, số bảng/hình và tài liệu tham khảo.
+9. Dung lượng dự kiến cho bản v2
+Phân bổ dung lượng nội dung đề xuất, không tính trang bìa, phụ lục và tài liệu tham khảo
+ Chart 
+
+Tổng khoảng 86 trang nội dung. Có thể rút xuống khoảng 70–75 trang nếu quy định của học viện yêu cầu báo cáo ngắn hơn.
+Tôi không khuyến nghị giữ nguyên dung lượng Chương 1 rồi bổ sung một lượng lớn lý thuyết ontology khiến báo cáo trở nên mất cân đối. V2 nên ưu tiên nhiều trang hơn cho thiết kế thực nghiệm, kết quả và phân tích nguyên nhân, vì đây là nơi nhóm chứng minh đóng góp.
+10. Đánh giá cuối cùng về bộ khung v2
+Với định hướng ba giai đoạn này, nhóm có thể xây dựng một báo cáo NCKH có mạch nghiên cứu tốt hơn bản v1, nếu bảo đảm được những điều sau:
+Thứ nhất, giai đoạn 1 được xem là cơ sở thực nghiệm, không phải kết luận cuối cùng rằng một kiến trúc luôn tốt nhất.
+Thứ hai, giai đoạn 2 phải được trình bày như một thí nghiệm kiểm chứng tác động của Parser + Validation, có nhóm đối chứng rõ ràng.
+Thứ ba, Hybrid Parser/UKG là kiến trúc tích hợp do nhóm thiết kế và đề xuất, không phải tuyên bố phát minh lần đầu ontology hoặc đồ thị tri thức pháp lý.
+Thứ tư, Benchmark B cần báo cáo cả kết quả tốt lẫn bất lợi, đặc biệt là Condition Coverage, Forbidden-Claim Rate và Chain Exact Match.
+Thứ năm, phần kết luận phải tách rõ lợi thế đã được đo lường ở cấp kiến trúc end-to-end với những nguyên nhân mới chỉ là giả thuyết.
+Khuyến nghị chốt
+Tôi đề xuất nhóm chính thức sử dụng bộ khung Mở đầu + 3 chương + Kết luận ở trên cho báo cáo v2.
+Phần khác biệt quan trọng nhất so với v1 nằm ở hai trục:
+* Chương 2: Từ mô tả ba baseline sang trình bày có hệ thống ba giai đoạn nghiên cứu và kiến trúc đề xuất.
+* Chương 3: Từ một phép đối sánh ba hệ thống sang chuỗi thực nghiệm gồm baseline, kiểm chứng tác động của parser và đánh giá chuyên sâu Hybrid Parser/UKG.
+Đây là cách tổ chức giúp nhóm bảo vệ được cả giá trị nghiên cứu thực nghiệm lẫn đóng góp thiết kế kiến trúc, mà không phải đưa ra những tuyên bố quá mức về tính mới hoặc khả năng xử lý dẫn chiếu chéo.
+
+
+
+
+[a]dương viết phần này nhé (ô tham khảo dựa vào báo cáo cũ https://docs.google.com/document/d/1nJf9EnIN1uNiad2uwsuXn3bMAsdwUVFAhn5gHKqrVPE/edit?tab=t.0 và xem lại git thằng béo ló thiết kế lại 3 hệ thống này chạy như nào, nếu giống thì giữ, khác đoạn nào thì sửa theo hệ thống mới nhé )
+[b]Lâm viết phần này theo ý ô th, kcan phải theo hết các tiểu mục này đâu
+[c]Lâm chia phần này làm data 2 giai đoạn xong có phần giải thích nhé
+[d]dương viết
+[e]hay thằng béo viết phần này đi
+[f]dương vt cũng đc nhgma viết lại theo kiến trúc mới nhé, sửa lại các tiểu đề mục đi và viết theo ý ô, thực ra phần này thằng béo viết thì hợp lý hơn
+[g]thằng béovt cái này
+[h]thằng béo viết 3.3 theo kiến trúc 6x2 mới của ô, không nhất thiết viết theo các tiêu đề tiểu mục trên, viết theo hệ thống của ô là đc và phân tích các kết quả chỉ số là đc
+[i]cái này t vt
+[j]cái này t vt

@@ -1,0 +1,954 @@
+﻿MỞ ĐẦU
+1. Tính cấp thiết của đề tài
+Việc tra cứu và khai thác văn bản quy phạm pháp luật là một nhu cầu thường gặp trong hoạt động học tập, nghiên cứu và giải quyết các vấn đề thực tế. Đối với những câu hỏi liên quan đến quyền, nghĩa vụ hoặc điều kiện thực hiện một hành vi pháp lý, người tra cứu không chỉ cần tìm được văn bản có nội dung liên quan mà còn phải xác định đúng quy định áp dụng. Trong nhiều trường hợp, việc hiểu một điều khoản còn phụ thuộc vào các quy định khác về chủ thể, điều kiện, ngoại lệ và phạm vi điều chỉnh. Điều này đặt ra yêu cầu đối với các hệ thống hỗ trợ tra cứu pháp luật bằng ngôn ngữ tự nhiên: thông tin được truy hồi cần có căn cứ rõ ràng và đủ ngữ cảnh để phục vụ việc trả lời.
+Một trong những hướng tiếp cận đang được nghiên cứu cho bài toán này là Retrieval-Augmented Generation (RAG), được Lewis và cộng sự [15] giới thiệu nhằm kết hợp khả năng sinh văn bản của mô hình ngôn ngữ với thông tin được truy xuất từ nguồn dữ liệu bên ngoài. Thay vì chỉ dựa vào tri thức đã được học trong quá trình huấn luyện, hệ thống RAG có thể tìm kiếm các đoạn văn bản liên quan và sử dụng chúng làm ngữ cảnh để tạo câu trả lời. Theo tổng quan của Gao và cộng sự [7], các hệ thống RAG đã được phát triển theo nhiều hướng, từ truy hồi vector tương đối đơn giản đến các kiến trúc kết hợp nhiều phương pháp truy hồi và cơ chế tổ chức tri thức phức tạp hơn.
+Tuy nhiên, việc bổ sung thông tin truy hồi không đồng nghĩa với việc câu trả lời luôn chính xác. Trong nghiên cứu thực nghiệm về các công cụ AI hỗ trợ tra cứu pháp lý, Magesh và cộng sự [17] ghi nhận hiện tượng tạo ra thông tin không có căn cứ ở một số hệ thống thương mại, với tỷ lệ từ 17% đến 33% trong điều kiện đánh giá của công trình. Kết quả này cho thấy việc sử dụng RAG có thể hỗ trợ giảm rủi ro sai lệch thông tin nhưng chưa loại bỏ được hoàn toàn những hạn chế liên quan đến độ chính xác và khả năng kiểm chứng của câu trả lời. Đối với lĩnh vực pháp luật, các lỗi như trích dẫn nhầm điều khoản, bỏ sót điều kiện áp dụng hoặc xác định sai quyền của chủ thể có thể làm thay đổi nội dung kết luận pháp lý.
+Khi áp dụng RAG cho văn bản quy phạm pháp luật Việt Nam, nhóm nhận thấy cần chú ý đến ba đặc điểm của dữ liệu.
+* Văn bản pháp luật được tổ chức theo cấu trúc phân cấp. Tùy từng văn bản, nội dung có thể được chia thành Phần, Chương, Mục, Tiểu mục, Điều, Khoản và Điểm. Trong đó, một điểm hoặc khoản có thể chỉ thể hiện đầy đủ ý nghĩa khi được xem xét cùng nội dung ở cấp cha. Chẳng hạn, phần mở đầu của một khoản có thể xác định chủ thể áp dụng, trong khi các điểm thuộc khoản đó quy định những quyền hoặc điều kiện cụ thể. Nếu hệ thống phân đoạn văn bản theo số lượng token mà không xét đến ranh giới pháp lý, các thành phần có liên hệ với nhau có thể nằm ở những đoạn khác nhau. Khi đó, một đoạn được truy hồi riêng lẻ có thể chưa cung cấp đầy đủ thông tin cần thiết để trả lời câu hỏi.
+* Các quy định pháp luật thường có quan hệ dẫn chiếu. Một điều khoản có thể quy định quyền hoặc nghĩa vụ nhưng yêu cầu người áp dụng đối chiếu thêm một điều khoản khác để xác định điều kiện thực hiện. Một số dẫn chiếu chỉ gồm một bước, trong khi những trường hợp khác có thể liên quan đến nhiều cấp quy định. Đặc điểm này đặt ra yêu cầu không chỉ tìm đúng đoạn văn có nội dung tương đồng với câu hỏi mà còn nhận diện được các quy định liên quan và mối quan hệ giữa chúng. Đối với những câu hỏi có nhiều điều kiện hoặc ngoại lệ, việc bỏ sót một căn cứ dẫn chiếu có thể khiến câu trả lời chưa đầy đủ.
+* Cách diễn đạt trong câu hỏi của người sử dụng có thể khác đáng kể so với ngôn ngữ của văn bản luật. Người dùng thường mô tả tình huống bằng ngôn ngữ thông thường, trong khi văn bản quy phạm pháp luật sử dụng những thuật ngữ và cấu trúc câu có tính chuyên ngành. Nghiên cứu về mô hình ngôn ngữ trong miền pháp lý, chẳng hạn LEGAL-BERT của Chalkidis và cộng sự [1], cho thấy việc xử lý ngôn ngữ pháp luật cần quan tâm đến những đặc điểm riêng của dữ liệu chuyên ngành. Với bài toán truy hồi, sự khác biệt giữa cách diễn đạt truy vấn và cách diễn đạt trong văn bản nguồn có thể ảnh hưởng đến hiệu quả của các phương pháp dựa trên từ khóa hoặc độ tương đồng ngữ nghĩa.
+
+
+Để cải thiện khả năng truy hồi, nhiều phương pháp đã được phát triển và kết hợp trong các pipeline RAG. Truy hồi từ vựng như BM25 khai thác sự xuất hiện và mức độ phân biệt của các từ trong tài liệu [24]. Trong khi đó, các mô hình nhúng như BGE-M3 hỗ trợ biểu diễn văn bản trong không gian ngữ nghĩa, qua đó mở rộng khả năng tìm kiếm những nội dung không trùng khớp hoàn toàn về mặt từ vựng [2]. Việc kết hợp truy hồi từ vựng, truy hồi ngữ nghĩa và mô hình tái xếp hạng cũng đã được nghiên cứu cho dữ liệu pháp luật tiếng Việt. Tiêu biểu, Tran và cộng sự [26] đề xuất ViDRILL, một pipeline truy hồi nhiều giai đoạn kết hợp các phương pháp truy hồi và tái xếp hạng để cải thiện kết quả tìm kiếm văn bản pháp lý.
+Bên cạnh các hướng truy hồi dựa trên văn bản, kiến trúc sử dụng đồ thị tri thức cũng được quan tâm. LightRAG của Guo và cộng sự [10] kết hợp biểu diễn đồ thị với truy hồi văn bản nhằm khai thác quan hệ giữa các thực thể. Trong lĩnh vực pháp luật Việt Nam, Huy và cộng sự [12] đã nghiên cứu quy trình bán tự động sử dụng mô hình ngôn ngữ lớn, ontology và Neo4j để xây dựng đồ thị tri thức từ Bộ luật Hình sự, phục vụ hệ thống hỗ trợ hỏi đáp pháp lý. Những công trình này cho thấy đồ thị tri thức là một hướng tiếp cận đã có cơ sở nghiên cứu; đồng thời gợi ra nhu cầu đánh giá cụ thể hơn khả năng biểu diễn cấu trúc, truy hồi căn cứ và xử lý quan hệ dẫn chiếu trong từng kiến trúc.
+Từ những vấn đề trên, nhóm lựa chọn đề tài “Đánh giá và tối ưu hóa các kiến trúc RAG trên nền tảng dữ liệu cấu trúc đặc thù”, tập trung vào văn bản quy phạm pháp luật Việt Nam. Nghiên cứu được triển khai theo ba giai đoạn có liên hệ với nhau. Trước hết, nhóm đánh giá các kiến trúc RAG cơ sở để xác định đặc điểm và hạn chế của từng phương pháp. Tiếp theo, nhóm khảo sát tác động của việc bổ sung bộ phân tích cấu trúc pháp lý vào các pipeline truy hồi. Trên cơ sở đó, nhóm thiết kế và đánh giá kiến trúc Hybrid Parser/Unified Knowledge Graph (UKG), kết hợp biểu diễn cấu trúc Điều-Khoản-Điểm với các quan hệ ngữ nghĩa và dẫn chiếu pháp lý. Cách tiếp cận này nhằm từng bước kiểm tra ảnh hưởng của việc tổ chức dữ liệu theo cấu trúc pháp luật đối với chất lượng truy hồi và khả năng cung cấp căn cứ cho câu trả lời.
+2. Khoảng trống nghiên cứu
+Các công trình nghiên cứu về RAG đã đề xuất nhiều phương pháp cải thiện chất lượng truy hồi và sinh câu trả lời, từ truy hồi từ vựng, truy hồi ngữ nghĩa đến các kiến trúc kết hợp và sử dụng đồ thị tri thức. Trong lĩnh vực pháp luật Việt Nam, việc ứng dụng mô hình ngôn ngữ lớn cùng ontology và đồ thị tri thức cũng đã được khảo sát, tiêu biểu là nghiên cứu của Huy và cộng sự [12] về xây dựng đồ thị tri thức phục vụ hệ thống hỗ trợ tư vấn pháp luật. Những kết quả này cung cấp cơ sở để tiếp tục nghiên cứu khả năng khai thác thông tin pháp lý bằng RAG. Tuy nhiên, việc lựa chọn kiến trúc truy hồi và tổ chức dữ liệu vẫn cần được xem xét trong những điều kiện thực nghiệm cụ thể, đặc biệt khi văn bản nguồn có cấu trúc phân cấp và chứa nhiều quan hệ dẫn chiếu.
+Việc đối sánh các kiến trúc RAG đặt ra yêu cầu thống nhất về dữ liệu, quy trình kiểm thử và cách xác định bằng chứng liên quan. Trên thực tế, các hệ thống có thể sử dụng mô hình nhúng, phương pháp phân đoạn, cơ chế truy hồi và cách xây dựng ngữ cảnh khác nhau. Những khác biệt này có thể ảnh hưởng đồng thời đến kết quả đánh giá, khiến việc xác định nguyên nhân của chênh lệch hiệu năng trở nên khó khăn. Mặc dù các phương pháp đánh giá tự động như RAGAS [6] đã cung cấp những chỉ số cho quá trình truy hồi và sinh câu trả lời, việc áp dụng vào văn bản pháp luật Việt Nam vẫn cần xác định rõ đơn vị bằng chứng, nhãn căn cứ và những điều kiện cần kiểm soát. Do đó, nghiên cứu lựa chọn xây dựng một khung thực nghiệm thống nhất để so sánh các kiến trúc RAG, đồng thời ghi nhận những khác biệt thuộc thiết kế riêng của từng hệ thống.
+Chất lượng tập câu hỏi kiểm thử cũng là yếu tố cần được xem xét. Khi câu hỏi được biên soạn bằng cách sử dụng nhiều từ ngữ hoặc cấu trúc diễn đạt tương tự điều luật gốc, các phương pháp tìm kiếm dựa trên từ vựng có thể đạt kết quả thuận lợi hơn so với trường hợp truy vấn được diễn đạt bằng ngôn ngữ thông thường. Mức độ trùng lặp này không đồng nghĩa với rò rỉ dữ liệu, nhưng có thể ảnh hưởng đến khả năng phản ánh những tình huống tra cứu thực tế của bộ kiểm thử. Vì vậy, nhóm khảo sát việc diễn đạt lại câu hỏi và kiểm soát mức độ trùng lặp từ vựng với văn bản nguồn, đồng thời xem xét ảnh hưởng của quá trình này đến kết quả truy hồi. Việc giảm trùng lặp từ vựng chỉ được xem là một đặc điểm của dữ liệu sau xử lý, không phải bằng chứng tự thân cho thấy bộ câu hỏi có chất lượng tốt hơn.
+Đối với văn bản quy phạm pháp luật, phương pháp phân đoạn dữ liệu có thể ảnh hưởng trực tiếp đến khả năng bảo toàn ngữ cảnh. Nội dung pháp lý thường được tổ chức theo các cấp Điều, Khoản và Điểm, trong đó thông tin về chủ thể, quyền, nghĩa vụ hoặc điều kiện áp dụng có thể nằm ở những đơn vị khác nhau nhưng có quan hệ phụ thuộc. Phân đoạn theo số lượng token có khả năng tách rời các nội dung này, trong khi phân đoạn theo cấu trúc pháp lý có thể giúp duy trì ranh giới và quan hệ phân cấp của văn bản. Tuy vậy, các đơn vị cấu trúc có độ dài không đồng đều, dẫn đến những thay đổi trong cách lập chỉ mục và truy hồi. Do đó, chưa thể kết luận rằng phân đoạn theo cấu trúc sẽ mang lại hiệu quả cao hơn. Nghiên cứu tiến hành đối sánh Naive RAG và Hybrid RAG với các biến thể được bổ sung Regex Parser và Validation nhằm đánh giá tác động của phương án xử lý này đến chất lượng truy hồi và câu trả lời.
+Một yêu cầu khác của bài toán hỏi đáp pháp luật là khả năng xác định đầy đủ căn cứ và mối quan hệ giữa các quy định. Các chỉ số như Recall@K và Mean Reciprocal Rank (MRR@K) phản ánh khả năng tìm kiếm và xếp hạng bằng chứng liên quan, nhưng chưa trực tiếp cho biết hệ thống có thu thập đầy đủ điều kiện, ngoại lệ hoặc tái dựng đúng chuỗi dẫn chiếu hay không. LegalBench-RAG [21] đã nhấn mạnh tầm quan trọng của việc truy hồi những đơn vị bằng chứng pháp lý cụ thể. Đối với văn bản pháp luật Việt Nam, yêu cầu này còn liên quan đến việc xác định chính xác vị trí Điều-Khoản-Điểm và ngữ cảnh cần thiết để diễn giải quy định. Vì vậy, ngoài những chỉ số truy hồi thông dụng, cần có các phép đo chuyên biệt về mức độ bao phủ căn cứ, độ chính xác trích dẫn và khả năng xác định quan hệ dẫn chiếu giữa các đơn vị pháp lý.
+Trên cơ sở những vấn đề đã xác định, đề tài được triển khai theo ba giai đoạn có liên hệ với nhau. Giai đoạn đầu đánh giá các kiến trúc Naive Vector RAG, Hybrid RAG và LightRAG trên cùng một khung thực nghiệm. Kết quả đối sánh được sử dụng làm cơ sở để khảo sát tác động của việc bổ sung Regex Parser và Validation vào các pipeline truy hồi ở giai đoạn tiếp theo. Sau đó, nhóm thiết kế và đánh giá kiến trúc Hybrid Parser/UKG theo hướng kết hợp biểu diễn cấu trúc Điều-Khoản-Điểm với các thực thể, quan hệ ngữ nghĩa và dẫn chiếu pháp lý. Thông qua các thực nghiệm này, nghiên cứu hướng đến việc làm rõ mức độ ảnh hưởng của cách tổ chức dữ liệu và kiến trúc truy hồi đối với khả năng cung cấp căn cứ pháp lý, đồng thời nhận diện những giới hạn còn tồn tại trong quá trình tổng hợp câu trả lời.
+3. Mục tiêu và nhiệm vụ nghiên cứu
+3.1. Mục tiêu tổng quát
+Mục tiêu tổng quát của đề tài là nghiên cứu và đánh giá ảnh hưởng của các chiến lược truy hồi, phân đoạn và biểu diễn cấu trúc pháp lý đến chất lượng hệ thống RAG trên dữ liệu văn bản quy phạm pháp luật Việt Nam.
+Trên cơ sở các kết quả đánh giá, nhóm khảo sát một hướng mở rộng bằng cách bổ sung bộ phân tích và kiểm tra cấu trúc Điều-Khoản-Điểm vào những pipeline truy hồi cơ sở. Đồng thời, nhóm thiết kế kiến trúc Hybrid Parser/UKG nhằm kết hợp thông tin cấu trúc và ngữ nghĩa pháp lý để hỗ trợ truy hồi căn cứ, xử lý điều kiện, ngoại lệ và quan hệ dẫn chiếu.
+Nghiên cứu hướng đến việc xác định các trường hợp mà những phương án mở rộng có thể mang lại cải thiện, những trường hợp chưa đạt kết quả mong đợi và các yếu tố có khả năng ảnh hưởng đến chất lượng của hệ thống. Kết quả được sử dụng làm cơ sở để đánh giá mức độ phù hợp của từng cách tiếp cận, thay vì giả định trước một kiến trúc có ưu thế trong mọi tình huống.
+3.2. Mục tiêu cụ thể
+Để thực hiện mục tiêu tổng quát, nhóm xác định năm nhiệm vụ chính:
+* Xây dựng và hoàn thiện khung đánh giá các kiến trúc RAG: Sử dụng mẫu thiết kế Adapter Pattern để tổ chức giao diện tương tác thống nhất giữa các hệ thống, chuẩn hóa dữ liệu đầu vào và đầu ra, đồng thời hỗ trợ lưu trữ cấu hình, kết quả truy hồi và câu trả lời. Khung đánh giá được sử dụng để giảm bớt khác biệt về quy trình thực nghiệm giữa các pipeline tham gia đối sánh.
+* Chuẩn hóa dữ liệu và đánh giá các kiến trúc RAG cơ sở: Sử dụng tập dữ liệu pháp luật Việt Nam được rà soát và xây dựng tập câu hỏi kiểm thử có nhãn căn cứ. Việc diễn đạt lại một phần câu hỏi bằng mô hình ngôn ngữ được thực hiện nhằm giảm sự phụ thuộc vào trùng lặp từ vựng với văn bản nguồn. Trên tập dữ liệu này, nhóm đánh giá ba kiến trúc Naive Vector RAG, Hybrid RAG và LightRAG theo những chỉ số phù hợp với đầu ra của từng hệ thống.
+* Nghiên cứu tác động của Regex Parser và Validation đối với chất lượng truy hồi: Xây dựng phương án nhận diện các đơn vị Điều, Khoản và Điểm, kiểm tra tính hợp lệ của cấu trúc và sử dụng kết quả phân tích để tổ chức dữ liệu đầu vào cho các pipeline. Bốn cấu hình Naive RAG, Hybrid RAG, Naive RAG kết hợp Parser/Validation và Hybrid RAG kết hợp Parser/Validation được đưa vào thực nghiệm nhằm xác định mức thay đổi của các chỉ số truy hồi và chất lượng câu trả lời.
+* Thiết kế kiến trúc Hybrid Parser/UKG: Hệ thống được xây dựng theo hướng kết hợp các đơn vị văn bản pháp lý có cấu trúc với thực thể và quan hệ ngữ nghĩa được trích xuất từ nội dung luật. Trên cơ sở đó, nhóm nghiên cứu cơ chế truy hồi và mở rộng bằng chứng theo quan hệ phân cấp, quan hệ dẫn chiếu và những thông tin liên quan đến chủ thể, hành vi, điều kiện hoặc ngoại lệ pháp lý.
+* Xây dựng thực nghiệm chuyên sâu để đánh giá Hybrid Parser/UKG và LightRAG: Sử dụng một bộ câu hỏi tập trung vào cấu trúc phân cấp và quan hệ pháp lý nhằm đánh giá khả năng truy hồi đúng căn cứ, cung cấp đầy đủ ngữ cảnh, xác định vị trí Điều-Khoản-Điểm, xử lý dẫn chiếu và tạo câu trả lời có căn cứ. Kết quả được phân tích ở cả cấp độ chỉ số tổng hợp và từng trường hợp cụ thể để nhận diện ưu điểm, hạn chế của hai kiến trúc.
+4. Câu hỏi nghiên cứu và giả thuyết
+Trên cơ sở mục tiêu đã xác định, đề tài tập trung vào bốn câu hỏi nghiên cứu. Các giả thuyết được xây dựng từ đặc điểm kỹ thuật của những phương pháp được khảo sát và được xem là những nhận định cần kiểm chứng bằng thực nghiệm.
+* RQ1. Các kiến trúc Naive Vector RAG, Hybrid RAG và LightRAG có sự khác biệt như thế nào về chất lượng truy hồi và chất lượng câu trả lời trên tập dữ liệu văn bản pháp luật Việt Nam?
+   * H1. Việc kết hợp truy hồi từ vựng, truy hồi ngữ nghĩa và tái xếp hạng trong Hybrid RAG được kỳ vọng cải thiện khả năng xác định và xếp hạng các căn cứ liên quan so với truy hồi vector thuần túy. Tuy nhiên, mức cải thiện có thể phụ thuộc vào đặc điểm truy vấn, cách tổ chức dữ liệu và cấu hình của từng hệ thống. Đối với LightRAG, hiệu quả truy hồi được đánh giá theo những đặc trưng riêng của kiến trúc sử dụng đồ thị, không giả định trước kết quả cao hơn hay thấp hơn hai phương pháp còn lại.
+* RQ2. Việc bổ sung Regex Parser và Validation để bảo toàn cấu trúc Điều-Khoản-Điểm có ảnh hưởng như thế nào đến chất lượng truy hồi và khả năng cung cấp căn cứ pháp lý của Naive RAG và Hybrid RAG?
+   * H2. Việc phân đoạn theo cấu trúc pháp lý có thể giúp hạn chế sự tách rời giữa các đơn vị văn bản có liên hệ phân cấp, từ đó cải thiện khả năng truy hồi những căn cứ cần ngữ cảnh cấp cha hoặc cấp con. Tuy nhiên, lợi ích của phương án này có thể khác nhau giữa Naive RAG và Hybrid RAG, đồng thời phụ thuộc vào cách xây dựng đơn vị truy hồi và các bước xử lý tiếp theo.
+* RQ3. Kiến trúc Hybrid Parser/UKG và LightRAG khác nhau như thế nào về khả năng truy hồi căn cứ pháp lý có cấu trúc, bao phủ điều kiện và ngoại lệ, xác định chủ thể áp dụng và trích dẫn đúng vị trí pháp lý?
+   * H3. Việc kết hợp đồ thị cấu trúc pháp lý với biểu diễn ngữ nghĩa có thể hỗ trợ truy hồi và định vị căn cứ ở cấp Điều-Khoản-Điểm, đặc biệt đối với những câu hỏi yêu cầu tổng hợp thông tin từ nhiều đơn vị văn bản. Tuy nhiên, chất lượng truy hồi cao hơn chưa chắc dẫn đến câu trả lời đầy đủ hoặc chính xác hơn ở mọi nhóm câu hỏi. Mức độ khác biệt được xác định thông qua các chỉ số truy hồi, bao phủ nội dung và chất lượng câu trả lời.
+* RQ4. Việc biểu diễn các quan hệ dẫn chiếu có kiểu và xây dựng đường dẫn bằng chứng có hỗ trợ hệ thống truy hồi đầy đủ chuỗi quy định liên quan đến câu hỏi pháp lý hay không?
+   * H4. Cơ chế mở rộng theo quan hệ dẫn chiếu và cấu trúc phân cấp được kỳ vọng hỗ trợ việc xác định các căn cứ liên quan và tái dựng đường dẫn giữa những quy định có quan hệ với nhau. Tuy nhiên, khả năng tìm đúng các node bằng chứng cần được phân biệt với khả năng xác định đúng toàn bộ chuỗi dẫn chiếu. Vì vậy, nghiên cứu đánh giá riêng tỷ lệ truy hồi đích dẫn chiếu, mức độ chính xác của từng bước và tỷ lệ khớp hoàn chỉnh của chuỗi.
+Ngoài bốn câu hỏi chính, nghiên cứu xem xét ảnh hưởng của việc chuẩn hóa và diễn đạt lại câu hỏi đối với mức độ trùng lặp từ vựng và kết quả truy hồi. Nội dung này phục vụ việc phân tích chất lượng dữ liệu kiểm thử và những yếu tố có thể tác động đến kết quả đối sánh.
+5. Phương pháp nghiên cứu
+Để thực hiện các mục tiêu trên, nhóm kết hợp bốn phương pháp nghiên cứu.
+* Phương pháp nghiên cứu tài liệu: Thu thập, tìm hiểu và tổng hợp các công trình liên quan đến RAG, truy hồi thông tin, phân đoạn văn bản, ontology, đồ thị tri thức và xử lý ngôn ngữ tự nhiên trong lĩnh vực pháp luật. Những nghiên cứu về truy hồi kết hợp, LightRAG, hệ thống đồ thị tri thức pháp lý và đánh giá RAG được sử dụng làm cơ sở lựa chọn kiến trúc đối sánh và xác định các vấn đề cần kiểm chứng. Bên cạnh đó, nhóm nghiên cứu cấu trúc tổ chức của văn bản quy phạm pháp luật Việt Nam để xác định yêu cầu đối với bộ phân tích Điều-Khoản-Điểm và các quan hệ dẫn chiếu.
+* Phương pháp nghiên cứu thiết kế và hiện thực hóa hệ thống: Phân tích nguyên lý hoạt động của những kiến trúc RAG được lựa chọn, xây dựng Benchmark Harness và triển khai các pipeline thực nghiệm. Đối với phương án mở rộng, nhóm thiết kế Regex Parser và Validation để nhận diện, kiểm tra các đơn vị cấu trúc pháp lý. Đối với Hybrid Parser/UKG, nhóm xây dựng quy trình kết hợp đồ thị cấu trúc với dữ liệu thực thể, quan hệ ngữ nghĩa nhằm hỗ trợ truy hồi bằng chứng. Việc triển khai được tổ chức theo các module để thuận tiện cho kiểm tra, thay đổi cấu hình và phân tích nguyên nhân khi hệ thống phát sinh lỗi.
+* Phương pháp thực nghiệm đối sánh và loại bỏ thành phần: Nghiên cứu được tổ chức thành ba giai đoạn. Ở giai đoạn thứ nhất, nhóm đánh giá các kiến trúc Naive Vector RAG, Hybrid RAG và LightRAG để thu thập kết quả baseline. Ở giai đoạn thứ hai, nhóm thực hiện đối sánh bốn cấu hình theo thiết kế hai yếu tố, gồm phương pháp truy hồi và việc sử dụng Parser/Validation. Thiết kế này cho phép xem xét tác động của gói xử lý cấu trúc đối với từng phương pháp truy hồi. Ở giai đoạn thứ ba, nhóm đánh giá end-to-end LightRAG và Hybrid Parser/UKG trên cùng một bộ dữ liệu chuyên biệt. Trong mỗi giai đoạn, những điều kiện đánh giá có thể thống nhất được ghi nhận và kiểm soát; các khác biệt thuộc thiết kế riêng của kiến trúc được trình bày rõ để phục vụ việc diễn giải kết quả.
+* Phương pháp phân tích định lượng và định tính: Sử dụng các chỉ số đánh giá truy hồi, chất lượng câu trả lời, độ chính xác trích dẫn và mức độ đầy đủ của bằng chứng pháp lý. Đối với Benchmark chuyên sâu, các phép đo được mở rộng tới cấu trúc phân cấp, điều kiện, ngoại lệ, chủ thể áp dụng và chuỗi dẫn chiếu. Ngoài kết quả tổng hợp, nhóm phân tích các trường hợp hệ thống truy hồi thiếu căn cứ, xác định sai phạm vi hoặc tạo ra khẳng định không được hỗ trợ. Việc đánh giá câu trả lời bằng LLM Judge được thực hiện theo một quy trình thống nhất, có kiểm tra định dạng và tính nhất quán của kết quả chấm. Những hạn chế của phương pháp đánh giá tự động được xem xét khi đưa ra kết luận.
+6. Đóng góp dự kiến và ý nghĩa của nghiên cứu
+Đề tài hướng đến bốn nhóm đóng góp về phương pháp thực nghiệm và thiết kế hệ thống. Mức độ đóng góp cụ thể được xác định trên cơ sở những nội dung đã triển khai và các kết quả có thể kiểm chứng.
+1. Xây dựng và mở rộng khung đánh giá đối sánh các kiến trúc RAG: Nhóm tổ chức một quy trình đánh giá thống nhất dựa trên Benchmark Harness, hỗ trợ tích hợp các pipeline RAG và lưu trữ kết quả thực nghiệm. Việc chuẩn hóa dữ liệu đánh giá tạo điều kiện so sánh các hệ thống theo cùng các chỉ số, đồng thời hỗ trợ kiểm tra lại cấu hình và kết quả của từng lượt chạy.
+2. Nghiên cứu tác động của việc bổ sung bộ phân tích cấu trúc pháp lý: Thông qua việc triển khai Regex Parser và Validation cho Naive RAG và Hybrid RAG, nhóm xây dựng một thiết kế thực nghiệm nhằm xem xét ảnh hưởng của cách phân đoạn Điều-Khoản-Điểm tới hiệu quả truy hồi. Kết quả của giai đoạn này có thể cung cấp thêm dữ liệu về mức độ phù hợp của phân đoạn theo cấu trúc đối với những phương pháp truy hồi khác nhau.[a]
+3. Thiết kế và đánh giá kiến trúc Hybrid Parser/UKG: Kiến trúc được phát triển theo hướng kết hợp dữ liệu cấu trúc pháp lý với biểu diễn ngữ nghĩa và các quan hệ trong đồ thị tri thức. Nội dung nghiên cứu tập trung vào cách các thành phần này phối hợp trong quá trình truy hồi căn cứ, mở rộng ngữ cảnh và xác định các vị trí pháp lý liên quan. Đóng góp của nhóm được xác định ở thiết kế tích hợp, quy trình triển khai và kết quả thực nghiệm, không nằm ở việc giới thiệu lần đầu những kỹ thuật đã được sử dụng trong các công trình trước.
+4. Xây dựng bộ dữ liệu và quy trình đánh giá chuyên biệt cho câu hỏi pháp lý có cấu trúc: Bên cạnh tập câu hỏi sử dụng cho đánh giá RAG tổng quát, nhóm xây dựng một bộ câu hỏi tập trung vào các trường hợp cần xác định điều kiện, ngoại lệ, chủ thể và quan hệ dẫn chiếu. Việc gán nhãn vị trí pháp lý và các thành phần nội dung cần có trong câu trả lời tạo cơ sở cho những phép đo chi tiết hơn so với việc chỉ xác định tài liệu có liên quan.
+Về ý nghĩa khoa học, nghiên cứu có thể bổ sung bằng chứng thực nghiệm cho việc lựa chọn chiến lược biểu diễn và truy hồi trên dữ liệu văn bản có cấu trúc phân cấp. Các kết quả cũng giúp phân biệt những cải thiện ở tầng tìm kiếm bằng chứng với chất lượng tổng hợp câu trả lời ở tầng tạo sinh, qua đó nhận diện những vấn đề cần tiếp tục nghiên cứu trong các hệ thống RAG chuyên ngành.
+Về ý nghĩa thực tiễn, các module xử lý cấu trúc và khung đánh giá có thể được tham khảo khi xây dựng hệ thống hỗ trợ tra cứu văn bản pháp luật. Tuy nhiên, phạm vi ứng dụng cần được xem xét theo độ chính xác thực nghiệm và chất lượng dữ liệu nguồn. Hệ thống nghiên cứu chưa được xem là công cụ thay thế việc giải thích hoặc tư vấn pháp luật của người có chuyên môn.
+7. Đối tượng và phạm vi nghiên cứu
+7.1. Đối tượng nghiên cứu
+Đối tượng nghiên cứu của đề tài là các kiến trúc RAG và phương pháp xử lý, biểu diễn, truy hồi thông tin từ dữ liệu văn bản quy phạm pháp luật Việt Nam.
+Các thành phần kỹ thuật được khảo sát bao gồm truy hồi từ vựng BM25, truy hồi ngữ nghĩa bằng mô hình nhúng, truy hồi kết hợp, tái xếp hạng bằng Cross-Encoder, phân đoạn văn bản theo cấu trúc pháp lý, biểu diễn đồ thị tri thức và các cơ chế truy hồi dựa trên quan hệ giữa những đơn vị thông tin. Ngoài ra, nghiên cứu xem xét các phương pháp đánh giá chất lượng truy hồi và câu trả lời có căn cứ, đặc biệt là những chỉ số liên quan đến vị trí Điều-Khoản-Điểm, điều kiện, ngoại lệ và dẫn chiếu pháp lý.
+7.2. Phạm vi dữ liệu nghiên cứu
+Nghiên cứu sử dụng hai bộ dữ liệu kiểm thử với mục tiêu đánh giá khác nhau.
+* Bộ dữ liệu thứ nhất-Benchmark A: Được sử dụng để đánh giá các kiến trúc RAG cơ sở và khảo sát tác động của Parser/Validation. Bộ dữ liệu kế thừa từ giai đoạn nghiên cứu ban đầu, gồm kho ngữ liệu 2.088 điều luật và 512 câu hỏi kiểm thử có nhãn căn cứ pháp lý. Một phần câu hỏi được diễn đạt lại nhằm kiểm soát sự trùng lặp từ vựng với văn bản nguồn. Trong giai đoạn mở rộng, nhóm sử dụng bộ dữ liệu này để đối sánh các cấu hình Naive RAG, Hybrid RAG và những biến thể có bổ sung Parser/Validation.[b]
+* Bộ dữ liệu thứ hai-Benchmark B: Được xây dựng để đánh giá chuyên sâu khả năng xử lý cấu trúc và quan hệ pháp lý. Phạm vi văn bản giới hạn ở Chương III Luật Đất đai số 31/2024/QH15, từ Điều 26 đến Điều 48 [22]. Bộ kiểm thử gồm 50 câu hỏi, được phân thành các nhóm liên quan đến quyền và nghĩa vụ trực tiếp, nhiều điều kiện, ngoại lệ, dẫn chiếu một bước, dẫn chiếu nhiều bước, phân biệt chủ thể, tổng hợp thông tin phân cấp, tình huống pháp lý và trường hợp không đủ căn cứ trong corpus.
+Đối với Benchmark B, dữ liệu vàng được tổ chức để hỗ trợ việc đối chiếu căn cứ ở cấp Điều-Khoản-Điểm, các nội dung bắt buộc trong câu trả lời và quan hệ dẫn chiếu giữa những quy định liên quan. Những trường hợp yêu cầu thông tin nằm ngoài phạm vi Chương III được xử lý riêng, nhằm kiểm tra khả năng nhận biết giới hạn của nguồn dữ liệu thay vì khuyến khích hệ thống suy đoán nội dung không được cung cấp.
+Hai bộ benchmark được sử dụng độc lập theo mục tiêu của từng giai đoạn nghiên cứu. Kết quả trên Benchmark A không được so sánh trực tiếp với kết quả trên Benchmark B khi chúng khác nhau về phạm vi dữ liệu và cấu trúc câu hỏi.
+7.3. Phạm vi hệ thống và thực nghiệm
+Nghiên cứu gồm ba giai đoạn.
+1. Triển khai và đánh giá ba kiến trúc RAG cơ sở: Naive Vector RAG, Hybrid RAG và LightRAG. Giai đoạn này nhằm khảo sát khả năng truy hồi và chất lượng câu trả lời của các hướng tiếp cận khác nhau trên tập dữ liệu pháp luật Việt Nam.
+2. Mở rộng hai kiến trúc truy hồi văn bản bằng Regex Parser và Validation, hình thành bốn cấu hình thực nghiệm: Naive RAG, Hybrid RAG, Naive RAG + Parser/Validation và Hybrid RAG + Parser/Validation. Việc đối sánh được thực hiện nhằm đánh giá tác động của gói xử lý cấu trúc đối với kết quả truy hồi và tạo sinh.
+3. Đánh giá LightRAG và kiến trúc Hybrid Parser/UKG trên Benchmark B. Hai hệ thống được thống nhất về corpus, tập câu hỏi, giới hạn đánh giá, nguyên tắc ánh xạ căn cứ pháp lý và bộ đánh giá. Tuy nhiên, cơ chế phân đoạn, xây dựng chỉ mục và mở rộng ngữ cảnh vẫn được giữ theo thiết kế của từng kiến trúc. Do đó, kết quả của giai đoạn này phản ánh hiệu quả end-to-end của hai pipeline, không được xem là phép đo riêng tác động của một module duy nhất.
+7.4. Giới hạn nghiên cứu
+Nghiên cứu tập trung vào việc hỗ trợ truy hồi và trả lời câu hỏi dựa trên nguồn văn bản được cung cấp, chưa bao quát đầy đủ các yêu cầu của một hệ thống tư vấn pháp luật thực tế. Những vấn đề như cập nhật tự động hiệu lực văn bản, xử lý mọi loại văn bản pháp lý, kiểm tra xung đột quy phạm và áp dụng pháp luật cho các hồ sơ thực tế không thuộc phạm vi đánh giá đầy đủ của đề tài.
+Bên cạnh đó, Benchmark B chỉ tập trung vào một chương của Luật Đất đai và có quy mô 50 câu hỏi. Vì vậy, những kết quả thu được cần được diễn giải trong phạm vi dữ liệu đã khảo sát, chưa đủ cơ sở để khái quát cho toàn bộ hệ thống pháp luật Việt Nam.
+Việc sử dụng LLM Judge giúp hỗ trợ đánh giá tự động trên nhiều tiêu chí, nhưng kết quả vẫn có thể chịu ảnh hưởng của mô hình chấm, cách diễn đạt yêu cầu và cấu trúc nhãn vàng. Các nghiên cứu về LLM-as-a-Judge đã ghi nhận những nguồn sai lệch có thể xuất hiện trong quá trình đánh giá tự động [29]. Do đó, nhóm xem kết quả do Judge chấm là nguồn dữ liệu thực nghiệm cần được kiểm tra tính nhất quán và đối chiếu thủ công khi cần thiết, không thay thế hoàn toàn việc đánh giá của chuyên gia pháp luật.
+
+
+8. Bố cục báo cáo khoa học
+Ngoài phần Mở đầu, Kết luận và Hướng phát triển, Tài liệu tham khảo và Phụ lục, nội dung báo cáo được tổ chức thành ba chương: 
+* Chương 1. Tổng quan nghiên cứu và cơ sở lý thuyết: Trình bày cơ sở lý thuyết của Retrieval-Augmented Generation và các phương pháp truy hồi được sử dụng trong đề tài, bao gồm BM25, Dense Retrieval, Hybrid Retrieval, Cross-Encoder và Graph-based RAG. Bên cạnh đó, chương phân tích những đặc điểm cấu trúc của văn bản quy phạm pháp luật Việt Nam, các khái niệm liên quan đến ontology và đồ thị tri thức, cũng như các phương pháp biểu diễn và truy hồi quan hệ dẫn chiếu. Trên cơ sở tổng quan những công trình nghiên cứu liên quan trong và ngoài nước, chương xác định các vấn đề cần tiếp tục kiểm chứng và định vị hướng nghiên cứu của nhóm.
+* Chương 2. Thiết kế hệ thống và phương pháp nghiên cứu: Trình bày kiến trúc Benchmark Harness, quy trình chuẩn hóa dữ liệu và thiết kế các bộ kiểm thử. Nội dung tiếp theo mô tả ba kiến trúc RAG cơ sở, phương án bổ sung Regex Parser và Validation, cùng thiết kế thực nghiệm đối sánh bốn cấu hình ở giai đoạn thứ hai. Đối với giai đoạn thứ ba, chương trình bày kiến trúc Hybrid Parser/UKG, cách tổ chức đồ thị cấu trúc và ngữ nghĩa, cơ chế truy hồi, mở rộng bằng chứng và xây dựng đường dẫn dẫn chiếu. Phần cuối chương xác định hệ thống chỉ số đánh giá, quy trình sử dụng LLM Judge và các nguyên tắc kiểm soát điều kiện thực nghiệm.
+* Chương 3. Thực nghiệm, kết quả và thảo luận: Trình bày môi trường thực nghiệm và kết quả nghiên cứu theo ba giai đoạn. Giai đoạn thứ nhất tập trung đánh giá các kiến trúc RAG cơ sở và phân tích những trường hợp sai điển hình. Giai đoạn thứ hai xem xét sự thay đổi của các chỉ số khi bổ sung Parser/Validation vào Naive và Hybrid RAG. Giai đoạn thứ ba đối sánh LightRAG với Hybrid Parser/UKG trên Benchmark B, tập trung vào hiệu quả truy hồi, khả năng bảo toàn cấu trúc, độ chính xác trích dẫn, bao phủ điều kiện và ngoại lệ, xác định phạm vi chủ thể và xử lý chuỗi dẫn chiếu. Trên cơ sở số liệu thu được, chương thảo luận mức độ phù hợp của các giả thuyết nghiên cứu, phân tích nguyên nhân có thể dẫn đến chênh lệch kết quả và những yếu tố ảnh hưởng đến tính hợp lệ của thực nghiệm.
+* Kết luận và Hướng phát triển: Tổng hợp các kết quả nghiên cứu chính, đối chiếu với mục tiêu và câu hỏi đã đặt ra, xác định những đóng góp có cơ sở thực nghiệm và những hạn chế còn tồn tại. Từ đó, nhóm đề xuất các hướng tiếp tục hoàn thiện khả năng truy hồi có cấu trúc, xử lý dẫn chiếu và đánh giá câu trả lời pháp lý trên phạm vi dữ liệu rộng hơn.
+CHƯƠNG 1. TỔNG QUAN NGHIÊN CỨU VÀ CƠ SỞ LÝ THUYẾT
+1.1. Tổng quan về Retrieval-Augmented Generation
+1.1.1. Khái niệm và nguyên lý hoạt động của RAG
+Retrieval-Augmented Generation (RAG) được Lewis và cộng sự [15] đề xuất như một phương pháp kết hợp mô hình ngôn ngữ với nguồn tri thức ngoài có thể truy xuất. Khác với các mô hình ngôn ngữ chỉ dựa vào tri thức được lưu trữ trong tham số sau quá trình huấn luyện, RAG bổ sung cơ chế tìm kiếm thông tin từ kho dữ liệu bên ngoài để cung cấp ngữ cảnh cho quá trình sinh câu trả lời. Cách tiếp cận này cho phép hệ thống khai thác những tài liệu chuyên ngành hoặc thông tin được cập nhật mà không nhất thiết phải huấn luyện lại mô hình.
+Về nguyên lý, một hệ thống RAG thường gồm hai giai đoạn: chuẩn bị dữ liệu và xử lý truy vấn. Trong giai đoạn chuẩn bị, tài liệu được tiền xử lý, phân đoạn và lập chỉ mục. Khi tiếp nhận câu hỏi, hệ thống thực hiện ba bước chính: truy hồi thông tin , xây dựng ngữ cảnh và sinh câu trả lời. Quy trình này có thể được khái quát bằng các biểu thức:
+Dq = Retrieve(q, K)
+Cq = ConstructContext(Dq)
+â = Generate(q, Cq)
+Trong đó,  là câu hỏi,  là kho tri thức,  là tập thông tin được truy hồi,  là ngữ cảnh được xây dựng và  là câu trả lời được sinh.  Các biểu thức trên mô tả quy trình RAG ở mức khái quát, không đại diện cho một thuật toán truy hồi hoặc mô hình sinh cụ thể.
+Chất lượng câu trả lời phụ thuộc vào cả khả năng truy hồi thông tin và mức độ đầy đủ của ngữ cảnh được cung cấp. Đối với văn bản pháp luật, việc tìm đúng điều luật chưa bảo đảm câu trả lời chính xác nếu hệ thống bỏ sót điều kiện, ngoại lệ hoặc các quy định được dẫn chiếu. Vì vậy, bên cạnh việc đánh giá hiệu quả truy hồi, nghiên cứu còn xem xét tác động của phương pháp phân đoạn và tổ chức ngữ cảnh đến khả năng cung cấp căn cứ pháp lý cho mô hình sinh.
+1.1.2. Các hướng tiếp cận RAG liên quan đến đề tài
+Các hệ thống RAG có thể được tổ chức theo nhiều kiến trúc khác nhau tùy thuộc vào phương pháp truy hồi, cách biểu diễn dữ liệu và cơ chế xây dựng ngữ cảnh. Gao và cộng sự [7] phân chia các hướng phát triển RAG thành Naive RAG, Advanced RAG và Modular RAG. Cách phân loại này cung cấp cơ sở để xem xét những thay đổi trong tổ chức và phối hợp các thành phần của hệ thống.
+Naive RAG thường sử dụng một quy trình truy hồi và sinh câu trả lời tương đối đơn giản, trong khi các kiến trúc nâng cao có thể bổ sung truy hồi kết hợp, tái xếp hạng hoặc xử lý ngữ cảnh trước khi tạo sinh. Hướng tiếp cận mô-đun cho phép tổ chức những thành phần này thành các khối chức năng có thể phối hợp và điều chỉnh theo yêu cầu của bài toán.
+Ngoài cách phân loại trên, RAG còn được nghiên cứu theo hướng khai thác cấu trúc dữ liệu. Graph-based RAG sử dụng các thực thể và quan hệ trong đồ thị để hỗ trợ tìm kiếm thông tin liên kết. Structure-aware RAG chú trọng nhận diện và bảo toàn cấu trúc của tài liệu trong quá trình phân đoạn, lập chỉ mục hoặc truy hồi. Hai hướng tiếp cận này không loại trừ nhau và có thể được kết hợp trong cùng một kiến trúc.
+Trong phạm vi đề tài, Naive Vector RAG, Hybrid RAG và LightRAG được lựa chọn làm các hệ thống đánh giá cơ sở. Việc bổ sung Regex Parser và Validation vào Naive RAG và Hybrid RAG được nghiên cứu theo hướng xử lý văn bản có nhận biết cấu trúc. Trên cơ sở đó, kiến trúc Hybrid Parser/UKG kết hợp biểu diễn phân cấp Điều-Khoản-Điểm với các quan hệ ngữ nghĩa và dẫn chiếu pháp lý nhằm phục vụ thực nghiệm chuyên sâu về khả năng truy hồi căn cứ có cấu trúc.
+1.1.3. Phân cấp các thành phần và mức trừu tượng trong hệ thống RAG
+Để phân biệt các thành phần kỹ thuật và phạm vi hoạt động của từng phương pháp, nhóm sử dụng một khung phân loại gồm sáu mức trừu tượng như minh họa ở Hình 1.1. Đây là cách tổ chức được sử dụng trong phạm vi đề tài nhằm hỗ trợ việc phân tích và đối sánh các kiến trúc RAG, không phải một tiêu chuẩn phân tầng chung cho mọi hệ thống.
+  
+
+Hình 1.1. Phân cấp các thành phần và mức trừu tượng trong hệ thống RAG
+* Mức 0-Biểu diễn và lập chỉ mục dữ liệu: Bao gồm tiền xử lý, phân đoạn, bổ sung siêu dữ liệu và xây dựng chỉ mục để phục vụ truy hồi. Đối với văn bản pháp luật, mức này còn liên quan đến việc nhận diện và bảo toàn cấu trúc Điều-Khoản-Điểm.
+* Mức 1-Phương pháp truy hồi: Xác định các đơn vị thông tin liên quan đến truy vấn bằng những phương pháp như truy hồi từ vựng (BM25) và truy hồi ngữ nghĩa dựa trên biểu diễn vector (BGE-M3, E5).
+* Mức 2-Mô hình tái xếp hạng: Đánh giá lại mức độ liên quan của các ứng viên sau truy hồi nhằm điều chỉnh thứ hạng kết quả, tiêu biểu là Cross-Encoder và các phương pháp Learning-to-Rank.
+* Mức 3-Kiến trúc pipeline truy hồi: Tổ chức và phối hợp các phương pháp tìm kiếm, dung hợp kết quả và tái xếp hạng thành một quy trình, chẳng hạn Dense-only, Hybrid hoặc Multi-stage Retrieval.
+* Mức 4-Kiến trúc hệ thống RAG: Kết hợp truy hồi, xây dựng ngữ cảnh và mô hình sinh câu trả lời. Các hướng tiếp cận như Naive RAG, Structure-aware RAG và Graph-based RAG có thể được tổ chức độc lập hoặc kết hợp tùy theo yêu cầu của hệ thống.
+* Mức 5-Framework triển khai: Cung cấp các công cụ kết nối và điều phối thành phần hệ thống, chẳng hạn LlamaIndex, Haystack và LangChain. Framework hỗ trợ triển khai nhưng không trực tiếp quyết định bản chất thuật toán truy hồi.
+Khung phân loại trên được sử dụng để xác định vị trí của các thay đổi trong ba giai đoạn nghiên cứu. Việc bổ sung Regex Parser và Validation chủ yếu tác động đến mức biểu diễn, tổ chức dữ liệu; trong khi Hybrid Parser/UKG kết hợp xử lý cấu trúc pháp lý, biểu diễn đồ thị và cơ chế truy hồi trong một kiến trúc RAG hoàn chỉnh. Cách phân biệt này giúp làm rõ phạm vi của từng phương án mở rộng và hạn chế việc đánh đồng một thành phần kỹ thuật với toàn bộ kiến trúc hệ thống.
+1.1.4. Những thách thức khi áp dụng RAG cho văn bản pháp luật
+Việc áp dụng RAG cho văn bản quy phạm pháp luật đặt ra những yêu cầu riêng về bảo toàn ngữ cảnh, xác định phạm vi áp dụng và kiểm chứng căn cứ. Trong phạm vi đề tài, nhóm tập trung vào bốn vấn đề có liên quan trực tiếp đến quá trình biểu diễn dữ liệu, truy hồi và sinh câu trả lời.
+* Cấu trúc phân cấp và nguy cơ mất ngữ cảnh: Theo khoản 1 Điều 63 Nghị định số 78/2025/NĐ-CP của Chính phủ [3], văn bản quy phạm pháp luật có thể được tổ chức thành các cấp Phần, Chương, Mục, Tiểu mục, Điều, Khoản và Điểm tùy theo nội dung và bố cục của từng văn bản. Trong đó, nội dung của một Khoản hoặc Điểm có thể phụ thuộc vào thông tin về chủ thể, điều kiện và phạm vi áp dụng được xác định ở cấp cha. Khi văn bản được phân đoạn mà không xét đến ranh giới cấu trúc, những thông tin có liên hệ với nhau có thể bị tách rời, làm giảm tính đầy đủ của ngữ cảnh truy hồi. Trong nghiên cứu này, trường hợp đơn vị văn bản được truy hồi nhưng thiếu thông tin cần thiết từ cấp cha được xem là một dạng mất ngữ cảnh phân cấp.
+* Quan hệ giữa các thành phần quy phạm: Nội dung của một quy định pháp luật có thể được phân tích theo các thành phần như chủ thể, điều kiện hoặc hoàn cảnh áp dụng, hành vi, quyền, nghĩa vụ và hậu quả pháp lý. Các thành phần này không nhất thiết xuất hiện đầy đủ trong cùng một điều khoản mà có thể phân bố ở nhiều đơn vị văn bản có liên hệ với nhau. Nhóm sử dụng cách phân tích này làm cơ sở xác định các loại thông tin và quan hệ cần biểu diễn trong ontology pháp lý, không xem đây là mô hình mô tả đầy đủ mọi quy phạm.
+* Rủi ro tạo sinh nội dung và trích dẫn thiếu căn cứ: Magesh và cộng sự [17] ghi nhận tỷ lệ sinh thông tin sai lệch từ 17% đến 33% ở các công cụ AI hỗ trợ nghiên cứu pháp luật được khảo sát. Kết quả này cho thấy việc kết hợp truy hồi với mô hình ngôn ngữ chưa bảo đảm loại bỏ hoàn toàn các khẳng định thiếu căn cứ. Trong bài toán hỏi đáp pháp luật, những lỗi như viện dẫn sai Điều, Khoản, Điểm hoặc áp dụng quy định cho không đúng chủ thể có thể ảnh hưởng đến tính chính xác của câu trả lời.
+* Đặc điểm ngôn ngữ pháp lý và sự khác biệt trong cách diễn đạt truy vấn: Văn bản pháp luật sử dụng nhiều thuật ngữ chuyên ngành, cấu trúc câu có điều kiện và cách diễn đạt mang tính quy phạm, trong khi người dùng có thể đặt câu hỏi bằng ngôn ngữ thông thường. Chalkidis và cộng sự [1] nghiên cứu việc thích ứng mô hình BERT với dữ liệu pháp luật, còn Guha và cộng sự [9] xây dựng LegalBench để đánh giá những năng lực suy luận pháp lý khác nhau của mô hình ngôn ngữ. Các nghiên cứu này cung cấp cơ sở để xem xét đặc điểm riêng của dữ liệu pháp lý khi lựa chọn và đánh giá mô hình. Đối với RAG, sự khác biệt giữa cách diễn đạt truy vấn và văn bản nguồn có thể ảnh hưởng đến khả năng xác định đúng căn cứ liên quan.
+Những vấn đề trên cho thấy hiệu quả của RAG trong lĩnh vực pháp luật không chỉ phụ thuộc vào việc tìm được văn bản có nội dung liên quan mà còn liên quan đến tính đầy đủ của ngữ cảnh, phạm vi áp dụng và khả năng truy nguyên bằng chứng. Đây là cơ sở để đề tài khảo sát tác động của phân đoạn theo cấu trúc Điều-Khoản-Điểm và nghiên cứu cơ chế khai thác quan hệ pháp lý trong kiến trúc Hybrid Parser/UKG.
+1.2. Cơ sở lý thuyết và phương pháp truy xuất thông tin
+1.2.1. Biểu diễn ngữ nghĩa thưa và thuật toán Okapi BM25
+a) Nguyên lý không gian vector thưa
+Truy hồi thưa là hướng tiếp cận biểu diễn truy vấn và tài liệu thông qua các từ tố xuất hiện trong từ điển của kho ngữ liệu. Trong mô hình không gian vector truyền thống, mỗi chiều có thể tương ứng với một từ tố và phần lớn tọa độ nhận giá trị bằng 0 do mỗi tài liệu chỉ chứa một tập con nhỏ của từ điển. BM25 thường được sử dụng như một hàm xếp hạng dựa trên tín hiệu từ vựng; thuật toán không đòi hỏi phải hiện thực hóa toàn bộ vector thưa cho từng tài liệu.
+Các biểu diễn dựa trên từ vựng có khả năng phân biệt những thuật ngữ pháp lý mang tính định danh, chẳng hạn tên thủ tục hoặc loại giấy tờ. Tuy nhiên, chúng có thể gặp khó khăn khi câu hỏi diễn đạt cùng nội dung bằng những từ khác văn bản nguồn.
+b) Cơ sở toán học của thuật toán Okapi BM25
+Okapi BM25 là hàm xếp hạng truy hồi dựa trên cơ sở xác suất, được Robertson và Zaragoza [24] hệ thống hóa. Với truy vấn Q={q1,…,qm} và tài liệu D, một dạng biểu thức thông dụng là:
+  
+
+
+
+Trong đó, f(qi,D) là tần suất của từ tố qi trong D; |D| là độ dài tài liệu; avgdl là độ dài trung bình của các tài liệu; k1 điều tiết độ bão hòa của tần suất từ, còn b điều tiết mức chuẩn hóa độ dài. Giá trị k1 và b phụ thuộc cấu hình triển khai, không có một cặp tham số tối ưu cố định cho mọi kho dữ liệu. Thành phần IDF phản ánh mức độ phân biệt của từ tố trong toàn corpus; một dạng IDF thường gặp là:
+                                       
+với N là tổng số tài liệu và n(qi) là số tài liệu chứa từ tố qi. Các thư viện BM25 có thể sử dụng những biến thể IDF hoặc cách xử lý giá trị âm khác nhau, nên cần ghi nhận thư viện và cấu hình trong Chương 2.
+c) Ảnh hưởng của phân đoạn từ đối với văn bản pháp luật tiếng Việt
+Trong tiếng Việt, khoảng trắng thường phân cách âm tiết nhưng không phải lúc nào cũng trùng ranh giới từ. Các thuật ngữ như “hợp đồng lao động”, “đơn phương chấm dứt” và “người sử dụng lao động” gồm nhiều âm tiết; cách tách từ có thể ảnh hưởng đến tần suất từ tố và trọng số dùng trong BM25.
+Nếu hệ thống sử dụng phương án tách âm tiết thay vì phân đoạn từ, những từ ghép pháp lý có thể bị chia nhỏ và tạo các trùng khớp bề mặt không phản ánh đầy đủ nghĩa của cụm thuật ngữ. Tuy nhiên, mức độ ảnh hưởng cần được xem xét theo tokenizer, dữ liệu và cách xử lý truy vấn. Các công cụ phân đoạn tiếng Việt như underthesea là lựa chọn có thể khảo sát trong tiền xử lý; không nên mặc định công cụ đó đã được sử dụng trong một baseline nếu chưa xác minh cấu hình nguồn. Trong giai đoạn thực nghiệm, sự thống nhất giữa cách phân đoạn của truy vấn và văn bản nguồn cần được kiểm soát khi đánh giá sparse retrieval.
+1.2.2. Biểu diễn ngữ nghĩa dày và kiến trúc Bi-Encoder
+a) Nguyên lý không gian vector dày
+Dense Retrieval sử dụng mô hình mã hóa để ánh xạ truy vấn q và tài liệu d thành các vector thực trong không gian liên tục Rn. Với Bi-Encoder, hai văn bản được mã hóa độc lập để các biểu diễn tài liệu có thể được tính trước và lập chỉ mục. Karpukhin và cộng sự [13] nghiên cứu cách tiếp cận này trong Dense Passage Retrieval.
+Gọi Eq và Ed là hàm mã hóa, hai vector được xác định bởi vq=Eq(q) và vd=Ed(d). Cosine similarity là một phép đo thường dùng:
+  
+
+Để tìm những vector gần truy vấn trong tập dữ liệu lớn, có thể sử dụng các cấu trúc chỉ mục láng giềng gần đúng (Approximate Nearest Neighbors-ANN). Hierarchical Navigable Small World (HNSW) do Malkov và Yashunin [18] đề xuất là một phương pháp tìm kiếm dựa trên đồ thị nhiều tầng. Phương pháp có hiệu quả truy vấn tốt trong nhiều điều kiện thực nghiệm nhưng không có bảo đảm truy vấn luôn đạt độ phức tạp O(logN) cho mọi dữ liệu và cấu hình. Cần phân biệt HNSW là một lựa chọn lập chỉ mục với phương pháp tìm kiếm FAISS được triển khai cụ thể trong baseline; không phải mọi chỉ mục FAISS đều sử dụng HNSW.
+b) Các mô hình Dense Embedding liên quan
+BGE-M3. Chen và cộng sự [2] giới thiệu M3-Embedding (Multilinguality, Multi-functionality, Multi-granularity). Mô hình có thể xử lý đầu vào dài tới 8.192 token theo cấu hình công bố, hỗ trợ biểu diễn dense, trọng số từ vựng sparse được học và cơ chế multi-vector. Trong đề tài, BAAI/bge-m3 được sử dụng chủ yếu theo nhánh dense embedding; vì vậy không nên đồng nhất việc dùng BGE-M3 với việc đã khai thác cả ba chức năng của mô hình.
+Multilingual E5-Instruct. Wang và cộng sự [27] trình bày các mô hình multilingual E5 và một biến thể được tinh chỉnh theo chỉ dẫn, cho phép gắn hướng dẫn tác vụ vào quá trình biểu diễn truy vấn. Đây là mô hình tham khảo trong nhóm dense retrieval đa ngôn ngữ, không phải baseline triển khai bắt buộc của đề tài.
+mGTE. Zhang và cộng sự [28] nghiên cứu các mô hình biểu diễn văn bản đa ngôn ngữ và tái xếp hạng hỗ trợ ngữ cảnh dài. Công trình cung cấp thêm phương án liên quan khi xử lý các tài liệu dài nhưng không được xem là thành phần thực nghiệm của nhóm nếu chưa triển khai.
+c) Phân đoạn token trong văn bản pháp luật tiếng Việt
+Tokenizer của mô hình đa ngôn ngữ có thể chia các thuật ngữ tiếng Việt thành nhiều subword. Điều này ảnh hưởng đến độ dài token thực tế của đơn vị truy hồi và có thể làm thay đổi cách mô hình tiếp nhận ngữ cảnh dài. Tuy nhiên, không có cơ sở để mặc định mọi hiện tượng phân mảnh subword đều làm giảm chất lượng truy hồi. Hiệu quả cần được đánh giá theo mô hình, cách phân đoạn và tập câu hỏi pháp lý cụ thể.
+1.2.3. Tái xếp hạng bằng Cross-Encoder
+a) Cơ chế tương tác truy vấn-văn bản
+Khác với Bi-Encoder mã hóa truy vấn và tài liệu độc lập, Cross-Encoder tiếp nhận cặp q và d trong cùng đầu vào để dự đoán điểm liên quan. Nogueira và Cho [19] nghiên cứu tái xếp hạng đoạn văn bằng BERT, cung cấp cơ sở cho cách sử dụng mô hình Transformer ở giai đoạn đánh giá ứng viên.
+Hàm cho điểm được mô tả khái quát:
+s(q, d) = fθ([CLS] q [SEP] d [SEP]).
+Cơ chế self-attention trong đầu vào chung cho phép mô hình khai thác tương tác giữa các token của câu hỏi và đoạn luật. Điều này có thể hỗ trợ phân biệt những trường hợp gần nhau về từ vựng nhưng khác điều kiện hoặc chủ thể áp dụng. Tuy nhiên, khả năng phát hiện ngoại lệ hoặc phủ định không được bảo đảm chỉ bởi kiến trúc Cross-Encoder. Khi cần ánh xạ một điểm logit thực sang khoảng (0,1), có thể dùng hàm sigmoid σ(s) = 1 / (1 + e-s); giá trị sau chuẩn hóa không tự động là xác suất đã được hiệu chỉnh thống kê.
+b) Mô hình BAAI/bge-reranker-v2-m3
+Trong pipeline Hybrid RAG của nhóm, BAAI/bge-reranker-v2-m3 được sử dụng để chấm lại tập ứng viên sau truy hồi và dung hợp. Đây là một reranker đa ngôn ngữ dựa trên nền BGE-M3, tiếp nhận cặp câu hỏi-đoạn văn và trả điểm liên quan. Giới hạn độ dài phải được xác định theo token và cấu hình suy luận thực tế, không phải số ký tự. Mô hình có thể hỗ trợ chuỗi dài nhưng nhà phát triển khuyến nghị xem xét ngưỡng phù hợp với dữ liệu tinh chỉnh và tài nguyên xử lý.
+So với việc tìm kiếm toàn kho bằng vector đã lập chỉ mục, Cross-Encoder thường đòi hỏi xử lý lần lượt những cặp truy vấn-ứng viên; vì vậy mô hình được đặt sau bước truy hồi sơ bộ. Độ phức tạp attention tiêu chuẩn tăng theo bình phương chiều dài chuỗi trong một tầng, nhưng tổng thời gian suy luận còn phụ thuộc nhiều yếu tố khác; không nên suy ra một hàm thời gian cố định cho toàn bộ pipeline chỉ từ đặc điểm này.
+1.2.4. Reciprocal Rank Fusion như một phương pháp dung hợp truy hồi
+Khi kết hợp các luồng BM25 và Dense Retrieval, điểm số thô thường có thang đo khác nhau. Reciprocal Rank Fusion (RRF), do Cormack và cộng sự [4] đề xuất, sử dụng vị trí xếp hạng thay vì cộng trực tiếp các điểm số:
+  
+
+Trong đó, R là tập các danh sách truy hồi; (d) là thứ hạng của tài liệu d trong danh sách r; k là hằng số làm mịn, thường sử dụng giá trị 60 trong nhiều triển khai tham khảo. Một tài liệu xuất hiện ở vị trí cao trong nhiều danh sách có thể được ưu tiên sau dung hợp. Tuy nhiên, RRF không kiểm tra tính đúng đắn pháp lý của nội dung ứng viên; nếu các nhánh truy hồi đều bỏ sót ngoại lệ hoặc chọn nhầm chủ thể, việc dung hợp thứ hạng không tự khắc phục được lỗi này.
+Trong đề tài, RRF là một thành phần của pipeline Hybrid RAG cần được mô tả theo cấu hình triển khai thực tế ở Chương 2. Kết quả của RRF và các thay đổi do Parser/Validation được đánh giá bằng thực nghiệm thay vì suy ra trực tiếp từ công thức dung hợp.
+1.3. Truy xuất tăng cường trên đồ thị (Graph-based RAG)
+1.3.1. Đồ thị tri thức trong bài toán RAG
+Các phương pháp truy hồi dựa trên từ vựng và vector thường xếp hạng những đơn vị văn bản độc lập theo mức độ liên quan với truy vấn. Cách tiếp cận này thuận tiện đối với câu hỏi có căn cứ trực tiếp, nhưng có thể gặp khó khăn khi thông tin cần thiết nằm ở nhiều đơn vị được liên kết bằng quan hệ pháp lý. Hai dạng truy vấn đáng chú ý gồm câu hỏi tổng hợp thông tin từ nhiều quy định và câu hỏi yêu cầu theo các dẫn chiếu giữa Điều, Khoản, Điểm.
+Graph-based RAG mở rộng cách tổ chức dữ liệu bằng đồ thị tri thức gồm các node và cạnh. Node có thể đại diện cho thực thể, khái niệm hoặc đơn vị văn bản; cạnh biểu diễn quan hệ giữa chúng. Đồ thị được mô tả bằng G=(V,E), với V là tập node và E là tập cạnh. Khác với danh sách đoạn văn phẳng, cấu trúc này tạo khả năng truy hồi từ một node khởi đầu rồi mở rộng sang những node có quan hệ theo một chiến lược được xác định trước.
+Đối với văn bản pháp luật, việc biểu diễn quan hệ cần phân biệt các liên kết có bản chất khác nhau: dẫn chiếu tường minh giữa hai quy định, quan hệ phân cấp của đơn vị văn bản, hay quan hệ ngữ nghĩa giữa chủ thể và hành vi. Đồ thị chỉ giúp khai thác những liên kết đã có hoặc được nhận diện; không tự bảo đảm những cạnh được trích xuất đều đúng với văn bản nguồn.
+1.3.2. Cơ chế truy xuất kép cục bộ và toàn cục (Dual-level Retrieval)
+Trong nhóm phương pháp truy hồi trên đồ thị, hai mức truy xuất thường được phân biệt theo độ chi tiết của thông tin cần tìm.
+* Truy xuất cục bộ (low-level/local retrieval) tập trung vào các thực thể, thuộc tính và quan hệ gần với nội dung câu hỏi. Hệ thống có thể sử dụng tên thực thể, mô tả quan hệ và các node lân cận để tìm những bằng chứng liên quan trực tiếp. Phương án này phù hợp hơn với câu hỏi yêu cầu xác định một chủ thể, điều kiện hoặc căn cứ cụ thể.
+* Truy xuất mức khái quát (high-level/global retrieval) hướng đến những quan hệ và chủ đề rộng hơn, nơi thông tin liên quan có thể phân bố ở nhiều thực thể hoặc nhóm tài liệu. Mức này có thể sử dụng thông tin tổng hợp hoặc các liên kết có tính khái quát để hình thành ngữ cảnh cho câu hỏi cần tổng hợp nhiều nguồn.
+Cần phân biệt các cơ chế cụ thể của từng kiến trúc. GraphRAG của Edge và cộng sự [5] sử dụng phát hiện cộng đồng và báo cáo tóm tắt cộng đồng để hỗ trợ truy vấn toàn cục. Trong khi đó, LightRAG khai thác từ khóa ở cấp độ thấp và cao cùng các thực thể, quan hệ trong đồ thị.. Hai hướng tiếp cận có điểm chung ở việc sử dụng cấu trúc đồ thị nhưng khác cách lập chỉ mục và khai thác thông tin.
+1.3.3. Kiến trúc LightRAG
+LightRAG được Guo và cộng sự [10] đề xuất để kết hợp khả năng tìm kiếm dựa trên vector với những thông tin quan hệ được trích xuất từ văn bản. Kiến trúc xây dựng đồ thị thực thể-quan hệ từ các đoạn tài liệu, duy trì mô tả thực thể và cạnh, đồng thời tổ chức các chỉ mục hỗ trợ tìm kiếm nội dung liên quan. Cơ chế truy hồi sử dụng những tín hiệu từ khóa ở mức chi tiết và khái quát để lựa chọn ngữ cảnh thích hợp theo câu hỏi.
+Ở chế độ kết hợp (hybrid mode), LightRAG có thể phối hợp kết quả truy hồi từ các hướng cục bộ và khái quát trước khi cung cấp cho mô hình sinh. Các nguồn thông tin sử dụng khi xây dựng ngữ cảnh có thể bao gồm mô tả thực thể, quan hệ và những đoạn văn bản gốc liên quan. Vì vậy, đầu ra của LightRAG phụ thuộc đồng thời vào chất lượng chia đoạn, bước trích xuất đồ thị, các chỉ mục và cơ chế tổ chức ngữ cảnh.
+Một đặc điểm cần lưu ý là đồ thị được tạo thông qua trích xuất từ văn bản không nhất thiết phản ánh đầy đủ ranh giới Điều-Khoản-Điểm của tài liệu pháp luật. Nếu một khoản hoặc điểm được phân chia thành các đoạn token không trùng ranh giới quy phạm, hệ thống cần có cơ chế bổ sung mới có thể khôi phục vị trí pháp lý chi tiết. Do đó, khả năng tìm thông tin liên quan và khả năng truy nguyên căn cứ có thể đạt những mức chất lượng khác nhau.
+Trong đề tài, LightRAG được sử dụng như baseline đồ thị ở giai đoạn đầu và hệ thống đối sánh chuyên sâu với Hybrid Parser/UKG trong Benchmark B. Các lựa chọn cấu hình như chunk size, chế độ truy hồi và ngân sách context thuộc phương pháp thực nghiệm tại Chương 2, không được coi là những đặc tính bất biến của LightRAG trong mọi triển khai.
+1.3.4. Thích ứng miền pháp lý: tiềm năng và giới hạn
+Khi triển khai Graph-based RAG trên dữ liệu pháp luật, các node có thể được gắn với chủ thể, hành vi, đối tượng quyền, điều kiện hoặc căn cứ pháp lý; các cạnh có thể thể hiện quan hệ áp dụng, yêu cầu, loại trừ hoặc dẫn chiếu. Công trình của Huynh và cộng sự [12] đã khai thác ontology và Neo4j để xây dựng đồ thị từ dữ liệu pháp luật Việt Nam, cho thấy cách tiếp cận này đã có những ứng dụng nghiên cứu cụ thể.
+Graph-based RAG có tiềm năng hỗ trợ câu hỏi phải lần theo quan hệ giữa nhiều quy định. Tuy nhiên, hiệu quả phụ thuộc vào mức độ đầy đủ và tính chính xác của đồ thị. Mô hình trích xuất có thể bỏ sót ngoại lệ, gộp nhầm thực thể hoặc tạo ra cạnh không đủ căn cứ. Ngoài ra, cơ chế mở rộng lân cận nếu không xét loại quan hệ và phạm vi chủ thể có thể bổ sung nhiều node không liên quan.
+Trong phạm vi Chương 1, những giới hạn này được xem xét như các yếu tố kỹ thuật cần kiểm chứng, không được dùng để kết luận trước rằng một kiến trúc đồ thị sẽ có chất lượng thấp hoặc cao hơn hệ thống khác. Việc đánh giá cụ thể về truy hồi, trích dẫn và dẫn chiếu được trình bày tại Chương 3; phần so sánh chi phí giữa LightRAG và Hybrid Parser/UKG không nằm trong phạm vi báo cáo.
+1.4. Đặc điểm cấu trúc của văn bản quy phạm pháp luật Việt Nam
+1.4.1. Cấu trúc tổ chức của văn bản quy phạm pháp luật
+Văn bản quy phạm pháp luật Việt Nam có bố cục được quy định theo thể thức và loại văn bản. Các cấp có thể gặp gồm Phần, Chương, Mục, Tiểu mục, Điều, Khoản và Điểm. Luật Ban hành văn bản quy phạm pháp luật số 64/2025/QH15 [23] và khoản 1 Điều 63 Nghị định 78/2025/NĐ-CP [3] cung cấp căn cứ về cách tổ chức, trình bày văn bản cho việc xem xét hình thức và cấu trúc của văn bản. Không phải mọi văn bản đều có đủ các cấp: một Điều có thể không được chia khoản và một Khoản có thể không chứa điểm.
+Trong thực tế, bộ phân tích cấu trúc phải xử lý sự không đồng đều của văn bản đầu vào. Phần số thứ tự của Khoản thường được thể hiện bằng số Ả Rập, trong khi Điểm sử dụng chữ cái tiếng Việt. Tuy nhiên, những ký hiệu tương tự cũng có thể xuất hiện trong nội dung trích dẫn, ví dụ minh họa hoặc danh sách không phải đơn vị pháp lý độc lập. Vì vậy, chỉ nhận diện biểu thức chính quy chưa đủ để bảo đảm cấu trúc đúng; cần kiểm tra ngữ cảnh xuất hiện, quan hệ cha-con và sự liên tục của các đơn vị được phát hiện. Ngoài ra, nếu đầu vào đã qua quá trình chuyển đổi từ PDF hoặc Word, lỗi xuống dòng và ký tự có thể làm thay đổi ranh giới đơn vị. Đây là cơ sở để xem Parser và Validation là một gói xử lý cần kiểm chứng trong giai đoạn 2, thay vì xem kết quả khớp regex là căn cứ chắc chắn cho cấu trúc pháp lý.
+Để xử lý tự động, có thể biểu diễn một nhánh cấu trúc như: Văn bản → Chương → Mục → Điều → Khoản → Điểm. Mỗi đơn vị được gắn loại node, số thứ tự, nội dung và định danh cha; các cấp không xuất hiện phải được bỏ qua thay vì tạo node giả. Quan hệ “Điểm thuộc Khoản” là quan hệ cấu trúc xác định từ tài liệu, còn thông tin “Điểm này quy định ngoại lệ” thuộc lớp ngữ nghĩa và cần được phân tích từ nội dung. Sự phân biệt này là cơ sở của việc tổ chức physical graph và semantic graph trong nghiên cứu.
+1.4.2. Quan hệ giữa Điều, Khoản và Điểm
+Ý nghĩa pháp lý của một đơn vị văn bản có thể phụ thuộc vào phần mở đầu ở cấp cha. Ví dụ, một Khoản xác định nhóm chủ thể, còn các Điểm bên dưới liệt kê những quyền hoặc điều kiện áp dụng. Nếu chỉ truy hồi nội dung Điểm mà bỏ phần dẫn của Khoản, hệ thống có thể thiếu thông tin cần thiết để xác định đúng phạm vi. Ngược lại, truy hồi toàn bộ Điều cho một câu hỏi hẹp có thể làm tăng lượng nội dung không liên quan.
+Ví dụ trong Chương III Luật Đất đai 2024 [22], một số câu hỏi cần xét đồng thời nội dung khoản quy định chủ thể và các điểm chứa điều kiện cụ thể. Khi đó, một bộ truy hồi có thể xác định đúng Điều nhưng vẫn thiếu Điểm cần thiết, hoặc trích đúng Điểm nhưng không cho biết chủ thể của quy định. Hai lỗi này cần được ghi nhận riêng: lỗi định vị căn cứ và lỗi thiếu ngữ cảnh phân cấp. Phép đo Exact Locator Recall chỉ phản ánh mức độ truy hồi đúng vị trí theo gold, còn Hierarchical Context Completeness xem xét liệu thông tin ở cấp cha hoặc cấp con có được cung cấp đầy đủ hay không. Việc sử dụng hai nhóm metric hạn chế cách diễn giải đơn giản rằng một tài liệu được tìm thấy trong Top-K thì toàn bộ vấn đề pháp lý đã được xử lý.
+Do đó, cần phân biệt việc xác định đúng đơn vị chứa căn cứ với việc cung cấp đầy đủ ngữ cảnh phân cấp. Vị trí pháp lý có thể được mã hóa theo định danh văn bản, số Điều, số Khoản và ký hiệu Điểm. Locator chuẩn giúp đối chiếu các câu trả lời và evidence của hệ thống dùng chunk token-based với hệ thống dùng node cấu trúc, mà không phụ thuộc trực tiếp vào ID vật lý trong chỉ mục hoặc đồ thị.
+1.4.3. Chủ thể, điều kiện, ngoại lệ và phạm vi áp dụng
+Để hỗ trợ xử lý ngôn ngữ pháp lý, nội dung quy phạm có thể được phân tích theo những thành phần như chủ thể-hành vi/quyền/nghĩa vụ-điều kiện-ngoại lệ-căn cứ. Đây là mô hình phân tích phục vụ hệ thống thông tin, không có nghĩa mọi điều khoản đều chứa đủ các thành phần trên.
+Điều kiện có thể nằm cùng mệnh đề hoặc được trình bày tại những khoản khác; ngoại lệ có thể xuất hiện qua từ ngữ “trừ trường hợp…” hay một dẫn chiếu. Khi xử lý câu hỏi, hệ thống cần xác định thành phần nào áp dụng cho chủ thể và hành vi đang được hỏi. Nếu gắn quyền của một chủ thể với điều kiện của chủ thể khác, kết quả có thể sai dù các đoạn văn đều thuộc một văn bản luật.
+Cần đặc biệt phân biệt nhóm điều kiện đồng thời với nhóm điều kiện lựa chọn. Nếu một quy định yêu cầu đáp ứng nhiều điều kiện cùng lúc, câu trả lời chỉ nêu một phần các điều kiện có thể tạo ấn tượng chưa đúng về khả năng thực hiện quyền. Ngược lại, khi văn bản quy định nhiều phương án thay thế, việc diễn giải tất cả như những điều kiện bắt buộc cũng có thể làm sai lệch nội dung. Ngoại lệ còn có thể làm thay đổi phạm vi của từng điều kiện, chứ không nhất thiết phủ định toàn bộ quy tắc chung. Vì vậy, đánh giá câu trả lời nên dựa vào các thành phần nội dung đã được gán nhãn thay vì chỉ so khớp một câu đáp án mẫu. Khái niệm atomic fact được sử dụng theo nghĩa một đơn vị thông tin cần thiết để kiểm tra mức bao phủ, nhưng không thay thế việc xem xét quan hệ logic giữa các điều kiện.
+Biểu diễn những thành phần này bằng thực thể và quan hệ có thể hỗ trợ truy vấn theo chủ thể, điều kiện hoặc ngoại lệ. Tuy nhiên, một quan hệ trích xuất sai có thể khiến đồ thị trả về thông tin không đúng phạm vi. Vì vậy, việc trích xuất cần gắn với văn bản nguồn và có bước kiểm tra grounding trước khi dùng cho truy hồi.
+1.4.4. Dẫn chiếu pháp lý và truy hồi nhiều bước
+Dẫn chiếu pháp lý là trường hợp một quy định viện dẫn hoặc yêu cầu tham khảo quy định khác, thường qua những cụm như “theo quy định tại…” hay “trừ trường hợp quy định tại…”. Quan hệ này có thể là nội bộ cùng văn bản hoặc dẫn tới văn bản khác. Khi câu hỏi liên quan đến một quy định có dẫn chiếu, chỉ lấy đoạn nguồn có thể chưa đủ để xác định các điều kiện và ngoại lệ áp dụng.
+Một đường dẫn truy hồi có thể phải kết hợp cạnh dẫn chiếu tường minh với cạnh phân cấp. Ví dụ, một Điểm ở Điều A dẫn đến Khoản 1 Điều B, trong khi các điều kiện cần trả lời nằm ở những Điểm con của Khoản 1. Hệ thống cần tìm đúng đích, mở rộng tới các đơn vị cần thiết và bảo toàn quan hệ giữa chúng. Việc tìm thấy các node liên quan không tự động có nghĩa toàn bộ đường dẫn đã được tái dựng đúng.
+Không phải mọi quan hệ ngữ nghĩa đều là dẫn chiếu pháp lý. Một đoạn luật có thể đề cập đến cùng chủ thể hoặc cùng hành vi với đoạn khác nhưng không chứa mệnh đề viện dẫn chính thức. Nếu hệ thống tự coi sự tương đồng chủ đề là cạnh dẫn chiếu, việc mở rộng graph có thể dẫn đến bằng chứng không thuộc phạm vi được quy định. Đối với các dẫn chiếu có thể xác định trực tiếp từ văn bản, cần lưu rõ đơn vị nguồn, đích, dạng locator và hướng của cạnh. Khi đích là cấp Điều nhưng nội dung cần trả lời nằm ở cấp Khoản/Điểm, các bước mở rộng phân cấp cần được thể hiện tách biệt. Mô hình này giúp phân biệt việc phát hiện một đích dẫn chiếu với khả năng trình bày được đường đi mà hệ thống đã dùng để thu thập đầy đủ căn cứ.
+Dẫn chiếu ra ngoài corpus đặt ra vấn đề khác: hệ thống có thể nhận diện được đích nhưng không có văn bản đích để xác minh nội dung. Trong những tình huống này, cần phân biệt không truy hồi được bằng chứng có sẵn với nguồn dữ liệu chưa cung cấp bằng chứng. Phân biệt đó là cơ sở của các câu hỏi không đủ căn cứ trong Benchmark B.
+1.4.5. Yêu cầu đối với biểu diễn cấu trúc pháp lý
+Từ đặc điểm dữ liệu trên, hệ thống biểu diễn cấu trúc pháp lý cần chú ý bốn yêu cầu: 
+1. Bảo toàn nguyên văn các thành phần có ý nghĩa như từ phủ định, điều kiện và ngoại lệ; 
+2. Lưu định danh truy nguyên tới văn bản và vị trí Điều-Khoản-Điểm; 
+3. Phân biệt quan hệ cha-con với quan hệ dẫn chiếu; 
+4. Liên kết các thực thể hoặc quan hệ ngữ nghĩa được trích xuất với đơn vị văn bản nguồn.
+Một yêu cầu bổ sung là tính nhất quán giữa ID lưu trữ và vị trí pháp lý. ID vật lý có thể phụ thuộc phiên bản parser, tên file hoặc cấu trúc cơ sở dữ liệu, trong khi locator chuẩn phải cho phép so sánh giữa những lần chạy và những kiến trúc khác nhau. Bởi vậy, bảng ánh xạ từ ID vật lý tới locator pháp lý cần được kiểm tra độc lập với bộ dữ liệu câu hỏi vàng. Cách tổ chức này cũng hỗ trợ kiểm toán khi một node được tách hoặc hợp nhất trong quá trình cập nhật graph.
+Các yêu cầu này phục vụ hai hướng nghiên cứu: sử dụng cấu trúc pháp lý làm đơn vị truy hồi cho Naive/Hybrid RAG, và tích hợp đồ thị cấu trúc với tri thức ngữ nghĩa để hỗ trợ truy hồi, mở rộng bằng chứng và kiểm tra nguồn trong Hybrid Parser/UKG.
+1.4.6. Phân đoạn văn bản theo cấu trúc và kiểm tra tính hợp lệ
+Trong xử lý tài liệu, chunking xác định đơn vị được lập chỉ mục và trả về khi truy hồi. Fixed-size chunking chia văn bản theo số token hoặc ký tự; semantic chunking lựa chọn ranh giới dựa trên mức độ liên kết nội dung; còn structure-aware chunking dùng các dấu hiệu cấu trúc có sẵn như tiêu đề, Điều, Khoản và Điểm. Mỗi phương pháp tạo ra đơn vị truy hồi có kích thước và thông tin ngữ cảnh khác nhau.
+Phân đoạn theo cấu trúc pháp lý giúp lưu locator và quan hệ phân cấp một cách tường minh, nhưng không bảo đảm mọi câu hỏi được trả lời bằng một node độc lập. Một điểm ngắn có thể cần phần dẫn ở khoản chứa điểm đó; ngược lại, lấy toàn bộ Điều có thể đưa vào những nội dung không liên quan. Vì vậy, cần tách đơn vị lập chỉ mục, đơn vị được xếp hạng và bằng chứng thực tế được chuyển cho mô hình sinh.
+Đối với văn bản đầu vào, Regex Parser là phương án nhận diện những dấu hiệu như “Điều 45”, “1.” hoặc “a)”. Tuy nhiên, biểu thức quy tắc có thể nhầm số thứ tự trong ví dụ hoặc trong câu trích dẫn thành đơn vị cấu trúc. Bước Validation có nhiệm vụ kiểm tra quan hệ cha-con, sự hợp lệ của locator và những trường hợp khuyết cấp. Trong đề tài, Parser và Validation được xem là một gói xử lý; muốn tách riêng tác động của từng module cần thí nghiệm bổ sung ngoài thiết kế 2 × 2 cơ bản.
+Sự khác biệt giữa chunk và node pháp lý cũng ảnh hưởng đến các phép đo retrieval. Năm chunk có thể bao phủ nhiều khoản luật hơn năm node cấp Điểm. Do đó, đối sánh giữa các pipeline cần ánh xạ những evidence được truy hồi về định danh Điều-Khoản-Điểm chuẩn và mô tả rõ cách xác định mức độ khớp với gold locator. Đối sánh theo locator chung không đòi hỏi hai hệ thống phải sử dụng cùng phương pháp phân đoạn; trong nghiên cứu end-to-end, chiến lược chunking riêng là một phần của kiến trúc cần được công bố.
+1.5. Đồ thị tri thức và ontology trong hệ thống RAG
+1.5.1. Khái niệm đồ thị tri thức
+Đồ thị tri thức (Knowledge Graph-KG) biểu diễn thông tin bằng các node và quan hệ. Theo Hogan và cộng sự [11], cách tổ chức này hỗ trợ liên kết, truy vấn và tích hợp tri thức từ nhiều nguồn. Một đồ thị có thể mô tả bởi (G=(V,E)), trong đó (V) là tập node và (E) là tập cạnh; một quan hệ có thể biểu diễn dưới dạng bộ ba ((h,r,t)), gồm thực thể đầu, loại quan hệ và thực thể cuối.
+Trong miền pháp luật, node có thể thể hiện chủ thể, hành vi hoặc quy định; cạnh biểu thị quan hệ áp dụng, điều kiện hay dẫn chiếu. KG cho phép truy hồi từ một node sang những node có liên hệ thay vì chỉ so khớp văn bản độc lập. Tuy nhiên, một cạnh được lưu trong graph chưa chắc đúng về mặt pháp lý. Độ tin cậy của dữ liệu phụ thuộc vào cách xác định, kiểm chứng và gắn provenance của quan hệ đó.
+1.5.2. Ontology và vai trò trong biểu diễn tri thức pháp lý
+Ontology mô tả những lớp khái niệm, quan hệ và ràng buộc của một miền tri thức. Gruber [8] trình bày các nguyên tắc thiết kế ontology phục vụ chia sẻ và tái sử dụng tri thức. Cần phân biệt ontology, với vai trò xác định kiểu dữ liệu và quan hệ, và knowledge graph, nơi lưu những thực thể và quan hệ cụ thể dựa trên mô hình đó.
+Trong nghiên cứu về legal ontology, việc định nghĩa lớp quá rộng có thể làm giảm giá trị của cấu trúc dữ liệu. Chẳng hạn, nếu mọi thực thể đều được gán vào một lớp “Khái niệm pháp lý”, hệ thống khó phân biệt một chủ thể được hưởng quyền với một điều kiện giới hạn quyền đó. Ngược lại, việc thiết kế quá nhiều lớp chỉ dựa trên các cách diễn đạt bề mặt có thể gây trùng lặp và làm phức tạp quá trình xác thực. Vì thế, số lượng lớp và quan hệ cần tương ứng với những câu hỏi mà hệ thống thực sự phải trả lời. Trong phạm vi đề tài, các lớp liên quan đến chủ thể, hành vi, điều kiện, ngoại lệ và tham chiếu có vai trò kỹ thuật rõ hơn so với việc mở rộng ontology để bao phủ mọi thuật ngữ luật học. Các quyết định thiết kế này được trình bày ở Chương 2 như cấu hình của nhóm, không phải khẳng định về một bộ ontology chuẩn chung cho pháp luật Việt Nam.
+Một ontology pháp lý có thể gồm lớp Chủ thể, Hành vi, Đối tượng, Điều kiện và Ngoại lệ, kèm quan hệ như “áp dụng cho” hoặc “yêu cầu”. Kiểu dữ liệu giúp kiểm tra sự nhất quán khi trích xuất. Tuy nhiên, không có một ontology đơn giản nào bao quát toàn bộ việc áp dụng pháp luật; cách chọn lớp và quan hệ phải phù hợp với mục tiêu truy hồi. Đề tài sử dụng ontology như công cụ tổ chức tri thức ngữ nghĩa và kết nối tri thức đó với vị trí pháp lý, không xem nó là cơ chế suy luận pháp lý đầy đủ.
+1.5.3. Phân biệt đồ thị cấu trúc và đồ thị ngữ nghĩa
+Có thể phân biệt hai lớp đồ thị theo nguồn thông tin được biểu diễn. Đồ thị cấu trúc chứa các node Văn bản, Chương, Điều, Khoản, Điểm và cạnh phân cấp được nhận diện từ hình thức tài liệu. Đồ thị ngữ nghĩa chứa các thực thể, loại hành vi, điều kiện, ngoại lệ và quan hệ được xác định từ nội dung điều luật.
+Sự khác biệt giữa hai lớp đồ thị còn thể hiện ở cách xác minh. Đối với physical graph, một cạnh HAS_CHILD có thể được đối chiếu với số thứ tự và vị trí của các đơn vị trong văn bản gốc. Đối với semantic graph, một cạnh biểu thị điều kiện hoặc ngoại lệ phải được đối chiếu với câu hoặc đoạn chứa thông tin ngữ nghĩa đó. Nếu chỉ lưu node thực thể mà không giữ vị trí xuất hiện, người kiểm tra khó xác định kết quả trích xuất đến từ quy định nào. Ngược lại, việc nối mọi thực thể với toàn bộ Điều sẽ tạo liên kết nguồn quá rộng và có thể che khuất vị trí cụ thể của bằng chứng. Do vậy, độ hạt của provenance cần tương ứng với mức Điều-Khoản-Điểm mà benchmark có thể kiểm tra.
+Quan hệ cha-con có thể được kiểm tra bằng cấu trúc văn bản, trong khi quan hệ “điều kiện áp dụng cho chủ thể” thường đòi hỏi phân tích ngữ nghĩa. Việc liên kết hai lớp cho phép một thực thể được truy ngược về vị trí nguồn và giúp hệ thống mở rộng ngữ cảnh theo cả quan hệ phân cấp lẫn nội dung. Tuy nhiên, hợp nhất các node gần giống nhau, nhận diện sai loại quan hệ hoặc mất định danh nguồn có thể tạo ra sai lệch. Bởi vậy, hợp nhất đồ thị cần gắn với quy tắc kiểm tra định danh và provenance.
+1.5.4. Trích xuất thực thể và quan hệ bằng mô hình ngôn ngữ
+Trích xuất thực thể và quan hệ là bước chuyển thông tin trong văn bản thành những đơn vị và liên kết có cấu trúc. LLM cho phép mô tả các lớp thực thể, quan hệ và định dạng đầu ra bằng prompt, nhờ đó giảm nhu cầu xây dựng tất cả quy tắc trích xuất thủ công. Tuy nhiên, LLM có thể bỏ sót thực thể, ghép sai quan hệ hoặc đưa ra thông tin không hiện diện trong đoạn nguồn.
+Một lựa chọn thiết kế khác là không nhất thiết đưa toàn bộ đơn vị văn bản qua bước trích xuất ngữ nghĩa như nhau. Những đơn vị ngắn hoặc chủ yếu mang tính tổ chức có thể được giữ ở lớp cấu trúc, trong khi những đơn vị chứa quan hệ phù hợp với mục tiêu truy hồi được đưa vào mô hình trích xuất. Cách làm này đặt ra bài toán cân bằng: giảm số đơn vị cần xử lý có thể giúp đơn giản hóa graph nhưng cũng có nguy cơ bỏ sót thực thể hoặc liên kết cần thiết. Do đó, nếu sử dụng cơ chế định tuyến chọn lọc, nhóm phải đánh giá không chỉ kết quả được chấp nhận mà cả các trường hợp bị loại hoặc không đi vào bước trích xuất. Đây là giới hạn kỹ thuật cần được phản ánh trong thiết kế kiểm chứng, thay vì chỉ dựa vào số lượng node/edge được tạo ra để đánh giá chất lượng.
+Một quy trình có kiểm soát có thể sử dụng schema, tập lớp quan hệ cho phép và cơ chế xác minh định danh nguồn. Cần phân biệt schema validation với grounding validation: dữ liệu đúng cấu trúc JSON hoặc đúng loại cạnh vẫn có thể sai về ý nghĩa quy phạm. Trong Hybrid Parser/UKG, các vấn đề này là cơ sở lựa chọn phương án trích xuất ngữ nghĩa có gắn nguồn và kiểm tra trước khi hợp nhất đồ thị; chi tiết triển khai được trình bày ở Chương 2.
+1.5.5. Các phương pháp truy hồi trên đồ thị tri thức
+Graph-based RAG có thể bắt đầu từ các thực thể liên quan đến truy vấn rồi mở rộng tới node lân cận, hoặc khai thác các cụm và bản tóm tắt ở mức rộng hơn. Edge và cộng sự [5] nghiên cứu GraphRAG dùng đồ thị thực thể và tóm tắt cộng đồng cho các truy vấn cần tổng hợp thông tin. LightRAG của Guo và cộng sự [10] khai thác truy hồi hai cấp độ, kết hợp biểu diễn quan hệ với văn bản và vector để xây dựng ngữ cảnh.
+Có thể phân biệt ít nhất ba hình thức chọn evidence từ đồ thị: chọn node trực tiếp theo điểm liên quan, mở rộng theo các cạnh ở một độ sâu nhất định và chọn một subgraph có liên hệ với toàn bộ câu hỏi. Hai hình thức đầu thuận tiện để triển khai, nhưng có thể bỏ sót nhánh cần thiết hoặc đưa vào nhiều node nhiễu khi graph chứa các quan hệ rộng. Hình thức chọn subgraph đặt thêm yêu cầu về mức liên kết giữa các node và tính phù hợp của đường đi. Trong văn bản pháp luật, một truy vấn về điều kiện có thể cần các node cấp con của một điều khoản được dẫn chiếu, trong khi truy vấn về quyền của chủ thể khác có thể cần một nhánh hoàn toàn riêng. Vì vậy, truy hồi đồ thị cần xem xét cả độ liên quan của node khởi đầu và tính liên tục của quan hệ mở rộng, không chỉ tổng số node được trả về.
+Đối với pháp luật, ý nghĩa của cạnh ảnh hưởng trực tiếp đến nội dung truy hồi: “thuộc khoản”, “dẫn chiếu tới” và “là điều kiện của” không thể xem như cùng một loại liên hệ. Mở rộng tất cả node lân cận có thể đưa vào ngữ cảnh các quy định không thuộc chủ thể hoặc hành vi đang hỏi. Vì vậy, khi sử dụng đồ thị cần xem xét loại cạnh, giới hạn độ sâu mở rộng và cách chọn evidence phù hợp với câu hỏi. Hiệu quả của chiến lược đó cần được kiểm chứng, không suy ra chỉ từ việc tồn tại nhiều quan hệ trong graph.
+1.5.6. Truy nguyên bằng chứng và đường dẫn trả lời
+Truy nguyên bằng chứng là khả năng xác định nguồn của thông tin được truy hồi hoặc dùng để tạo câu trả lời. Trong miền pháp luật, provenance có thể bao gồm mã văn bản, số Điều-Khoản-Điểm, đoạn nội dung nguồn và quan hệ đã được đi qua trong quá trình truy hồi.
+Đường dẫn trả lời mô tả chuỗi node và cạnh kết nối các quy định phục vụ câu hỏi, có thể biểu diễn bởi (P=(v_0,r_1,v_1,,r_m,v_m)). Một đường dẫn cần thỏa điều kiện tồn tại thực tế của các node/cạnh, hướng liên kết đúng và phù hợp với phạm vi câu hỏi. Với những câu dẫn chiếu nhiều bước, các bước dẫn chiếu tường minh có thể xen kẽ bước di chuyển trong cây Điều-Khoản-Điểm.
+Trong thiết kế đánh giá, một path có thể chứa đủ node mà vẫn không đúng hướng dẫn chiếu. Ví dụ, đi từ một điểm con sang khoản mẹ rồi sang điểm khác không tương đương với việc xác định chính xác cạnh REFERENCE_TO từ quy định nguồn đến quy định đích. Một bộ chấm chain-level cần kiểm tra loại cạnh và thứ tự bước, đồng thời có quy ước xử lý đường dẫn hợp lệ nhưng dài hơn gold. Nếu chỉ yêu cầu khớp nguyên văn một chuỗi duy nhất, phép đo có thể bỏ sót những đường đi tương đương; nếu cho phép mọi biến thể, phép đo lại giảm khả năng phát hiện đường dẫn nhiễu. Vì thế, sự phù hợp của metric phải được xem xét cùng thiết kế nhãn vàng và giao thức xuất reference_paths hoặc answer_paths. Phần này đặc biệt quan trọng khi so sánh các hệ thống có khả năng trả evidence nhưng không xuất đường dẫn theo cùng contract.
+Tìm đủ các node đích không đồng nghĩa đã nối đúng chuỗi giữa chúng. Vì vậy, cần tách khả năng truy hồi target với khả năng tái dựng path. Việc so khớp đường dẫn cũng phải quy định cách xử lý các đường đi tương đương hoặc những bước trung gian không bắt buộc. Đây là cơ sở lý thuyết cho nhóm chỉ số Reference-target Recall và Chain Exact Match được sử dụng trong Benchmark B, không phải bằng chứng hệ thống đã xử lý thành công mọi dẫn chiếu.
+1.6. Tổng quan các công trình nghiên cứu liên quan
+1.6.1. Nghiên cứu về RAG và đánh giá hệ thống truy hồi-tạo sinh
+Các nghiên cứu nền tạo cơ sở cho từng thành phần của hệ thống RAG. Lewis và cộng sự [15] đề xuất cơ chế kết hợp truy hồi với tạo sinh; Gao và cộng sự [7] tổng hợp các hướng kiến trúc RAG. Karpukhin và cộng sự [13], Cormack và cộng sự [4], Nogueira và Cho [19] lần lượt cung cấp cơ sở cho Dense Retrieval, dung hợp thứ hạng RRF và Cross-Encoder reranking. Những công trình này giúp xác định các baseline có thể triển khai trong một khung đánh giá chung.
+Về đánh giá, Es và cộng sự [6] đề xuất RAGAs với các chỉ số liên quan đến ngữ cảnh truy hồi và tính phù hợp của câu trả lời. Tuy nhiên, các phép đo chung không trực tiếp kiểm tra được mọi yêu cầu pháp lý, như đúng Khoản-Điểm, đầy đủ ngoại lệ hay khớp đường dẫn dẫn chiếu. Vì thế, nghiên cứu kết hợp metric RAG phổ biến với các phép đo dành cho bằng chứng pháp lý.
+1.6.2. Nghiên cứu về RAG trên cấu trúc phân cấp và đồ thị
+Sarthi và cộng sự [25] nghiên cứu RAPTOR, tổ chức tài liệu bằng cây phân cụm và tóm tắt để truy hồi ở nhiều mức. Edge và cộng sự [5] xây dựng GraphRAG với đồ thị thực thể và tóm tắt cộng đồng, còn Guo và cộng sự [10] đề xuất LightRAG theo hướng truy hồi hai cấp độ. Các công trình đều khai thác cấu trúc hoặc quan hệ thay vì coi từng đoạn văn là đơn vị độc lập tuyệt đối.
+Tuy nhiên, cây phân cụm do thuật toán tạo ra và phân cấp Điều-Khoản-Điểm vốn có của văn bản luật là hai cấu trúc khác nhau. Tương tự, cạnh giữa thực thể được LLM trích xuất chưa đồng nhất với cạnh dẫn chiếu có thể xác định trực tiếp từ nội dung điều luật. Các khác biệt này là cơ sở lựa chọn hai kiến trúc đối sánh chuyên sâu ở giai đoạn 3.
+1.6.3. Nghiên cứu về xử lý ngôn ngữ và truy hồi pháp lý
+Trong miền pháp lý, Chalkidis và cộng sự [1] giới thiệu LEGAL-BERT, cho thấy yêu cầu thích ứng mô hình với ngôn ngữ chuyên ngành. Guha và cộng sự [9] xây dựng LegalBench để đánh giá nhiều dạng năng lực liên quan đến xử lý vấn đề pháp luật. Pipitone và Houir Alami [21] giới thiệu LegalBench-RAG, nhấn mạnh việc truy hồi những đoạn căn cứ pháp lý cụ thể thay vì chỉ tìm đúng tài liệu ở cấp rộng.
+Ở khía cạnh độ tin cậy, Magesh và cộng sự [17] ghi nhận những sai lệch trong các công cụ AI phục vụ nghiên cứu pháp lý. Những công trình này củng cố yêu cầu đánh giá riêng độ chính xác trích dẫn, mức độ bao phủ các nội dung bắt buộc và tỷ lệ khẳng định thiếu căn cứ. Tuy nhiên, việc chọn metric và cách tính vẫn phải gắn với schema và phạm vi dữ liệu thực nghiệm cụ thể.
+1.6.4. Các nghiên cứu truy hồi và đồ thị tri thức pháp luật Việt Nam
+Các nghiên cứu về truy hồi và đồ thị tri thức pháp luật tiếng Việt đã triển khai nhiều hướng tiếp cận liên quan đến đề tài. Tran và cộng sự [26] đề xuất ViDRILL, kết hợp truy hồi từ vựng, truy hồi ngữ nghĩa và tái xếp hạng trong một pipeline nhiều giai đoạn. Công trình cung cấp cơ sở tham khảo cho cấu hình Hybrid RAG của nhóm, nhưng cấu hình triển khai thực tế cần được mô tả độc lập, không đồng nhất mặc nhiên với toàn bộ ViDRILL.
+Ở hướng kết hợp văn bản với đồ thị, Phan và cộng sự [20] nghiên cứu SBV-LawGraph trên các tài liệu liên quan đến Ngân hàng Nhà nước Việt Nam. Huynh và cộng sự [12] sử dụng LLM, ontology và Neo4j để xây dựng đồ thị tri thức từ Bộ luật Hình sự, phục vụ hệ thống hỗ trợ hỏi đáp. Những công trình này cho thấy việc sử dụng ontology hoặc knowledge graph trong pháp luật Việt Nam không phải ý tưởng chưa có nghiên cứu trước.
+Le và cộng sự [14] công bố nghiên cứu Three-Tier Knowledge Graph RAG for Legal Question Answering vào tháng 9/2026, đề xuất kiến trúc kết hợp cây cấu trúc văn bản pháp luật, ontology và đồ thị tri thức với cơ chế truy hồi nhiều tầng. Công trình này có sự tương đồng với hướng kết hợp biểu diễn cấu trúc và ngữ nghĩa pháp lý mà nhóm đang nghiên cứu.
+Cần lưu ý rằng đề tài của nhóm đã được triển khai từ tháng 4/2026, trước thời điểm công trình [14] được công bố. Vì vậy, quá trình hình thành và phát triển ban đầu của Hybrid Parser/UKG không dựa trên kiến trúc Three-Tier. Khi công trình [14] được công bố, nhóm đưa nghiên cứu này vào phần tổng quan để đối chiếu các lựa chọn thiết kế và xác định rõ hơn phạm vi đóng góp của đề tài.
+Mặc dù có điểm chung trong việc khai thác cấu trúc phân cấp và đồ thị tri thức pháp lý, hai hệ thống sử dụng những phương án tổ chức và truy hồi khác nhau. Công trình [14] kết hợp truy hồi theo cây có hỗ trợ LLM, truy hồi ngữ nghĩa trên đồ thị và dung hợp kết quả, trong khi Hybrid Parser/UKG của nhóm được thiết kế theo hướng xây dựng đồ thị cấu trúc Điều-Khoản-Điểm, kết hợp trích xuất ngữ nghĩa có chọn lọc và mở rộng bằng chứng theo các quan hệ pháp lý. Sự khác biệt về thiết kế được trình bày tại Chương 2, còn hiệu quả của kiến trúc nhóm phát triển được kiểm chứng thông qua các thực nghiệm tại Chương 3.
+1.6.5. Tổng hợp và đối chiếu các hướng nghiên cứu
+Các công trình có thể được phân nhóm theo đóng góp chính: thuật toán truy hồi, cơ chế tổ chức cấu trúc/đồ thị và phương pháp kiểm chứng căn cứ pháp lý. Bảng 1.1 tổng hợp những nguồn trực tiếp làm cơ sở cho ba giai đoạn nghiên cứu, tránh lặp lại toàn bộ phần lý thuyết đã trình bày.
+Công trình
+	Trọng tâm
+	Vai trò tham khảo trong đề tài
+	Lewis và cộng sự [15]; Gao và cộng sự [7]
+	Nền tảng và phân loại RAG
+	Cơ sở chung cho các baseline
+	Cormack và cộng sự [4]; Karpukhin và cộng sự [13]
+	RRF và Dense Retrieval
+	Cơ sở thiết kế Hybrid Retrieval
+	Guo và cộng sự [10]
+	LightRAG và truy hồi hai cấp độ
+	Baseline đồ thị trong hai benchmark
+	Pipitone và Houir Alami [21]
+	Truy hồi căn cứ pháp lý cụ thể
+	Cơ sở đánh giá locator/evidence
+	Tran và cộng sự [26]
+	Truy hồi nhiều giai đoạn cho luật Việt Nam
+	Tham khảo cho Hybrid RAG
+	Huynh và cộng sự [12]; Phan và cộng sự [20]
+	Ontology, KG và Legal RAG tại Việt Nam
+	Nghiên cứu đồ thị pháp lý liên quan
+	Le và cộng sự [14]
+	Cây cấu trúc pháp lý kết hợp ontology/KG
+	Đối chiếu trực tiếp với UKG
+	Nguồn: Tổng hợp từ các công tình được trích dẫn 
+Bảng 1.1. Một số công trình liên quan trực tiếp đến hướng nghiên cứu
+Bên cạnh tiêu chí kiến trúc, khi so sánh kết quả công bố cần xét đơn vị nhãn vàng. Một nghiên cứu báo cáo tỷ lệ tìm được ít nhất một Điều liên quan trong Top-10 không thể so sánh trực tiếp với Exact Locator Recall@5 ở cấp Khoản/Điểm. Tương tự, điểm đúng của câu trả lời từ LLM Judge không thay thế được xác nhận nội dung pháp lý bằng người kiểm duyệt. Việc phân biệt tập câu hỏi, cấp căn cứ và công thức tổng hợp metric tạo cơ sở cho lựa chọn một benchmark riêng phục vụ đánh giá dẫn chiếu chéo. Trong đề tài, giai đoạn baseline và giai đoạn cấu trúc sâu sử dụng những tập dữ liệu khác nhau; kết quả vì thế được phân tích trong từng giai đoạn, không gộp thành một thứ hạng chung cho mọi kiến trúc.
+Bảng không nhằm xếp hạng chất lượng các công trình, vì chúng sử dụng tập dữ liệu, phạm vi pháp luật và chỉ số đánh giá khác nhau. Việc so sánh hiệu năng chỉ được thực hiện trong từng benchmark với điều kiện đã xác định.
+1.7. Tổng hợp khoảng trống và định hướng nghiên cứu
+1.7.1. Những vấn đề đã có cơ sở nghiên cứu
+Các phương pháp BM25, Dense Retrieval, RRF, Cross-Encoder và Graph-based RAG đã được nghiên cứu và ứng dụng trong nhiều hệ thống truy hồi thông tin. Đối với dữ liệu pháp luật Việt Nam, Huy và cộng sự [12] đã đề xuất quy trình bán tự động sử dụng LLM để trích xuất thực thể, quan hệ pháp lý theo một mô hình ontology định trước và xây dựng đồ thị tri thức bằng Neo4j. Le và cộng sự [14] tiếp tục nghiên cứu kiến trúc kết hợp cây cấu trúc văn bản pháp luật với ontology, đồ thị tri thức và truy hồi nhiều tầng. Các công trình này cho thấy việc sử dụng bộ phân tích cấu trúc, ontology và đồ thị tri thức không phải là những thành phần mới xét riêng lẻ. Vì vậy, nghiên cứu tập trung làm rõ thiết kế tích hợp của Hybrid Parser/UKG và đánh giá hiệu quả của kiến trúc thông qua các thực nghiệm có kiểm soát, thay vì xác định tính mới chỉ dựa trên những kỹ thuật được sử dụng.
+1.7.2. Những vấn đề cần tiếp tục kiểm chứng
+Từ các tài liệu được khảo sát, nghiên cứu tập trung kiểm chứng những câu hỏi cụ thể: phân đoạn theo Điều-Khoản-Điểm ảnh hưởng ra sao đến truy hồi của Naive và Hybrid RAG; biểu diễn cấu trúc kết hợp đồ thị ngữ nghĩa có hỗ trợ tìm đủ căn cứ, điều kiện và ngoại lệ; và khả năng tìm đúng node đích có chuyển thành khả năng tái dựng chính xác chuỗi dẫn chiếu hay không. Các câu hỏi này cần được đánh giá bằng những metric phù hợp với đơn vị pháp lý, không chỉ dựa vào điểm truy hồi tài liệu tổng quát.
+1.7.3. Định vị hướng nghiên cứu của đề tài
+Đề tài được tổ chức thành ba giai đoạn. Giai đoạn 1 đối sánh Naive Vector RAG, Hybrid RAG và LightRAG làm cơ sở xác định các giới hạn cần khảo sát thêm. Giai đoạn 2 sử dụng thiết kế đối chứng với bốn cấu hình-Naive, Hybrid và hai biến thể bổ sung Parser/Validation-để đo tác động của xử lý cấu trúc. Giai đoạn 3 đánh giá end-to-end LightRAG và Hybrid Parser/UKG trên bộ câu hỏi chuyên biệt về Điều-Khoản-Điểm, điều kiện, ngoại lệ và dẫn chiếu chéo.
+Điểm cần phân biệt là kết quả của giai đoạn 2 có thể hỗ trợ phân tích tác động của gói Parser/Validation, trong khi giai đoạn 3 đánh giá khác biệt giữa hai kiến trúc hoàn chỉnh. Để quy mức cải thiện cho một thành phần cụ thể của UKG, vẫn cần các thí nghiệm loại bỏ thành phần tương ứng.
+1.7.4. Kết luận chương
+Chương 1 đã trình bày các cơ sở cần thiết để lựa chọn phương pháp truy hồi, tổ chức dữ liệu pháp lý và thiết kế phép đo. Tổng quan các công trình liên quan cho thấy việc khai thác cấu trúc văn bản và đồ thị tri thức đã có nền tảng nghiên cứu; vấn đề cần tiếp tục làm rõ trong đề tài là hiệu quả của các phương án triển khai trên bộ dữ liệu và tiêu chí đánh giá cụ thể. Chương 2 trình bày kiến trúc hệ thống, thiết kế hai bộ benchmark và quy trình thực nghiệm để kiểm chứng những vấn đề đó.
+CHƯƠNG 2: THIẾT KẾ HỆ THỐNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU
+2.1. Thiết kế nghiên cứu tổng thể
+2.1.1. Mô hình ba giai đoạn nghiên cứu
+Nghiên cứu được tổ chức thành ba giai đoạn nhằm đánh giá các kiến trúc RAG hiện có, khảo sát tác động của việc xử lý cấu trúc pháp lý và kiểm chứng kiến trúc Hybrid Parser/UKG do nhóm phát triển.
+* Giai đoạn 1-Đánh giá các kiến trúc RAG cơ sở: Triển khai và đối sánh Naive Vector RAG, Hybrid RAG và LightRAG trên cùng bộ dữ liệu kiểm thử, nhằm xác định đặc điểm và hạn chế của từng phương pháp truy hồi.
+* Giai đoạn 2-Mở rộng pipeline bằng Parser và Validation: Bổ sung bộ phân tích cấu trúc Điều-Khoản-Điểm vào Naive RAG và Hybrid RAG. Bốn cấu hình có và không có Parser/Validation được đối sánh để đánh giá tác động của việc bảo toàn cấu trúc pháp lý đến chất lượng truy hồi và câu trả lời.[c]
+* Giai đoạn 3-Thiết kế và đánh giá Hybrid Parser/UKG: Kết hợp biểu diễn cấu trúc pháp lý với các thực thể, quan hệ ngữ nghĩa và dẫn chiếu trong đồ thị tri thức hợp nhất. Hệ thống được đối sánh với LightRAG trên bộ câu hỏi chuyên biệt nhằm khảo sát khả năng truy hồi, tổng hợp căn cứ và xử lý quan hệ pháp lý.
+Ba giai đoạn có mối liên hệ kế tiếp, từ đánh giá phương pháp cơ sở đến kiểm chứng các phương án mở rộng. Sơ đồ tổng thể được trình bày tại Hình 2.1.
+  
+
+Hình 2.1. Quy trình nghiên cứu gồm ba giai đoạn đánh giá, mở rộng và kiểm chứng kiến trúc Hybrid Parser/UKG. [d]
+2.1.2. Vai trò và mối liên hệ của hai bộ benchmark
+Nghiên cứu sử dụng hai bộ benchmark độc lập, được thiết kế theo mục tiêu đánh giá của từng giai đoạn.
+Bộ benchmark
+	Phạm vi và mục tiêu
+	Hệ thống tham gia
+	Benchmark A
+	512 câu hỏi trên kho dữ liệu pháp luật Việt Nam; đánh giá các kiến trúc RAG cơ sở và tác động của Parser/Validation.
+	Naive RAG, Hybrid RAG, LightRAG ở giai đoạn 1; bốn cấu hình Naive/Hybrid có và không có Parser ở giai đoạn 2.
+[e]	
+Benchmark B
+	50 câu hỏi thuộc Chương III Luật Đất đai 2024 (Điều 26-48); đánh giá cấu trúc phân cấp, điều kiện, ngoại lệ, trích dẫn và dẫn chiếu chéo.
+	LightRAG và Hybrid Parser/UKG.
+	Benchmark A tập trung vào hiệu quả truy hồi và chất lượng câu trả lời trong phạm vi dữ liệu tương đối rộng. Benchmark B bổ sung các nhãn căn cứ ở cấp Điều-Khoản-Điểm và những tiêu chí đánh giá chuyên biệt về nội dung pháp lý. Do khác nhau về corpus, cấu trúc câu hỏi và mục tiêu đo lường, kết quả của hai bộ benchmark được phân tích riêng, không gộp thành một điểm đánh giá chung.
+2.1.3. Nguyên tắc kiểm soát biến thực nghiệm
+Để hạn chế ảnh hưởng của các yếu tố ngoài phạm vi nghiên cứu, các hệ thống trong cùng một phép đối sánh được sử dụng chung bộ câu hỏi, dữ liệu nguồn và quy trình đánh giá. Phiên bản mô hình, cấu hình truy hồi, phương pháp phân đoạn và kết quả từng lượt chạy được ghi nhận nhằm hỗ trợ việc kiểm tra và tái lập thực nghiệm.
+Ở giai đoạn 2, thiết kế đối sánh được tổ chức theo hai yếu tố: phương pháp truy hồi (Naive hoặc Hybrid) và việc sử dụng Parser/Validation. Cách tổ chức này cho phép xem xét tác động của gói xử lý cấu trúc đối với từng pipeline.[f]
+Đối với Benchmark B, hai hệ thống được thống nhất về corpus, 50 câu hỏi vàng, giới hạn top k = 5 ở tầng benchmark, ngân sách ngữ cảnh tối đa khoảng 10.000 token, quy tắc ánh xạ locator và bộ đánh giá. Các nhãn ground truth chỉ được sử dụng sau khi hệ thống hoàn thành truy hồi và sinh câu trả lời, không được cung cấp cho pipeline trong quá trình xử lý truy vấn.[g]
+2.1.4. Giới hạn của phép đối sánh
+Mặc dù được đánh giá trong các điều kiện chung, những hệ thống tham gia vẫn có sự khác biệt về cách biểu diễn và truy hồi dữ liệu. LightRAG sử dụng phân đoạn theo token kết hợp truy hồi trên đồ thị và văn bản, trong khi Hybrid Parser/UKG sử dụng các đơn vị cấu trúc Điều-Khoản-Điểm, đồ thị tri thức hợp nhất và cơ chế mở rộng bằng chứng theo quan hệ pháp lý.
+Những khác biệt này được giữ nguyên nhằm đánh giá hiệu quả của từng kiến trúc hoàn chỉnh. Do đó, kết quả Benchmark B phản ánh chất lượng end-to-end của hai pipeline, chưa cho phép xác định riêng mức đóng góp của từng thành phần như Parser, ontology hoặc cơ chế mở rộng dẫn chiếu. Việc phân tích tác động độc lập của các thành phần cần có những thí nghiệm loại bỏ thành phần với các điều kiện được kiểm soát tương ứng.[h]
+2.6. Thiết kế kiến trúc Hybrid Parser/UKG-Giai đoạn 3
+2.6.1. Mục tiêu và nguyên tắc thiết kế Hybrid Parser/UKG
+Từ những đặc điểm cấu trúc của văn bản quy phạm pháp luật đã phân tích ở Chương 1, nhóm nghiên cứu và phát triển kiến trúc Hybrid Parser/Unified Knowledge Graph (UKG) nhằm kết hợp thông tin cấu trúc văn bản với các thực thể và quan hệ ngữ nghĩa pháp lý. Hệ thống được thiết kế để hỗ trợ truy hồi bằng chứng ở cấp Điều-Khoản-Điểm, đồng thời khai thác những quan hệ phân cấp và dẫn chiếu có liên quan đến câu hỏi.
+Khác với phương pháp tổ chức dữ liệu chủ yếu dựa trên các đoạn văn bản có độ dài xác định, Hybrid Parser/UKG sử dụng bộ phân tích cấu trúc để nhận diện các đơn vị pháp lý trước khi xây dựng đồ thị. Nội dung văn bản gốc và các quan hệ cấu trúc được bảo toàn độc lập với quá trình trích xuất ngữ nghĩa bằng mô hình ngôn ngữ. Cách tổ chức này nhằm hạn chế việc những sai lệch trong quá trình trích xuất tự động làm thay đổi dữ liệu cấu trúc đã được xác định.
+Kiến trúc được xây dựng theo bốn nguyên tắc chính: bảo toàn ranh giới và quan hệ Điều-Khoản-Điểm; kết hợp biểu diễn cấu trúc với thông tin ngữ nghĩa; duy trì khả năng truy nguyên bằng chứng về đơn vị văn bản nguồn; và hỗ trợ mở rộng ngữ cảnh theo các quan hệ pháp lý có kiểu. Việc sử dụng đồng thời nhiều hình thức biểu diễn được kỳ vọng hỗ trợ những câu hỏi cần tổng hợp thông tin từ nhiều quy định, nhưng hiệu quả thực tế vẫn cần được đánh giá thông qua Benchmark B.
+2.6.2. Kiến trúc tổng thể của hệ thống
+Hybrid Parser/UKG được tổ chức thành mười module, chia thành các nhóm chức năng: xử lý cấu trúc vật lý (M1-M4), định tuyến và trích xuất ngữ nghĩa (M5-M6), chuẩn hóa và hợp nhất tri thức (M7-M8), lưu trữ đồ thị (M9) và truy hồi phục vụ hỏi đáp (M10).
+Luồng xử lý tổng quát được biểu diễn như sau:
+  
+
+Hình 2.x. Kiến trúc tổng thể và luồng dữ liệu của hệ thống Hybrid Parser/UKG.
+Trong quy trình này, đầu ra của M4 được sử dụng theo hai hướng. Đồ thị cấu trúc được giữ lại để phục vụ hợp nhất tại M8, trong khi M5 lựa chọn những đơn vị cần xử lý ngữ nghĩa và chuyển chúng tới M6. Kết quả chuẩn hóa của M7 sau đó được hợp nhất với dữ liệu cấu trúc của M4 thành đồ thị tri thức thống nhất.
+Nhóm xử lý
+	Module
+	Chức năng chính
+	Xử lý cấu trúc
+	M1-M4
+	Chuẩn hóa văn bản, phân tích Điều-Khoản-Điểm, kiểm tra và xây dựng đồ thị cấu trúc
+	Xử lý ngữ nghĩa
+	M5-M6
+	Lựa chọn đơn vị văn bản và trích xuất thực thể, quan hệ
+	Tích hợp tri thức
+	M7-M8
+	Chuẩn hóa ontology, kiểm tra quan hệ và hợp nhất hai lớp dữ liệu
+	Lưu trữ
+	M9
+	Nạp UKG vào Neo4j và kiểm tra tính toàn vẹn
+	Truy hồi và tạo sinh
+	M10
+	Truy hồi bằng chứng, mở rộng ngữ cảnh và sinh câu trả lời
+	Việc tách thành các module giúp xác định rõ trách nhiệm xử lý, cấu trúc dữ liệu trao đổi và vị trí có thể phát sinh lỗi. Các module M1-M4 chủ yếu sử dụng những quy tắc xác định trước, trong khi M6 sử dụng mô hình ngôn ngữ để nhận diện nội dung ngữ nghĩa. M7-M9 tiếp tục kiểm tra và tổ chức dữ liệu trước khi M10 thực hiện truy hồi.
+2.6.3. Nhóm module tiền xử lý và xây dựng Physical Graph-M1-M4
+Nhóm M1-M4 có nhiệm vụ chuyển văn bản pháp luật đầu vào thành đồ thị cấu trúc vật lý, bảo toàn các đơn vị Chương-Mục-Điều-Khoản-Điểm và quan hệ phân cấp giữa chúng. Quá trình này chủ yếu dựa trên quy tắc, không phụ thuộc vào kết quả trích xuất ngữ nghĩa của LLM.
+* Module 1-Tiền xử lý văn bản. M1 tiếp nhận văn bản DOCX/TXT, thực hiện làm sạch ký tự, chuẩn hóa Unicode NFC và xử lý những trường hợp xuống dòng không phù hợp. Đối với DOCX, module khai thác metadata đánh số tự động của Microsoft Word để khôi phục các ký hiệu Khoản, Điểm có thể không xuất hiện trực tiếp trong nội dung văn bản. Đầu ra là dữ liệu văn bản chuẩn hóa phục vụ phân tích cấu trúc.
+* Module 2-Phân tích cấu trúc (Regex Parser). M2 sử dụng biểu thức chính quy kết hợp metadata từ M1 để nhận diện ranh giới Chương, Mục, Điều, Khoản và Điểm. Cấu trúc ngăn xếp được sử dụng để xác lập quan hệ cha-con. Mỗi node được gắn loại cấu trúc, nội dung, định danh cấp cha và vị trí trong văn bản.
+Định danh vật lý được tạo từ đường dẫn phân cấp kết hợp với vị trí ký tự bắt đầu của node, chẳng hạn doc_chuong-iii_muc-1_dieu-27_khoan-2_p1405, trong đó p1405 biểu thị vị trí ký tự bắt đầu. Cách định danh này giúp hạn chế trùng lặp và hỗ trợ truy nguyên về văn bản nguồn.
+* Module 3-Kiểm tra cấu trúc (Validation). M3 kiểm tra tính hợp lệ của node theo schema, tính duy nhất của định danh, sự tồn tại của node cha, quan hệ phân cấp và thứ tự đánh số. Những node có lỗi nghiêm trọng được cách ly, trong khi các cảnh báo được ghi nhận để kiểm tra. Module không tự ý sửa nội dung hoặc bổ sung cấu trúc thiếu căn cứ.
+* Module 4-Xây dựng đồ thị cấu trúc (Physical Graph Builder). M4 chuyển các node hợp lệ thành đồ thị có hướng, sử dụng quan hệ BELONG_TO để biểu diễn phân cấp cha-con và NEXT, PREVIOUS để biểu diễn thứ tự giữa các đơn vị cùng cấp. Đồ thị được xuất dưới dạng JSON, lưu giữ nội dung và quan hệ cấu trúc mà chưa thực hiện suy luận ngữ nghĩa.
+Đầu ra của nhóm M1-M4 là Physical Graph, được chuyển đến các module xử lý tiếp theo và có thể sử dụng trực tiếp khi truy hồi bằng chứng, kể cả đối với những node không được lựa chọn để trích xuất bằng LLM.
+2.6.4. Định tuyến và trích xuất ngữ nghĩa-M5-M6
+Nhóm M5-M6 đảm nhận việc lựa chọn những đơn vị văn bản cần phân tích và trích xuất thông tin pháp lý từ các đơn vị đó. Hai module được tách riêng nhằm giới hạn phạm vi sử dụng LLM và bảo toàn dữ liệu cấu trúc đã xây dựng.
+* Module 5-Định tuyến ngữ nghĩa (Semantic Router). M5 đánh giá các node trong Physical Graph bằng cách kết hợp tín hiệu từ biểu thức chính quy và độ tương đồng ngữ nghĩa. Trong cấu hình nghiên cứu, module sử dụng mô hình Qwen3-Embedding-0.6B để hỗ trợ nhận diện những nội dung liên quan đến chủ thể, điều kiện, ngoại lệ hoặc dẫn chiếu.
+Kết quả định tuyến gồm ba nhóm: LLM_CANDIDATE, RULE_ONLY và REJECT. Chỉ các node được lựa chọn làm LLM_CANDIDATE mới chuyển sang M6 để trích xuất bằng LLM. Những node còn lại vẫn được duy trì trong Physical Graph, không bị loại khỏi dữ liệu truy hồi.
+* Module 6-Trích xuất ngữ nghĩa (LLM-based Semantic Extraction). M6 sử dụng GPT-4o-mini thông qua OpenRouter để trích xuất thực thể và quan hệ pháp lý từ những node do M5 lựa chọn, có bổ sung ngữ cảnh phân cấp khi cần thiết. Các thành phần được nhận diện gồm chủ thể (SUBJECT), hành vi (ACTION), đối tượng (OBJECT), điều kiện (CONDITION), ngoại lệ (EXCEPTION), dẫn chiếu (REFERENCE) và chế tài (PENALTY).
+Các quan hệ được trích xuất có thể bao gồm ALLOW, REQUIRE, PROHIBIT, HAS_CONDITION, HAS_EXCEPTION và REFERENCE_TO. Kết quả được kiểm tra theo schema và liên kết với bằng chứng trong văn bản nguồn. Với những quy định chưa xác định rõ chủ thể, M6 ghi nhận thông tin chưa đầy đủ thay vì tự bổ sung nội dung không có căn cứ.
+Dữ liệu trích xuất của M6 được chuyển sang M7 để chuẩn hóa ontology trước khi hợp nhất với đồ thị vật lý.
+2.6.5. Xây dựng ontology và hợp nhất tri thức-M7-M8
+Nhóm M7-M8 chuẩn hóa kết quả trích xuất ngữ nghĩa và liên kết chúng với cấu trúc văn bản nguồn để hình thành Unified Knowledge Graph (UKG).
+* Module 7-Chuẩn hóa ontology (Ontology Builder). M7 tiếp nhận dữ liệu từ M6, ánh xạ thực thể và quan hệ vào các lớp ontology như LegalSubject, LegalAction, LegalObject, Condition, Exception và Reference. Module phân biệt thực thể được nhắc đến trong từng đoạn văn bản (LocalMention) với khái niệm chuẩn hóa (CanonicalConcept), qua đó hỗ trợ liên kết những cách diễn đạt tương đương.
+Các quan hệ biểu thị quyền, nghĩa vụ hoặc hành vi bị cấm được tổ chức thành đơn vị quy phạm (NormAssertion), có thể gắn với điều kiện và ngoại lệ. Trường hợp chưa xác định đủ thành phần được biểu diễn dưới dạng quy phạm chưa hoàn chỉnh (Partial Norm). M7 đồng thời kiểm tra các ràng buộc ontology và cách ly những dữ liệu không hợp lệ.
+* Module 8-Hợp nhất đồ thị (Fusion Engine). M8 kết hợp Physical Graph từ M4 với Semantic Graph đã chuẩn hóa từ M7 để xây dựng UKG. Quá trình này bao gồm ánh xạ định danh, liên kết thực thể ngữ nghĩa với node văn bản nguồn, xử lý trùng lặp và kiểm tra tính nhất quán của các quan hệ.
+Các thông tin quy phạm có liên quan được tổ chức thông qua node GLOBAL_NORM và gắn với căn cứ vật lý tương ứng. M8 cũng xử lý thông tin dẫn chiếu, tuy nhiên không mặc định mọi dẫn chiếu được trích xuất đều đã trở thành cạnh REFERENCE_TO nối trực tiếp các đơn vị pháp lý trong đồ thị.
+Đầu ra của M8 là dữ liệu UKG đã hợp nhất, được chuyển đến M9 để lưu trữ trong Neo4j và phục vụ quá trình truy hồi ở M10.
+2.6.6. Lưu trữ Unified Knowledge Graph-M9
+* Module 9-Lưu trữ đồ thị (Neo4j Ingestion). M9 tiếp nhận dữ liệu UKG từ M8 và thực hiện nạp các node, quan hệ cùng thuộc tính liên quan vào cơ sở dữ liệu đồ thị Neo4j. Quá trình nạp được thực hiện theo lô, kết hợp kiểm tra định danh và sự tồn tại của các node đầu-cuối trước khi tạo cạnh nhằm hạn chế những quan hệ không hợp lệ.
+Dữ liệu được tổ chức theo nhãn node, loại quan hệ và thông tin nguồn, hỗ trợ truy vấn bằng Cypher. Sau khi nạp, M9 kiểm tra tính nhất quán của các node và cạnh, đồng thời ghi nhận những bản ghi không đáp ứng điều kiện để phục vụ xử lý.
+Đồ thị lưu trữ duy trì liên kết giữa cấu trúc Điều-Khoản-Điểm và thông tin ngữ nghĩa đã chuẩn hóa, làm cơ sở cho truy hồi tại M10. Tuy nhiên, không phải mọi dẫn chiếu pháp lý được nhận diện đều có cạnh REFERENCE_TO tương ứng trong Neo4j; một số quan hệ dẫn chiếu tường minh được M10 xác định bổ sung từ văn bản nguồn khi truy hồi.
+2.6.7. Truy hồi và tổng hợp bằng chứng-M10
+* Module 10-Truy hồi và sinh câu trả lời (Retrieval and Answer Generation). M10 tiếp nhận câu hỏi bằng ngôn ngữ tự nhiên, khai thác UKG để truy hồi căn cứ pháp lý và xây dựng ngữ cảnh cho mô hình ngôn ngữ. Module kết hợp tìm kiếm ngữ nghĩa, duyệt quan hệ đồ thị và lựa chọn bằng chứng nhằm hỗ trợ trả lời có căn cứ.
+M10 hỗ trợ hai chế độ truy hồi độc lập: Mode A khai thác thông tin quy phạm thông qua NormAssertion, còn Mode B mở rộng các node lân cận theo số bước duyệt đồ thị. Trong Benchmark B, hệ thống sử dụng chế độ AUTO_FUSION, luôn thực hiện Mode A và kết hợp truy hồi phân cấp cha-con, mở rộng dẫn chiếu có kiểu (typed reference traversal), thu thập ngoại lệ và truy hồi dự phòng từ Physical Graph. Mode B được duy trì như một chế độ riêng, không phải nhánh được gọi trực tiếp trong mọi lượt AUTO_FUSION.
+Quy trình xử lý gồm các bước chính:
+* Truy hồi node mỏ neo (Anchor Search): Sử dụng tìm kiếm ngữ nghĩa để xác định những node pháp lý liên quan đến câu hỏi. Với truy vấn cần xử lý dẫn chiếu, hệ thống có thể bổ sung ứng viên từ vựng.
+* Mở rộng bằng chứng: Khai thác các quan hệ quy phạm, phân cấp, điều kiện, ngoại lệ và dẫn chiếu từ các node mỏ neo. Những dẫn chiếu được nhận diện trực tiếp trong văn bản được ghi nhận với nguồn gốc EXPLICIT_TEXT_REFERENCE, phân biệt với cạnh đã lưu trong Neo4j. Phạm vi mở rộng được giới hạn để tránh thu thập quá nhiều thông tin không liên quan.
+* Định tuyến và lựa chọn bằng chứng bằng Jev: M10 sử dụng mô hình typesafe/jev-1.14 thông qua OpenRouter Decisions API để hỗ trợ xác định nhu cầu truy hồi, đánh giá mức độ liên quan và đầy đủ của bằng chứng. Kết quả được kết hợp với các quy tắc trong pipeline để lựa chọn ngữ cảnh hoặc thực hiện tối đa một lượt mở rộng bổ sung. Khi Jev không phản hồi hợp lệ, hệ thống sử dụng cơ chế dự phòng dựa trên quy tắc.
+* Dung hợp và xây dựng ngữ cảnh: Các bằng chứng được chuẩn hóa locator, loại bỏ trùng lặp, xếp hạng và giới hạn theo mức độ liên quan. Ngữ cảnh đầu vào giữ lại nội dung, vị trí Điều-Khoản-Điểm và thông tin nguồn truy hồi của từng bằng chứng.
+* Sinh câu trả lời: Mô hình GPT-4o-mini sử dụng câu hỏi cùng ngữ cảnh đã lựa chọn để tạo câu trả lời. Prompt yêu cầu ưu tiên căn cứ được cung cấp và hạn chế những khẳng định không có bằng chứng hỗ trợ.
+Bên cạnh câu trả lời, M10 xuất các bản ghi bằng chứng và thông tin truy nguyên nhằm phục vụ đánh giá khả năng truy hồi và độ chính xác của trích dẫn pháp lý.
+Đối với câu hỏi có dẫn chiếu chéo, M10 còn bổ sung cơ chế xây dựng đường dẫn bằng chứng, kết hợp quan hệ dẫn chiếu tường minh với quan hệ phân cấp đã truy hồi. Các đường dẫn được lưu riêng với ngữ cảnh sinh nhằm hỗ trợ truy vết và đánh giá cấu trúc dẫn chiếu. Tuy nhiên, việc xây dựng được đường dẫn không đồng nghĩa hệ thống đã tái dựng chính xác chuỗi dẫn chiếu hoàn chỉnh; khả năng này cần được kiểm chứng thông qua các chỉ số thực nghiệm tại Chương 3.
+2.6.8. Điểm khác biệt với LightRAG và các nghiên cứu ontology pháp lý trước
+Hybrid Parser/UKG và LightRAG đều sử dụng thông tin ngoài mô hình ngôn ngữ để hỗ trợ trả lời câu hỏi, đồng thời khai thác biểu diễn đồ thị nhằm mở rộng khả năng truy hồi. Tuy nhiên, hai hệ thống có những khác biệt trong cách chuẩn bị dữ liệu, tổ chức tri thức và lựa chọn bằng chứng.
+LightRAG của Guo và cộng sự [9] xây dựng đồ thị thực thể và quan hệ từ văn bản, kết hợp truy hồi ở mức cục bộ và toàn cục. Trong cấu hình thực nghiệm của Benchmark B, LightRAG sử dụng các đoạn văn bản được phân chia theo token, sau đó tiến hành trích xuất và truy hồi bằng cơ chế của kiến trúc này.
+Hybrid Parser/UKG tiếp cận dữ liệu từ cấu trúc pháp lý có sẵn. Các đơn vị Điều-Khoản-Điểm được nhận diện trước khi trích xuất ngữ nghĩa, qua đó tạo điều kiện duy trì định danh và quan hệ phân cấp độc lập với kết quả xử lý bằng LLM. Thông tin ngữ nghĩa sau đó được liên kết với những node văn bản nguồn để hỗ trợ truy hồi.
+Tiêu chí
+	LightRAG trong Benchmark B
+	Hybrid Parser/UKG
+	Đơn vị phân đoạn
+	Các chunk theo token
+	Các node cấu trúc pháp lý
+	Biểu diễn dữ liệu
+	Văn bản, thực thể và quan hệ được trích xuất
+	Physical Graph kết hợp Semantic Graph
+	Định danh pháp lý
+	Cần ánh xạ từ chunk/evidence về locator
+	Locator gắn với node cấu trúc
+	Trích xuất ngữ nghĩa
+	Trích xuất từ các chunk bằng LLM
+	Định tuyến node trước khi trích xuất bằng LLM
+	Mở rộng bằng chứng
+	Truy hồi kết hợp thông tin graph và chunk
+	Truy hồi node, quan hệ ngữ nghĩa, cấu trúc phân cấp và dẫn chiếu
+	Provenance dẫn chiếu
+	Adapter hiện chưa xuất typed path theo contract Benchmark B (N/A)
+	Có xuất thông tin quan hệ và đường dẫn để đánh giá
+	Tái dựng chuỗi dẫn chiếu
+	Chưa đo được theo giao thức đánh giá hiện tại (N/A) 
+	Chưa tái dựng được chuỗi dẫn chiếu hoàn chỉnh theo tiêu chí benchmark B 
+	Đối với các nghiên cứu đồ thị tri thức pháp lý Việt Nam, như đã trình bày tại mục 1.6.4, việc kết hợp ontology, LLM và biểu diễn cấu trúc văn bản đã được đề cập trong những công trình liên quan [12], [14]. Tuy nhiên, hướng tiếp cận kết hợp Regex Parser với trích xuất ngữ nghĩa có chọn lọc đã được nhóm định hướng từ giai đoạn đầu của đề tài, trước thời điểm công bố công trình [14]. Trong quá trình triển khai, nhóm tiếp tục phát triển hướng tiếp cận này thành kiến trúc M1-M10, với các thành phần kiểm tra cấu trúc, chuẩn hóa ontology, hợp nhất đồ thị và truy hồi bằng chứng.
+Do đó, đóng góp của Hybrid Parser/UKG không chỉ nằm ở việc sử dụng riêng lẻ Regex Parser, ontology hay cơ sở dữ liệu đồ thị, mà tập trung vào cách thiết kế và tích hợp các thành phần để khai thác đồng thời cấu trúc vật lý và thông tin ngữ nghĩa của văn bản pháp luật. Đặc biệt, việc liên kết các thực thể, quan hệ pháp lý với định danh Điều-Khoản-Điểm tạo cơ sở cho quá trình truy hồi, chuẩn hóa trích dẫn và đánh giá bằng chứng ở nhiều cấp độ pháp lý.
+Trong Benchmark B, LightRAG và Hybrid Parser/UKG được đối sánh trên cùng tập văn bản và bộ câu hỏi, với các điều kiện chung về giới hạn ngữ cảnh, ánh xạ định danh pháp lý và quy trình đánh giá. Tuy nhiên, phương pháp phân đoạn, xây dựng đồ thị và truy hồi vẫn tuân theo thiết kế riêng của từng kiến trúc. Vì vậy, kết quả thực nghiệm phản ánh hiệu quả tổng thể của hai hệ thống, chưa đủ cơ sở để quy sự khác biệt về kết quả cho một thành phần riêng lẻ.
+Đối với dẫn chiếu chéo, Hybrid Parser/UKG đã triển khai cơ chế nhận diện, mở rộng và ghi nhận các quan hệ dẫn chiếu phục vụ truy hồi bằng chứng. Tuy nhiên, khả năng tìm được những căn cứ liên quan cần được phân biệt với khả năng tái dựng chính xác toàn bộ chuỗi dẫn chiếu. Giới hạn của cơ chế này được đánh giá và phân tích cụ thể trong Chương 3.
+2.7. Thiết kế bộ dữ liệu Benchmark B
+2.7.1. Mục tiêu và phạm vi đánh giá
+Benchmark B được xây dựng nhằm đánh giá khả năng truy hồi, tổ chức và sử dụng căn cứ pháp lý của hai kiến trúc LightRAG và Hybrid Parser/UKG. Khác với Benchmark A, bộ dữ liệu này tập trung vào những yêu cầu đặc thù của văn bản pháp luật có cấu trúc phân cấp, bao gồm xác định đúng vị trí Điều-Khoản-Điểm, tổng hợp điều kiện, nhận diện ngoại lệ, phân biệt chủ thể và xử lý các quan hệ dẫn chiếu.
+Phạm vi dữ liệu được giới hạn trong Chương III của Luật Đất đai số 31/2024/QH15, từ Điều 26 đến Điều 48. Phần nội dung này quy định về quyền và nghĩa vụ của người sử dụng đất, với nhiều nhóm chủ thể, điều kiện áp dụng và quy định có quan hệ liên kết. Đây là cơ sở phù hợp để khảo sát khả năng khai thác cấu trúc văn bản và truy hồi bằng chứng của các hệ thống RAG.
+Bộ dữ liệu gồm 50 câu hỏi, trong đó có 47 câu có thể trả lời từ corpus và 3 câu không đủ căn cứ trong phạm vi đã xác định. Các câu hỏi được phân bố theo ba mức độ khó: 15 câu dễ, 20 câu trung bình và 15 câu khó. Để bảo đảm điều kiện đối sánh, hai hệ thống sử dụng cùng tập văn bản và bộ câu hỏi vàng, nhưng giữ nguyên phương pháp phân đoạn, lập chỉ mục và truy hồi của từng kiến trúc.
+2.7.2. Phân loại các câu hỏi
+Bộ câu hỏi được chia thành chín nhóm nhằm bao quát các yêu cầu từ truy hồi trực tiếp đến tổng hợp nhiều căn cứ và xử lý dẫn chiếu pháp lý.
+Nhóm câu hỏi
+	Số câu
+	Quyền và nghĩa vụ trực tiếp
+	8
+	Nhiều điều kiện
+	10
+	Ngoại lệ và điều cấm
+	7
+	Dẫn chiếu một bước
+	6
+	Dẫn chiếu nhiều bước
+	4
+	Phân biệt chủ thể
+	5
+	Tổng hợp cha-con
+	4
+	Tình huống pháp lý
+	3
+	Không đủ căn cứ trong corpus
+	3
+	Tổng cộng
+	50
+	Bảng 2.x. Phân bố câu hỏi trong Benchmark B
+Nhóm quyền và nghĩa vụ trực tiếp kiểm tra khả năng xác định căn cứ pháp lý cho những câu hỏi có nội dung tương đối rõ ràng. Nhóm nhiều điều kiện yêu cầu tổng hợp đầy đủ các điều kiện được quy định tại một hoặc nhiều đơn vị pháp lý. Trong khi đó, nhóm ngoại lệ và điều cấm tập trung đánh giá khả năng phân biệt quy tắc chung với trường hợp loại trừ hoặc hành vi bị hạn chế.
+Hai nhóm dẫn chiếu một bước và dẫn chiếu nhiều bước được xây dựng để kiểm tra khả năng tìm kiếm các căn cứ liên quan thông qua quan hệ dẫn chiếu giữa những quy định. Nhóm phân biệt chủ thể yêu cầu xác định đúng đối tượng áp dụng, còn nhóm tổng hợp cha-con kiểm tra khả năng kết hợp thông tin ở các cấp Điều, Khoản và Điểm. Nhóm tình huống pháp lý đặt câu hỏi dưới dạng hoàn cảnh cụ thể nhằm kiểm tra việc lựa chọn và vận dụng căn cứ phù hợp.
+Cuối cùng, nhóm không đủ căn cứ trong corpus được sử dụng để đánh giá khả năng nhận biết giới hạn dữ liệu và tránh đưa ra kết luận không được hỗ trợ. Việc phân loại cho phép phân tích kết quả theo từng dạng yêu cầu, thay vì chỉ sử dụng điểm đánh giá trung bình trên toàn bộ tập câu hỏi.
+2.7.3. Thiết kế cấu trúc dữ liệu câu hỏi vàng
+Mỗi câu hỏi được biểu diễn dưới dạng một đối tượng JSON, bao gồm nội dung truy vấn, thông tin phân loại, đáp án tham chiếu và các căn cứ pháp lý được gán nhãn. Bộ dữ liệu không chỉ lưu cặp câu hỏi-đáp án mà còn xác định những thành phần thông tin cần thiết để đánh giá riêng quá trình truy hồi và chất lượng câu trả lời.
+Trường dữ liệu
+	Nội dung
+	question_id
+	Định danh câu hỏi
+	question
+	Nội dung câu hỏi
+	benchmark_b_category
+	Nhóm câu hỏi đánh giá
+	answerability
+	Khả năng trả lời trong corpus
+	gold_locations
+	Vị trí pháp lý chuẩn của các căn cứ
+	reference_answer
+	Câu trả lời tham chiếu
+	required_atomic_facts
+	Các ý thông tin bắt buộc
+	required_exceptions
+	Các ngoại lệ cần xem xét
+	forbidden_claims
+	Những khẳng định không được phép đưa ra
+	reference_chain
+	Thông tin về chuỗi quan hệ dẫn chiếu
+	Bảng 2.x. Các trường dữ liệu chính của Benchmark B
+Trong đó, gold_locations lưu các vị trí pháp lý ở cấp Điều, Khoản hoặc Điểm, làm cơ sở đối chiếu bằng chứng được truy hồi. Trường required_atomic_facts phân tách đáp án thành những ý thông tin cần thiết, giúp đánh giá mức độ đầy đủ của câu trả lời thay vì chỉ dựa vào sự tương đồng với đáp án tham chiếu.
+Đối với những câu hỏi có điều kiện hoặc ngoại lệ, bộ dữ liệu bổ sung các chú giải nhằm xác định nội dung bắt buộc và giới hạn của kết luận pháp lý. Các câu hỏi có quan hệ dẫn chiếu được gắn nhãn đường dẫn tương ứng để phục vụ đánh giá khả năng truy hồi quan hệ giữa các căn cứ. Ngoài ra, những trường bổ trợ về bằng chứng phân cấp và tập đường dẫn được chấp nhận được sử dụng khi tính các chỉ số chuyên biệt.
+Cấu trúc nhãn vàng này hỗ trợ đánh giá các nhóm chỉ số về hiệu quả truy hồi, độ chính xác của trích dẫn, mức độ đầy đủ của căn cứ, khả năng xử lý dẫn chiếu và độ tin cậy của câu trả lời pháp lý. Định nghĩa và phương pháp tính toán các chỉ số được trình bày tại mục 2.8.
+2.7.4. Quy trình xây dựng và kiểm duyệt bộ dữ liệu
+Quy trình xây dựng Benchmark B gồm các bước lựa chọn nguồn văn bản, biên soạn câu hỏi, gán nhãn căn cứ pháp lý và kiểm tra tính nhất quán của dữ liệu.
+Trước hết, nhóm lựa chọn Chương III Luật Đất đai năm 2024 và xác định các đơn vị Điều-Khoản-Điểm làm cơ sở gán nhãn. Từ phạm vi này, bộ câu hỏi được biên soạn theo chín nhóm đã xác định, kết hợp câu hỏi trực tiếp với những trường hợp yêu cầu tổng hợp nhiều quy định, phân biệt chủ thể hoặc xử lý dẫn chiếu. Cách diễn đạt câu hỏi không nhất thiết trùng với nguyên văn pháp luật nhằm hạn chế việc đánh giá chỉ dựa trên sự tương đồng từ khóa.
+Tiếp theo, mỗi câu hỏi được gắn đáp án tham chiếu, vị trí pháp lý liên quan và các ý thông tin bắt buộc. Đối với các câu hỏi phức tạp, nhóm bổ sung nhãn điều kiện, ngoại lệ, khẳng định không được phép và quan hệ dẫn chiếu khi cần thiết. Các chú giải này giúp xác định rõ những nội dung hệ thống phải truy hồi và những giới hạn cần tuân thủ khi trả lời.
+Sau khi xây dựng, dữ liệu được rà soát để kiểm tra sự phù hợp giữa câu hỏi, đáp án và căn cứ trong corpus. Quy trình có sử dụng công cụ AI hỗ trợ đối chiếu và phát hiện sai lệch, kết hợp với bước kiểm tra, xác nhận của thành viên nhóm nghiên cứu. Thông tin về nguồn dữ liệu và quá trình kiểm duyệt được lưu để phục vụ truy nguyên, nhưng không được xem là sự thay thế cho thẩm định pháp lý độc lập.
+2.7.5. Chuẩn hóa locator và ánh xạ bằng chứng
+Do LightRAG và Hybrid Parser/UKG sử dụng các phương pháp biểu diễn dữ liệu khác nhau, Benchmark B cần một quy tắc thống nhất để xác định vị trí pháp lý của bằng chứng. Nhóm sử dụng canonical locator nhằm biểu diễn các đơn vị Điều-Khoản-Điểm độc lập với định danh nội bộ của từng kiến trúc.
+Locator được tổ chức theo cú pháp:
+LD2024:A{article}:K{clause}:D{point}
+Trong đó, LD2024 xác định Luật Đất đai năm 2024, còn A, K và D lần lượt biểu thị Điều, Khoản và Điểm. Những thành phần không tồn tại được lược bỏ. Ví dụ, LD2024:A45:K1:Da tương ứng với điểm a khoản 1 Điều 45, còn LD2024:A47 biểu thị căn cứ trực tiếp tại Điều 47.
+Đối với Hybrid Parser/UKG, locator được ánh xạ từ các node vật lý đã nhận diện trong quá trình phân tích cấu trúc. Định danh node vật lý có thể chứa thêm thông tin vị trí ký tự trong văn bản, nhưng đây không phải thành phần của locator pháp lý chuẩn. Đối với LightRAG, các chunk được truy hồi phải được đối chiếu với nội dung văn bản nguồn để xác định những đơn vị pháp lý thực sự xuất hiện trong bằng chứng.
+Trong quá trình ánh xạ, các trường hợp không đủ thông tin để xác định locator được ghi nhận là UNRESOLVED, thay vì tự gán vị trí pháp lý. Quy tắc chuẩn hóa cũng bảo toàn sự khác biệt giữa các ký hiệu điểm như d và đ. Nhờ đó, kết quả từ hai hệ thống có thể được đánh giá trên cùng hệ thống định danh pháp lý, dù cách phân đoạn và truy hồi dữ liệu khác nhau.
+2.7.6. Kiểm soát câu hỏi ngoài phạm vi corpus
+Benchmark B bổ sung ba câu hỏi có nhãn INSUFFICIENT_CORPUS nhằm đánh giá khả năng nhận biết giới hạn thông tin của hệ thống. Đối với những câu hỏi này, dữ liệu trong Chương III không đủ để đưa ra kết luận theo yêu cầu, vì vậy hành vi mong đợi là từ chối kết luận đầy đủ và giải thích rõ giới hạn căn cứ.
+Các câu hỏi ngoài phạm vi không được gán những quy định không liên quan làm bằng chứng trả lời. Nếu văn bản nguồn có dẫn chiếu đến điều luật nằm ngoài corpus, hệ thống có thể ghi nhận sự tồn tại của dẫn chiếu nhưng không được tự suy diễn nội dung của quy định chưa được cung cấp.
+Khi đánh giá, nhóm câu hỏi này được xử lý riêng với các câu có đủ căn cứ, nhằm kiểm tra khả năng từ chối trả lời phù hợp và hạn chế phát sinh khẳng định không được hỗ trợ. Đây là một yêu cầu cần thiết đối với hệ thống RAG trong lĩnh vực pháp luật, nơi câu trả lời không chỉ cần đúng nội dung mà còn phải xác định được phạm vi căn cứ sử dụng.
+Như vậy, Benchmark B được thiết kế để đánh giá hiệu quả truy hồi và chất lượng câu trả lời trong mối liên hệ với cấu trúc pháp lý của văn bản nguồn. Việc kết hợp nhãn vị trí Điều-Khoản-Điểm, thông tin điều kiện, ngoại lệ và quan hệ dẫn chiếu tạo cơ sở cho hệ thống chỉ số đánh giá được trình bày tại mục 2.8.
+2.8. Thiết kế hệ thống chỉ số đánh giá
+Hệ thống chỉ số được xây dựng nhằm đánh giá hiệu quả truy hồi và chất lượng câu trả lời của các kiến trúc RAG. Do Benchmark A và Benchmark B có mục tiêu thực nghiệm khác nhau, đề tài sử dụng những nhóm chỉ số phù hợp với từng benchmark, thay vì áp dụng một hệ thống điểm tổng hợp chung.
+Benchmark A tập trung vào hiệu quả truy hồi và chất lượng câu trả lời của các phương pháp RAG. Benchmark B bổ sung các chỉ số chuyên biệt để đánh giá khả năng khai thác cấu trúc Điều-Khoản-Điểm, xử lý dẫn chiếu và sử dụng căn cứ pháp lý. Các chỉ số được tính trên những câu hỏi đủ điều kiện; trường hợp không áp dụng hoặc không có dữ liệu đo được được ghi nhận riêng, không mặc định bằng 0.
+2.8.1. Chỉ số chung về truy hồi
+Hai chỉ số truy hồi cơ bản là Recall@5 và Mean Reciprocal Rank@5 (MRR@5). Recall@5 đo tỷ lệ căn cứ đúng xuất hiện trong năm kết quả truy hồi đầu tiên. MRR@5 đánh giá thứ hạng của căn cứ đúng đầu tiên, phản ánh khả năng ưu tiên những kết quả liên quan.
+Đối với Benchmark B, hai chỉ số được tính ở cấp Điều, dựa trên tập relevant_articles của câu hỏi. Vì vậy, việc tìm đúng Điều chưa đồng nghĩa với việc đã xác định chính xác Khoản hoặc Điểm chứa căn cứ cần thiết.
+Ngoài ra, Benchmark B phân biệt ba giai đoạn truy hồi: bằng chứng mỏ neo ban đầu (Anchor Recall@5), bằng chứng sau mở rộng (Expanded Evidence Recall) và bằng chứng thực sự được đưa vào ngữ cảnh sinh (Generation-context Recall). Việc tách các giai đoạn giúp xác định thông tin bị thiếu tại bước truy hồi, mở rộng hay lựa chọn ngữ cảnh.
+2.8.2. Chỉ số đánh giá cấu trúc pháp lý
+Nhóm chỉ số này đánh giá khả năng xác định và bảo toàn các đơn vị pháp lý có cấu trúc phân cấp:
+* Exact Locator Recall@5: Đo tỷ lệ locator pháp lý chuẩn được truy hồi chính xác trong năm đơn vị bằng chứng đầu tiên.
+* Parent Context Coverage: Đo mức độ bao phủ các đơn vị cấp cha cần thiết trong ngữ cảnh truy hồi.
+* Child Evidence Coverage: Đo tỷ lệ các đơn vị cấp con bắt buộc được thu thập.
+* Hierarchical Context Completeness: Chỉ số tổng hợp có thể được xác định từ Parent Context Coverage và Child Evidence Coverage nhằm phản ánh mức độ đầy đủ của ngữ cảnh phân cấp.
+Trong hệ thống đánh giá hiện tại, Parent Context Coverage và Child Evidence Coverage được ghi nhận trực tiếp, trong khi Hierarchical Context Completeness có thể được tính bổ sung từ hai chỉ số thành phần. Các chỉ số sử dụng locator chuẩn ở cấp Điều-Khoản-Điểm, cho phép đánh giá cấu trúc pháp lý độc lập với cách định danh node hoặc chunk của từng hệ thống.
+2.8.3. Chỉ số đánh giá dẫn chiếu chéo
+Để đánh giá khả năng xử lý những câu hỏi có quan hệ dẫn chiếu, Benchmark B sử dụng các chỉ số:
+* Reference-target Recall: Tỷ lệ các đơn vị pháp lý đích được xác định đúng.
+* Chain-step Precision, Recall và F1: Đánh giá các bước quan hệ dựa trên bộ ba gồm node nguồn, loại quan hệ và node đích.
+* Edge-label Accuracy: Đánh giá độ chính xác của loại quan hệ giữa các đơn vị pháp lý.
+* Chain Exact Match: Kiểm tra mức độ khớp hoàn toàn giữa đường dẫn hệ thống xuất ra và tập đường dẫn chuẩn, xét cả thứ tự, loại quan hệ và các bước liên kết.
+Các chỉ số này chỉ áp dụng cho những câu hỏi có nhãn dẫn chiếu tương ứng. Trường hợp hệ thống không cung cấp dữ liệu đường dẫn theo giao thức đánh giá được ghi nhận là không đo được (N/A), không thay bằng giá trị 0.
+2.8.4. Chỉ số đánh giá câu trả lời pháp lý
+Chất lượng câu trả lời được đánh giá thông qua mức độ đầy đủ và chính xác của những thông tin pháp lý cần thiết:
+* Legal Correctness: Đánh giá mức độ đúng đắn tổng thể của câu trả lời theo bộ tiêu chí tham chiếu.
+* Atomic Fact Coverage: Đo mức độ bao quát các ý thông tin bắt buộc.
+* Condition Coverage: Đánh giá mức độ đầy đủ của các điều kiện pháp lý.
+* Exception Coverage: Đánh giá khả năng nhận diện và trình bày đúng các ngoại lệ.
+* Subject-Scope Accuracy: Kiểm tra việc áp dụng quyền, nghĩa vụ và điều kiện cho đúng chủ thể.
+* Citation Precision/Recall: Đánh giá độ chính xác và đầy đủ của những vị trí pháp lý được trích dẫn, tính riêng ở cấp Điều, Khoản và Điểm.
+Các chỉ số nội dung được đối chiếu với đáp án và chú giải trong bộ dữ liệu vàng. Riêng Citation Precision/Recall được tính từ locator xuất hiện trong câu trả lời, không đồng nhất với độ chính xác về mặt diễn giải pháp luật.
+2.8.5. Chỉ số đánh giá tính an toàn
+Nhóm chỉ số an toàn tập trung vào khả năng hạn chế những kết luận thiếu căn cứ:
+* Abstention Accuracy: Đánh giá khả năng nhận biết trường hợp không đủ dữ liệu để trả lời.
+* Refusal Quality: Đánh giá mức độ phù hợp của lời giải thích khi hệ thống từ chối kết luận.
+* Unsupported-Claim Rate: Đo tỷ lệ khẳng định pháp lý không được căn cứ tham chiếu hỗ trợ.
+* Forbidden-Claim Rate: Đo tỷ lệ xuất hiện những khẳng định không được phép theo nhãn vàng.
+Trong đó, Abstention Accuracy và Refusal Quality được đánh giá trên nhóm câu hỏi không đủ căn cứ; các chỉ số còn lại được tính theo tập câu hỏi có chú giải tương ứng. Đối với hai chỉ số về khẳng định không được hỗ trợ hoặc bị cấm, giá trị càng thấp thể hiện kết quả càng tốt.
+2.9. Phương pháp đánh giá tự động
+Đề tài kết hợp bộ đánh giá dựa trên quy tắc với phương pháp LLM-as-a-Judge nhằm đánh giá hiệu quả truy hồi và chất lượng câu trả lời của các hệ thống RAG. Các chỉ số liên quan đến truy hồi, vị trí Điều-Khoản-Điểm, cấu trúc phân cấp và quan hệ dẫn chiếu được tính bằng bộ đánh giá chuyên biệt dựa trên dữ liệu đầu ra và nhãn vàng. Trong khi đó, những thuộc tính liên quan đến tính đúng đắn, mức độ đầy đủ và an toàn của nội dung trả lời được đánh giá bằng mô hình ngôn ngữ theo bộ tiêu chí xác định trước.
+2.9.1. Kiến trúc LLM-as-a-Judge
+LLM-as-a-Judge được thực hiện sau khi hệ thống hoàn thành truy hồi và sinh câu trả lời. Trong Benchmark B, mô hình GPT-4o-mini đóng vai trò Judge, tiếp nhận câu hỏi, câu trả lời thực tế, đáp án tham chiếu và các chú giải pháp lý từ bộ dữ liệu vàng.
+Judge tập trung đánh giá tính đúng đắn tổng thể, mức độ bao quát các ý thông tin bắt buộc, điều kiện, ngoại lệ, phạm vi chủ thể và những khẳng định không có căn cứ. Kết quả được ghi nhận độc lập với các chỉ số cấu trúc, vốn được xác định bằng cách đối chiếu locator và quan hệ pháp lý theo quy tắc.
+Việc sử dụng Judge giúp đánh giá những thuộc tính nội dung khó xác định bằng phương pháp so khớp từ khóa. Tuy nhiên, do mô hình sinh câu trả lời và Judge đều sử dụng GPT-4o-mini, phép đánh giá không bảo đảm tính độc lập tuyệt đối và có thể chịu ảnh hưởng của những thiên lệch diễn giải tương tự. Vì vậy, kết quả Judge được xem là đánh giá tự động theo bộ tiêu chí tham chiếu, không thay thế kết luận thẩm định pháp lý độc lập.
+2.9.2. Thiết kế prompt và cấu trúc đầu ra
+Prompt đánh giá yêu cầu Judge đối chiếu câu trả lời với những thông tin trong bộ dữ liệu vàng, tập trung vào tính chính xác và đầy đủ của nội dung thay vì hình thức diễn đạt. Các ý thông tin bắt buộc và ngoại lệ được chấm theo ba mức: 0 (không đạt), 0,5 (đạt một phần) và 1 (đạt đầy đủ).
+Kết quả được xuất dưới dạng JSON theo schema xác định trước, bao gồm điểm đánh giá tổng thể, quyết định đối với từng ý thông tin, ngoại lệ, khẳng định không được phép và tỷ lệ khẳng định thiếu căn cứ. Đối với câu hỏi không đủ căn cứ trong corpus, Judge sử dụng các trường riêng để đánh giá khả năng nhận biết giới hạn dữ liệu và chất lượng từ chối trả lời.
+Việc sử dụng cấu trúc đầu ra thống nhất giúp hệ thống tổng hợp các chỉ số theo từng câu hỏi, đồng thời hạn chế sai lệch do sự khác biệt về định dạng phản hồi của mô hình.
+2.9.3. Đối chiếu thông tin pháp lý và kiểm tra khẳng định sai
+Để đánh giá mức độ đầy đủ của câu trả lời, Judge đối chiếu lần lượt các ý thông tin bắt buộc và ngoại lệ với nội dung hệ thống sinh ra. Mỗi thành phần được chấm độc lập, sau đó tổng hợp thành các chỉ số tương ứng như Atomic Fact Coverage, Condition Coverage và Exception Coverage.
+Đối với các khẳng định không được phép, Judge chỉ ghi nhận vi phạm khi câu trả lời thực sự đưa ra khẳng định thuộc danh sách đã gán nhãn. Việc thiếu một điều kiện hoặc ngoại lệ không tự động được xem là phát sinh khẳng định sai. Cơ chế này giúp phân biệt câu trả lời chưa đầy đủ với câu trả lời đưa ra kết luận không phù hợp với căn cứ pháp lý.
+Bên cạnh đó, Judge đánh giá những khẳng định không được dữ liệu tham chiếu hỗ trợ thông qua Unsupported-Claim Rate. Các kết quả này được sử dụng để xem xét mức độ an toàn và độ tin cậy của câu trả lời, bổ sung cho những chỉ số truy hồi và trích dẫn được tính bằng quy tắc.
+2.9.4. Kiểm tra tính hợp lệ và nhất quán của kết quả đánh giá
+Sau khi Judge trả kết quả, hệ thống thực hiện kiểm tra JSON schema, định danh câu hỏi, danh sách các thành phần cần chấm và miền giá trị của từng chỉ số. Đối với những khẳng định bị xác định là vi phạm, phần bằng chứng trích từ câu trả lời cũng được kiểm tra để bảo đảm phù hợp với nội dung thực tế.
+Khi phản hồi không hợp lệ hoặc không đáp ứng các ràng buộc, hệ thống thực hiện cơ chế thử lại với giới hạn tối đa ba lần. Nếu vẫn không nhận được kết quả hợp lệ, quá trình đánh giá ghi nhận lỗi thay vì tự tạo điểm số thay thế.
+Các quyết định đánh giá được lưu theo từng câu hỏi để phục vụ tổng hợp và đối chiếu kết quả giữa các hệ thống. Những chỉ số không áp dụng hoặc không có dữ liệu quan sát được được ghi nhận riêng, không mặc định bằng 0. Cơ chế kiểm tra này góp phần bảo đảm tính nhất quán và khả năng truy nguyên của kết quả đánh giá tự động.
+CHƯƠNG 3: THỰC NGHIỆM, KẾT QUẢ VÀ THẢO LUẬN
+3.4. Giai đoạn 3-Đối sánh LightRAG và Hybrid Parser/UKG trên Benchmark B
+3.4.1. Mục tiêu thực nghiệm
+Giai đoạn 3 đối sánh LightRAG và Hybrid Parser/UKG trong bài toán hỏi đáp pháp luật trên dữ liệu có cấu trúc phân cấp. Thực nghiệm tập trung đánh giá hiệu quả truy hồi căn cứ, khả năng bảo toàn vị trí Điều-Khoản-Điểm, xử lý dẫn chiếu và chất lượng câu trả lời có thể truy nguyên nguồn thông tin.
+Khác với các giai đoạn trước, Benchmark B không chỉ xem xét việc tìm đúng Điều luật mà còn đánh giá mức độ đầy đủ của bằng chứng, độ chính xác của trích dẫn và khả năng xử lý điều kiện, ngoại lệ và phạm vi chủ thể.
+Thực nghiệm sử dụng bộ dữ liệu Benchmark B gồm 50 câu hỏi thuộc Chương III Luật Đất đai năm 2024, trong đó có 47 câu có đủ căn cứ và 3 câu không đủ căn cứ trong phạm vi corpus. Cấu trúc bộ dữ liệu và phân bố câu hỏi theo từng nhóm đã được trình bày tại mục 2.7.
+3.4.2. Cấu hình và điều kiện đối sánh
+Hai hệ thống sử dụng cùng nội dung Chương III Luật Đất đai 2024, bộ câu hỏi vàng, quy tắc chuẩn hóa locator và bộ đánh giá Benchmark B. Cả hai sử dụng GPT-4o-mini để sinh câu trả lời và đánh giá nội dung bằng LLM-as-a-Judge. Các chỉ số truy hồi cơ bản được tính ở cấp Điều với giới hạn Top-5.
+Thành phần
+	LightRAG
+	Hybrid Parser/UKG
+	Dữ liệu đầu vào
+	Văn bản sạch Chương III
+	UKG xây dựng từ cùng văn bản
+	Đơn vị lập chỉ mục
+	Chunk theo token
+	Node cấu trúc Điều-Khoản-Điểm
+	Biểu diễn tri thức
+	Chunk và đồ thị thực thể-quan hệ
+	Physical Graph và Semantic Graph
+	Cơ chế truy hồi
+	Hybrid retrieval
+	AUTO_FUSION
+	Top-K
+	5
+	5
+	Mô hình sinh
+	GPT-4o-mini
+	GPT-4o-mini
+	Mô hình Judge
+	GPT-4o-mini
+	GPT-4o-mini
+	Bảng 3.x. Cấu hình đối sánh hai hệ thống
+LightRAG sử dụng chunk kích thước 1.200 token, overlap 100 token và giới hạn tổng ngữ cảnh 10.000 token. Hybrid Parser/UKG sử dụng các node pháp lý được phân tách theo cấu trúc văn bản, kết hợp truy hồi ngữ nghĩa và mở rộng bằng chứng trên đồ thị.
+Do hai hệ thống duy trì phương pháp lập chỉ mục và truy hồi riêng, thực nghiệm phản ánh hiệu quả của từng pipeline trong cùng điều kiện dữ liệu và giao thức đánh giá. Những khác biệt quan sát được chưa đủ để quy hoàn toàn cho một thành phần kiến trúc riêng lẻ.
+3.4.3. Kết quả hiệu năng truy hồi
+Chỉ số
+	LightRAG
+	Hybrid Parser/UKG
+	Chênh lệch
+	Recall@5
+	0,7358
+	0,9184
+	+18,26 điểm %
+	MRR@5
+	0,5539
+	0,8848
+	+33,09 điểm %
+	Bảng 3.x. Kết quả truy hồi trên Benchmark B (N = 47)
+Ghi chú: N = 47 là số câu hỏi có đủ căn cứ pháp lý trong corpus. Ba câu hỏi không đủ căn cứ được loại khỏi phép tính Recall@5 và MRR@5, đồng thời được đánh giá riêng bằng các chỉ số về khả năng từ chối trả lời tại mục 3.8. 
+Hybrid Parser/UKG đạt Recall@5 cao hơn LightRAG 18,26 điểm phần trăm và MRR@5 cao hơn 33,09 điểm phần trăm. Kết quả cho thấy Hybrid Parser/UKG có khả năng tìm được nhiều căn cứ đúng hơn trong Top-5, đồng thời ưu tiên các căn cứ liên quan ở thứ hạng cao hơn.
+Sự khác biệt này phù hợp với đặc điểm của Hybrid Parser/UKG khi các đơn vị pháp lý và quan hệ phân cấp được duy trì từ giai đoạn tiền xử lý. Tuy nhiên, hai chỉ số được tính ở cấp Điều nên chưa phản ánh đầy đủ khả năng định vị chính xác Khoản-Điểm hoặc mức độ đúng đắn của câu trả lời cuối cùng.
+3.4.4. Kết quả truy hồi theo nhóm câu hỏi
+Nhóm câu hỏi
+	N
+	Recall LightRAG
+	Recall Hybrid Parser
+	MRR LightRAG
+	MRR Hybrid Parser
+	Quyền và nghĩa vụ trực tiếp
+	8
+	0,7500
+	1,0000
+	0,4479
+	1,0000
+	Nhiều điều kiện
+	10
+	0,9000
+	0,9500
+	0,7200
+	0,9500
+	Ngoại lệ và điều cấm
+	7
+	0,7143
+	1,0000
+	0,5476
+	1,0000
+	Dẫn chiếu một bước
+	6
+	0,6667
+	0,7500
+	0,6806
+	0,7222
+	Dẫn chiếu nhiều bước
+	4
+	0,6458
+	0,7917
+	0,8125
+	0,8750
+	Phân biệt chủ thể
+	5
+	0,8000
+	0,8000
+	0,2500
+	0,6000
+	Tổng hợp cha-con
+	4
+	0,5000
+	1,0000
+	0,3750
+	0,8125
+	Tình huống pháp lý
+	3
+	0,6667
+	1,0000
+	0,4444
+	1,0000
+	Bảng 3.x. Recall@5 và MRR@5 theo từng nhóm câu hỏi
+Kết quả cho thấy Hybrid Parser/UKG đạt Recall@5 bằng 1,0000 ở bốn nhóm: quyền và nghĩa vụ trực tiếp, ngoại lệ và điều cấm, tổng hợp cha-con và tình huống pháp lý. Trong đó, nhóm tổng hợp cha-con có mức chênh lệch lớn nhất, với LightRAG đạt 0,5000. Kết quả phù hợp với giả thuyết rằng biểu diễn phân cấp tường minh hỗ trợ truy hồi các căn cứ liên quan ở nhiều cấp pháp lý.
+Ở nhóm nhiều điều kiện, Hybrid Parser/UKG đạt Recall@5 bằng 0,9500 so với 0,9000 của LightRAG. Tuy nhiên, mức cải thiện truy hồi này chưa đồng nghĩa với khả năng trình bày đầy đủ điều kiện trong câu trả lời, như kết quả Condition Coverage tại mục 3.7.
+Đối với các nhóm dẫn chiếu một bước và nhiều bước, Hybrid Parser/UKG có kết quả truy hồi cao hơn nhưng vẫn còn thiếu căn cứ. Riêng nhóm phân biệt chủ thể, hai hệ thống cùng đạt Recall@5 bằng 0,8000, dù Hybrid Parser/UKG có MRR@5 cao hơn. Như vậy, lợi thế truy hồi của Hybrid Parser/UKG có sự khác biệt giữa các nhóm câu hỏi.
+3.5. Đánh giá khả năng bảo toàn cấu trúc và truy nguyên bằng chứng
+3.5.1. Khả năng xác định vị trí pháp lý
+Exact Locator Recall@5 đánh giá mức độ trùng khớp giữa locator chuẩn trong nhãn vàng và các locator được ánh xạ từ năm đơn vị bằng chứng truy hồi đầu tiên.
+Chỉ số
+	LightRAG
+	Hybrid Parser/UKG
+	Exact Locator Recall@5
+	0,8509
+	0,5560
+	Số câu được chấm
+	47/47
+	39/47
+	Số câu chưa đo được
+	0
+	8
+	
+
+Bảng 3.x. Kết quả Exact Locator Recall@5
+Theo kết quả thực nghiệm, LightRAG đạt Exact Locator Recall@5 bằng 0,8509, cao hơn mức 0,5560 của Hybrid Parser/UKG. Tuy nhiên, hai hệ thống có sự khác biệt về đơn vị truy hồi: LightRAG sử dụng các chunk có thể bao phủ nhiều đơn vị pháp lý, trong khi Hybrid Parser/UKG truy hồi theo các node cấu trúc chi tiết. Bên cạnh đó, chỉ số này được tính trên 47 câu hỏi đối với LightRAG nhưng chỉ có 39 câu được ghi nhậFn kết quả ở Hybrid Parser/UKG. Do đó, sự chênh lệch chưa đủ cơ sở để kết luận LightRAG có khả năng định vị căn cứ pháp lý chính xác hơn.
+Trong kết quả thực nghiệm, mỗi chunk Top-5 của LightRAG được ánh xạ trung bình đến khoảng 14,92 locator pháp lý, trong khi mỗi đơn vị bằng chứng Top-5 của Hybrid Parser/UKG mang trung bình một locator. Vì vậy, một chunk bao phủ nhiều đơn vị pháp lý có thể đạt mức trùng khớp cao hơn mà không nhất thiết xác định chính xác từng Khoản hoặc Điểm.
+Ngoài ra, tám câu của Hybrid Parser/UKG chưa được ghi nhận kết quả đo, gồm B002, B006, B025, B027, B035, B039, B040 và B045. Các bản ghi mang trạng thái not_measured nhưng không cung cấp nguyên nhân cụ thể, nên không được quy đổi thành điểm 0.
+Do đó, Exact Locator Recall@5 trong cấu hình hiện tại chưa đủ cơ sở để kết luận hệ thống nào định vị pháp lý chính xác hơn ở cấp cấu trúc chi tiết. Khả năng thể hiện locator trong câu trả lời được đánh giá riêng qua Citation Precision và Recall tại mục 3.7.
+3.5.2. Mức độ đầy đủ của ngữ cảnh phân cấp
+Chỉ số
+	N
+	LightRAG
+	Hybrid Parser/UKG
+	Parent Context Coverage
+	32
+	N/A
+	0,8984
+	Child Evidence Coverage
+	37
+	N/A
+	0,7360
+	Bảng 3.x. Kết quả bao phủ ngữ cảnh phân cấp
+Hybrid Parser/UKG đạt Parent Context Coverage bằng 0,8984, cao hơn Child Evidence Coverage ở mức 0,7360. Kết quả cho thấy hệ thống có khả năng duy trì ngữ cảnh cấp cha tương đối tốt, nhưng chưa thu thập đầy đủ các đơn vị cấp con cần thiết.
+Hạn chế này có thể ảnh hưởng đến những câu hỏi yêu cầu tổng hợp điều kiện hoặc nghĩa vụ được quy định tại nhiều điểm trong cùng một khoản. Việc xác định đúng khoản mẹ chưa bảo đảm tất cả điểm con cần thiết đều có mặt trong bằng chứng.
+Các chỉ số phân cấp của LightRAG được ghi nhận N/A do adapter hiện tại chưa cung cấp dữ liệu tương ứng theo giao thức đánh giá. Hai chỉ số thành phần của Hybrid Parser/UKG được báo cáo trực tiếp; nghiên cứu chưa sử dụng điểm tổng hợp Hierarchical Context Completeness riêng.
+3.5.3. Sự khác biệt giữa truy hồi và mở rộng ngữ cảnh
+Giai đoạn
+	Kết quả
+	Anchor Recall@5
+	0,9184
+	Expanded Evidence Recall
+	0,9770
+	Generation-context Recall
+	0,9557
+	Bảng 3.x. Mức độ bao phủ bằng chứng qua các giai đoạn của Hybrid Parser/UKG
+Kết quả cho thấy mức độ bao phủ bằng chứng của Hybrid Parser/UKG tăng từ 0,9184 ở giai đoạn truy hồi ban đầu lên 0,9770 sau khi mở rộng ngữ cảnh. Tuy nhiên, chỉ số Generation-context Recall đạt 0,9557, thấp hơn 2,13 điểm phần trăm so với giai đoạn mở rộng.
+Sự chênh lệch phản ánh tác động của quá trình lựa chọn bằng chứng trước khi đưa vào mô hình sinh câu trả lời. Mặc dù cơ chế mở rộng giúp bổ sung các căn cứ liên quan, một phần bằng chứng không được giữ lại trong ngữ cảnh cuối cùng.
+Mặt khác, mức bao phủ bằng chứng cao chưa đồng nghĩa với việc câu trả lời trình bày đầy đủ các điều kiện pháp lý. Các chỉ số trên phản ánh khả năng thu thập và cung cấp căn cứ, nhưng chưa xác định trực tiếp mức độ sử dụng từng điều kiện trong quá trình sinh câu trả lời. Sự khác biệt này được thể hiện rõ hơn qua kết quả Condition Coverage tại mục 3.7.
+3.6. Đánh giá khả năng truy hồi dẫn chiếu chéo
+3.6.1. Kết quả trên nhóm câu hỏi dẫn chiếu
+Trên nhóm dẫn chiếu một bước (N = 6), Recall@5 của LightRAG và Hybrid Parser/UKG lần lượt đạt 0,6667 và 0,7500. Đối với nhóm dẫn chiếu nhiều bước (N = 4), hai hệ thống đạt tương ứng 0,6458 và 0,7917.
+Kết quả cho thấy Hybrid Parser/UKG có khả năng tìm kiếm căn cứ ở cấp Điều cao hơn trong hai nhóm này. Tuy nhiên, việc truy hồi được các Điều luật liên quan chưa chứng minh hệ thống có khả năng tái dựng chính xác đường dẫn giữa những căn cứ đó.
+3.6.2. Kết quả đánh giá chuỗi dẫn chiếu
+Các chỉ số đánh giá cấu trúc dẫn chiếu được tính trên 18 câu hỏi có chú giải đường dẫn trong bộ dữ liệu vàng, không chỉ giới hạn ở hai nhóm câu hỏi dẫn chiếu một bước và nhiều bước.
+Chỉ số
+	LightRAG
+	Hybrid Parser/UKG
+	Reference-target Recall
+	N/A
+	0,5867
+	Chain-step Precision
+	N/A
+	0,3241
+	Chain-step Recall
+	N/A
+	0,5080
+	Chain-step F1
+	N/A
+	0,3499
+	Edge-label Accuracy
+	N/A
+	0,7222
+	Chain Exact Match
+	N/A
+	0,0000
+	Bảng 3.x. Kết quả đánh giá chuỗi dẫn chiếu (N = 18)
+Hybrid Parser/UKG đạt Reference-target Recall bằng 0,5867, cho thấy khả năng xác định các đơn vị pháp lý đích trong chuỗi dẫn chiếu còn hạn chế. Chain-step Precision đạt 0,3241 và Recall đạt 0,5080, phản ánh mức độ sai lệch giữa các bước quan hệ được hệ thống xuất ra và nhãn vàng.
+Đáng chú ý, Chain Exact Match bằng 0 trên toàn bộ 18 câu hỏi. Khác với các chỉ số đánh giá từng bước quan hệ, Chain Exact Match yêu cầu tập đường dẫn dự đoán khớp hoàn toàn với một tập đường dẫn chuẩn được chấp nhận, bao gồm các đơn vị pháp lý, loại quan hệ, thứ tự liên kết và không xuất hiện bước dư. Vì vậy, việc truy hồi đúng một phần căn cứ hoặc quan hệ riêng lẻ vẫn không được tính là khớp hoàn toàn nếu chuỗi dẫn chiếu chưa đầy đủ.
+Kết quả này cho thấy Hybrid Parser/UKG hiện chưa đáp ứng yêu cầu tái dựng chuỗi dẫn chiếu hoàn chỉnh theo giao thức Benchmark B. Tuy nhiên, đây là hạn chế ở mức biểu diễn và truy nguyên đường dẫn, không đồng nghĩa mọi căn cứ truy hồi hoặc câu trả lời liên quan đến dẫn chiếu đều sai.
+Đối với LightRAG, adapter chưa xuất reference_paths theo giao thức đánh giá nên các chỉ số tương ứng được ghi nhận là N/A, không phải 0. Do đó, chưa có cơ sở so sánh trực tiếp khả năng tái dựng chuỗi dẫn chiếu hoàn chỉnh giữa hai hệ thống.
+3.6.3. Phân tích hạn chế tái dựng đường dẫn
+Phân tích dữ liệu đầu ra cho thấy Hybrid Parser/UKG xuất 47 đường dẫn dự đoán trên 18 câu hỏi đủ điều kiện, trong đó có 46 đường dẫn một bước và một đường dẫn hai bước. Phân bố này phản ánh hạn chế của cơ chế xây dựng đường dẫn hiện tại: hệ thống chủ yếu xuất các quan hệ riêng lẻ thay vì kết nối chúng thành chuỗi dẫn chiếu nhiều bước.
+Về mặt kiến trúc, hạn chế này có thể liên quan đến cơ chế AUTO_FUSION ưu tiên tập hợp bằng chứng phục vụ sinh câu trả lời, trong khi các cạnh dẫn chiếu tường minh và quan hệ phân cấp Điều-Khoản-Điểm chưa được tổ chức thống nhất thành đường dẫn có thứ tự. Đây là giả thuyết giải thích dựa trên đặc điểm triển khai, chưa phải nguyên nhân đã được xác nhận cho từng trường hợp.
+Sự khác biệt giữa truy hồi bằng chứng và tái dựng đường dẫn còn thể hiện qua Expanded Evidence Recall đạt 0,9770 và Generation-context Recall đạt 0,9557. Mặc dù phần lớn bằng chứng liên quan được thu thập và đưa vào ngữ cảnh, hệ thống vẫn chưa biểu diễn đầy đủ quan hệ liên kết giữa các căn cứ theo chuỗi chuẩn.
+Những kết quả này xác định việc hoàn thiện cơ chế xây dựng đường dẫn là một hướng cải tiến của Hybrid Parser/UKG. Các thử nghiệm thăm dò hiện có chưa thay thế được kết quả đánh giá đầy đủ trên 18 câu hỏi có chú giải chuỗi dẫn chiếu.
+3.7. Đánh giá chất lượng câu trả lời pháp lý
+3.7.1. Kết quả đánh giá nội dung
+Chất lượng câu trả lời được đánh giá tự động bằng GPT-4o-mini theo cùng bộ tiêu chí và dữ liệu vàng.
+
+
+Chỉ số
+	N
+	LightRAG
+	Hybrid Parser/UKG
+	Chênh lệch (đpt)
+	Legal Correctness
+	50
+	0,8210
+	0,8777
+	+5,67
+	Atomic Fact Coverage
+	47
+	0,8551
+	0,8686
+	+1,35
+	Condition Coverage
+	19
+	0,8421
+	0,7066
+	−13,55
+	Exception Coverage
+	14
+	0,3929
+	0,6786
+	+28,57
+	Subject-Scope Accuracy
+	18
+	0,7639
+	0,8889
+	+12,50
+	Bảng 3.x. Kết quả đánh giá chất lượng câu trả lời
+Hybrid Parser/UKG đạt Legal Correctness cao hơn LightRAG 5,67 điểm phần trăm, trong khi Atomic Fact Coverage chỉ tăng 1,35 điểm phần trăm. Điều này cho thấy mức cải thiện hiệu quả truy hồi không chuyển hóa tương ứng thành mức tăng lớn về tính đầy đủ của câu trả lời.
+Sự khác biệt rõ nhất xuất hiện ở Condition Coverage và Exception Coverage. Hybrid Parser/UKG đạt Exception Coverage bằng 0,6786, cao hơn LightRAG 28,57 điểm phần trăm. Ngược lại, Condition Coverage chỉ đạt 0,7066, thấp hơn LightRAG 13,55 điểm phần trăm.
+Đối với Subject-Scope Accuracy, Hybrid Parser/UKG đạt 0,8889 so với 0,7639 của LightRAG. Kết quả này phù hợp với giả thuyết rằng biểu diễn cấu trúc pháp lý hỗ trợ việc xác định phạm vi chủ thể, nhưng chưa đủ để kết luận hệ thống đã loại bỏ hoàn toàn các lỗi áp dụng sai đối tượng.
+3.7.2. Độ chính xác trích dẫn pháp lý
+Bảng 3.x. Citation Precision và Recall theo cấp pháp lý
+Cấp trích dẫn
+	Chỉ số
+	N
+	LightRAG
+	Hybrid Parser/UKG
+	Điều
+	Precision
+	47
+	0,3333
+	0,8369
+	Điều
+	Recall
+	47
+	0,2961
+	0,9078
+	Khoản
+	Precision
+	46
+	0,0435
+	0,7757
+	Khoản
+	Recall
+	46
+	0,0435
+	0,8170
+	Điểm
+	Precision
+	37
+	0,0270
+	0,6797
+	Điểm
+	Recall
+	37
+	0,0270
+	0,6374
+	Hybrid Parser/UKG đạt điểm trích dẫn cao hơn LightRAG ở cả ba cấp pháp lý. Khác biệt đặc biệt lớn ở cấp Khoản và Điểm, khi Citation Recall của Hybrid Parser/UKG lần lượt đạt 0,8170 và 0,6374, trong khi LightRAG chỉ đạt 0,0435 và 0,0270.
+Kết quả này phù hợp với thiết kế của Hybrid Parser/UKG, nơi các đơn vị Điều-Khoản-Điểm được nhận diện và liên kết với nguồn ngay từ giai đoạn phân tích tài liệu. Ngược lại, LightRAG có thể truy hồi nội dung liên quan nhưng không nhất thiết chuyển vị trí pháp lý chi tiết thành trích dẫn trong câu trả lời.
+Tuy nhiên, các chỉ số trên đo mức độ trùng khớp của locator được nhận diện trong câu trả lời với nhãn vàng. Chỉ số thấp không đồng nghĩa toàn bộ nội dung pháp lý được trình bày đều sai, vì sai lệch còn có thể bắt nguồn từ việc thiếu trích dẫn hoặc sử dụng định dạng locator chưa được bộ đánh giá nhận diện.
+3.7.3. Khoảng cách giữa truy hồi và sinh câu trả lời
+Mặc dù Hybrid Parser/UKG đạt Recall@5 bằng 0,9184 và Expanded Evidence Recall bằng 0,9770, Condition Coverage của hệ thống chỉ đạt 0,7066, thấp hơn LightRAG. Sự chênh lệch này thể hiện rõ ở một số câu hỏi yêu cầu tổng hợp nhiều điều kiện pháp lý.
+Mã câu
+	Nội dung đánh giá
+	LightRAG
+	Hybrid Parser/UKG
+	B009
+	Điều kiện chung để chuyển nhượng quyền sử dụng đất
+	1,0000
+	0,3000
+	B010
+	Nội dung bắt buộc của phương án sử dụng đất nông nghiệp
+	1,0000
+	0,1667
+	B012
+	Điều kiện bán tài sản gắn liền với đất và quyền thuê trong hợp đồng
+	1,0000
+	0,1250
+	Bảng 3.x. Một số trường hợp chênh lệch Condition Coverage giữa hai hệ thống
+Tại B009, câu hỏi yêu cầu xác định đầy đủ các điều kiện chung để chuyển nhượng quyền sử dụng đất theo khoản 1 Điều 45 Luật Đất đai 2024. Trong khi LightRAG được đánh giá đạt mức bao phủ đầy đủ, Hybrid Parser/UKG chủ yếu trình bày điều kiện về giấy chứng nhận và tình trạng tranh chấp, chưa bao quát đầy đủ những yêu cầu còn lại.
+Đối với B010, câu hỏi yêu cầu liệt kê các nội dung chính của phương án sử dụng đất nông nghiệp theo khoản 6 Điều 45, bao gồm địa điểm, diện tích, mục đích sử dụng, kế hoạch sản xuất kinh doanh, vốn đầu tư, thời hạn và tiến độ sử dụng đất. Tuy nhiên, Hybrid Parser/UKG chỉ nêu được nội dung về kế hoạch sản xuất, kinh doanh nông nghiệp và cho rằng những thông tin khác không được cung cấp đầy đủ trong ngữ cảnh. Kết quả Condition Coverage vì vậy chỉ đạt 0,1667.
+Tại B012, câu hỏi liên quan đến các điều kiện bán tài sản gắn liền với đất và quyền thuê trong hợp đồng theo Điều 46. Hybrid Parser/UKG có đề cập một số quy định liên quan nhưng chưa tổng hợp chính xác, đầy đủ các điều kiện và ngoại lệ bắt buộc theo nhãn vàng, dẫn đến Condition Coverage đạt 0,1250.
+Phân tích dữ liệu cho thấy toàn bộ bằng chứng ứng viên tại bước lựa chọn ngữ cảnh cuối của Hybrid Parser/UKG đều được đưa vào mô hình sinh trong cả ba trường hợp. Do đó, việc cắt giảm bằng chứng tại bước này chưa giải thích được mức độ thiếu hụt điều kiện. Sai lệch có thể xuất phát từ việc tập bằng chứng ban đầu chưa đầy đủ hoặc mô hình sinh chưa khai thác hiệu quả những thông tin được cung cấp.
+Kết quả cho thấy lợi thế về truy hồi bằng chứng của Hybrid Parser/UKG chưa chuyển hóa tương ứng thành khả năng tổng hợp đầy đủ các điều kiện pháp lý. Đây là hạn chế của pipeline hiện tại, đặc biệt đối với những câu hỏi yêu cầu kết hợp nhiều quy định và ràng buộc đồng thời.
+3.8. Đánh giá tính an toàn và giới hạn của hệ thống
+3.8.1. Kết quả đánh giá an toàn
+Chỉ số
+	N
+	LightRAG
+	Hybrid Parser/UKG
+	Abstention Accuracy
+	3
+	1,0000
+	1,0000
+	Refusal Quality
+	3
+	1,0000
+	1,0000
+	Unsupported-Claim Rate ↓
+	50
+	0,1240
+	0,0807
+	Forbidden-Claim Rate ↓
+	7
+	0,4286
+	0,4286
+	Bảng 3.x. Kết quả đánh giá an toàn
+Ghi chú: Các chỉ số có ký hiệu ↓ càng thấp càng tốt.
+Đối với ba câu hỏi thiếu căn cứ trong corpus, cả hai hệ thống đều đạt Abstention Accuracy và Refusal Quality bằng 1,0000. Điều này cho thấy hai hệ thống xử lý phù hợp các trường hợp từ chối được thiết kế trong Benchmark B. Tuy nhiên, tập kiểm thử chỉ gồm ba câu, nên chưa đủ để khẳng định khả năng từ chối trả lời ổn định trong thực tế.
+Unsupported-Claim Rate của Hybrid Parser/UKG đạt 0,0807, thấp hơn LightRAG ở mức 0,1240. Theo đánh giá tự động, Hybrid Parser/UKG có ít khẳng định không được hỗ trợ hơn. Dù vậy, đây là điểm số do LLM Judge tạo ra, không phải tỷ lệ lỗi được chuyên gia pháp luật xác nhận độc lập.
+3.8.2. Phân tích khẳng định pháp lý không được phép
+Forbidden-Claim Rate của cả hai hệ thống đều bằng 0,4286 trên bảy câu hỏi có chú giải tương ứng. Khi đối chiếu kết quả theo từng câu hỏi, Judge đánh dấu cùng ba câu B025, B036 và B041 ở cả LightRAG và Hybrid Parser/UKG.
+Tuy nhiên, việc xem xét bằng chứng trích dẫn của Judge cho thấy một số trường hợp cần được kiểm tra thêm về ngữ nghĩa. Chẳng hạn, tại B036, câu trả lời Hybrid Parser/UKG có phát biểu phủ định về quyền thế chấp quyền sử dụng đất nhưng vẫn bị gắn nhãn forbidden claim. Việc trích xuất được đoạn văn xuất hiện trong câu trả lời chưa đủ để xác nhận đoạn đó thực sự thể hiện một khẳng định bị cấm theo nhãn vàng.
+Vì vậy, giá trị 0,4286 được giữ nguyên như kết quả đánh giá tự động, không diễn giải thành tỷ lệ vi phạm pháp lý đã được xác nhận. Kết quả đồng thời cho thấy Hybrid Parser/UKG chưa ghi nhận được mức cải thiện về Forbidden-Claim Rate so với LightRAG theo giao thức Judge hiện tại.
+3.8.3. Độ tin cậy và giới hạn của phương pháp đánh giá
+Các chỉ số nội dung và an toàn được đánh giá tự động bằng GPT-4o-mini dựa trên bộ tiêu chí và dữ liệu vàng. Trong khi đó, các chỉ số truy hồi, định vị căn cứ pháp lý, cấu trúc phân cấp và dẫn chiếu được tính toán bằng bộ đánh giá dựa trên quy tắc.
+Hệ thống thực hiện kiểm tra tính hợp lệ của cấu trúc JSON, miền giá trị và sự hiện diện của các đoạn bằng chứng do Judge trích xuất. Tuy nhiên, cơ chế kiểm tra này chủ yếu bảo đảm tính hợp lệ của dữ liệu đầu ra, chưa xác nhận được tính chính xác về mặt ngữ nghĩa của mọi quyết định đánh giá.
+Bên cạnh đó, việc sử dụng cùng mô hình GPT-4o-mini cho quá trình sinh câu trả lời và đánh giá có thể dẫn đến những thiên lệch tương đồng, làm giảm tính độc lập của kết quả chấm điểm. Các lượt thực nghiệm hiện tại cũng chưa bao gồm quy trình kiểm chứng thủ công độc lập trên toàn bộ câu trả lời.
+Do đó, các kết quả được trình bày phản ánh hiệu quả của hai hệ thống theo bộ dữ liệu và phương pháp đánh giá tự động đã xác định, không tương đương với kết quả thẩm định pháp lý độc lập của chuyên gia.
+3.8.4. Nhận xét tổng hợp
+Kết quả Benchmark B cho thấy Hybrid Parser/UKG đạt điểm cao hơn LightRAG về truy hồi cấp Điều, thứ hạng căn cứ và khả năng thể hiện trích dẫn pháp lý chi tiết trong câu trả lời. Hệ thống cũng có kết quả tích cực về bao phủ ngoại lệ và xác định phạm vi chủ thể. Tuy nhiên, Exact Locator Recall@5 hiện chưa tạo thành một phép so sánh ngang bằng về độ chính xác định vị do khác biệt độ hạt bằng chứng và số câu được chấm.
+Bên cạnh những kết quả tích cực, Hybrid Parser/UKG vẫn có ba hạn chế chính. Thứ nhất, Condition Coverage thấp hơn LightRAG, cho thấy việc thu thập được căn cứ chưa bảo đảm trình bày đầy đủ điều kiện pháp lý. Thứ hai, Forbidden-Claim Rate chưa cải thiện theo kết quả Judge tự động, đồng thời một số trường hợp gắn nhãn cần được xác minh thêm. Thứ ba, khả năng tái dựng chuỗi dẫn chiếu hoàn chỉnh vẫn là hạn chế rõ rệt của Hybrid Parser/UKG hiện tại, với Chain Exact Match bằng 0 trên 18 câu đủ điều kiện.
+Nhìn chung, đóng góp được chứng minh rõ nhất của Hybrid Parser/UKG nằm ở hiệu quả truy hồi cấp Điều và khả năng thể hiện căn cứ pháp lý có cấu trúc trong câu trả lời. Những hạn chế về độ đầy đủ của điều kiện, độ tin cậy của các khẳng định pháp lý và tái dựng đường dẫn dẫn chiếu là cơ sở để tiếp tục hoàn thiện hệ thống.
+
+
+#tài liệu cite của thằng béo: 
+
+
+TÀI LIỆU THAM KHẢO
+Danh mục tài liệu tham khảo chung cho phần Mở đầu và Chương 1, được sắp xếp theo thứ tự bảng chữ cái của họ tác giả đầu tiên hoặc tên cơ quan ban hành. Các số trích dẫn được sử dụng thống nhất trong cả hai phần.
+[1] I. Chalkidis, M. Fergadiotis, P. Malakasiotis, N. Aletras, and I. Androutsopoulos, “LEGAL-BERT: The Muppets straight out of Law School,” in Findings of the Association for Computational Linguistics: EMNLP 2020, 2020, pp. 2898-2904, doi: 10.18653/v1/2020.findings-emnlp.261.
+[2] J. Chen, S. Xiao, P. Zhang, K. Luo, D. Lian, and Z. Liu, “M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation,” in Findings of the Association for Computational Linguistics: ACL 2024, 2024, pp. 2318-2335, doi: 10.18653/v1/2024.findings-acl.137.
+[3] Chính phủ, Nghị định số 78/2025/NĐ-CP ngày 01 tháng 4 năm 2025 quy định chi tiết một số điều và biện pháp để tổ chức, hướng dẫn thi hành Luật Ban hành văn bản quy phạm pháp luật, Điều 63, khoản 1, 2025. [Trực tuyến]. Địa chỉ: https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/4/78ndcp-1.signed.pdf
+[4] G. V. Cormack, C. L. A. Clarke, and S. Büttcher, “Reciprocal rank fusion outperforms condorcet and individual rank learning methods,” in Proc. 32nd Int. ACM SIGIR Conf. Research and Development in Information Retrieval, 2009, pp. 758-759, doi: 10.1145/1571941.1572114.
+[5] D. Edge et al., “From Local to Global: A Graph RAG Approach to Query-Focused Summarization,” arXiv:2404.16130, 2024. [Online]. Available: https://arxiv.org/abs/2404.16130.
+[6] S. Es, J. James, L. Espinosa Anke, and S. Schockaert, “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” in Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, 2024, pp. 150-158, doi: 10.18653/v1/2024.eacl-demo.16.
+[7] Y. Gao et al., “Retrieval-Augmented Generation for Large Language Models: A Survey,” arXiv:2312.10997, 2023. [Online]. Available: https://arxiv.org/abs/2312.10997.
+[8] T. R. Gruber, “Toward principles for the design of ontologies used for knowledge sharing,” International Journal of Human-Computer Studies, vol. 43, no. 5-6, pp. 907-928, 1995.
+[9] N. Guha et al., “LegalBench: A Collaboratively Built Benchmark for Measuring Legal Reasoning in Large Language Models,” in Advances in Neural Information Processing Systems, vol. 36, 2023, pp. 44123-44279.
+[10] Z. Guo, L. Xia, Y. Yu, T. Ao, and C. Huang, “LightRAG: Simple and Fast Retrieval-Augmented Generation,” in Findings of the Association for Computational Linguistics: EMNLP 2025, 2025, pp. 10746-10761, doi: 10.18653/v1/2025.findings-emnlp.568.
+[11] A. Hogan et al., “Knowledge Graphs,” ACM Computing Surveys, vol. 54, no. 4, Art. no. 71, 2021, doi: 10.1145/3447772.
+[12] H. L. Huy, K. T. Tung, and L. T. M. Hanh, “A Practical Approach to Building Legal Knowledge Graphs from Legal Texts for Legal Consultation Systems,” The University of Danang-Journal of Science and Technology, vol. 23, no. 12, pp. 60-66, 2025, doi: 10.31130/ud-jst.2025.23(12).465E.
+[13] V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” in Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing, 2020, pp. 6769-6781, doi: 10.18653/v1/2020.emnlp-main.550.
+[14] H. H. Le, D. V. Dang, D. Nguyen, D. Dinh, H. Q. Ngo, and H. D. Nguyen, “Three-Tier Knowledge Graph RAG for Legal Question Answering,” in New Trends in Intelligent Software Methodologies, Tools and Techniques, Frontiers in Artificial Intelligence and Applications, 2026, doi: 10.3233/FAIA260735.
+[15] P. Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,” in Advances in Neural Information Processing Systems, vol. 33, 2020, pp. 9459-9474.
+[16] N. F. Liu, K. Lin, J. Hewitt, A. Paranjape, M. Bevilacqua, F. Petroni, and P. Liang, “Lost in the Middle: How Language Models Use Long Contexts,” Transactions of the Association for Computational Linguistics, vol. 12, pp. 157-173, 2024, doi: 10.1162/tacl_a_00638.
+[17] V. Magesh, F. Surani, M. Dahl, M. Suzgun, C. D. Manning, and D. E. Ho, “Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools,” Journal of Empirical Legal Studies, vol. 22, no. 2, pp. 216-242, 2025, doi: 10.1111/jels.12413.
+[18] Y. A. Malkov and D. A. Yashunin, “Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs,” IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 42, no. 4, pp. 824-836, 2020, doi: 10.1109/TPAMI.2018.2889473.
+[19] R. Nogueira and K. Cho, “Passage Re-ranking with BERT,” arXiv:1901.04085, 2019. [Online]. Available: https://arxiv.org/abs/1901.04085.
+[20] K. Phan, X.-B. Le, and T. Quan, “SBV-LawGraph: A Hybrid RAG Approach Integrating Knowledge Graph for the State Bank of Vietnam Legal Documents,” in Proceedings of ACIIDS 2026, Lecture Notes in Computer Science, vol. 16530, Springer, 2026, pp. 235-250.
+[21] N. Pipitone and G. Houir Alami, “LegalBench-RAG: A Benchmark for Retrieval-Augmented Generation in the Legal Domain,” arXiv:2408.10343, 2024. [Online]. Available: https://arxiv.org/abs/2408.10343.
+[22] Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam, Luật Đất đai, Luật số 31/2024/QH15, ngày 18 tháng 01 năm 2024. [Trực tuyến]. Địa chỉ: https://vanban.chinhphu.vn/?classid=1&docid=211189&orggroupid=1&pageid=27160.
+[23] Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam, Luật Ban hành văn bản quy phạm pháp luật, Luật số 64/2025/QH15, ngày 19 tháng 02 năm 2025. [Trực tuyến]. Địa chỉ: https://vanban.chinhphu.vn/?docid=213327&pageid=27160.
+[24] S. Robertson and H. Zaragoza, “The Probabilistic Relevance Framework: BM25 and Beyond,” Foundations and Trends in Information Retrieval, vol. 3, no. 4, pp. 333-389, 2009.
+[25] P. Sarthi, S. Abdullah, A. Tuli, S. Khanna, A. Goldie, and C. D. Manning, “RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval,” in International Conference on Learning Representations, 2024.
+[26] D. X. Tran, T. D. Truong, and K. C. Nguyen, “ViDRILL: A Multi-Stage Retrieval Framework for Vietnamese Legal Document Search,” in Proceedings of the 11th International Workshop on Vietnamese Language and Speech Processing, 2025, pp. 120-126.
+[27] L. Wang, N. Yang, X. Huang, L. Yang, R. Majumder, and F. Wei, “Multilingual E5 Text Embeddings: A Technical Report,” arXiv:2402.05672, 2024. [Online]. Available: https://arxiv.org/abs/2402.05672.
+[28] X. Zhang et al., “mGTE: Generalized Long-Context Text Representation and Reranking Models for Multilingual Text Retrieval,” in Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing: Industry Track, 2024, pp. 1393-1412, doi: 10.18653/v1/2024.emnlp-industry.103.
+[29] L. Zheng et al., “Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena,” in Advances in Neural Information Processing Systems, vol. 36, 2023.
+
+
+
+
+
+
+
+
+[a]xem xét lại việc viết đoạn này
+[b]Sửa lại
+[c]thằng béo sửa giai đoạn 2
+[d]tạo lại ảnh này theo giai đoạn 2
+[e]thằng béo sửa lại data
+[f]sửa
+[g]tốt nhất là viết lại cái này, giữ lại Đối với Benchmark B, hai hệ thống được thống nhất về corpus, 50 câu hỏi vàng, giới hạn top k = 5 ở tầng benchmark, ngân sách ngữ cảnh tối đa khoảng 10.000 token, quy tắc ánh xạ locator và bộ đánh giá. Các nhãn ground truth chỉ được sử dụng sau khi hệ thống hoàn thành truy hồi và sinh câu trả lời, không được cung cấp cho pipeline trong quá trình xử lý truy vấn.
+[h]khả năng t phải viết lại đoạn này
