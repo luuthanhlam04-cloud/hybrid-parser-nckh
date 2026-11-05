@@ -42,6 +42,7 @@ from src.ontology.schemas import (
     CanonicalSemanticGraph,
     LocalMention,
     NormAssertion,
+    NormStatus,
     RelationType,
     SemanticEdge,
     SemanticType,
@@ -103,7 +104,6 @@ class OntologyValidator:
             CanonicalSemanticGraph đã được annotate với validation_report
         """
         report = ValidationReport()
-        mention_by_id: Dict[str, LocalMention] = {n.id: n for n in graph.active_nodes}
         norm_ids: Set[str] = {n.id for n in graph.norms}
         concept_ids: Set[str] = {c.id for c in graph.concepts}
 
@@ -135,6 +135,9 @@ class OntologyValidator:
                 graph.quarantine.mentions.append(q_dict)
         
         graph.active_nodes = active_nodes_filtered
+        # Gate 2 chỉ được nhìn thấy mention còn active. Dùng map trước khi lọc
+        # sẽ làm edge tới mention quarantine lọt qua và tạo endpoint treo.
+        mention_by_id: Dict[str, LocalMention] = {n.id: n for n in graph.active_nodes}
 
         for norm in graph.norms:
             if getattr(norm, "subject_status", "RESOLVED") == "RESOLVED":
@@ -257,8 +260,15 @@ class OntologyValidator:
                 is_valid_source = True
 
             if not is_valid_source:
+                reason_code = {
+                    RelationType.HAS_CONDITION: "UNATTACHED_CONDITION",
+                    RelationType.HAS_EXCEPTION: "UNATTACHED_EXCEPTION",
+                    RelationType.HAS_CONSEQUENCE: "UNATTACHED_CONSEQUENCE",
+                    RelationType.HAS_SUBJECT: "UNATTACHED_SUBJECT",
+                    RelationType.HAS_ACTION: "UNATTACHED_ACTION",
+                }.get(rel, "INVALID_NORM_ATTACHMENT")
                 return False, (
-                    f"{rel.value} source '{edge.source_id}' phải là NormAssertion "
+                    f"{reason_code}: {rel.value} source '{edge.source_id}' phải là NormAssertion "
                     f"(hoặc Exception đệ quy). Vi phạm Invariant I1."
                 )
 
@@ -277,14 +287,29 @@ class OntologyValidator:
         if rel == RelationType.HAS_OBJECT:
             source = mention_by_id.get(edge.source_id)
             target = mention_by_id.get(edge.target_id)
+            if edge.source_id in norm_ids:
+                if target is None:
+                    return False, f"MISSING_ENDPOINT: HAS_OBJECT target '{edge.target_id}' không tồn tại"
+                if target.semantic_type != SemanticType.LEGAL_OBJECT:
+                    return False, (
+                        f"HAS_OBJECT target '{edge.target_id}' có type '{target.semantic_type}' "
+                        f"nhưng phải là LegalObject."
+                    )
+                return True, ""
+
+            if source is None:
+                return False, f"MISSING_ENDPOINT: HAS_OBJECT source '{edge.source_id}' không tồn tại"
+            if target is None:
+                return False, f"MISSING_ENDPOINT: HAS_OBJECT target '{edge.target_id}' không tồn tại"
+
             # Source là NormAssertion → đã xử lý ở trên
             # Source là LegalAction → cũng hợp lệ (simple norm)
-            if source is not None and source.semantic_type != SemanticType.LEGAL_ACTION:
+            if source.semantic_type != SemanticType.LEGAL_ACTION:
                 return False, (
                     f"HAS_OBJECT source '{edge.source_id}' có type '{source.semantic_type}' "
                     f"nhưng phải là LegalAction hoặc NormAssertion."
                 )
-            if target is not None and target.semantic_type != SemanticType.LEGAL_OBJECT:
+            if target.semantic_type != SemanticType.LEGAL_OBJECT:
                 return False, (
                     f"HAS_OBJECT target '{edge.target_id}' có type '{target.semantic_type}' "
                     f"nhưng phải là LegalObject."

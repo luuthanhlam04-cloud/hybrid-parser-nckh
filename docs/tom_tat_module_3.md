@@ -117,6 +117,11 @@ Khi Physical Pipeline đã đóng băng (Frozen), bài toán chuyển từ "Bóc
 
 Sau khi trực tiếp "soi" 2 file output `validated_nodes.json` và `validation_report.json`, hệ thống bộc lộ những điểm sáng học thuật đáng giá sau:
 
+- **Số liệu Audit mới nhất (Bản 223 nodes):**
+  - `"total_nodes_received": 223`, `"total_nodes_validated": 223`.
+  - `"structural_integrity_score": 100.0%`.
+  - Số lỗi nghiêm trọng (Fatal Errors): 0; Cảnh báo (Warnings): 0 (toàn bộ 223/223 node pass 100% cả Schema, Integrity lẫn Sequence check).
+
 **1. File `validation_report.json` (Báo cáo Y khoa của Đồ thị):**
 - Báo cáo ghi nhận chính xác `"total_nodes_received": 222` và `"total_nodes_validated": 222`, cùng với điểm `"structural_integrity_score": 100.0`.
 - Đây là **minh chứng bằng số liệu (Empirical Evidence)** cho thấy 100% các node đi qua cửa kiểm duyệt đều "sống sót", không có một Node nào bị cách ly (Quarantine). Điều này một lần nữa vinh danh kiến trúc thuật toán *Hybrid ID* và *Stack-based* ở Module 2 đã làm quá tốt nhiệm vụ xây cây (Tree building), không tạo ra bất kỳ rác cấu trúc (Orphan, Broken Parent) nào.

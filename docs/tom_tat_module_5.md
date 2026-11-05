@@ -65,9 +65,12 @@ Trong quá trình benchmark trên Kaggle, hệ thống vô tình tải mô hình
 
 Sau khi trực tiếp kiểm tra file output `outputs/candidate_nodes/routing_candidates.json` chạy với chiến lược **Max-Fusion (EXP-C) và Fixed Threshold 0.85**:
 
-**1. Khả năng Tối ưu Cost (Reduction Rate):**
-- Trong tổng số `222 nodes` nhận từ Module 4, hệ thống đã duyệt và chỉ định **179 nodes làm Candidate** (nhãn `LLM_CANDIDATE`). Phần còn lại được gắn nhãn `REJECT` (không đủ ngữ nghĩa) hoặc `RULE_ONLY` (các tiêu đề cấu trúc).
-- Hệ thống đã thành công tiết kiệm khoảng **20% gánh nặng Token & Chi phí API** cho hệ thống LLM ở Module 6, đồng thời tự tin giữ mức Recall tiệm cận tuyệt đối trên các cấu trúc có chứa điều kiện, ngoại lệ.
+**1. Khả năng Tối ưu Cost (Reduction Rate - Cập nhật trên 223 Nodes):**
+- Trong tổng số **223 nodes** nhận từ Module 4, hệ thống duyệt và chỉ định **180 nodes làm Candidate** (nhãn `LLM_CANDIDATE`, tương đương 80.7%). 
+- 43 nodes còn lại gồm **6 nodes `RULE_ONLY`** (tiêu đề phân cấp như Chương, Mục) và **37 nodes `REJECT`** (các đoạn văn bản ngắn hoặc không mang cấu trúc quy phạm phức tạp).
+- Hệ thống đã thành công tiết kiệm gần **20% gánh nặng Token & Chi phí API** cho bước trích xuất bằng LLM ở Module 6, trong khi vẫn bảo đảm độ phủ Recall tiệm cận tuyệt đối trên các cấu trúc pháp lý có điều kiện, ngoại lệ.
+
+*(Ghi chú: Bản build trước đó trên 222 nodes ghi nhận 179 LLM_CANDIDATE và 43 non-candidates).*
 
 **2. Bảo toàn Cấu trúc (Immutable Graph):**
-Việc một Node nhận nhãn `REJECT` hoàn toàn KHÔNG có nghĩa là Node đó bị xóa khỏi đồ thị vật lý. Toàn bộ 222 Node vẫn nằm nguyên trên Database. `routing_candidates.json` thực chất chỉ là một "Bản đồ Dẫn đường", nói cho Module 6 biết: *"Đừng đọc những node này, hãy tập trung vào 179 node kia"*. Nhờ vậy, RAG sau này vẫn có thể truy vấn lại các văn bản gốc nếu cần.
+Việc một Node nhận nhãn `REJECT` hoàn toàn KHÔNG có nghĩa là Node đó bị xóa khỏi đồ thị vật lý. Toàn bộ 223 Node vẫn nằm nguyên trên Database. `routing_candidates.json` thực chất chỉ là một "Bản đồ Dẫn đường", nói cho Module 6 biết: *"Đừng đọc những node này, hãy tập trung vào 180 node kia"*. Nhờ vậy, RAG sau này vẫn có thể truy vấn lại các văn bản gốc nếu cần.

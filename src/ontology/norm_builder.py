@@ -153,12 +153,23 @@ class NormBuilder:
                 normalized_relations=normalized_relations,
             )
 
-            is_unresolved = any(getattr(rel, "source_status", "RESOLVED") == "UNRESOLVED" for rel in normalized_relations)
+            normative_types = {
+                RelationType.ALLOW,
+                RelationType.REQUIRE,
+                RelationType.PROHIBIT,
+            }
+            is_unresolved = any(
+                rel.relation_type in normative_types
+                and rel.source_mention_id is None
+                and getattr(rel, "source_status", "RESOLVED") == "UNRESOLVED"
+                for rel in normalized_relations
+            )
+            subject_ids = [] if is_unresolved else [m.id for m in subjects]
             norm = NormAssertion(
                 id=norm_id,
                 modality=modality,
-                subject_ids=[m.id for m in subjects] if not is_unresolved else [],
-                subject_status="UNRESOLVED" if is_unresolved or not subjects else "RESOLVED",
+                subject_ids=subject_ids,
+                subject_status="UNRESOLVED" if not subject_ids else "RESOLVED",
                 action_ids=[m.id for m in actions],
                 object_ids=[m.id for m in objects],
                 condition_ids=[m.id for m in conditions],
@@ -169,6 +180,7 @@ class NormBuilder:
                 evidence=self._collect_evidence(mentions),
                 rule_id="RULE_NORM_COMPLEX",
                 status=NormStatus.VALID,
+                norm_completeness="PARTIAL" if not subject_ids else "COMPLETE",
             )
             norms.append(norm)
 
@@ -343,5 +355,6 @@ class NormBuilder:
 
     def _collect_evidence(self, mentions: List[LocalMention]) -> str:
         """Thu thập evidence tổng hợp từ danh sách mentions."""
-        evidences = list({m.evidence for m in mentions if m.evidence})
+        # Giữ thứ tự xuất hiện để output deterministic giữa các lần chạy.
+        evidences = list(dict.fromkeys(m.evidence for m in mentions if m.evidence))
         return " | ".join(evidences[:3]) if evidences else ""

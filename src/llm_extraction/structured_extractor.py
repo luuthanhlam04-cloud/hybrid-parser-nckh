@@ -17,26 +17,40 @@ from src.llm_extraction.retry_controller import safe_retry_extractor
 logger = logging.getLogger(__name__)
 
 class StructuredExtractor:
-    def __init__(self, candidates_path: str, physical_graph_path: str):
+    def __init__(self, candidates_path: str, physical_graph_path: str, event_log=None):
         self.candidates_path = Path(candidates_path)
         self.physical_graph_path = Path(physical_graph_path)
         
-        # Nạp biến môi trường từ .env
-        load_dotenv()
-        api_key = os.getenv("OPENROUTER_API_KEY")
+        # Nạp .env từ thư mục gốc dự án để không phụ thuộc thư mục chạy lệnh.
+        project_root = Path(__file__).resolve().parents[2]
+        load_dotenv(dotenv_path=project_root / ".env")
+
+        # Tương thích cả tên biến chuyên biệt cho OpenRouter và tên biến chung
+        # đang được khai báo trong .env.example.
+        api_key = os.getenv("OPENROUTER_HYBRID_BENCHMARK_KEY") or os.getenv("OPENROUTER_API_KEY") or os.getenv("LLM_API_KEY")
         if not api_key:
-            raise ValueError("OPENROUTER_API_KEY không được tìm thấy trong file .env")
+            raise ValueError(
+                "OPENROUTER_API_KEY hoặc LLM_API_KEY không được tìm thấy trong file .env"
+            )
             
         # Khởi tạo client OpenAI và trỏ Base URL tới OpenRouter
         # Dùng instructor để bọc client
+        self.metered_transport = None
+        client_options = {}
+        if event_log is not None:
+            import httpx
+            from benchmark_b.transport import MeteredTransport
+            self.metered_transport = MeteredTransport(event_log)
+            client_options['http_client'] = httpx.Client(transport=self.metered_transport)
         self.client = instructor.from_openai(
             openai.OpenAI(
                 base_url="https://openrouter.ai/api/v1",
                 api_key=api_key,
+                **client_options,
             ),
             mode=instructor.Mode.JSON
         )
-        self.model_name = "openai/gpt-4o"
+        self.model_name = os.getenv("LLM_MODEL", "openai/gpt-4o-mini")
         
         self.candidates = self._load_json(self.candidates_path)
         self.physical_graph = self._load_json(self.physical_graph_path)
@@ -56,6 +70,8 @@ class StructuredExtractor:
         Tự động retry 3 lần và fail-safe fallback về SemanticExtraction rỗng nếu lỗi.
         """
         prompt = self.prompt_builder.build_prompt(node_id)
+        if self.metered_transport is not None:
+            self.metered_transport.node_id = node_id
         
         response = self.client.chat.completions.create(
             model=self.model_name,

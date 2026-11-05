@@ -57,10 +57,14 @@ graph TD
 
 Sau khi kiểm tra file `physical_graph.json`, kết quả đầu ra cho thấy sự thành công rực rỡ của toàn bộ Physical Pipeline (M1 $\rightarrow$ M2 $\rightarrow$ M3 $\rightarrow$ M4):
 
-**1. Mật độ Đồ thị chuẩn mực (Graph Density):**
-- Hệ thống nhận `222 nodes` và sinh ra chính xác `551 edges`.
-- Chi tiết: `221 cạnh BELONG_TO` (Tất cả node con đều hướng về cha), `165 cạnh NEXT` và `165 cạnh PREVIOUS` (cho các anh em hàng ngang). 
-- **Tỉ lệ Edges/Nodes $\approx 2.48$**. Đây là một mật độ Vàng (Golden Ratio) cho một đồ thị phân cấp 5 tầng (Chương $\rightarrow$ Mục $\rightarrow$ Điều $\rightarrow$ Khoản $\rightarrow$ Điểm), vừa đủ sâu sắc để truy vấn, vừa không quá cồng kềnh.
+**1. Mật độ Đồ thị chuẩn mực (Graph Density - Cập nhật bản 223 Nodes):**
+- Hệ thống tiếp nhận **223 nodes** từ `validated_nodes.json` và sinh ra chính xác **554 edges**.
+- Chi tiết cấu trúc cạnh:
+  - **222 cạnh `BELONG_TO`** (toàn bộ 222 node con/cháu đều liên kết đúng về node cha tương ứng).
+  - **166 cạnh `NEXT`** và **166 cạnh `PREVIOUS`** (liên kết tuần tự giữa các node anh em cùng cha).
+- **Tỉ lệ Edges/Nodes $\approx 2.48$**. Mật độ này phản ánh cấu trúc phân cấp chuẩn mực 5 tầng (Chương $\rightarrow$ Mục $\rightarrow$ Điều $\rightarrow$ Khoản $\rightarrow$ Điểm) kết hợp với đường liên kết ngang phản ánh dòng đọc tự nhiên (Reading Flow).
+
+*(Ghi chú: Ở các bản build trước đó với 222 nodes, đồ thị ghi nhận 551 cạnh gồm 221 BELONG_TO, 165 NEXT, 165 PREVIOUS).*
 
 **2. Sẵn sàng 100% cho Database (Neo4j Readiness):**
 Cấu trúc JSON sinh ra:

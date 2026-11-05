@@ -63,28 +63,30 @@ graph TD
 
 ## 5. Những Gì Module 6 Đã Làm Được (Key Achievements)
 
-Trải qua quá trình thực thi trên toàn bộ **179 Candidate Nodes** của Chương III Luật Đất đai 2024, Module 6 đã đạt được những kết quả ấn tượng:
+Trải qua quá trình thực thi trên toàn bộ **180 Candidate Nodes** (tương ứng với file `semantic_extraction.json` hiện hành) của Chương III Luật Đất đai 2024, Module 6 đã đạt được những kết quả ấn tượng:
 
 ```mermaid
 graph LR
-    A[179 LLM Candidates từ M5] --> B[Module 6: gpt-4o-mini + Instructor]
-    B --> C[916 Thực thể Pháp lý - 8 Types]
-    B --> D[782 Quan hệ Quy phạm - 7 Types]
+    A[180 LLM Candidates từ M5] --> B[Module 6: gpt-4o-mini + Instructor]
+    B --> C[955 Thực thể Pháp lý - 6 Types]
+    B --> D[829 Quan hệ Quy phạm - 7 Types]
     C --> E[QA Evaluator: 96.5/100 PASS]
     D --> E
 ```
 
-### 📊 Bảng So Sánh Chỉ Số Chất Lượng (Cập nhật từ Kết quả Kiểm định V8)
+### 📊 Bảng So Sánh Chỉ Số Chất Lượng (Cập nhật từ Kết quả Kiểm định V8 & File Hiện Hành)
 
-| Chỉ Số Đánh Giá | Bản Cũ (Baseline) | Bản Chuẩn Hóa V8 (NORM) | Bước Nhảy Đạt Được |
-| :--- | :---: | :---: | :--- |
-| **Tổng số candidate xử lý** | 117 nodes | **179 nodes** | Hoàn tất 100%, 0 crash |
-| **Tổng số thực thể (Entities)** | 356 | **916** | Tăng vọt nhờ bóc tách nguyên tử (Atomicity) |
-| **Tổng số quan hệ (Relations)** | 232 | **782** | Chuẩn hóa, loại bỏ quan hệ ảo |
-| **Lỗi Schema (Format Error)** | 100% thiếu evidence | **0 Lỗi (0%)** | 100% entity có `id`, 100% có `evidence` |
-| **Lỗi Ontology (Nhãn sai)** | 95.26% vi phạm | **0 Lỗi (0%)** | 100% tuân thủ Hohfeld (`ALLOW`, `REQUIRE`, `PROHIBIT`) |
-| **Tỷ lệ trích dẫn tại chỗ (Grounding)** | Chưa xác thực | **100%** | Có evidence, triệt tiêu rò rỉ ngữ cảnh |
-| **Điểm QA Evaluator (LLM Judge)** | 31.7 / 100 (FAIL) 🚨 | **96.5 / 100 (PASS) 🟢** | **Đủ điều kiện xuất xưởng sang Module 7** |
+| Chỉ Số Đánh Giá | Bản Cũ (Baseline) | Bản V8 (179 candidates) | **Bản Hiện Hành (180 candidates)** | Bước Nhảy Đạt Được |
+| :--- | :---: | :---: | :---: | :--- |
+| **Tổng số candidate xử lý** | 117 nodes | 179 nodes | **180 nodes** | Hoàn tất 100%, 0 crash |
+| **Tổng số thực thể (Entities)** | 356 | 916 | **955** | Tăng vọt nhờ bóc tách nguyên tử (Atomicity) |
+| **Tổng số quan hệ (Relations)** | 232 | 782 | **829** | Chuẩn hóa, bóc tách đầy đủ cấu trúc Hohfeld |
+| **Cơ cấu thực thể chính** | — | — | **307 ACTION, 240 SUBJECT, 156 CONDITION, 118 REFERENCE, 114 OBJECT, 20 EXCEPTION** | Bao phủ đầy đủ 6 vai trò ngữ nghĩa |
+| **Cơ cấu quan hệ chính** | — | — | **235 ALLOW, 174 HAS_CONDITION, 158 HAS_OBJECT, 142 REFERENCE_TO, 50 PROHIBIT, 44 REQUIRE, 26 HAS_EXCEPTION** | Đảm bảo tính quy phạm Hohfeld |
+| **Truy vết Chủ thể (Source Status)** | — | — | **722 RESOLVED, 102 CONTEXT_INFERRED, 5 UNRESOLVED** | Giữ trọn Partial Norm, chống ảo giác |
+| **Lỗi Schema (Format Error)** | 100% thiếu evidence | 0 Lỗi (0%) | **0 Lỗi (0%)** | 100% entity có `id`, 100% có `evidence` |
+| **Tỷ lệ trích dẫn tại chỗ (Grounding)** | Chưa xác thực | 100% | **100%** | Có evidence, triệt tiêu rò rỉ ngữ cảnh |
+| **Điểm QA Evaluator (LLM Judge)** | 31.7 / 100 (FAIL) 🚨 | 96.5 / 100 (PASS) 🟢 | **96.5 / 100 (PASS) 🟢** | **Đủ điều kiện xuất xưởng sang Module 7** |
 
 **Sẵn sàng cho Module 7 (Tự làm sạch & Ánh xạ Cấu chuẩn):**
 Sự chuẩn mực của M6 (V8) đã cung cấp dữ liệu hoàn hảo cho Module 7. Dữ liệu từ M6 chuyển sang M7 đã lập tức kích hoạt các cơ chế ánh xạ tiên tiến. Điển hình như log ghi nhận từ M7 khi chuẩn hóa node `doc_chuong-iii_muc-1_dieu-28_khoan-1_diem-i_p4791`:

@@ -58,6 +58,14 @@ graph TD
 
 Kiểm tra trực tiếp file output `raw_nodes_clean_Luat_dat_dai_chuong_3.json`, có thể thấy hệ thống M2 đã tạo ra một bộ Cây Vật lý (Physical Graph) cực kỳ hoàn hảo với các điểm nhấn học thuật xuất sắc sau:
 
+- **Số lượng Node bóc tách (Bản cập nhật mới nhất):** Hệ thống nhận diện chính xác **223 nodes** (thay vì 222 nodes ở các bản build trước, do bổ sung trọn vẹn node tiêu đề/phân đoạn văn bản), gồm:
+  - 1 Chapter (Chương III)
+  - 5 Sections (Mục 1 đến Mục 5)
+  - 23 Articles (Điều 26 đến Điều 48)
+  - 84 Clauses (Khoản)
+  - 110 Points (Điểm)
+  - `orphan_count = 0`, `gap_count = 0`.
+
 **1. Định danh Ngữ nghĩa (Semantic Contextual ID):**
 Thay vì gán ID ngẫu nhiên (UUID) khiến dữ liệu trở thành một "hộp đen", Module 2 đã thông minh tạo ra các ID như `doc_chuong-iii_muc-1_dieu-26_p180`. Chuỗi ID này có thể đọc hiểu được (Human-readable), chứa đầy đủ "gia phả" của Node đó. Bất kỳ AI hoặc con người nào khi nhìn vào ID này cũng biết ngay Node đang nằm ở Chương nào, Mục nào, Điều nào mà không cần phải truy vấn ngược lên Database. Hậu tố `p180` (Paragraph ID / Char Offset) được thêm vào để đảm bảo tính Uniqueness 100% trong trường hợp có nhiều đoạn văn cùng thuộc một điểm.
 

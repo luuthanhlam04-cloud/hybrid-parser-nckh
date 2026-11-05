@@ -1,4 +1,4 @@
-"""Deontic conflict detection and structured conflict reporting."""
+"""Classify opposite legal modalities with scope and provenance."""
 
 from __future__ import annotations
 
@@ -7,111 +7,82 @@ from typing import Any, Dict, Iterable, List
 
 
 class ConflictResolver:
+    @staticmethod
+    def _condition_text(nodes_by_id: Dict[str, Dict[str, Any]], ids: set[str]) -> list[str]:
+        return sorted(
+            str(nodes_by_id.get(cid, {}).get("properties", {}).get("canonical_text", "")).casefold().strip()
+            for cid in ids
+        )
+
+    @staticmethod
+    def _scope_status(allow_text: list[str], prohibit_text: list[str], has_exception: bool) -> tuple[str, str]:
+        if has_exception:
+            return "REVIEW_REQUIRED", "EXCEPTION_SCOPE_REQUIRES_REVIEW"
+        prohib = " ".join(prohibit_text)
+        allow = " ".join(allow_text)
+        if "pháp luật không cho phép" in prohib:
+            return "REVIEW_REQUIRED", "CONDITIONAL_PROHIBITION_REQUIRES_LEGAL_REVIEW"
+        if "không thu tiền sử dụng đất" in prohib and (
+            "có thu tiền sử dụng đất" in allow or "thu tiền thuê đất một lần" in allow
+            or "thu tiền thuê đất hằng năm" in allow
+        ):
+            return "CONTEXTUAL_DIFFERENCE", "DISTINCT_LAND_PAYMENT_REGIMES"
+        if allow_text and prohibit_text and set(allow_text) == set(prohibit_text):
+            return "POTENTIAL_LEGAL_CONFLICT", "MATCHING_EXPLICIT_CONDITIONS"
+        return "REVIEW_REQUIRED", "CONDITION_SCOPE_NOT_PROVEN_EQUAL"
+
     def detect_deontic_conflicts(
         self, nodes: Iterable[Dict[str, Any]], semantic_edges: Iterable[Dict[str, Any]]
     ) -> List[Dict[str, Any]]:
-        # Map norm_id -> subjects, actions, conditions, exceptions
-        norm_subjects: Dict[str, set[str]] = defaultdict(set)
-        norm_actions: Dict[str, set[str]] = defaultdict(set)
-        norm_conditions: Dict[str, set[str]] = defaultdict(set)
-        norm_exceptions: Dict[str, set[str]] = defaultdict(set)
-        
-        edges = list(semantic_edges)
-        for edge in edges:
-            source = edge["source"]
-            target = edge["target"]
-            rel_type = edge["type"]
-            if rel_type == "HAS_SUBJECT":
-                norm_subjects[source].add(target)
-            elif rel_type == "HAS_ACTION":
-                norm_actions[source].add(target)
-            elif rel_type == "HAS_CONDITION":
-                norm_conditions[source].add(target)
-            elif rel_type == "HAS_EXCEPTION":
-                norm_exceptions[source].add(target)
-                
-        # Group GLOBAL_NORM nodes by (subject, action) pairs
-        # pair -> modality -> list of norm_ids
-        grouped: Dict[tuple[str, str], Dict[str, List[str]]] = defaultdict(
-            lambda: defaultdict(list)
-        )
-        
-        global_norms = [n for n in nodes if n.get("properties", {}).get("ontology_class") == "GLOBAL_NORM"]
-        
-        for norm in global_norms:
-            norm_id = norm["id"]
-            modality = norm.get("properties", {}).get("modality", "").upper()
-            if not modality:
+        node_list = list(nodes)
+        nodes_by_id = {node["id"]: node for node in node_list}
+        links: Dict[str, Dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+        for edge in semantic_edges:
+            if edge.get("type") in {"HAS_SUBJECT", "HAS_ACTION", "HAS_CONDITION", "HAS_EXCEPTION", "HAS_OBJECT"}:
+                links[edge["source"]][edge["type"]].add(edge["target"])
+
+        grouped: Dict[tuple[str, str], Dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+        for norm in node_list:
+            if norm.get("properties", {}).get("ontology_class") != "GLOBAL_NORM":
                 continue
-                
-            for subj in norm_subjects[norm_id]:
-                for act in norm_actions[norm_id]:
-                    grouped[(subj, act)][modality].append(norm_id)
-                    
-        conflicts = []
-        for (subj, act), modalities in grouped.items():
-            positive_norms = modalities.get("ALLOW", []) + modalities.get("REQUIRE", [])
-            prohibit_norms = modalities.get("PROHIBIT", [])
-            
-            if not positive_norms or not prohibit_norms:
-                continue
-                
-            # If there's an exception, it might explain the conflict
-            # Wait, in V3.0 the logic is: compare their HAS_CONDITION / HAS_EXCEPTION targets.
-            explained = False
-            for p_norm in positive_norms:
-                p_conds = norm_conditions[p_norm]
-                p_excs = norm_exceptions[p_norm]
-                
-                for pr_norm in prohibit_norms:
-                    pr_conds = norm_conditions[pr_norm]
-                    pr_excs = norm_exceptions[pr_norm]
-                    
-                    # If they have disjoint conditions, they might conflict
-                    if p_conds and pr_conds and p_conds.isdisjoint(pr_conds):
-                        incompatible_condition_pair = (p_conds, pr_conds)
-                    else:
-                        incompatible_condition_pair = None
-                        
-                    # If exceptions explain it
-                    if p_excs or pr_excs:
-                        explained = True
-                        break
-                        
-                if explained:
-                    break
-                    
-            if not explained:
-                positive_names = sorted(
-                    mod
-                    for mod in ("ALLOW", "REQUIRE")
-                    if modalities.get(mod)
-                )
-                conflict_type = (
-                    "ALLOW_PROHIBIT"
-                    if positive_names == ["ALLOW"]
-                    else "REQUIRE_PROHIBIT"
-                    if positive_names == ["REQUIRE"]
-                    else "ALLOW_REQUIRE_PROHIBIT"
-                )
-                conflicting_nodes = positive_norms + prohibit_norms
-                conflicts.append({
-                    "flag": "POTENTIAL_LEGAL_CONFLICT",
-                    "conflict_type": conflict_type,
-                    "subject": subj, "action": act,
-                    "global_norm_ids": conflicting_nodes,
-                    "message": (
-                        f"{' and '.join(positive_names)} conflict with PROHIBIT "
-                        "for the same subject/action without a linked exception."
-                    ),
-                    "relation_types": positive_names + ["PROHIBIT"],
-                    "context_status": (
-                        "DISTINCT_EXPLICIT_CONDITIONS_REQUIRES_REVIEW"
-                        if incompatible_condition_pair
-                        else "SAME_OR_UNSPECIFIED_CONDITIONS"
-                    ),
-                })
-        return conflicts
+            modality = str(norm.get("properties", {}).get("modality", "")).upper()
+            for subject in links[norm["id"]]["HAS_SUBJECT"]:
+                for action in links[norm["id"]]["HAS_ACTION"]:
+                    grouped[(subject, action)][modality].add(norm["id"])
+
+        findings: List[Dict[str, Any]] = []
+        for (subject, action), modalities in sorted(grouped.items()):
+            for modality in ("ALLOW", "REQUIRE"):
+                for positive_id in sorted(modalities.get(modality, set())):
+                    for prohibit_id in sorted(modalities.get("PROHIBIT", set())):
+                        positive, negative = links[positive_id], links[prohibit_id]
+                        p_conditions = self._condition_text(nodes_by_id, positive["HAS_CONDITION"])
+                        n_conditions = self._condition_text(nodes_by_id, negative["HAS_CONDITION"])
+                        flag, reason = self._scope_status(
+                            p_conditions, n_conditions,
+                            bool(positive["HAS_EXCEPTION"] or negative["HAS_EXCEPTION"]),
+                        )
+                        if flag == "POTENTIAL_LEGAL_CONFLICT" and positive["HAS_OBJECT"] != negative["HAS_OBJECT"]:
+                            flag, reason = "REVIEW_REQUIRED", "OBJECT_SCOPE_NOT_PROVEN_EQUAL"
+                        source_nodes = {
+                            nid: sorted(nodes_by_id[nid].get("properties", {}).get("source_node_ids", []))
+                            for nid in (positive_id, prohibit_id)
+                        }
+                        findings.append({
+                            "flag": flag,
+                            "conflict_type": f"{modality}_PROHIBIT",
+                            "subject": subject,
+                            "action": action,
+                            "global_norm_ids": [positive_id, prohibit_id],
+                            "relation_types": [modality, "PROHIBIT"],
+                            "context_status": reason,
+                            "positive_conditions": p_conditions,
+                            "prohibit_conditions": n_conditions,
+                            "positive_object_ids": sorted(positive["HAS_OBJECT"]),
+                            "prohibit_object_ids": sorted(negative["HAS_OBJECT"]),
+                            "source_node_ids": source_nodes,
+                        })
+        return findings
 
     def validate_endpoints(
         self, edges: Iterable[Dict[str, Any]], node_ids: set[str]
