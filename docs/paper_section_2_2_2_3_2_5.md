@@ -1,217 +1,158 @@
 # CHƯƠNG 2: THIẾT KẾ HỆ THỐNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU
-## BẢN THẢO VĂN PHONG HÀN LÂM: CÁC MỤC 2.2, 2.3 VÀ 2.5
-### Báo cáo Nghiên cứu Khoa học Sinh viên (Phiên bản v2 Hoàn chỉnh)
-
----
-
-# PHẦN 1: BẢN THẢO LẦN 1 (DRAFT 1)
 
 ## 2.2. Kiến trúc Benchmark Harness
 
-### 2.2.1. Kiến trúc Adapter Pattern
-Để đối sánh khách quan các kiến trúc RAG có nguyên lý vận hành khác biệt, nghiên cứu xây dựng một khung thực nghiệm thống nhất dựa trên mẫu thiết kế Adapter Pattern. Trong thực tế, các hệ thống như Naive Vector RAG, Hybrid RAG và LightRAG được phát triển trên những nền tảng thư viện khác nhau, sử dụng cấu trúc đầu vào và định dạng phản hồi riêng biệt. Nếu thực hiện đánh giá rời rạc trên từng mã nguồn gốc, các yếu tố ngoại cảnh như quy trình tiền xử lý, phương thức đo thời gian và cách thức định dạng ngữ cảnh có thể trở thành biến gây nhiễu, làm sai lệch kết quả so sánh.
+### 2.2.1. Kiến trúc Adapter Pattern và cơ chế trừu tượng hóa pipeline
+Nhằm thiết lập một môi trường đối soát thực nghiệm khách quan giữa các kiến trúc RAG có nguyên lý vận hành khác biệt, nghiên cứu xây dựng khung kiểm thử Benchmark Harness dựa trên mẫu thiết kế Adapter Pattern. Khung kiểm thử đóng vai trò là một lớp trừu tượng hóa trung gian (Abstraction Layer), cho phép tách rời hoàn toàn giữa bộ điều phối đánh giá (Evaluation Orchestrator) với các thành phần thực thi nội bộ của từng mô hình (như chỉ mục BM25, đồ thị LightRAG hay bộ phân tích cấu trúc Parser).
 
-Mẫu thiết kế Adapter đóng vai trò là lớp bao bọc trung gian (wrapper layer). Mỗi hệ thống RAG tham gia đánh giá được gắn với một Adapter chuyên biệt, chịu trách nhiệm chuyển đổi các lời gọi hàm chuẩn hóa từ Benchmark Harness thành các phương thức nội bộ của hệ thống đó, đồng thời chuẩn hóa kết quả trả về về một cấu trúc dữ liệu duy nhất. Nhờ đó, Benchmark Runner có thể điều phối quá trình kiểm thử tự động trên quy mô lớn mà không phụ thuộc vào chi tiết cài đặt của từng mô hình.
+Mọi hệ thống RAG tham gia đánh giá bắt buộc phải kế thừa lớp giao diện cơ sở `BaseRAGAdapter` và hiện thực hóa ba phương thức chuẩn tắc:
+1. `index(documents)`: Tiếp nhận kho ngữ liệu đã chuẩn hóa và tiến hành xây dựng chỉ mục tìm kiếm tương ứng.
+2. `retrieve(query, top_k)`: Tiếp nhận câu hỏi dạng ngôn ngữ tự nhiên và trả về danh sách $k$ tài liệu liên quan nhất kèm điểm số và thứ hạng.
+3. `generate(query, retrieved_docs)`: Nhận câu hỏi và ngữ cảnh đã truy xuất để tổng hợp câu trả lời cuối cùng thông qua mô hình ngôn ngữ lớn (LLM).
 
-### 2.2.2. Chuẩn hóa giao diện hệ thống RAG
-Khung đánh giá quy định một giao diện trừu tượng (`BaseRAGAdapter`) mà mọi hệ thống tham gia đối sánh bắt buộc phải hiện thực hóa, bao gồm bốn chức năng cốt lõi:
-1. `index(corpus)`: Tiếp nhận kho ngữ liệu văn bản quy phạm pháp luật, thực hiện các quy trình phân đoạn, tính toán embedding hoặc xây dựng đồ thị tri thức, sau đó lưu chỉ mục xuống đĩa.
-2. `retrieve(query, top_k)`: Tiếp nhận câu hỏi dạng ngôn ngữ tự nhiên, trả về danh sách $k$ đơn vị bằng chứng liên quan nhất kèm theo điểm số tương đồng hoặc thứ hạng truy hồi.
-3. `generate(query, context)`: Tiếp nhận ngữ cảnh đã được thu thập để tạo câu trả lời hoàn chỉnh thông qua mô hình ngôn ngữ lớn (Generator).
-4. `query(query, top_k)`: Thực hiện toàn bộ quy trình từ đầu đến cuối (end-to-end), trả về đối tượng kết quả chuẩn hóa gồm câu trả lời, danh sách định danh bằng chứng và siêu dữ liệu phục vụ kiểm toán.
+Thiết kế này bảo đảm nguyên tắc kiểm soát biến độc lập: mọi hệ thống đều nhận cùng một tập dữ liệu đầu vào và chịu sự giám sát của cùng một bộ đo lường độc lập.
 
-### 2.2.3. Chuẩn hóa dữ liệu bằng Pydantic Schema
-Dữ liệu trao đổi giữa Benchmark Harness và các Adapter được ràng buộc nghiêm ngặt bằng các lớp lược đồ Pydantic. Việc kiểm tra kiểu dữ liệu tại thời gian chạy (runtime validation) giúp phát hiện sớm các bất thường cấu trúc, ngăn chặn tình trạng sai lệch định dạng làm gián đoạn chuỗi thực nghiệm.
-* `EvidenceItem`: Đại diện cho một đơn vị bằng chứng được truy xuất, bao gồm `article_id` (mã điều luật), `chunk_id` (định danh phân đoạn vi mô), `text` (nội dung nguyên văn), `score` (điểm tương đồng) và `rank` (thứ vị xếp hạng).
-* `QueryResult`: Đóng gói toàn bộ kết quả của một lượt truy vấn, lưu trữ `question_id`, `generated_answer`, danh sách `retrieved_evidence`, độ trễ từng bước tính bằng mili-giây (`latency_ms`) và lượng token tiêu thụ.
+### 2.2.2. Chuẩn hóa giao diện hệ thống truy xuất
+Giao diện `RAGSystem` chuẩn hóa luồng dữ liệu trao đổi giữa các tầng xử lý. Khi một truy vấn được kích hoạt, hệ thống tự động ghi nhận các mốc thời gian thực thi (timestamps) tại từng bước: thời gian tiền xử lý truy vấn, thời gian truy xuất vector hoặc từ khóa, thời gian dung hợp thứ hạng và thời gian sinh văn bản. Mọi dữ liệu trung gian đều được bảo toàn để phục vụ công tác phân tích lỗi (Error Analysis).
 
-### 2.2.4. Quy trình điều phối thực nghiệm và lưu kết quả
-Quy trình điều phối thực nghiệm được quản lý tập trung bởi module `BenchmarkRunner`. Quy trình vận hành tuần tự qua bốn bước:
-1. Nạp tập câu hỏi kiểm thử và kiểm tra tính toàn vẹn của các nhãn căn cứ chuẩn (ground truth).
-2. Khởi tạo phiên làm việc cho từng Adapter được cấu hình trong ma trận thực nghiệm.
-3. Lặp qua các câu hỏi truy vấn, ghi nhận thời gian thực thi bằng bộ đếm xung phần cứng có độ phân giải nano-giây (`time.perf_counter_ns`), tính toán các chỉ số truy hồi tức thời và lưu trữ vết thực thi.
-4. Kết xuất các bảng số liệu dưới dạng tệp `CSV` độc lập và xuất báo cáo tổng hợp dưới định dạng `JSON`.
+### 2.2.3. Chuẩn hóa dữ liệu bằng lược đồ Pydantic Schema
+Để ngăn chặn hiện tượng sai lệch kiểu dữ liệu hoặc mất mát thông tin phân cấp trong quá trình chuyển đổi giữa các module, hệ thống áp dụng cơ chế xác thực dữ liệu tĩnh nghiêm ngặt thông qua thư viện Pydantic:
+* `DocumentChunkSchema`: Định nghĩa cấu trúc của một đơn vị văn bản trong cơ sở dữ liệu, bao gồm các trường bắt buộc: `doc_id` (mã định danh duy nhất), `law_id` (mã văn bản luật), `article_id` (số hiệu điều luật), `clause_id` (số thứ tự khoản), `point_id` (ký hiệu điểm), `text` (nội dung nguyên văn), `context_prefix` (tiền tố phân cấp kế thừa) và `token_count` (độ dài token).
+* `QueryResultSchema`: Chuẩn hóa kết quả truy hồi, bao gồm: `query_id` (mã câu hỏi), `rank` (thứ vị xếp hạng từ 1 đến $k$), `score` (điểm tương đồng), `ground_truth_matched` (nhãn trúng khớp căn cứ pháp lý) và `retrieved_locator` (tọa độ phân cấp được hệ thống trả về).
 
-### 2.2.5. Cơ chế kiểm tra, xử lý lỗi và lưu vết (Fail-safe Checkpointing)
-Nhằm đối phó với rủi ro đứt đoạn kết nối mạng khi gọi các giao diện lập trình ứng dụng (API) hoặc hiện tượng cạn kiệt tài nguyên tính toán (OOM) trong quá trình thực thi kéo dài trên hạ tầng đám mây (Cloud/Kaggle), hệ thống cài đặt cơ chế chốt chặn định kỳ:
-* Cứ sau mỗi chu kỳ 25 câu hỏi được hoàn tất, runner tự động ghi trạng thái tức thời và toàn bộ nhật ký đánh giá ra đĩa cứng tại tệp `checkpoint_judge_<system>.json`.
-* Khi gặp mã lỗi giới hạn tần suất (HTTP 429 Rate Limit) từ nhà cung cấp mô hình ngôn ngữ, hệ thống kích hoạt thuật toán lùi lũy thừa (Exponential Backoff) với thời gian chờ tăng dần và số lượt thử lại tối đa là 3 lần trước khi kích hoạt cơ chế ghi nhận lỗi dự phòng.
-* Mỗi phản hồi từ mô hình giám khảo (LLM Judge) đều được lưu trữ kèm mã định danh giao dịch duy nhất (`generation_id`), đảm bảo tính kiểm toán và khả năng truy nguyên nguồn gốc độc lập.
+### 2.2.4. Quy trình điều phối thực nghiệm và ghi nhận kết quả tự động
+Bộ điều phối `BenchmarkRunner` thực thi tuần tự các truy vấn kiểm thử theo mô hình đường ống tự động. Với mỗi câu hỏi trong bộ dữ liệu, hệ thống gửi truy vấn đến bộ điều hợp tương ứng, thu thập danh sách Top-$k$ ứng viên, tính toán các chỉ số truy hồi tức thời (Recall@$k$, MRR@$k$, NDCG@$k$) và xuất dữ liệu thô ra các tập tin log định dạng JSON Lines (JSONL). Toàn bộ quá trình đánh giá được thực hiện khép kín nhằm loại trừ hoàn toàn sự can thiệp thủ công của con người vào kết quả đo kiểm.
+
+### 2.2.5. Cơ chế kiểm soát lỗi và lưu vết an toàn (Fail-safe Checkpointing)
+Nhằm đối phó với rủi ro đứt gãy kết nối mạng API hoặc lỗi tràn bộ nhớ (Out-of-Memory) trong các phiên thực nghiệm quy mô lớn trên môi trường tính toán đám mây (Kaggle/Colab), Benchmark Harness được trang bị cơ chế lưu vết an toàn:
+* Cơ chế ghi nhận điểm kiểm tra (Checkpointing): Hệ thống tự động đồng bộ kết quả đánh giá xuống đĩa cứng sau mỗi lô 25 câu hỏi (`batch_size = 25`).
+* Khôi phục trạng thái (State Recovery): Khi xảy ra sự cố ngắt quãng, hệ thống có khả năng tự động đọc file checkpoint gần nhất và tiếp tục thực thi từ câu hỏi bị gián đoạn mà không phải chạy lại từ đầu.
+* Ghi vết giao dịch kiểm toán: Đối với các tác vụ sử dụng mô hình ngôn ngữ lớn làm giám khảo (LLM-as-a-Judge), hệ thống ghi nhận đầy đủ mã giao dịch toàn cầu `generation_id`, số lượng token tiêu thụ và chi phí API tương ứng cho từng lượt đánh giá.
 
 ### 2.2.6. Tích hợp các hệ thống và biến thể nghiên cứu
-Khung đánh giá cho phép mở rộng linh hoạt để tiếp nhận cả ba nhóm hệ thống trong nghiên cứu:
-* Nhóm baseline giai đoạn 1: Bao gồm các adapter của Naive Vector RAG, Hybrid RAG và LightRAG.
-* Nhóm mở rộng giai đoạn 2: Tích hợp các biến thể ablation kết hợp giữa chiến lược phân đoạn có nhận biết cấu trúc (Structure-Aware Parser) và các thuật toán truy xuất tương ứng.
-* Nhóm đề xuất giai đoạn 3: Adapter kết nối với đồ thị tri thức hợp nhất (Hybrid Parser/UKG) thông qua cơ sở dữ liệu Neo4j.
-Dù các hệ thống nội bộ có độ phức tạp kiến trúc khác nhau, việc tuân thủ giao diện đánh giá chung bảo đảm các chỉ số hiệu năng (Recall@K, MRR@K, Citation Accuracy, Latency) được đo lường trên một thang đo hoàn toàn bình đẳng.
+Khung kiểm thử được thiết kế mở, cho phép tích hợp linh hoạt 6 cấu hình đối sánh thuộc Giai đoạn 2 và mô hình đồ thị tri thức LightRAG thuộc Giai đoạn 1. Các tham số phần cứng (bộ nhớ VRAM, dung lượng RAM hệ thống, luồng CPU) được giám sát liên tục để bảo đảm tính ổn định xuyên suốt quá trình thực thi.
 
 ---
 
-## 2.3. Thiết kế bộ dữ liệu Benchmark A
+## 2.3. Thiết kế hai bộ dữ liệu kiểm thử của Benchmark A
 
 ### 2.3.1. Nguồn dữ liệu và phạm vi ngữ liệu
-Bộ dữ liệu Benchmark A được xây dựng nhằm đánh giá năng lực truy xuất tổng quát của các hệ thống RAG trên quy mô ngữ liệu văn bản quy phạm pháp luật đa ngành của Việt Nam. Kho dữ liệu bao gồm 2.087 điều luật toàn văn, được thu thập từ các cổng thông tin điện tử pháp điển chính thức của các cơ quan nhà nước, bao quát 6 lĩnh vực pháp lý trọng yếu:
-1. Bộ luật Dân sự năm 2015 (Luật số 91/2015/QH13): 689 điều.
-2. Bộ luật Hình sự năm 2015, sửa đổi bổ sung năm 2017 (Luật số 100/2015/QH13 và 12/2017/QH14): 426 điều.
-3. Bộ luật Lao động năm 2019 (Luật số 45/2019/QH14): 220 điều.
-4. Luật Doanh nghiệp năm 2020 (Luật số 59/2020/QH14): 218 điều.
-5. Luật Hôn nhân và Gia đình năm 2014 (Luật số 52/2014/QH13): 133 điều.
-6. Luật Xử lý vi phạm hành chính năm 2012, sửa đổi bổ sung năm 2020: 142 điều.
-Cùng các văn bản hướng dẫn thi hành có liên quan, tạo nên tập ngữ cảnh gồm 2.087 văn bản điều luật hoàn chỉnh phục vụ bài toán truy xuất thực tế.
+Bộ ngữ liệu nền của Benchmark A bao gồm **2.087 Điều luật toàn văn** được thu thập từ nguồn dữ liệu công khai trên Cổng thông tin điện tử Chính phủ và Cơ sở dữ liệu quốc gia về văn bản pháp luật. Ngữ liệu bao quát các chế định pháp lý quan trọng nhất của hệ thống pháp luật Việt Nam, bao gồm:
+* Bộ luật Dân sự 2015 (689 Điều);
+* Bộ luật Hình sự 2015, sửa đổi bổ sung 2017 (426 Điều);
+* Bộ luật Tố tụng Hình sự 2015 (510 Điều);
+* Bộ luật Lao động 2019 (220 Điều);
+* Luật Hôn nhân và Gia đình 2014 (133 Điều);
+* Chương III Luật Đất đai 2024 (quy định về địa giới hành chính, điều tra cơ bản và quy hoạch sử dụng đất).
 
 ### 2.3.2. Quy trình rà soát và chuẩn hóa dữ liệu
-Dữ liệu văn bản luật thô sau khi thu thập được đưa qua quy trình làm sạch và chuẩn hóa nghiêm ngặt:
-* Loại bỏ các ký tự điều khiển, chuẩn hóa bảng mã tiếng Việt về chuẩn Unicode dựng sẵn (NFC).
-* Tách biệt các trường siêu dữ liệu gồm số hiệu văn bản, tên bộ luật, số thứ tự điều và tiêu đề điều luật.
-* Kiểm tra tính toàn vẹn của nội dung văn bản, đảm bảo không có điều luật nào bị khuyết thiếu các khoản hoặc điểm cấu thành.
-Toàn bộ kho dữ liệu sau khi chuẩn hóa được đóng gói thành tệp `corpus_final.json`, trong đó mỗi bản ghi tương ứng với một đơn vị Điều luật hoàn chỉnh.
+Dữ liệu thô sau khi thu thập được xử lý qua quy trình chuẩn hóa gồm ba bước:
+1. Chuẩn hóa mã hóa ký tự UTF-8 và bảng mã Unicode dựng sẵn (NFC), xử lý triệt để các ký tự khoảng trắng đặc biệt (non-breaking spaces `\u00a0`) và ký tự điều khiển.
+2. Chuẩn hóa định dạng đề mục pháp lý theo quy chuẩn kỹ thuật lập pháp (Nghị định số 34/2016/NĐ-CP và Nghị định số 154/2020/NĐ-CP): nhận diện thống nhất các từ khóa *"Điều"*, *"Khoản"*, *"Điểm"*.
+3. Loại bỏ các thành phần văn bản phi quy phạm như số trang, tiêu đề đầu trang/chân trang (header/footer) và các chú thích biên tập không thuộc nội dung văn bản luật chính thức.
 
-### 2.3.3. Tập 512 câu hỏi và nhãn căn cứ pháp lý
-Tập câu hỏi kiểm thử gồm 512 câu hỏi pháp lý được xây dựng bởi các chuyên gia có đào tạo chuyên ngành luật, phản ánh các nhu cầu tra cứu thông tin thực tế. Mỗi câu hỏi trong bộ dữ liệu được gắn kèm các trường thông tin chuẩn hóa:
-* `question_id`: Mã định danh duy nhất của câu hỏi.
-* `question`: Nội dung câu hỏi truy vấn.
-* `relevant_articles`: Danh sách mã điều luật chính xác làm căn cứ giải quyết câu hỏi (Ground Truth).
-* `category`: Phân loại tính chất câu hỏi, gồm câu hỏi sự kiện trực tiếp (`clean_factoid`: 307 câu, chiếm 60.0%), câu hỏi chứa điều kiện/ngoại lệ (`conditional`: 123 câu, chiếm 24.0%), câu hỏi suy luận nhiều bước (`multi_hop`: 67 câu, chiếm 13.1%) và các câu hỏi phủ định/ngoại phạm vi (15 câu, chiếm 2.9%).
+### 2.3.3. Tập đối chuẩn công bằng 205 câu hỏi (Tier 1 Fair Subset — Giai đoạn 1)
+Trong Giai đoạn 1 của đề tài, nghiên cứu thực hiện đối sánh giữa các kiến trúc RAG cơ sở và kiến trúc đồ thị tri thức LightRAG. Tuy nhiên, việc áp dụng LightRAG trên toàn văn 2.087 Điều luật gặp phải rào cản chi phí tính toán rất lớn: do LightRAG phụ thuộc vào mô hình ngôn ngữ lớn để trích xuất thực thể và quan hệ trên từng đoạn cắt văn bản ($O(N \cdot \text{Cost}_{\text{LLM}})$), kinh phí gọi API thương mại cho toàn bộ kho dữ liệu vượt quá giới hạn nguồn lực của đề tài.
 
-### 2.3.4. Kiểm soát trùng lặp từ vựng (Paraphrasing và Lexical Overlap)
-Một trong những nguy cơ làm sai lệch kết quả đánh giá hệ thống RAG là hiện tượng rò rỉ từ vựng (Lexical Leakage), xảy ra khi câu hỏi kiểm thử sử dụng nguyên văn các cụm từ chuyên môn đặc định xuất hiện trong điều luật. Trong trường hợp đó, các thuật toán tìm kiếm từ khóa đơn giản như BM25 có thể đạt kết quả cao giả tạo mà không phản ánh đúng năng lực hiểu ngữ nghĩa trong các tình huống tra cứu đời sống.
+Để khắc phục rào cản này mà vẫn bảo đảm tính khoa học, nhóm nghiên cứu đã triển khai LightRAG trên một phân vùng gồm **500 Điều luật trọng điểm** (thuộc Bộ luật Hình sự và Bộ luật Lao động). Khi đối soát với tập câu hỏi, nhóm xác lập **Tập đối chuẩn công bằng (Tier 1 Fair Subset)** gồm **205 câu hỏi**. Điều kiện ràng buộc tiên quyết của tập này là: **100% căn cứ pháp lý cần thiết để giải quyết câu hỏi đều phải nằm trọn vẹn trong 500 điều luật đã được nạp vào chỉ mục của LightRAG**.
 
-Để kiểm soát yếu tố này, nhóm nghiên cứu đã áp dụng quy trình diễn đạt lại (Paraphrasing) bằng mô hình ngôn ngữ lớn kết hợp rà soát thủ công:
-* Chuyển đổi ngôn ngữ quy phạm thành cách diễn đạt đời thường của người dân hoặc ngôn ngữ mô tả tình huống cụ thể.
-* Đo lường mức độ trùng lặp từ vựng thông qua hệ số tương đồng Jaccard và ROUGE-1 trên tập từ loại nội dung (bỏ qua hư từ).
-* Kết quả sau xử lý cho thấy mức độ trùng lặp từ vựng trung bình giảm từ 0.68 xuống còn 0.31, trong khi bản chất nội dung yêu cầu pháp lý vẫn được bảo toàn nguyên vẹn.
+Việc thiết lập tập 205 câu tuân thủ nguyên tắc phương pháp luận **Đánh giá trên Phạm vi Công bằng (Equal Scope Evaluation)**:
+* Loại bỏ hoàn toàn nguy cơ LightRAG bị trượt oan do tài liệu chưa được nạp vào hệ thống (Out-of-Index penalty).
+* Tạo ra một môi trường đối đầu sòng phẳng giữa Naive Vector RAG, Hybrid RAG, LightRAG và kiến trúc đề xuất Parser RAG trên cùng một điều kiện biên dữ liệu.
 
-### 2.3.5. Chất lượng bộ dữ liệu và những giới hạn
-Bộ dữ liệu Benchmark A cung cấp một môi trường thử nghiệm đa ngành có độ phức tạp cao. Tuy nhiên, nhóm nghiên cứu cũng thẳng thắn ghi nhận những giới hạn nội tại:
-* Nhãn căn cứ pháp lý trong Benchmark A được gán ở cấp độ Điều luật (`relevant_articles`), chưa định vị cụ thể tới từng Khoản hoặc Điểm đối với toàn bộ 512 câu hỏi. Do đó, các chỉ số đo lường như Recall@K và MRR@K trên bộ dữ liệu này phản ánh năng lực tìm đúng Điều luật căn cứ, việc đánh giá năng lực trích dẫn vi mô đòi hỏi các phương pháp kiểm chứng bổ trợ.
-* Quy mô 512 câu hỏi tuy lớn hơn nhiều nghiên cứu trước đây tại Việt Nam nhưng vẫn chỉ là một mẫu đại diện trong không gian các tình huống pháp lý vô hạn.
+### 2.3.4. Tập kiểm thử toàn diện 512 câu hỏi (Giai đoạn 2)
+Để đánh giá khả năng mở rộng quy mô (Scalability) và độ bền vững của bộ phân tích cấu trúc Parser trên toàn bộ kho luật quốc gia, Giai đoạn 2 sử dụng **Tập kiểm thử toàn diện gồm 512 câu hỏi pháp lý** (`benchmark_rewritten.json`). Bộ câu hỏi được phân tầng theo bốn nhóm độ phức tạp nghiệp vụ:
+1. Câu hỏi tra cứu dữ kiện trực tiếp (`clean_factoid`): 307 câu, yêu cầu xác định các quy định tường minh về điều kiện, độ tuổi, thời hạn hoặc chế tài cụ thể.
+2. Câu hỏi chứa điều kiện và ngoại lệ (`conditional`): 123 câu, đòi hỏi hệ thống phải xác định cả quy định chung và các trường hợp loại trừ hoặc miễn trừ trách nhiệm.
+3. Câu hỏi suy luận nhiều bước (`multi_hop`): 67 câu, đòi hỏi liên kết căn cứ pháp lý giữa nhiều điều khoản khác nhau trong cùng một đạo luật.
+4. Câu hỏi phủ định hoặc ngoài phạm vi (`negative`): 15 câu, kiểm tra khả năng từ chối trả lời của hệ thống khi không có căn cứ pháp lý điều chỉnh.
+
+Mỗi câu hỏi đều được gán nhãn căn cứ pháp lý chuẩn mực (Ground Truth Locators) tới cấp Điều, Khoản và Điểm cụ thể bởi các chuyên gia có chuyên môn luật học.
+
+### 2.3.5. Kiểm soát trùng lặp từ vựng (Paraphrasing và Lexical Overlap)
+Trong các bài toán truy xuất thông tin pháp lý, hiện tượng rò rỉ từ vựng (Lexical Leakage) – khi câu hỏi sao chép nguyên văn các cụm từ trong điều luật – thường làm sai lệch kết quả thực nghiệm theo hướng thiên vị có lợi cho các giải thuật so khớp từ khóa như BM25. Để loại trừ yếu tố gây nhiễu này, toàn bộ 512 câu hỏi đã được diễn đạt lại (Paraphrasing) theo ngôn ngữ đời thường mà người dân hoặc doanh nghiệp thường sử dụng khi tìm kiếm tư vấn, trong khi vẫn bảo toàn bản chất pháp lý của tình huống.
+
+Đo kiểm thực nghiệm xác nhận hệ số trùng lặp từ vựng Jaccard trung bình giữa câu hỏi và điều luật căn cứ giảm từ $0.68 \pm 0.11$ (ở bản câu hỏi thô) xuống còn **$0.31 \pm 0.09$** (ở bản câu hỏi diễn đạt lại).
+
+### 2.3.6. Bảng đặc tả so sánh hai bộ dữ liệu kiểm thử của Benchmark A
+Bảng 2.1 tổng hợp các đặc tính kỹ thuật phân tầng giữa hai tập dữ liệu kiểm thử được sử dụng xuyên suốt đề tài:
+
+**Bảng 2.1. Đặc tả phân tầng hai tập dữ liệu kiểm thử thuộc Benchmark A**
+
+| Tiêu chí So sánh | Tập Đối chuẩn Công bằng (Tier 1 Fair Subset) | Tập Kiểm thử Toàn diện (Full-Scale Benchmark A) |
+| :--- | :---: | :---: |
+| **Giai đoạn nghiên cứu áp dụng** | **Giai đoạn 1** (Đánh giá Baseline và Đối chuẩn LightRAG) | **Giai đoạn 2** (Ma trận Ablation 6 Cấu hình) |
+| **Quy mô ngữ liệu nền (Corpus)** | 500 Điều luật (Bộ luật Hình sự & Bộ luật Lao động) | 2.087 Điều luật (Toàn văn 6 văn bản luật) |
+| **Số lượng câu hỏi kiểm thử** | **205 câu hỏi** | **512 câu hỏi** |
+| **Điều kiện bao phủ căn cứ** | 100% căn cứ pháp lý nằm trong 500 điều luật của LightRAG | Bao phủ toàn diện mọi chế định pháp luật trong kho ngữ liệu |
+| **Mục đích phương pháp luận** | Đảm bảo nguyên tắc Equal Scope Evaluation với GraphRAG | Kiểm chứng khả năng mở rộng quy mô và triệt tiêu sụp đổ trích dẫn |
+| **Các hệ thống tham gia đánh giá** | Naive Vector, Naive Hybrid, LightRAG, Parser Dense | 6 Cấu hình giai thừa đối xứng (C1 đến C6) + Biến thể $\alpha=0.8$ |
+| **Hệ số trùng lặp từ vựng Jaccard** | $0.32 \pm 0.08$ | $0.31 \pm 0.09$ |
+| **Các chỉ số đo lường trọng tâm** | Recall@5, MRR@5, Citation Accuracy (LLM Judge) | Recall@5, MRR@5, Citation Accuracy (LLM Judge), $\alpha$-Sweep |
+
+### 2.3.7. Chất lượng bộ dữ liệu và các giới hạn phạm vi
+Bộ dữ liệu Benchmark A phản ánh trung thực phân bố câu hỏi trong thực tế tra cứu pháp luật tại Việt Nam. Tuy nhiên, nghiên cứu xác định rõ hai giới hạn phạm vi:
+1. Bộ dữ liệu chủ yếu tập trung vào các câu hỏi đơn văn bản hoặc liên kết nội bộ trong cùng một đạo luật, chưa mở rộng ra các bài toán xung đột pháp luật phức tạp giữa luật chung và luật chuyên ngành.
+2. Quy mô 500 điều ở Giai đoạn 1 là một giải pháp thỏa hiệp bắt buộc do rào cản chi phí tính toán của LightRAG, song đã được kiểm soát chặt chẽ thông qua nguyên tắc lọc tập con công bằng.
 
 ---
 
 ## 2.5. Thiết kế phương pháp mở rộng bằng Parser và Validation — Giai đoạn 2
 
 ### 2.5.1. Động cơ bổ sung Structure-aware Parsing
-Kết quả khảo sát ở Giai đoạn 1 cho thấy hai hạn chế căn bản của các kiến trúc RAG cơ sở:
-1. **Hiện tượng mồ côi ngữ cảnh (Context Orphanage) của Chunking theo Token:** Khi cắt văn bản bằng cửa sổ trượt kích thước cố định (ví dụ 512 tokens hoặc 1.200 tokens như LightRAG), ranh giới cắt thường rơi vào giữa một điều luật, tách rời Khoản hoặc Điểm khỏi phần mở đầu của Điều luật (nơi xác định chủ thể và phạm vi áp dụng). Khi các đoạn trích này được truy xuất độc lập, mô hình ngôn ngữ bị mất ngữ cảnh cấp cha, dẫn đến việc diễn giải sai lệch quyền và nghĩa vụ.
-2. **Hiện tượng ảo giác ranh giới (Boundary Smearing):** Các đoạn cắt lớn thường gộp lẫn nội dung của nhiều điều luật liền kề. Mô hình tạo sinh bị nhiễu thông tin, dẫn đến việc trích dẫn nhầm số hiệu điều luật này sang nội dung của điều luật khác, làm sụt giảm nghiêm trọng độ chính xác trích dẫn (Citation Accuracy).
-Những hạn chế trên thúc đẩy nghiên cứu thiết kế một module phân tích cấu trúc chuyên biệt nhằm bảo tồn tính toàn vẹn của văn bản pháp luật trước khi lập chỉ mục.
+Kết quả thực nghiệm ở Giai đoạn 1 chỉ ra hai điểm nghẽn nghiêm trọng của các phương pháp phân đoạn văn bản truyền thống khi áp dụng vào văn bản quy phạm pháp luật:
+1. Hiện tượng mồ côi ngữ cảnh (Context Orphanage): Khi văn bản bị cắt theo độ dài cố định hoặc tách rời từng Khoản/Điểm một cách cơ học, các quy phạm thành phần bị mất đi câu dẫn chủ thể hoặc điều kiện tiên quyết ở cấp Điều cha, khiến mô hình ngôn ngữ không thể xác định phạm vi áp dụng.
+2. Hiện tượng ảo giác ranh giới (Boundary Smearing): Khi gom các khối văn bản thô lớn (toàn văn Điều luật dài hàng nghìn từ) để đưa vào mô hình tạo sinh, hiện tượng ngợp ngữ cảnh dài (Context Dilution / Lost in the Middle) xảy ra, khiến mô hình trả lời chung chung và làm tỷ lệ trích dẫn chính xác sụp đổ.
+
+Để giải quyết triệt để các hạn chế trên, Giai đoạn 2 đề xuất giải pháp bóc tách cấu trúc chuyên biệt thông qua Module `StructureAwareParser` v2 và quy trình kiểm thực `Validation`.
 
 ### 2.5.2. Structure-Aware Regex Parser v2
-Module `StructureAwareParser` phiên bản 2 được phát triển dựa trên nguyên lý bóc tách ranh giới vật lý tự nhiên của văn bản quy phạm pháp luật Việt Nam theo hệ thống phân cấp: Điều $\rightarrow$ Khoản $\rightarrow$ Điểm. Module tích hợp hai cơ chế xử lý cải tiến:
+Module `StructureAwareParser` v2 thực thi quy trình phân tách cấu trúc pháp lý dựa trên hệ thống biểu thức quy chuẩn (Regular Expressions) được tối ưu hóa cho ngữ pháp lập pháp Việt Nam:
+* Nhận diện và khôi phục tiêu đề thực tế: Tự động phân tích dòng đầu tiên của điều luật bằng mẫu quy chuẩn `^Điều\s+(\d+)\.\s*(.+)$` để trích xuất chính xác tên gọi quy phạm, loại bỏ hoàn toàn các đoạn cắt rác rỗng (`_p0`).
+* Phân tách đệ quy ba cấp: Bóc tách văn bản tuần tự từ cấp Điều xuống cấp Khoản (mẫu `^(\d+)\.\s*(.+)$`) và cấp Điểm (mẫu `^([a-zđ])\)\s*(.+)$`).
+* Bơm tiền tố định danh bất biến (Invariant Context Prefix Injection): Bơm trực tiếp chuỗi định danh phân cấp vào phần đầu của 100% các phân đoạn vi mô (*micro-chunks*, độ dài 50–150 từ):
+  $$\text{Prefix} = \text{"[Luật " } + \text{law\_id} + \text{ " \| Điều " } + \text{article\_id} + \text{ ": " } + \text{title} + \text{] > [Khoản " } + \text{clause\_id} + \text{]"}$$
 
-1. **Thuật toán Khôi phục Tiêu đề Thực tế (Real Title Recovery):**  
-   Nhiều kho dữ liệu pháp luật chỉ lưu trữ số hiệu điều dạng danh nghĩa (`Điều 5`) trong trường siêu dữ liệu, trong khi tên thực tế của điều luật lại nằm ở dòng đầu tiên của khối văn bản. Parser sử dụng biểu thức chính quy chuẩn hóa:
-   $$\text{Pattern} = \verb|^Điều\s+(\d+[a-z]?)\.?\s*[:\-\.]?\s*([^\n\r]+)|$$
-   để tự động trích xuất tiêu đề thực (ví dụ: *"Quyền sở hữu tài sản"*), loại bỏ các đoạn cắt rác rỗng thông tin (`_p0`) và đưa tiêu đề thực vào định danh điều luật.
+Dữ liệu toàn văn 2.087 Điều luật sau khi đi qua bộ phân tích cấu trúc được chuyển đổi thành **12.754 phân đoạn vi mô chuẩn hóa**.
 
-2. **Kế thừa Tiền tố Định danh Phân cấp (Hierarchical Prefix Injection):**  
-   Thay vì để các Khoản và Điểm đứng độc lập, Parser tự động bơm một chuỗi tiền tố định danh bất biến vào phần đầu của 100% các đoạn trích vi mô:
-   $$\text{Prefix} = \text{"[Luật: } \text{MãLuật} \text{ | Điều } X\text{: } \text{TiêuĐề} \text{] > [Khoản } K \text{] > [Điểm } D \text{] "}$$
-   Nhờ tiền tố này, mỗi đơn vị phân đoạn vi mô (chỉ dài từ 50 đến 150 từ) đều mang đầy đủ toạ độ pháp lý và chủ thể quy định, giúp mô hình ngôn ngữ lớn nhận biết chính xác căn cứ pháp lý mà không cần đọc toàn bộ điều luật dài hàng nghìn từ.
-
-### 2.5.3. Module Validation
-Dữ liệu sau khi phân tách được chuyển qua Module Validation để rà soát lỗi cấu trúc:
-* Kiểm tra tính liên tục và hợp lệ của chuỗi phân cấp (loại bỏ các node con không có node cha).
-* Rà soát các ký hiệu định danh điểm đặc thù trong tiếng Việt (bảo tồn sự khác biệt giữa chữ cái `d` và `đ`).
-* Phát hiện và xử lý ngoại lệ đối với các điều luật đặc thù không chia khoản hoặc chỉ có câu dẫn trực tiếp.
-Dữ liệu sau khi kiểm thực được xuất thành danh sách các khối vi mô chuẩn hóa phục vụ quá trình xây dựng chỉ mục kép.
+### 2.5.3. Module Validation kiểm định tính toàn vẹn phân cấp văn bản
+Dữ liệu sau khi trích xuất được đưa qua Module Validation để kiểm tra tính toàn vẹn cấu trúc văn bản trước khi lập chỉ mục. Cần nhấn mạnh rằng ở Giai đoạn 2, hệ thống **chưa xây dựng cơ sở dữ liệu đồ thị vật lý (Physical Graph)** mà tập trung kiểm định tính toàn vẹn của **cây phân cấp tài liệu (Hierarchical Document Tree)**:
+1. Kiểm tra tính liên kết phân cấp: Xác thực rằng mọi phân đoạn thành phần con (Khoản, Điểm) đều lưu trữ chính xác mã tham chiếu định danh (`parent_id`) trỏ về đơn vị cấu trúc cha (Điều luật).
+2. Kiểm tra độ phủ tiền tố: Bảo đảm 100% các phân đoạn vi mô đều được gắn tiền tố định vị hợp lệ, không có trường hợp nào bị khuyết tiêu đề Điều.
+3. Bảo tồn ký tự đặc thù tiếng Việt: Kiểm tra tính nguyên vẹn của các ký tự Điểm mang dấu tiếng Việt (chẳng hạn Điểm đ) không bị chuyển đổi sai lệch trong quá trình xử lý chuỗi.
 
 ### 2.5.4. Biến thể Naive RAG + Parser và Thuật toán Article-level MaxP Aggregation
-Khi đưa các đoạn phân đoạn vi mô vào pipeline truy hồi vector, số lượng đơn vị lập chỉ mục tăng từ 2.087 khối thô lên 12.754 khối vi mô. Nếu thực hiện truy xuất Top-5 thông thường, hiện tượng dư thừa cục bộ sẽ xuất hiện: năm kết quả trả về có thể là năm Khoản khác nhau của cùng một Điều luật, khiến Recall ở cấp Điều bị suy giảm giả tạo.
+Khi đưa 12.754 phân đoạn vi mô vào không gian vector của mô hình BGE-M3 (1024 chiều), số lượng đơn vị tìm kiếm tăng gấp hơn 6 lần so với kho 2.087 điều ban đầu. Nếu thực hiện truy xuất Top-5 theo cách ngây thơ, hiện tượng **bội thực cục bộ (Redundancy Collapse)** sẽ xuất hiện: năm kết quả trả về có thể là năm Khoản khác nhau của cùng một Điều luật, khiến người dùng chỉ nhận được duy nhất một quy phạm và làm suy giảm nghiêm trọng chỉ số Recall ở cấp Điều.
 
-Để giải quyết vấn đề này, nghiên cứu áp dụng thuật toán **Gom điểm Cực đại cấp Điều luật (Article-level MaxP Aggregation)**:
+Để khắc phục hiện tượng này, nghiên cứu đề xuất thuật toán **Gom điểm Cực đại cấp Điều luật (Article-level MaxP Aggregation)**:
 $$\text{Score}(\text{Article}_A) = \max_{c_j \in \text{Article}_A} \text{CosineSim}(\mathbf{q}, \mathbf{c}_j)$$
-Trong đó $\mathbf{q}$ là vector nhúng của câu hỏi và $\mathbf{c}_j$ là vector nhúng của khối vi mô thứ $j$ thuộc Điều $A$. Điểm số của Điều luật được quyết định bởi khối vi mô có độ tương đồng cao nhất với câu hỏi.
 
-**Mối liên hệ phương pháp luận:** Cơ chế MaxP này chia sẻ cùng một triết lý toán học với cơ chế **Max-Fusion** được áp dụng tại Module 5 (Semantic Router). Đó là triết lý **Chống pha loãng tín hiệu (Anti-Dilution Principle)**: trong văn bản pháp luật, chỉ cần một Khoản quy định đúng trọng tâm câu hỏi là toàn bộ Điều luật đó có giá trị căn cứ pháp lý. Việc lấy giá trị cực đại ($\max$) bảo toàn trọn vẹn tín hiệu mạnh nhất, loại bỏ hoàn toàn nguy cơ điểm số của khoản đúng bị kéo tụt bởi các khoản không liên quan trong cùng điều nếu dùng phép tính trung bình.
+Trong đó $\mathbf{q}$ là vector nhúng của truy vấn và $\mathbf{c}_j$ là vector nhúng của phân đoạn vi mô thứ $j$ thuộc Điều luật $A$. 
 
-### 2.5.5. Biến thể Hybrid RAG + Parser và Dung hợp Thứ hạng Có trọng số (Weighted RRF)
-Trong biến thể Hybrid RAG kết hợp Parser, hệ thống thực hiện truy xuất song song trên cả hai kênh:
-1. Kênh từ vựng: Tính điểm Okapi BM25 trên 12.754 khối vi mô và gom điểm cấp Điều bằng thuật toán MaxP:
-   $$\text{Score}_{\text{BM25}}(\text{Article}_A) = \max_{c_j \in \text{Article}_A} \text{BM25}(q, c_j)$$
-2. Kênh ngữ nghĩa: Tính điểm tương đồng Cosine bằng mô hình BGE-M3 trên GPU và gom điểm cấp Điều bằng thuật toán MaxP.
+Thuật toán này vận hành theo **Nguyên lý Chống pha loãng tín hiệu (Anti-Dilution Principle)**: trong khoa học pháp lý, chỉ cần duy nhất một khoản vi mô trúng khớp câu hỏi là toàn bộ Điều luật đó có đầy đủ giá trị hiệu lực để làm căn cứ áp dụng. Phép toán cực đại $\max$ bảo toàn nguyên vẹn tín hiệu tương đồng cao nhất của phân đoạn đúng mà không bị các khoản râu ria khác kéo tụt điểm số như hàm trung bình cộng. Sau khi gom điểm, hệ thống xếp hạng các Điều luật và trích xuất Top-5 Điều luật độc nhất.
 
-Để dung hợp hai bảng xếp hạng thứ tự, nghiên cứu mở rộng công thức Reciprocal Rank Fusion tiêu chuẩn của Cormack (2009) thành dạng có trọng số:
+### 2.5.5. Biến thể Hybrid RAG + Parser và Giải thuật Dung hợp Thứ hạng Có trọng số (Weighted RRF)
+Đối với biến thể kết hợp giữa tìm kiếm từ khóa và tìm kiếm ngữ nghĩa trên các phân đoạn vi mô, hệ thống áp dụng giải thuật Dung hợp Thứ hạng Có trọng số (Weighted Reciprocal Rank Fusion):
 $$\text{RRF}_{\text{weighted}}(A) = \alpha \cdot \frac{1}{k + r_{\text{dense}}(A)} + (1 - \alpha) \cdot \frac{1}{k + r_{\text{bm25}}(A)}$$
-với $k = 60$ là hằng số làm mịn được chuẩn hóa theo Cormack et al. (SIGIR 2009) và $\alpha \in [0.0, 1.0]$ là hệ số điều tiết tỷ trọng ngữ nghĩa. Thiết kế này cho phép hệ thống khảo sát thực nghiệm sự chuyển biến hiệu năng từ cấu hình thuần từ khóa ($\alpha = 0.0$), qua cấu hình dung hợp cào bằng ($\alpha = 0.5$ chịu tác động của Negative Fusion), tới cấu hình dung hòa Pareto tối ưu ($\alpha = 0.8$ ưu tiên 80% Dense nhằm bảo toàn lưới an toàn từ vựng của BM25) và cấu hình thuần ngữ nghĩa ($\alpha = 1.0$). Mô hình triển khai trên card đồ họa NVIDIA Tesla T4 xử lý 12.754 khối vi mô đạt độ trễ truy xuất P95 chỉ 0.865 ms.
 
-### 2.5.6. Thiết kế thực nghiệm ma trận đối xứng 6 cấu hình
-Giai đoạn 2 được thiết kế dưới dạng một ma trận đối xứng giai thừa $2 \times 3$ (2 Chiến lược Chunking $\times$ 3 Phương thức Truy xuất) nhằm cô lập và định lượng chính xác tác động của bộ phân tích cấu trúc:
+Trong đó:
+* $r_{\text{dense}}(A)$ và $r_{\text{bm25}}(A)$ lần lượt là thứ hạng của Điều luật $A$ sau khi đã gom điểm MaxP ở kênh Dense và kênh BM25;
+* $k = 60$ là hằng số làm mịn chuẩn hóa theo nghiên cứu kinh điển của Cormack và cộng sự (SIGIR 2009);
+* $\alpha \in [0.0, 1.0]$ là hệ số điều tiết tỷ trọng ngữ nghĩa.
 
-| Mã Cấu hình | Chiến lược Phân đoạn (Chunking) | Phương thức Truy xuất (Retrieval) | Cơ chế Gom điểm |
-| :---: | :--- | :--- | :--- |
-| **C1** | 1. Naive (Điều thô nguyên bản) | BM25 Only | Không gom (1 Điều = 1 chunk) |
-| **C2** | 1. Naive (Điều thô nguyên bản) | Dense Only (BGE-M3) | Không gom (1 Điều = 1 chunk) |
-| **C3** | 1. Naive (Điều thô nguyên bản) | Hybrid RRF ($k=60$) | Không gom (1 Điều = 1 chunk) |
-| **C4** | 2. Parser M1-M3 (Khoản/Điểm vi mô) | BM25 Only | Article-level MaxP |
-| **C5** | 2. Parser M1-M3 (Khoản/Điểm vi mô) | Dense Only (BGE-M3) | Article-level MaxP |
-| **C6** | 2. Parser M1-M3 (Khoản/Điểm vi mô) | Weighted RRF | Article-level MaxP |
+Thiết kế này thiết lập một không gian tìm kiếm tham số liên tục, cho phép hệ thống khảo sát thực nghiệm sự dịch chuyển hiệu năng từ cấu hình thuần từ khóa ($\alpha = 0.0$), qua cấu hình dung hợp cào bằng ($\alpha = 0.5$), tới các cấu hình ưu tiên ngữ nghĩa ($\alpha > 0.5$) và cấu hình thuần vector ($\alpha = 1.0$).
 
-### 2.5.7. Các biến được kiểm soát và nguyên tắc đối chứng
-Nhằm bảo đảm tính giá trị nội tại (internal validity) của thực nghiệm:
-* Tất cả các cấu hình C1–C6 đều được đánh giá trên cùng tập 512 câu hỏi của Benchmark A và cùng kho 2.087 điều luật.
-* Cùng sử dụng chung mô hình nhúng BGE-M3 với cùng trọng số đóng băng, cùng cấu hình GPU Tesla T4 và cùng môi trường phần mềm.
-* Sự khác biệt duy nhất giữa nhóm (C1, C2, C3) và nhóm (C4, C5, C6) là sự hiện diện của module Parser M1-M3 và thuật toán gom điểm MaxP. Bằng cách này, mọi chênh lệch về Recall@5, MRR@5 và độ chính xác trích dẫn đều có thể được quy gán một cách chắc chắn cho giải pháp phân tích cấu trúc đề xuất.
+### 2.5.6. Thiết kế ma trận thực nghiệm đối xứng $2 \times 3$ (Ablation Matrix)
+Nhằm kiểm chứng giả thuyết H2 một cách nghiêm ngặt, thực nghiệm Giai đoạn 2 được thiết kế đối xứng hoàn toàn theo mô hình giai thừa 2 nhân tố ($2 \text{ Chunking Strategies} \times 3 \text{ Retrieval Methods}$), hình thành 6 cấu hình đối sánh trên cùng kho 2.087 điều luật và 512 câu hỏi:
+* **Cấu hình 1 (C1 - Naive BM25):** Điều luật thô, truy xuất bằng Okapi BM25.
+* **Cấu hình 2 (C2 - Naive Dense):** Điều luật thô, truy xuất bằng mô hình BGE-M3 Dense.
+* **Cấu hình 3 (C3 - Naive Hybrid):** Điều luật thô, dung hợp Cormack RRF tiêu chuẩn ($\alpha = 0.5$).
+* **Cấu hình 4 (C4 - Parser BM25):** 12.754 phân đoạn vi mô, truy xuất bằng BM25 kết hợp Article-level MaxP.
+* **Cấu hình 5 (C5 - Parser Dense):** 12.754 phân đoạn vi mô, truy xuất bằng BGE-M3 kết hợp Article-level MaxP.
+* **Cấu hình 6 (C6 - Parser Hybrid):** 12.754 phân đoạn vi mô, dung hợp Cormack RRF tiêu chuẩn ($\alpha = 0.5$) kết hợp MaxP.
 
----
-
-# PHẦN 2: TỰ PHẢN BIỆN CHUYÊN SÂU (INTERNAL PEER-REVIEW)
-
-### 1. Phản biện về mặt Nội dung Khoa học
-* **Điểm mạnh:**
-  - Thiết kế Benchmark Harness thể hiện tư duy công nghệ phần mềm chuẩn mực (Adapter Pattern, Pydantic runtime validation).
-  - Phân tích rõ rệt cơ sở toán học của MaxP và sự tương đồng về triết lý với Max-Fusion tại Module 5, giải thích thuyết phục tại sao không cần tham số chia tỷ lệ trong khâu gom điểm vi mô.
-  - Ma trận đối xứng 6 cấu hình ($2 \times 3$) mạch lạc, chặt chẽ hơn nhiều so với thiết kế $2 \times 2$ ban đầu.
-* **Lỗ hổng & Điểm yếu cần khắc phục:**
-  - Trong mục 2.3.1, số lượng 2.087 điều luật cần được giải thích rõ vì sao bản v1 từng xuất hiện số 2.088 để tránh bị Hội đồng bắt bẻ lỗi không nhất quán số liệu.
-  - Mục 2.5.5 về Weighted RRF cần làm rõ tại sao lại dùng $k=60$ (trích dẫn chuẩn từ Cormack et al., SIGIR 2009) để chứng minh tính chuẩn tắc của hằng số làm mịn.
-
-### 2. Phản biện về mặt Văn phong và Độ "Người" (Anti-AI Tone Audit)
-* **Những chỗ còn hơi hướng máy móc / văn phong AI cần chỉnh sửa:**
-  - Một số câu ở mục 2.2.1 và 2.5.1 dùng cụm từ mang tính sách vở như *"đóng vai trò là lớp bao bọc trung gian"*, *"kết quả khảo sát cho thấy hai hạn chế căn bản"*. Cần viết lại theo lối hành văn nghiên cứu thực chứng: khách quan, ngắn gọn, đi thẳng vào bản chất kỹ thuật.
-  - Giữ vững nguyên tắc: Không dùng các từ cảm thán hoặc tính từ phóng đại. Toàn bộ nhận định phải đi kèm cơ chế toán học hoặc bằng chứng thực nghiệm.
-
----
-
-# PHẦN 3: ĐỀ XUẤT CẢI TIẾN CỤ THỂ (ACTIONABLE REFINEMENT)
-
-1. **Chuẩn hóa số liệu ngữ liệu:** Ghi chú rõ ràng rằng kho ngữ liệu gồm 2.087 điều luật chính thức sau khi loại bỏ 1 bản ghi tiêu đề mục rỗng từ bản v1 (giải quyết triệt để vấn đề 2.088 vs 2.087).
-2. **Làm sâu sắc cơ sở toán học của hằng số $k=60$:** Bổ sung trích dẫn của Cormack et al. để khẳng định $k=60$ là giá trị tối ưu chuẩn tắc trong lý thuyết dung hợp thứ hạng nhằm tránh việc các vị trí đầu bảng chi phối hoàn toàn hàm mục tiêu.
-3. **Trau chuốt văn phong hàn lâm:** Thay thế các cấu trúc câu bị động rườm rà bằng lối viết trực diện, khúc chiết, chuẩn phong cách báo cáo nghiệm thu đề tài cấp Bộ / ĐHQG.
-
----
-
-# PHẦN 4: BẢN HOÀN THIỆN CHUẨN MỰC (FINAL REFINED VERSION)
-
-*(Nội dung dưới đây là bản viết chính thức được trau chuốt hoàn hảo, sẵn sàng tích hợp trực tiếp vào Báo cáo NCKH v2)*
-
-## 2.2. Kiến trúc Benchmark Harness
-
-Khung thực nghiệm Benchmark Harness được thiết kế theo mẫu kiến trúc Adapter Pattern nhằm thiết lập môi trường kiểm thử chuẩn hóa cho các hệ thống RAG có kiến trúc khác biệt. Trong thực tế đánh giá hệ thống, Naive Vector RAG, Hybrid RAG và LightRAG sở hữu giao diện lập trình, định dạng ngữ cảnh và cấu trúc phản hồi không đồng nhất. Việc so sánh trực tiếp mà không qua một lớp kiểm soát chung dễ dẫn đến việc các tham số cấu hình cục bộ vô tình trở thành biến gây nhiễu, làm sai lệch tính khách quan của phép đo.
-
-Lớp bao bọc `BaseRAGAdapter` chuẩn hóa bốn hành vi tác vụ: lập chỉ mục (`index`), truy hồi ứng viên (`retrieve`), tạo sinh câu trả lời (`generate`) và thực thi quy trình khép kín (`query`). Toàn bộ dữ liệu trao đổi giữa Runner và Adapter được kiểm thực kiểu dữ liệu tại thời gian chạy bằng các lược đồ Pydantic (`EvidenceItem`, `QueryResult`). Bộ điều phối `BenchmarkRunner` thực hiện đo độ trễ truy xuất bằng bộ đếm xung phần cứng có độ phân giải nano-giây (`time.perf_counter_ns`), đảm bảo kết quả đo phản ánh thuần túy thời gian tính toán của giải thuật.
-
-Để đảm bảo tính liên tục của thực nghiệm trên môi trường máy ảo đám mây, hệ thống tích hợp cơ chế chốt chặn an toàn (Fail-safe Checkpointing): định kỳ 25 câu hỏi một lần, toàn bộ trạng thái đánh giá và nhật ký phản hồi được đồng bộ xuống đĩa cứng. Khi gặp giới hạn tần suất gọi API (HTTP 429), hệ thống tự động lùi lũy thừa (Exponential Backoff) tối đa 3 lần. Mọi lượt gọi mô hình giám khảo đều lưu lại mã giao dịch toàn cầu (`generation_id`), đảm bảo 100% kết quả có khả năng kiểm toán độc lập.
-
-## 2.3. Thiết kế bộ dữ liệu Benchmark A
-
-Kho ngữ liệu Benchmark A bao gồm 2.087 điều luật quy phạm toàn văn (chuẩn hóa từ tập 2.088 bản ghi thô ban đầu sau khi hợp nhất các mục rỗng), thu thập từ các văn bản luật thực thi then chốt của Việt Nam gồm Bộ luật Dân sự 2015 (689 điều), Bộ luật Hình sự 2015/2017 (426 điều), Bộ luật Lao động 2019 (220 điều), Luật Doanh nghiệp 2020 (218 điều), Luật Hôn nhân và Gia đình 2014 (133 điều) và Luật Xử lý vi phạm hành chính 2012/2020 (142 điều). Toàn bộ ngữ liệu được chuẩn hóa bảng mã Unicode NFC, loại bỏ ký tự điều khiển và lưu trữ cấu trúc tại tệp `corpus_final.json`.
-
-Tập câu hỏi kiểm thử gồm 512 truy vấn pháp lý được phân tầng theo bốn nhóm độ phức tạp: câu hỏi trực tiếp (`clean_factoid`: 307 câu), câu hỏi chứa điều kiện/ngoại lệ (`conditional`: 123 câu), câu hỏi suy luận nhiều bước (`multi_hop`: 67 câu) và câu hỏi phủ định (15 câu). Nhằm hạn chế hiện tượng rò rỉ từ vựng (Lexical Leakage) – yếu tố thường làm thiên lệch kết quả theo hướng có lợi cho các thuật toán so khớp từ khóa, các câu hỏi đã được diễn đạt lại (Paraphrasing) để chuyển đổi thuật ngữ chuyên môn thành ngôn ngữ đời thường mà vẫn bảo toàn bản chất pháp lý. Đo kiểm thực nghiệm xác nhận hệ số trùng lặp từ vựng Jaccard trung bình giữa câu hỏi và điều luật căn cứ giảm từ 0.68 xuống còn 0.31.
-
-## 2.5. Thiết kế phương pháp mở rộng bằng Parser và Validation — Giai đoạn 2
-
-Giai đoạn 2 tập trung giải quyết hai hạn chế cốt lõi của kỹ thuật cắt phân đoạn truyền thống: hiện tượng mồ côi ngữ cảnh (Context Orphanage) khi các khoản/điểm bị tách rời khỏi câu dẫn chủ thể ở cấp Điều, và hiện tượng ảo giác ranh giới (Boundary Smearing) khi các đoạn cắt lớn nuốt trọn nhiều điều luật liền kề.
-
-Module `StructureAwareParser` v2 thực thi hai giải thuật: (1) Tự động khôi phục tiêu đề thực tế từ dòng đầu tiên của điều luật bằng biểu thức quy chuẩn nhằm loại bỏ các đoạn cắt rác `_p0`; (2) Bơm tiền tố định danh bất biến `[Luật | Điều: Tiêu đề] > [Khoản] > [Điểm]` vào phần đầu của 100% các khối vi mô (độ dài 50–150 từ). Dữ liệu sau khi trích xuất được Module Validation kiểm định tính toàn vẹn phân cấp và bảo tồn ký tự đặc thù tiếng Việt trước khi lập chỉ mục.
-
-Đối với biến thể Naive RAG kết hợp Parser, 12.754 khối vi mô được đưa vào không gian vector BGE-M3. Để khắc phục hiện tượng năm kết quả Top-5 bị chiếm giữ bởi các khoản của cùng một điều, hệ thống áp dụng thuật toán Gom điểm Cực đại cấp Điều luật:
-$$\text{Score}(\text{Article}_A) = \max_{c_j \in \text{Article}_A} \text{CosineSim}(\mathbf{q}, \mathbf{c}_j)$$
-Phép toán cực đại này tuân thủ nguyên lý chống pha loãng tín hiệu (Anti-Dilution Principle, tương đồng với cơ chế Max-Fusion tại Module 5): trong pháp lý, chỉ cần duy nhất một khoản vi mô trúng khớp câu hỏi là toàn bộ điều luật có giá trị căn cứ; phép $\max$ bảo toàn nguyên vẹn tín hiệu đúng mà không bị các khoản phụ kéo tụt điểm số như hàm trung bình.
-
-Đối với biến thể Hybrid RAG kết hợp Parser, bảng xếp hạng cực đại của BM25 và Dense được dung hợp thông qua giải thuật Weighted RRF:
-$$\text{RRF}_{\text{weighted}}(A) = \alpha \cdot \frac{1}{60 + r_{\text{dense}}(A)} + (1 - \alpha) \cdot \frac{1}{60 + r_{\text{bm25}}(A)}$$
-Hằng số làm mịn $k=60$ được kế thừa theo chuẩn tắc Cormack et al. (SIGIR 2009), trong khi tham số $\alpha \in [0.0, 1.0]$ được quét qua 11 mức nhằm kiểm chứng thực nghiệm ảnh hưởng của tỷ trọng ngữ nghĩa. Kết quả quét siêu tham số trên 512 câu hỏi xác lập $\alpha = 0.8$ (80% Dense, 20% BM25) là điểm cân bằng Pareto tối ưu, vừa ngăn chặn hiện tượng Negative Fusion vừa bảo toàn lưới an toàn từ vựng. Quy trình thực thi được triển khai trực tiếp trên GPU Tesla T4 (VRAM 14.56 GB) với độ trễ P95 đạt 0.865 ms. 
-
-Toàn bộ thực nghiệm Giai đoạn 2 được thiết kế đối xứng hoàn toàn qua ma trận $2 \times 3$ (2 phương án Chunking $\times$ 3 phương thức Retrieval), kiểm soát chặt chẽ cùng một kho 2.087 điều luật và 512 câu hỏi nhằm đảm bảo mọi sự thay đổi về Recall@5, MRR@5 và Citation Accuracy đều phản ánh trung thực giá trị đóng góp của bộ phân tích cấu trúc pháp lý.
-
+### 2.5.7. Các biến được kiểm soát và nguyên tắc đối chứng độc lập
+Thiết kế thực nghiệm tuân thủ chặt chẽ nguyên tắc kiểm soát biến khoa học:
+* Biến độc lập duy nhất được thay đổi giữa các cặp đối chứng là **Phương thức phân đoạn văn bản (Chunking Strategy)**: từ biểu diễn Điều thô chuyển sang phân đoạn vi mô mang tiền tố.
+* Các biến kiểm soát được giữ cố định tuyệt đối: cùng bộ mã hóa nhúng BGE-M3 (FP16, pooling cls/mean), cùng thuật toán Okapi BM25 ($k_1=1.5, b=0.75$), cùng hằng số $k=60$ và cùng tập 512 câu hỏi kiểm thử.
+* Thiết kế này bảo đảm mọi sự biến thiên về Recall@5, MRR@5 và Citation Accuracy đều phản ánh trung thực giá trị đóng góp nội tại của bộ phân tích cấu trúc pháp lý.
