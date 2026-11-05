@@ -94,7 +94,7 @@ Trong giai đoạn đầu thiết kế hệ thống, nhóm nghiên cứu tập t
 * **Hybrid RRF là cơ chế Pha trộn / Cộng dồn (Blending):**
   $$\text{RRF}(d) = \sum_{m \in M} \frac{w_m}{k + r_m(d)}$$
   * Khi một kênh tìm kiếm bị "mù" hoặc bị "bẫy từ khóa" (xếp tài liệu sai lên đầu bảng, hoặc xếp tài liệu đúng xuống thứ hạng sâu), điểm cộng dồn của kênh đó sẽ kéo tụt thứ hạng tổng thể của tài liệu đúng. Đây là nguyên nhân trực tiếp dẫn tới hiện tượng Negative Fusion.
-* **MaxP Aggregation & Max-Fusion M5 là cơ chế Cực đại hóa (Anti-Dilution):**
+* **MaxP Aggregation & Cơ chế Gom điểm Cực đại là nguyên lý Anti-Dilution:**
   $$\text{Score}(\text{Article}_A) = \max_{c_j \in \text{Article}_A} \text{CosineSim}(\mathbf{q}, \mathbf{c}_j)$$
   * Phép toán $\max$ loại trừ hoàn toàn sự can thiệp của các phần tử yếu kém. 
   * Trong luật học, chỉ cần một Khoản vi mô duy nhất khớp đúng câu hỏi là toàn bộ Điều luật đó có giá trị căn cứ; phép $\max$ bảo toàn 100% điểm số cao nhất của Khoản đúng mà không bị các khoản râu ria khác kéo tụt điểm số như hàm trung bình cộng.
@@ -120,3 +120,4 @@ Trong giai đoạn đầu thiết kế hệ thống, nhóm nghiên cứu tập t
   > *"Kính thưa Hội đồng, việc giữ cấu trúc **Ma trận cơ sở 6 cấu hình ($2 \times 3$) kết hợp 1 biến thể tối ưu (C6\*)** là chuẩn mực phương pháp luận:
   > - Ma trận $2 \times 3$ bảo đảm tính đối xứng hoàn hảo để cô lập biến độc lập (Chunking Strategy) trên 3 phương thức retrieval kinh điển (BM25, Dense, RRF 1:1).
   > - Hiện tượng Negative Fusion chỉ xảy ra trên micro-chunks (Parser), không xảy ra trên Naive điều thô. Do đó, việc quét tham số $\alpha$ là một bước phân tích độ nhạy tiếp nối dành riêng cho Parser để tìm ra điểm cân bằng Pareto $\alpha=0.8$, chứ không phải là một nhân tố đối xứng trong thiết kế ma trận ban đầu."*
+

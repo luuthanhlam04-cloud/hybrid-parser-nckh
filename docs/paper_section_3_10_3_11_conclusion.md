@@ -35,7 +35,7 @@ Chương 3 đã trình bày toàn diện chuỗi thực nghiệm ba giai đoạn
    * Việc bóc tách 2.087 Điều thành 12.754 phân đoạn vi mô kết hợp gom điểm cực đại MaxP đã nâng Citation Accuracy lên **99.02%** (507/512 câu trúng hoàn hảo), đồng thời tiết kiệm 79.9% dung lượng ngữ cảnh gửi LLM.
    * Phát hiện hiện tượng Negative Fusion trên micro-chunks khi áp dụng Cormack RRF cào bằng 1:1, và giải quyết thành công thông qua giải thuật Weighted RRF với điểm cân bằng Pareto thực chứng tại **$\alpha = 0.8$ (80% Dense, 20% BM25)** đạt Recall@5 = **0.9297** và MRR@5 = **0.8220**.
    * Đo kiểm thời gian thực trên GPU Tesla T4 xác lập hiệu năng vượt trội của Vector Search nội bộ (P95 đạt 0.865 ms, nhanh hơn BM25 trên CPU 75 lần).
-3. **Tiền đề phương pháp luận chuyển tiếp sang Giai đoạn 3:** Mặc dù Weighted RRF giải quyết được hiện tượng pha loãng xếp hạng, việc sử dụng trọng số tĩnh $\alpha$ cố định vẫn là một giải pháp thỏa hiệp tuyến tính. Đây là động lực trực tiếp dẫn đến thiết kế Kiến trúc Phễu lọc đa tầng M5 (Multi-tier Funnel RAG) ở Giai đoạn 3, nơi cơ chế Max-Fusion và Cross-Encoder Reranker được tích hợp để tự động điều chỉnh độ ưu tiên theo đặc thù câu hỏi trên Benchmark B.
+3. **Tiền đề phương pháp luận chuyển tiếp sang Giai đoạn 3:** Mặc dù Weighted RRF giải quyết được hiện tượng pha loãng xếp hạng, việc sử dụng trọng số tĩnh $\alpha$ cố định vẫn là một giải pháp thỏa hiệp tuyến tính. Đây là động lực trực tiếp dẫn đến thiết kế Kiến trúc đề xuất Hybrid Parser/UKG (Unified Knowledge Graph) ở Giai đoạn 3, nơi cấu trúc phân cấp vật lý (M1–M4) được hợp nhất với đồ thị tri thức quy phạm (M5–M9) và cơ chế tái dựng đường dẫn bằng chứng (M10) trên Benchmark B.
 
 ---
 
@@ -52,7 +52,7 @@ Chương 3 đã trình bày toàn diện chuỗi thực nghiệm ba giai đoạn
   $\rightarrow$ **Kết luận:** Việc bóc tách cấu trúc vật lý thành các phân đoạn vi mô mang tiền tố phân cấp kế thừa kết hợp giải thuật Article-level MaxP đã khắc phục triệt để hiện tượng sụp đổ trích dẫn, nâng Citation Accuracy lên **99.02%** trên toàn bộ 512 câu hỏi, giảm 79.9% độ dài ngữ cảnh tạo sinh và duy trì Recall@5 ở mức đỉnh 0.9316. Đồng thời, nghiên cứu làm sáng tỏ hiện tượng Negative Fusion trên micro-chunks và xác lập tỷ lệ Weighted RRF tối ưu tại $\alpha = 0.8$.
 
 * **Trả lời $RQ_3$:** *Làm thế nào để dung hòa giữa tính chính xác của phân đoạn cấu trúc và khả năng xử lý quan hệ phức tạp của đồ thị tri thức?*  
-  $\rightarrow$ **Kết luận:** Mô hình kết hợp đa tầng – tích hợp bộ phân tích cấu trúc vi mô ở tầng tiền xử lý, cơ chế gom điểm Max-Fusion ở tầng dung hợp và định tuyến động qua Cross-Encoder Reranker (Kiến trúc Phễu lọc M5) – là giải pháp tối ưu để vừa bảo toàn ranh giới pháp lý vừa xử lý hiệu quả các câu hỏi suy luận đa bước mà không làm bùng nổ chi phí tính toán.
+  $\rightarrow$ **Kết luận:** Kiến trúc đề xuất Hybrid Parser/UKG – kết hợp hài hòa giữa bảo toàn cấu trúc văn bản vật lý (M1–M4), trích xuất quy phạm có định tuyến (M5–M6) và hợp nhất đồ thị tri thức thống nhất (M7–M10) – là giải pháp tối ưu để vừa bảo toàn ranh giới pháp lý vừa xử lý hiệu quả các câu hỏi suy luận đa bước mà không làm bùng nổ chi phí tính toán.
 
 ## 2. Các đóng góp khoa học cốt lõi của đề tài
 
@@ -71,4 +71,5 @@ Nghiên cứu mang lại ba đóng góp chính cho lĩnh vực Xử lý ngôn ng
 Mặc dù đã đạt được những kết quả thực nghiệm vượt trội, nghiên cứu ghi nhận một số hạn chế mở ra các hướng phát triển trong tương lai:
 1. **Mở rộng phạm vi ngữ liệu sang văn bản dưới luật:** Nghiên cứu hiện tập trung vào các Bộ luật và Luật do Quốc hội ban hành. Hướng phát triển tiếp theo là mở rộng bộ phân tích cấu trúc để tự động nhận diện các định dạng đặc thù của Nghị định, Thông tư và các văn bản quy phạm pháp luật của chính quyền địa phương.
 2. **Cơ chế tự động hóa cập nhật tri thức pháp luật:** Hệ thống pháp luật có tính biến động cao với các quy định sửa đổi, bổ sung và bãi bỏ thường xuyên. Hướng nghiên cứu tiếp theo sẽ tích hợp cơ chế nhận diện hiệu lực văn bản theo thời gian (Temporal Legal Reasoning) để tự động đồng bộ hóa đồ thị tri thức khi có luật mới ban hành.
-3. **Mở rộng đánh giá trên các bài toán suy luận liên văn bản:** Tiếp tục hoàn thiện và đánh giá chuyên sâu kiến trúc Phễu lọc M5 trên tập Benchmark B (50 câu hỏi Chương III Luật Đất đai) nhằm định lượng năng lực tái tạo đường dẫn bằng chứng (Answer-Path Reconstruction) cho các tình huống xung đột pháp luật phức tạp.
+3. **Mở rộng đánh giá trên các bài toán suy luận liên văn bản:** Tiếp tục hoàn thiện và đánh giá chuyên sâu kiến trúc Hybrid Parser/UKG trên tập Benchmark B (50 câu hỏi Chương III Luật Đất đai) nhằm định lượng năng lực tái tạo đường dẫn bằng chứng (Answer-Path Reconstruction) cho các tình huống xung đột pháp luật phức tạp.
+
