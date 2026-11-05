@@ -5,6 +5,8 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from typing import Any
 
+from .evidence_fusion import EvidenceCandidate, render_legal_locator
+
 
 MODALITY_LABELS = {
     "ALLOW": "ĐƯỢC PHÉP",
@@ -14,10 +16,13 @@ MODALITY_LABELS = {
 
 
 class ContextAssembler:
-    def __init__(self, max_chars: int = 16000) -> None:
+    def __init__(self, max_chars: int = 16000, max_total_tokens: int = 10000) -> None:
         if isinstance(max_chars, bool) or not isinstance(max_chars, int) or max_chars < 1:
             raise ValueError("max_chars must be a positive integer.")
+        if isinstance(max_total_tokens, bool) or not isinstance(max_total_tokens, int) or max_total_tokens < 1:
+            raise ValueError("max_total_tokens must be a positive integer.")
         self.max_chars = max_chars
+        self.max_total_tokens = max_total_tokens
 
     @staticmethod
     def _items(values: Any) -> list[str]:
@@ -146,3 +151,59 @@ class ContextAssembler:
         if not sections:
             return "Đồ thị có node liên quan nhưng không có văn bản nguồn để trích dẫn."
         return self._bound(sections)
+
+    @staticmethod
+    def estimate_tokens(text: str) -> int:
+        """Conservative language-independent estimate used only for a hard budget."""
+        if not text:
+            return 0
+        return max(1, (len(text) + 2) // 3)
+
+    @staticmethod
+    def _render_fusion_candidate(candidate: EvidenceCandidate, index: int) -> str:
+        locator = candidate.canonical_locator or "UNRESOLVED"
+        roles = ", ".join(candidate.roles) if candidate.roles else candidate.source_type
+        lines = [
+            f"Bằng chứng {index} [{locator}]",
+            f"Căn cứ: {render_legal_locator(candidate.canonical_locator)}",
+            f"Loại evidence: {roles}",
+            f"Nguồn truy hồi: {candidate.source_type}; provenance={candidate.provenance}",
+        ]
+        if candidate.relation_type:
+            lines.append(
+                "Dẫn chiếu: "
+                f"{candidate.source_locator or 'UNRESOLVED'} "
+                f"--{candidate.relation_type}--> "
+                f"{candidate.target_locator or 'UNRESOLVED'}"
+            )
+        lines.append(f"Nguyên văn: {candidate.text}")
+        return "\n".join(lines)
+
+    def assemble_fusion(
+        self,
+        candidates: Sequence[EvidenceCandidate],
+    ) -> tuple[str, list[EvidenceCandidate], dict[str, Any]]:
+        """Render only candidates that fit the same 10k-token budget as LightRAG."""
+        sections: list[str] = []
+        included: list[EvidenceCandidate] = []
+        consumed = 0
+        for candidate in candidates:
+            section = self._render_fusion_candidate(candidate, len(included) + 1)
+            cost = self.estimate_tokens(section)
+            if consumed + cost > self.max_total_tokens:
+                continue
+            sections.append(section)
+            included.append(candidate)
+            consumed += cost
+        if not sections:
+            context = "Không tìm thấy bằng chứng pháp lý đủ provenance để tạo ngữ cảnh."
+        else:
+            context = "\n\n".join(sections)
+        return context, included, {
+            "max_total_tokens": self.max_total_tokens,
+            "estimated_tokens": consumed,
+            "estimator": "ceil_unicode_chars_div_3",
+            "candidate_count": len(candidates),
+            "included_count": len(included),
+            "within_budget": consumed <= self.max_total_tokens,
+        }

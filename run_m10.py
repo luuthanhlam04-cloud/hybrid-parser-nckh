@@ -11,15 +11,15 @@ from src.retrieval.context_assembler import ContextAssembler
 from src.retrieval.m10_pipeline import M10Pipeline
 
 def main():
-    parser = argparse.ArgumentParser(description="Test M10 Graph Retrieval Pipeline")
-    parser.add_argument("question", type=str, help="Câu hỏi pháp lý bằng tiếng Việt")
+    parser = argparse.ArgumentParser(description="Run the M10 graph retrieval pipeline")
+    parser.add_argument("question", type=str, help="Vietnamese legal question")
     parser.add_argument(
         "--mode",
-        choices=["A", "B", "AUTO"],
-        default="AUTO",
-        help="Mode A (Norm), Mode B (k-hop), hoặc AUTO (Ưu tiên A, tự fallback sang B nếu rỗng)",
+        choices=["A", "B", "AUTO", "AUTO_FUSION"],
+        default="AUTO_FUSION",
+        help="Mode A, legacy Mode B, or AUTO_FUSION (Jev + norm + typed references + hierarchy)",
     )
-    parser.add_argument("--top-k", type=int, default=5, help="Số lượng mỏ neo (Anchor nodes) cần tìm")
+    parser.add_argument("--top-k", type=int, default=5, help="Number of anchor nodes to retrieve")
     args = parser.parse_args()
 
     load_dotenv()
@@ -42,11 +42,13 @@ def main():
     
     print(f"[*] Khởi tạo M10 Pipeline (Đang load model nhúng sentence-transformers, có thể hơi lâu chút)...")
     try:
+        from src.retrieval.jev_client import JevClient
         pipeline = M10Pipeline(
             anchor_search=AnchorSearch(driver=driver),
             graph_query=GraphQuery(driver=driver),
             answer_generator=AnswerGenerator.from_environment(),
-            context_assembler=ContextAssembler()
+            context_assembler=ContextAssembler(),
+            jev_client=JevClient.from_environment(),
         )
         
         print(f"\n[*] Đang truy vấn câu hỏi (Mode {args.mode}): '{args.question}'")
