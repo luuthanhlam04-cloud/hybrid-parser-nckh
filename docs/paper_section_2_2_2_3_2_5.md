@@ -3,7 +3,7 @@
 ## 2.2. Kiến trúc Benchmark Harness
 
 ### 2.2.1. Kiến trúc Adapter Pattern và cơ chế trừu tượng hóa pipeline
-Nhằm thiết lập một môi trường đối soát thực nghiệm khách quan giữa các kiến trúc RAG có nguyên lý vận hành khác biệt, nghiên cứu xây dựng khung kiểm thử Benchmark Harness dựa trên mẫu thiết kế Adapter Pattern. Khung kiểm thử đóng vai trò là một lớp trừu tượng hóa trung gian (Abstraction Layer), cho phép tách rời hoàn toàn giữa bộ điều phối đánh giá (Evaluation Orchestrator) với các thành phần thực thi nội bộ của từng mô hình (như chỉ mục BM25, đồ thị LightRAG hay bộ phân tích cấu trúc Parser).
+Nhằm thiết lập một môi trường đối soát thực nghiệm khách quan giữa các kiến trúc RAG có nguyên lý vận hành khác biệt [9], nghiên cứu xây dựng khung kiểm thử Benchmark Harness dựa trên mẫu thiết kế Adapter Pattern. Khung kiểm thử đóng vai trò là một lớp trừu tượng hóa trung gian (Abstraction Layer), cho phép tách rời hoàn toàn giữa bộ điều phối đánh giá (Evaluation Orchestrator) với các thành phần thực thi nội bộ của từng mô hình (như chỉ mục BM25, đồ thị LightRAG hay bộ phân tích cấu trúc Parser).
 
 Mọi hệ thống RAG tham gia đánh giá bắt buộc phải kế thừa lớp giao diện cơ sở `BaseRAGAdapter` và hiện thực hóa ba phương thức chuẩn tắc:
 1. `index(documents)`: Tiếp nhận kho ngữ liệu đã chuẩn hóa và tiến hành xây dựng chỉ mục tìm kiếm tương ứng.
@@ -52,7 +52,7 @@ Dữ liệu thô sau khi thu thập được xử lý qua quy trình chuẩn hó
 3. Loại bỏ các thành phần văn bản phi quy phạm như số trang, tiêu đề đầu trang/chân trang (header/footer) và các chú thích biên tập không thuộc nội dung văn bản luật chính thức.
 
 ### 2.3.3. Tập đối chuẩn công bằng 205 câu hỏi (Tier 1 Fair Subset — Giai đoạn 1)
-Trong Giai đoạn 1 của đề tài, nghiên cứu thực hiện đối sánh giữa các kiến trúc RAG cơ sở và kiến trúc đồ thị tri thức LightRAG. Tuy nhiên, việc áp dụng LightRAG trên toàn văn 2.087 Điều luật gặp phải rào cản chi phí tính toán rất lớn: do LightRAG phụ thuộc vào mô hình ngôn ngữ lớn để trích xuất thực thể và quan hệ trên từng đoạn cắt văn bản ($O(N \cdot \text{Cost}_{\text{LLM}})$), kinh phí gọi API thương mại cho toàn bộ kho dữ liệu vượt quá giới hạn nguồn lực của đề tài.
+Trong Giai đoạn 1 của đề tài, nghiên cứu thực hiện đối sánh giữa các kiến trúc RAG cơ sở và kiến trúc đồ thị tri thức LightRAG [5]. Tuy nhiên, việc áp dụng LightRAG trên toàn văn 2.087 Điều luật gặp phải rào cản chi phí tính toán rất lớn: do LightRAG phụ thuộc vào mô hình ngôn ngữ lớn để trích xuất thực thể và quan hệ trên từng đoạn cắt văn bản ($O(N \cdot \text{Cost}_{\text{LLM}})$) [6], kinh phí gọi API thương mại cho toàn bộ kho dữ liệu vượt quá giới hạn nguồn lực của đề tài.
 
 Để khắc phục rào cản này mà vẫn bảo đảm tính khoa học, nhóm nghiên cứu đã triển khai LightRAG trên một phân vùng gồm **500 Điều luật trọng điểm** (thuộc Bộ luật Hình sự và Bộ luật Lao động). Khi đối soát với tập câu hỏi, nhóm xác lập **Tập đối chuẩn công bằng (Tier 1 Fair Subset)** gồm **205 câu hỏi**. Điều kiện ràng buộc tiên quyết của tập này là: **100% căn cứ pháp lý cần thiết để giải quyết câu hỏi đều phải nằm trọn vẹn trong 500 điều luật đã được nạp vào chỉ mục của LightRAG**.
 
@@ -102,7 +102,7 @@ Bộ dữ liệu Benchmark A phản ánh trung thực phân bố câu hỏi tron
 ### 2.5.1. Động cơ bổ sung Structure-aware Parsing
 Kết quả thực nghiệm ở Giai đoạn 1 chỉ ra hai điểm nghẽn nghiêm trọng của các phương pháp phân đoạn văn bản truyền thống khi áp dụng vào văn bản quy phạm pháp luật:
 1. Hiện tượng mồ côi ngữ cảnh (Context Orphanage): Khi văn bản bị cắt theo độ dài cố định hoặc tách rời từng Khoản/Điểm một cách cơ học, các quy phạm thành phần bị mất đi câu dẫn chủ thể hoặc điều kiện tiên quyết ở cấp Điều cha, khiến mô hình ngôn ngữ không thể xác định phạm vi áp dụng.
-2. Hiện tượng ảo giác ranh giới (Boundary Smearing): Khi gom các khối văn bản thô lớn (toàn văn Điều luật dài hàng nghìn từ) để đưa vào mô hình tạo sinh, hiện tượng ngợp ngữ cảnh dài (Context Dilution / Lost in the Middle) xảy ra, khiến mô hình trả lời chung chung và làm tỷ lệ trích dẫn chính xác sụp đổ.
+2. Hiện tượng ảo giác ranh giới (Boundary Smearing): Khi gom các khối văn bản thô lớn (toàn văn Điều luật dài hàng nghìn từ) để đưa vào mô hình tạo sinh, hiện tượng ngợp ngữ cảnh dài (Context Dilution / Lost in the Middle) [7] xảy ra, khiến mô hình trả lời chung chung và làm tỷ lệ trích dẫn chính xác sụp đổ.
 
 Để giải quyết triệt để các hạn chế trên, Giai đoạn 2 đề xuất giải pháp bóc tách cấu trúc chuyên biệt thông qua Module `StructureAwareParser` v2 và quy trình kiểm thực `Validation`.
 
@@ -111,20 +111,22 @@ Module `StructureAwareParser` v2 thực thi quy trình phân tách cấu trúc p
 * Nhận diện và khôi phục tiêu đề thực tế: Tự động phân tích dòng đầu tiên của điều luật bằng mẫu quy chuẩn `^Điều\s+(\d+)\.\s*(.+)$` để trích xuất chính xác tên gọi quy phạm, loại bỏ hoàn toàn các đoạn cắt rác rỗng (`_p0`).
 * Phân tách đệ quy ba cấp: Bóc tách văn bản tuần tự từ cấp Điều xuống cấp Khoản (mẫu `^(\d+)\.\s*(.+)$`) và cấp Điểm (mẫu `^([a-zđ])\)\s*(.+)$`).
 * Bơm tiền tố định danh bất biến (Invariant Context Prefix Injection): Bơm trực tiếp chuỗi định danh phân cấp vào phần đầu của 100% các phân đoạn vi mô (*micro-chunks*, độ dài 50–150 từ):
-  $$\text{Prefix} = \text{"[Luật " } + \text{law\_id} + \text{ " \| Điều " } + \text{article\_id} + \text{ ": " } + \text{title} + \text{] > [Khoản " } + \text{clause\_id} + \text{]"}$$
+  $$\text{Prefix} = \texttt{"[Luật "} + \text{law\_id} + \texttt{" | Điều "} + \text{article\_id} + \texttt{": "} + \text{title} + \texttt{"] > [Khoản "} + \text{clause\_id} + \texttt{"]"}$$
 
 Dữ liệu toàn văn 2.087 Điều luật sau khi đi qua bộ phân tích cấu trúc được chuyển đổi thành **12.754 phân đoạn vi mô chuẩn hóa**.
 
 ### 2.5.3. Module Validation kiểm định tính toàn vẹn phân cấp văn bản
-Dữ liệu sau khi trích xuất được đưa qua Module Validation để kiểm tra tính toàn vẹn cấu trúc văn bản trước khi lập chỉ mục. Cần nhấn mạnh rằng ở Giai đoạn 2, hệ thống **chưa xây dựng cơ sở dữ liệu đồ thị vật lý (Physical Graph)** mà tập trung kiểm định tính toàn vẹn của **cây phân cấp tài liệu (Hierarchical Document Tree)**:
-1. Kiểm tra tính liên kết phân cấp: Xác thực rằng mọi phân đoạn thành phần con (Khoản, Điểm) đều lưu trữ chính xác mã tham chiếu định danh (`parent_id`) trỏ về đơn vị cấu trúc cha (Điều luật).
+Dữ liệu sau khi trích xuất được đưa qua Module Validation để kiểm tra tính toàn vẹn cấu trúc văn bản trước khi lập chỉ mục. Cần nhấn mạnh rằng ở Giai đoạn 2, hệ thống **chưa xây dựng cơ sở dữ liệu đồ thị vật lý (Physical Graph)** mà tập trung kiểm định tính toàn vẹn của **cây phân cấp tài liệu (Hierarchical Document Tree Metadata)** trong lược đồ Pydantic Schema:
+1. Kiểm tra tính liên kết phân cấp: Xác thực rằng mọi phân đoạn vi mô thành phần con (Khoản, Điểm) đều lưu trữ chính xác mã tham chiếu định danh (`parent_id`) trỏ về đơn vị quy phạm cha (Điều luật), loại trừ triệt để nguy cơ xuất hiện các phân đoạn mồ côi (*orphan chunks*).
 2. Kiểm tra độ phủ tiền tố: Bảo đảm 100% các phân đoạn vi mô đều được gắn tiền tố định vị hợp lệ, không có trường hợp nào bị khuyết tiêu đề Điều.
 3. Bảo tồn ký tự đặc thù tiếng Việt: Kiểm tra tính nguyên vẹn của các ký tự Điểm mang dấu tiếng Việt (chẳng hạn Điểm đ) không bị chuyển đổi sai lệch trong quá trình xử lý chuỗi.
 
-### 2.5.4. Biến thể Naive RAG + Parser và Thuật toán Article-level MaxP Aggregation
-Khi đưa 12.754 phân đoạn vi mô vào không gian vector của mô hình BGE-M3 (1024 chiều), số lượng đơn vị tìm kiếm tăng gấp hơn 6 lần so với kho 2.087 điều ban đầu. Nếu thực hiện truy xuất Top-5 theo cách ngây thơ, hiện tượng **bội thực cục bộ (Redundancy Collapse)** sẽ xuất hiện: năm kết quả trả về có thể là năm Khoản khác nhau của cùng một Điều luật, khiến người dùng chỉ nhận được duy nhất một quy phạm và làm suy giảm nghiêm trọng chỉ số Recall ở cấp Điều.
+*(Lưu ý: Quá trình ánh xạ toàn bộ cây phân cấp này thành các node và cạnh quan hệ vật lý chính thức như `BELONG_TO`, `NEXT`, `PREVIOUS` sẽ do Module M4 - Physical Graph Builder thực thi ở Giai đoạn 3).*
 
-Để khắc phục hiện tượng này, nghiên cứu đề xuất thuật toán **Gom điểm Cực đại cấp Điều luật (Article-level MaxP Aggregation)**:
+### 2.5.4. Biến thể Naive RAG + Parser và Thuật toán Article-level MaxP Aggregation
+Khi đưa 12.754 phân đoạn vi mô vào không gian vector của mô hình BGE-M3 (1024 chiều) [1], số lượng đơn vị tìm kiếm tăng gấp hơn 6 lần so với kho 2.087 điều ban đầu. Nếu thực hiện truy xuất Top-5 theo cách ngây thơ, hiện tượng **bội thực cục bộ (Redundancy Collapse)** sẽ xuất hiện: năm kết quả trả về có thể là năm Khoản khác nhau của cùng một Điều luật, khiến người dùng chỉ nhận được duy nhất một quy phạm và làm suy giảm nghiêm trọng chỉ số Recall ở cấp Điều.
+
+Để khắc phục hiện tượng này, nghiên cứu đề xuất thuật toán **Gom điểm Cực đại cấp Điều luật (Article-level MaxP Aggregation)** [8]:
 $$\text{Score}(\text{Article}_A) = \max_{c_j \in \text{Article}_A} \text{CosineSim}(\mathbf{q}, \mathbf{c}_j)$$
 
 Trong đó $\mathbf{q}$ là vector nhúng của truy vấn và $\mathbf{c}_j$ là vector nhúng của phân đoạn vi mô thứ $j$ thuộc Điều luật $A$. 
@@ -132,18 +134,22 @@ Trong đó $\mathbf{q}$ là vector nhúng của truy vấn và $\mathbf{c}_j$ l�
 Thuật toán này vận hành theo **Nguyên lý Chống pha loãng tín hiệu (Anti-Dilution Principle)**: trong khoa học pháp lý, chỉ cần duy nhất một khoản vi mô trúng khớp câu hỏi là toàn bộ Điều luật đó có đầy đủ giá trị hiệu lực để làm căn cứ áp dụng. Phép toán cực đại $\max$ bảo toàn nguyên vẹn tín hiệu tương đồng cao nhất của phân đoạn đúng mà không bị các khoản râu ria khác kéo tụt điểm số như hàm trung bình cộng. Sau khi gom điểm, hệ thống xếp hạng các Điều luật và trích xuất Top-5 Điều luật độc nhất.
 
 ### 2.5.5. Biến thể Hybrid RAG + Parser và Giải thuật Dung hợp Thứ hạng Có trọng số (Weighted RRF)
-Đối với biến thể kết hợp giữa tìm kiếm từ khóa và tìm kiếm ngữ nghĩa trên các phân đoạn vi mô, hệ thống áp dụng giải thuật Dung hợp Thứ hạng Có trọng số (Weighted Reciprocal Rank Fusion):
+Đối với biến thể kết hợp giữa tìm kiếm từ khóa và tìm kiếm ngữ nghĩa trên các phân đoạn vi mô, hệ thống áp dụng giải thuật Dung hợp Thứ hạng Có trọng số (Weighted Reciprocal Rank Fusion) [3]:
 $$\text{RRF}_{\text{weighted}}(A) = \alpha \cdot \frac{1}{k + r_{\text{dense}}(A)} + (1 - \alpha) \cdot \frac{1}{k + r_{\text{bm25}}(A)}$$
 
 Trong đó:
-* $r_{\text{dense}}(A)$ và $r_{\text{bm25}}(A)$ lần lượt là thứ hạng của Điều luật $A$ sau khi đã gom điểm MaxP ở kênh Dense và kênh BM25;
-* $k = 60$ là hằng số làm mịn chuẩn hóa theo nghiên cứu kinh điển của Cormack và cộng sự (SIGIR 2009);
+* $r_{\text{dense}}(A)$ và $r_{\text{bm25}}(A)$ lần lượt là thứ hạng của Điều luật $A$ sau khi đã gom điểm MaxP ở kênh Dense [1] và kênh BM25 [2];
+* $k = 60$ là hằng số làm mịn chuẩn hóa theo nghiên cứu kinh điển của Cormack và cộng sự (SIGIR 2009) [3];
 * $\alpha \in [0.0, 1.0]$ là hệ số điều tiết tỷ trọng ngữ nghĩa.
 
 Thiết kế này thiết lập một không gian tìm kiếm tham số liên tục, cho phép hệ thống khảo sát thực nghiệm sự dịch chuyển hiệu năng từ cấu hình thuần từ khóa ($\alpha = 0.0$), qua cấu hình dung hợp cào bằng ($\alpha = 0.5$), tới các cấu hình ưu tiên ngữ nghĩa ($\alpha > 0.5$) và cấu hình thuần vector ($\alpha = 1.0$).
 
 ### 2.5.6. Thiết kế ma trận thực nghiệm đối xứng $2 \times 3$ (Ablation Matrix)
-Nhằm kiểm chứng giả thuyết H2 một cách nghiêm ngặt, thực nghiệm Giai đoạn 2 được thiết kế đối xứng hoàn toàn theo mô hình giai thừa 2 nhân tố ($2 \text{ Chunking Strategies} \times 3 \text{ Retrieval Methods}$), hình thành 6 cấu hình đối sánh trên cùng kho 2.087 điều luật và 512 câu hỏi:
+Nhằm kiểm chứng giả thuyết H2 một cách nghiêm ngặt, thực nghiệm Giai đoạn 2 được thiết kế đối xứng hoàn toàn theo mô hình giai thừa 2 nhân tố ($2 \text{ Chunking Strategies} \times 3 \text{ Retrieval Methods}$), hình thành 6 cấu hình đối sánh trên cùng kho 2.087 điều luật và 512 câu hỏi. 
+
+*(Ghi chú chuyển tiếp phương pháp luận: Mặc dù đề cương ban đầu đề xuất thiết kế $2 \times 2$ gồm Vector vs. Hybrid trên hai trạng thái Không Parser vs. Có Parser, quá trình triển khai thực tế đã chủ động mở rộng thành ma trận $2 \times 3$ bằng việc đưa kênh từ vựng cơ sở Okapi BM25 vào làm biến kiểm soát đối chứng độc lập. Việc bổ sung này giúp cô lập hoàn toàn động lực từ khóa, cho phép nhóm nghiên cứu bóc tách chính xác hiện tượng tương tác giữa giải thuật phân đoạn vi mô với từng cơ chế tìm kiếm riêng biệt).*
+
+Sáu cấu hình tham gia đối soát bao gồm:
 * **Cấu hình 1 (C1 - Naive BM25):** Điều luật thô, truy xuất bằng Okapi BM25.
 * **Cấu hình 2 (C2 - Naive Dense):** Điều luật thô, truy xuất bằng mô hình BGE-M3 Dense.
 * **Cấu hình 3 (C3 - Naive Hybrid):** Điều luật thô, dung hợp Cormack RRF tiêu chuẩn ($\alpha = 0.5$).
@@ -154,5 +160,41 @@ Nhằm kiểm chứng giả thuyết H2 một cách nghiêm ngặt, thực nghi�
 ### 2.5.7. Các biến được kiểm soát và nguyên tắc đối chứng độc lập
 Thiết kế thực nghiệm tuân thủ chặt chẽ nguyên tắc kiểm soát biến khoa học:
 * Biến độc lập duy nhất được thay đổi giữa các cặp đối chứng là **Phương thức phân đoạn văn bản (Chunking Strategy)**: từ biểu diễn Điều thô chuyển sang phân đoạn vi mô mang tiền tố.
-* Các biến kiểm soát được giữ cố định tuyệt đối: cùng bộ mã hóa nhúng BGE-M3 (FP16, pooling cls/mean), cùng thuật toán Okapi BM25 ($k_1=1.5, b=0.75$), cùng hằng số $k=60$ và cùng tập 512 câu hỏi kiểm thử.
+* Các biến kiểm soát được giữ cố định tuyệt đối: cùng bộ mã hóa nhúng BGE-M3 (FP16, pooling cls/mean) [1], cùng thuật toán Okapi BM25 (sử dụng siêu tham số chuẩn mực mặc định của thư viện `rank_bm25`: $k_1=1.5, b=0.75$) [2], cùng hằng số làm mịn $k=60$ [3] và cùng tập 512 câu hỏi kiểm thử.
 * Thiết kế này bảo đảm mọi sự biến thiên về Recall@5, MRR@5 và Citation Accuracy đều phản ánh trung thực giá trị đóng góp nội tại của bộ phân tích cấu trúc pháp lý.
+
+---
+
+### TÀI LIỆU THAM KHẢO TRÍCH NGUỒN (REFERENCES)
+
+* **[1]** Chen, J., Xiao, S., Zhang, P., Luo, K., Lian, D., & Liu, Z. (2024). *BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation*. arXiv preprint arXiv:2402.03216. [https://arxiv.org/abs/2402.03216](https://arxiv.org/abs/2402.03216)
+* **[2]** Robertson, S., & Zaragoza, H. (2009). *The Probabilistic Relevance Framework: BM25 and Beyond*. Foundations and Trends in Information Retrieval, 3(4), 333-389. DOI: 10.1561/1500000019. [https://doi.org/10.1561/1500000019](https://doi.org/10.1561/1500000019)
+* **[3]** Cormack, G. V., Clarke, C. L., & Buettcher, S. (2009). *Reciprocal rank fusion outperforms Condorcet and individual rank learning methods*. In Proceedings of the 32nd international ACM SIGIR conference on Research and development in information retrieval (SIGIR '09), 758-759. DOI: 10.1145/1571941.1572114. [https://doi.org/10.1145/1571941.1572114](https://doi.org/10.1145/1571941.1572114)
+* **[4]** Johnson, J., Douze, M., & Jégou, H. (2019). *Billion-scale similarity search with GPUs*. IEEE Transactions on Big Data, 7(3), 535-547. DOI: 10.1109/TBDATA.2019.2921572. [https://doi.org/10.1109/TBDATA.2019.2921572](https://doi.org/10.1109/TBDATA.2019.2921572)
+* **[5]** Guo, Z., Zhuang, Y., Dong, L., et al. (2024). *LightRAG: Simple and Fast Retrieval-Augmented Generation*. arXiv preprint arXiv:2410.05779. [https://arxiv.org/abs/2410.05779](https://arxiv.org/abs/2410.05779)
+* **[6]** Edge, D., Trinh, H., Cheng, N., et al. (2024). *From Local to Global: A Graph RAG Approach to Query-Focused Summarization*. arXiv preprint arXiv:2404.16130. [https://arxiv.org/abs/2404.16130](https://arxiv.org/abs/2404.16130)
+* **[7]** Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). *Lost in the Middle: How Language Models Use Long Contexts*. Transactions of the Association for Computational Linguistics (TACL), 12, 157-173. DOI: 10.1162/tacl_a_00638. [https://doi.org/10.1162/tacl_a_00638](https://doi.org/10.1162/tacl_a_00638)
+* **[8]** Dai, Z., & Callan, J. (2019). *Deeper Text Understanding for IR with Contextual Neural Language Modeling*. In Proceedings of the 42nd International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '19), 385-394. DOI: 10.1145/3331184.3331202. [https://doi.org/10.1145/3331184.3331202](https://doi.org/10.1145/3331184.3331202)
+* **[9]** Lewis, P., Perez, E., Piktus, A., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. In Advances in Neural Information Processing Systems (NeurIPS 2020), 33, 9459-9474. [https://arxiv.org/abs/2005.11401](https://arxiv.org/abs/2005.11401)
+* **[10]** Zheng, L., Chiang, W. L., Sheng, Y., et al. (2024). *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena*. In Advances in Neural Information Processing Systems (NeurIPS 2023), 36. [https://arxiv.org/abs/2306.05685](https://arxiv.org/abs/2306.05685)
+* **[11]** Es, S., James, J., Espinosa-Anke, L., & Schockaert, S. (2024). *Ragas: Automated Evaluation of Retrieval Augmented Generation*. In Proceedings of EACL 2024: System Demonstrations, 150-158. [https://arxiv.org/abs/2309.15217](https://arxiv.org/abs/2309.15217)
+* **[12]** Nguyen, T. (2016). *PyVi: Python Vietnamese Core NLP Toolkit*. GitHub repository. [https://github.com/trungtv/pyvi](https://github.com/trungtv/pyvi)
+* **[13]** Wu, S., & Crestani, F. (2015). *Data Fusion in Information Retrieval*. The Information Retrieval Series, vol 33. Springer, Berlin, Heidelberg. DOI: 10.1007/978-3-662-48092-2. [https://doi.org/10.1007/978-3-662-48092-2](https://doi.org/10.1007/978-3-662-48092-2)
+* **[14]** Wohlin, C., Runeson, P., Höst, M., Ohlsson, M. C., Regnell, B., & Wesslén, A. (2012). *Experimentation in Software Engineering*. Springer Science & Business Media. DOI: 10.1007/978-3-642-29044-2. [https://doi.org/10.1007/978-3-642-29044-2](https://doi.org/10.1007/978-3-642-29044-2)
+* **[15]** Karpukhin, V., Oğuz, B., Min, S., et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. In Proceedings of EMNLP 2020, 6769-6781. [https://arxiv.org/abs/2004.04906](https://arxiv.org/abs/2004.04906)
+* **[16]** Nogueira, R., & Cho, K. (2019). *Passage Re-ranking with BERT*. arXiv preprint arXiv:1901.04085. [https://arxiv.org/abs/1901.04085](https://arxiv.org/abs/1901.04085)
+* **[17]** Chalkidis, I., Fergadiotis, M., Malakasiotis, P., et al. (2020). *LEGAL-BERT: The Muppets straight out of Law School*. In Findings of the Association for Computational Linguistics: EMNLP 2020, 2898-2904. [https://arxiv.org/abs/2010.02559](https://arxiv.org/abs/2010.02559)
+* **[18]** Gao, T., Yen, H., Yu, J., & Chen, D. (2023). *Enabling Large Language Models to Generate Text with Citations*. In Proceedings of EMNLP 2023, 6465-6488. [https://arxiv.org/abs/2305.14627](https://arxiv.org/abs/2305.14627)
+* **[19]** Huang, L., Yu, W., Ma, W., et al. (2023). *A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions*. ACM Computing Surveys. DOI: 10.1145/3600211. [https://doi.org/10.1145/3600211](https://doi.org/10.1145/3600211)
+* **[20]** Hogan, A., Blomqvist, E., Cochez, M., et al. (2021). *Knowledge Graphs*. ACM Computing Surveys (CSUR), 54(4), 1-37. DOI: 10.1145/3447772. [https://doi.org/10.1145/3447772](https://doi.org/10.1145/3447772)
+* **[21]** Zhong, H., Xiao, C., Tu, C., et al. (2020). *How Does NLP Benefit Legal System: A Summary of Legal Artificial Intelligence*. In Proceedings of ACL 2020, 5218-5230. [https://arxiv.org/abs/2004.12158](https://arxiv.org/abs/2004.12158)
+* **[22]** Nguyen, H. T., Tran, V., et al. (2021). *Overview of the Automated Legal Question Answering Challenge (ALQAC 2021)*. In Forum for Information Retrieval Evaluation (FIRE 2021). [https://ceur-ws.org/Vol-3158/](https://ceur-ws.org/Vol-3158/)
+* **[23]** Wilcoxon, F. (1945). *Individual Comparisons by Ranking Methods*. Biometrics Bulletin, 1(6), 80-83. DOI: 10.2307/3001968. [https://doi.org/10.2307/3001968](https://doi.org/10.2307/3001968)
+* **[24]** Manning, C. D., Raghavan, P., & Schütze, H. (2008). *Introduction to Information Retrieval*. Cambridge University Press. DOI: 10.1017/CBO9780511809071. [https://nlp.stanford.edu/IR-book/](https://nlp.stanford.edu/IR-book/)
+* **[25]** Brown, T., Mann, B., Ryder, N., et al. (2020). *Language Models are Few-Shot Learners*. In Advances in Neural Information Processing Systems (NeurIPS 2020), 33, 1877-1901. [https://arxiv.org/abs/2005.14165](https://arxiv.org/abs/2005.14165)
+* **[26]** Wei, J., Wang, X., Schuurmans, D., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. In Advances in Neural Information Processing Systems (NeurIPS 2022), 35. [https://arxiv.org/abs/2201.11903](https://arxiv.org/abs/2201.11903)
+* **[27]** Formal, T., Lassance, C., Piwowarski, B., & Clinchant, S. (2021). *SPLADE v2: Sparse Lexical and Expansion Model for Information Retrieval*. arXiv preprint arXiv:2109.10086. [https://arxiv.org/abs/2109.10086](https://arxiv.org/abs/2109.10086)
+* **[28]** Kuzi, S., Shtok, A., & Kurland, O. (2020). *Leveraging Semantic and Lexical Matching to Improve Diversity in Information Retrieval*. In Proceedings of the 43rd International ACM SIGIR Conference (SIGIR '20), 2029-2032. DOI: 10.1145/3397271.3401243. [https://doi.org/10.1145/3397271.3401243](https://doi.org/10.1145/3397271.3401243)
+* **[29]** Casellas, N. (2011). *Legal Ontology Engineering: Methodologies, Modelling Trends, and the Ontology of Professional Judicial Knowledge*. Law, Governance and Technology Series, Vol. 3, Springer. DOI: 10.1007/978-94-007-1479-3. [https://doi.org/10.1007/978-94-007-1479-3](https://doi.org/10.1007/978-94-007-1479-3)
+* **[30]** Gao, L., & Callan, J. (2021). *Condenser: a Pre-training Architecture for Dense Retrieval*. In Proceedings of EMNLP 2021, 981-993. [https://arxiv.org/abs/2104.08836](https://arxiv.org/abs/2104.08836)
+
