@@ -1,0 +1,148 @@
+﻿HỌC VIỆN CÔNG NGHỆ
+              BƯU CHÍNH VIỄN THÔNG
+VIỆN KHOA HỌC KỸ THUẬT BƯU ĐIỆN 
+                    ————————
+	CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM 
+Độc lập - Tự do - Hạnh phúc
+—————————————
+	
+
+	                           Hà Nội, ngày   6 tháng 5   năm 2026 
+	 
+ĐỀ CƯƠNG NGHIÊN CỨU KHOA HỌC CỦA SINH VIÊN
+ 
+1.       Tên đề tài:
+*  Mã số: 014-SV-2026-RIPT
+* Nghiên cứu và xây dựng hệ thống tiền xử lý dữ liệu lai (Hybrid Parser) nhằm tối ưu hóa GraphRAG trong truy vấn văn bản quy chuẩn pháp lý Việt Nam 
+2.    Thuộc lĩnh vực: Công nghệ thông tin / Trí tuệ nhân tạo (AI) / Khoa học dữ liệu.
+      3.       Mục tiêu, nội dung và kết quả đề tài
+        a/ Mục tiêu:
+* Xây dựng bộ công cụ tiền xử lý dữ liệu chuyên biệt (Specialized Parser) có khả năng tự động nhận diện cấu trúc đặc thù (Điều/Khoản/Điểm) của văn bản quy chuẩn Việt Nam.
+* Đề xuất phương pháp phân tách lai (Hybrid Parsing) kết hợp Biểu thức chính quy (Regex) và Mô hình ngôn ngữ lớn (LLM API với Few-shot Prompting) nhằm bóc tách mạng lưới dẫn chiếu chéo, đồng thời tối ưu hóa tối đa chi phí Token/API.
+* Đánh giá hiệu năng thực nghiệm so sánh giữa phương pháp tiền xử lý dữ liệu mới và phương pháp truyền thống trên cùng một nền tảng GraphRAG.
+          b/ Nội dung:
+* Thiết kế và xây dựng Pipeline tiền xử lý dữ liệu lai (Hybrid Parser Pipeline) bao gồm 3 bước: Lọc cấu trúc vật lý (Rule-based), Trích xuất ngữ nghĩa dẫn chiếu (Few-shot LLM), và Ánh xạ Đồ thị lên Neo4j.
+* Thiết lập hệ thống đối chứng đa cơ sở (Multi-Baseline Evaluation) bao gồm: RAG tiêu chuẩn với Naive Chunking và GraphRAG thuần quy tắc (Pure Rule-based).
+* Ứng dụng phương pháp luận đánh giá (Benchmarking) thông qua 3 tiêu chí cốt lõi: Độ chính xác truy vấn (đo bằng framework RAGAS), Chi phí Token API, và Khả năng giữ toàn vẹn cấu trúc.
+         c/ Kết quả:
+* Báo cáo kết quả đề tài nghiên cứu.
+* Bài báo tham gia hội nghị khoa học sinh viên (nếu có).
+* Mã nguồn (Source Code) bộ Hybrid Parser chuyên dụng cho văn bản quy chuẩn.
+ 
+4.           Chủ trì đề tài : Lưu Thanh Lâm - B25DCTV050 - D25CQTV02-B - 012207000211 - 0987921576
+5.         Giảng viên hướng dẫn : Nguyễn Mạnh Dũng 
+6.           Những người tham gia thực hiện:
+         Nguyễn Bình Minh - B25DCTV054 - D25CQTV02-B - 030207016279 - 0376337563
+     Nguyễn Thùy Linh - B25DCTV048 - D25CQTV02-B - 001307049581 - 0376784509
+7.           Sơ lược tình hình nghiên cứu, điều tra trong nước, ngoài nước
+Trong nước:
+Hiện nay tại Việt Nam, các hệ thống tra cứu văn bản pháp luật, quy chuẩn chủ yếu dựa trên kỹ thuật tìm kiếm từ khóa (Keyword-based search) hoặc các kiến trúc Retrieval-Augmented Generation (RAG) cơ bản. Hầu hết các hệ thống RAG hiện tại đều sử dụng kỹ thuật phân mảnh văn bản tĩnh (Naive Chunking), tức là chia cắt văn bản theo một số lượng token cố định. Cách tiếp cận này bộc lộ hạn chế lớn khi xử lý văn bản quy chuẩn Việt Nam: Nó phá vỡ ranh giới phân cấp vật lý (Chương, Điều, Khoản, Điểm) và gây đứt gãy các mạng lưới dẫn chiếu chéo phức tạp (ví dụ: "áp dụng theo điểm a, khoản 2, Điều này"). Hậu quả là các Mô hình ngôn ngữ lớn (LLM) bị mất ngữ cảnh, dẫn đến hiện tượng "ảo giác" (Hallucination) – đưa ra câu trả lời sai lệch về mặt pháp lý. Việc ứng dụng Đồ thị tri thức (Knowledge Graph) để tự động hóa trích xuất quan hệ pháp luật trong nước vẫn còn đang ở bước sơ khai. 
+Ngoài nước:
+Trên thế giới, lĩnh vực LegalTech và AI đang có sự dịch chuyển mạnh mẽ từ RAG tiêu chuẩn sang GraphRAG (tiêu biểu như giải pháp Microsoft GraphRAG). Các hệ thống này xây dựng Đồ thị tri thức để quản lý các thực thể và mối quan hệ phức tạp. Tuy nhiên, việc triển khai GraphRAG theo phương pháp của Microsoft (sử dụng 100% LLM để đọc và trích xuất toàn bộ văn bản thô) gây ra chi phí Token/API rất cao và thời gian xử lí kéo dài . Do đó, xu hướng nghiên cứu quốc tế mới nhất đang tập trung vào Neuro-symbolic AI – một kiến trúc lai kết hợp giữa các quy tắc logic cứng (Rule-based) và mạng nơ-ron học sâu (LLM) nhằm tối ưu hóa quá trình trích xuất thông tin (Information Extraction). 
+Kết luận : 
+Từ thực trạng trên, có thể thấy một khoảng trống lớn trong nghiên cứu tại Việt Nam: Chưa có một công cụ tiền xử lý dữ liệu (Parser) nào được tối ưu riêng biệt cho ngôn ngữ và cấu trúc đặc thù của văn bản pháp lý Việt Nam để phục vụ cho hệ thống GraphRAG. Do đó, đề tài "Nghiên cứu và xây dựng hệ thống tiền xử lý dữ liệu lai (Hybrid Parser) nhằm tối ưu hóa GraphRAG trong truy vấn văn bản quy chuẩn pháp lý Việt Nam " ra đời nhằm giải quyết trực tiếp khoảng trống này. Việc tùy biến kiến trúc lai (sử dụng Regex làm phễu lọc thô và LLM làm công cụ trích xuất tĩnh) sẽ giải quyết đồng thời hai bài toán lớn: (1) Khắc phục điểm yếu mất ngữ cảnh của Naive Chunking và (2) Tiết kiệm tối đa chi phí Token so với việc sử dụng LLM thuần túy. 
+8.           Sản phẩm giao nộp của đề tài :
+Dạng sản phẩm I
+	Dạng sản phẩm II
+	Dạng sản phẩm III
+	Mẫu sản phẩm:  ◻
+	Qui trình công nghệ kỹ thuật   ◻
+	Chương trình máy tính   ☒ 
+	Vật liệu:             ◻
+	Phương pháp công nghệ   ◻
+	Phương pháp, giải pháp   ☒ 
+	Thiết bị, dụng cụ:  ◻
+	 
+	Đề án qui hoạch                  ◻
+	 
+	 
+	Sơ đồ, bảng số liệu              ☒ 
+	 
+	 
+	Khác                                    ◻
+	
+
+a. Kết quả, sản phẩm
+STT
+	 Tên sản phẩm
+	Đ.vị tính
+	Số lượng
+	Chú thích
+	1
+	Chương trình phần mềm (Hệ thống Hybrid Parser & GraphRAG pipeline) 
+	
+
+Bộ 
+	
+
+01 
+	 Mã nguồn lưu trên GitHub 
+	2
+	Báo cáo kết quả của đề tài
+	Quyển
+	02
+	Thể hiện bằng văn bản 
+	 
+b.Yêu cầu kỹ thuật, chi tiết chất lượng đối với sản phẩm (dạng I)
+STT
+	Tên sản phẩm và
+chỉ tiêu chất lượng
+	Đơn vị
+	Mức chất lượng
+	Chú thích
+	Cần đạt
+	Tham khảo
+	1
+	 Hệ thống phần mềm Hybrid Parser 
+	Hệ thống 
+	Tự động bóc tách và tạo đồ thị SPO; Hoạt động ổn định trên Neo4j.  
+	 Tối ưu chi phí API tốt hơn GraphRAG mặc định 
+	 Giảm lượng Token dư thừa so với gốc 
+	c. Yêu cầu khoa học, kinh tế xã hội đối với sản phẩm (dạng II,III)
+STT
+	 Tên sản phẩm
+	Yêu cầu cụ thể cần đạt
+	Chú thích
+	1
+	Báo cáo kết quả đề tài
+	Khoa học và đủ nội dung; Có biểu đồ đối chứng số liệu RAGAS rõ ràng. 
+	 
+	2
+	USB chứa nội dung báo cáo, bài báo và sản phẩm phần mềm (nếu có)
+	-file nội dung báo cáo có trang bìa như bản cứng
+- Sản phẩm phần mềm được thuyết minh mô tả không quá 02 trang A4
+	 
+	 
+11. Tiến độ thực hiện các nội dung
+STT
+	Nội dung từng bước
+	Thời gian thực hiện
+	Kết quả cần đạt
+	1
+	Khởi tạo & Tiền xử lý dữ liệu: Nghiên cứu tài liệu (GraphRAG, Neo4j, RAGAS) và làm sạch bộ dữ liệu văn bản quy chuẩn. 
+	05/2026
+	Tổng hợp tài liệu nền tảng; File văn bản thô sẵn sàng cho kiểm thử. 
+	2
+	Xây dựng hệ thống cơ sở: Lập trình môi trường đối chứng (Baseline 1: Naive Chunking & Baseline 2: Pure Regex). 
+	06/2026
+	Các Parser cơ sở hoạt động; nhận diện được các giới hạn của Regex thuần. 
+	3
+	Phát triển Hệ thống lõi: Lập trình luồng Hybrid Parser (Tích hợp Regex làm phễu lọc và LLM Few-shot trích xuất ngữ nghĩa). 
+	07/2026
+	Hoàn thiện luồng định tuyến (Router) tự động nhận diện dẫn chiếu. 
+	4
+	Hoàn thiện & Thực nghiệm: Ánh xạ dữ liệu lên Đồ thị Neo4j. Chạy kiểm thử đa cơ sở và đo lường hiệu năng bằng RAGAS. 
+	08/2026
+	Đồ thị tri thức hoàn chỉnh; Thu thập đủ số liệu chứng minh tính ưu việt. 
+	5
+	Tổng kết nghiên cứu: Xử lý số liệu, thống kê chi phí Token/API và viết Báo cáo kết quả nghiên cứu. 
+	9-10/2026
+	Bản thảo Báo cáo nghiên cứu khoa học đầy đủ nội dung theo quy định. 
+	6
+	Hội thảo khoa học: Báo cáo tiến độ và tiếp thu ý kiến phản biện của Hội đồng khoa học Viện. 
+	10/2026
+	Chỉnh sửa và hoàn thiện hệ thống, báo cáo dựa trên góp ý của hội đồng.
+	7
+	Nghiệm thu: In ấn quyển báo cáo, đóng gói mã nguồn và nộp Hội đồng bảo vệ chính thức. 
+	11/2026
+	Được hội đồng thông qua; Nộp 02 quyển báo cáo và mã nguồn gốc.
