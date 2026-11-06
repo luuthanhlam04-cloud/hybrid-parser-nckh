@@ -586,7 +586,7 @@ def main():
         ("paper_section_2_4.md", "paper_section_2_4.docx"),
         ("paper_section_3_1_3_2.md", "paper_section_3_1_3_2.docx"),
         ("paper_section_3_3.md", "paper_section_3_3.docx"),
-        ("paper_section_3_10_3_11_conclusion.md", "paper_section_3_10_3_11_conclusion.docx")
+        ("paper_section_3_9_3_10_conclusion.md", "paper_section_3_9_3_10_conclusion.docx")
     ]
 
     print("==========================================================")
