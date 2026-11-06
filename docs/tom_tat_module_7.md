@@ -64,11 +64,29 @@ Thay vì tạo ra các Node khổng lồ chứa mọi thứ, M7 tách đồ th�
 ## 4. Kết Quả Output (canonical_semantic_graph.json)
 
 Output của M7 là một file JSON được cấu trúc thành các mảng rõ rệt, tuân thủ tuyệt đối Contract với Module 8:
-- **`metadata`**: Chứa toàn bộ tracking về pipeline và report từ bộ lọc rác (VD: `filtered_nodes: 16`).
+- **`metadata`**: Chứa toàn bộ tracking về pipeline và report từ bộ lọc rác (VD: `filtered_nodes: 1`, `filtered_relations: 1`).
 - **`active_nodes` (Local Mentions)**: Các thực thể cục bộ, đã được gán mã `canonical_concept_id`.
 - **`canonical_concepts`**: Các Hub Node đại diện cho taxonomy.
 - **`active_norms`**: Các Node Quy phạm (NormAssertion) mang modality (ALLOW/REQUIRE/PROHIBIT) và điều hướng luồng logic (gắn với Subject, Action, Object).
 - **`active_edges`**: Các cạnh cấu trúc (`HAS_CONDITION`, `HAS_OBJECT`, `DENOTES`) mang theo bằng chứng pháp lý (Edge-Level Provenance).
 - **`quarantine_store`**: Thùng chứa an toàn cho các thực thể/cạnh rác (Thiếu thông tin, sai domain-range).
 
-Sự chuẩn mực và khắt khe của Module 7 (không thỏa hiệp với dữ liệu lỗi) đã đảm bảo Đồ thị Tri thức cuối cùng nạp vào Neo4j (Module 8) đạt chất lượng Enterprise-grade, sẵn sàng đáp ứng mọi truy vấn RAG phức tạp.
+### 📊 Bảng Số Liệu Thực Tế (Cập Nhật Thực Thi Mới Nhất)
+
+Đối chiếu trực tiếp từ file `outputs/canonical_graphs/canonical_semantic_graph.json`:
+
+| Chỉ Số Thành Phần | Số Liệu Thực Tế | Ghi Chú Kỹ Thuật |
+| :--- | :---: | :--- |
+| **Tổng số Extraction Nodes nạp từ M6** | **180 nodes** | Khớp 100% với output Module 6 |
+| **Physical Graph nạp từ M4** | **223 nodes** | Cây vật lý đã xác thực từ M3 |
+| **Local Mentions (`active_nodes`)** | **837 mentions** | Gồm 583 Valid + 254 Auto-Corrected; **0 Quarantined** |
+| **NormAssertions (`norms`)** | **103 norms** | 100% Valid (103/103), **0 Flaggled** |
+| **Canonical Concepts (`concepts`)** | **14 concepts** | Hub Concepts chuẩn tắc (`LO2024.*`) |
+| **Tổng số Edges ban đầu được ráp** | **1017 edges** | Trước khi đi qua Ontology Validator Gate 2 |
+| **Active Edges xuất xưởng** | **968 edges** | Edges hợp lệ đi tiếp vào Module 8 |
+| **Quarantined Edges (Cách ly)** | **49 edges** | Bị chặn do vi phạm Domain/Range hoặc Invariant I1 |
+| **Dẫn chiếu pháp lý (References)** | **97/118 classified** | 18 AMBIGUOUS, 23 EXTERNAL, 13 SAME_ARTICLE, 61 SAME_DOCUMENT |
+| **Orphan Audit (Chống mất mát)** | **0 true orphan** | 115 Ref owners, 604 Norm components, 51 unlinked evidence |
+| **Final Integrity Gate** | **0 vi phạm** | Broken endpoints: 0, Duplicate IDs: 0, Conservation OK: True |
+
+Sự chuẩn mực và khắt khe của Module 7 (không thỏa hiệp với dữ liệu lỗi, đưa 49 edges sai quy chuẩn vào diện cách ly an toàn) đã đảm bảo Đồ thị Tri thức cuối cùng nạp vào Module 8 đạt chất lượng chuẩn tắc, sẵn sàng cho công đoạn Fusion.
