@@ -220,3 +220,4 @@ Các phát hiện thực chứng về hiện tượng sụp đổ trích dẫn v
 [8] G. V. Cormack, C. L. Clarke, and S. Büttcher, “Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods,” in *Proc. SIGIR ’09*, pp. 758–759, 2009.  
 [9] S. Kuzi, M. Zhang, C. Li, M. Bendersky, and M. Najork, “Leveraging Semantic and Lexical Matching to Improve the Recall of Document Retrieval Systems: A Hybrid Approach,” *arXiv preprint arXiv:2010.01195*, 2020.  
 [10] S. Wu, *Data Fusion in Information Retrieval*, ser. The Information Retrieval Series, vol. 13. Berlin, Heidelberg: Springer, 2012.  
+

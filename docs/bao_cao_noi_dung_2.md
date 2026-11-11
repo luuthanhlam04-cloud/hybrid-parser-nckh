@@ -205,3 +205,4 @@ Từ đó, nhóm nghiên cứu xác định yêu cầu tất yếu đối với 
 [4] Chính phủ nước Cộng hòa Xã hội Chủ nghĩa Việt Nam, *Nghị định số 154/2020/NĐ-CP ngày 31 tháng 12 năm 2020 sửa đổi, bổ sung một số điều của Nghị định số 34/2016/NĐ-CP*.  
 [5] Quốc hội nước Cộng hòa Xã hội Chủ nghĩa Việt Nam, *Luật Đất đai*, Luật số 31/2024/QH15, ngày 18 tháng 01 năm 2024.  
 [6] Viet-Trung Tran, “PyVi: Python Vietnamese Core NLP Toolkit,” 2016. [Online]. Available: https://github.com/trungtv/pyvi.  
+
