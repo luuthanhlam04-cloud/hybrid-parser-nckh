@@ -326,3 +326,4 @@ if __name__ == "__main__":
     md_file = r"c:\Users\luuth\NCKH\Benchmark\docs\cam_nang_chuyen_sau_chuan_bi_phan_bien.md"
     docx_file = r"c:\Users\luuth\NCKH\Benchmark\cam_nang_chuyen_sau_chuan_bi_phan_bien.docx"
     build_docx_from_md(md_file, docx_file)
+

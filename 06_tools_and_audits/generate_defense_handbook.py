@@ -382,3 +382,4 @@ with open(md_path, 'w', encoding='utf-8') as f:
     f.write(content)
 
 print(f"[+] Successfully generated Markdown handbook: {md_path}")
+
