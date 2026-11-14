@@ -195,7 +195,8 @@ ightarrow$ chế tài, khắc phục cạm bẫy Mean-Pooling của Bi-encoder t
     * **Condition Coverage (Bảng 3.15):** LightRAG đạt **0,8421** vs UKG đạt **0,7066** ($-13,55$ đpt). Lý do: LightRAG dùng chunk 1.200 token lớn bao phủ rộng; UKG tập trung quy phạm lõi nên cần thêm cơ chế lan truyền điều kiện.
     * **Exact Locator Recall@5 (*) (Bảng 3.11):** LightRAG đạt **0,8509** vs UKG đạt **0,5560**.
   * *Footnote hiển thị dưới chân slide:*  
-    `(*) Exact Locator đo mức trùng khớp chuỗi ký tự cục bộ; UKG ưu tiên tính toàn vẹn của thực thể quy phạm cấp Điều (Citation Precision cấp Điều đạt 0,8369 so với 0,3333 của LightRAG).`
+    `(*) Exact Locator đo mức trùng khớp chuỗi ký tự cục bộ; UKG ưu tiên tính toàn vẹn của thực thể quy phạm cấp Điều (Citation Precision cấp Điều đạt 0,8369 so với 0,3333 của LightRAG).`  
+    `(**) Quy mô mẫu phân tầng theo Bảng 3.16: Cấp Điều có N = 47; Cấp Khoản có N = 46 (1 câu không có nhãn Khoản); Cấp Điểm có N = 37 (10 câu căn cứ dừng ở cấp Khoản, không có Điểm). Không gán điểm 0 cho trường hợp không áp dụng.`
   * *Kết quả giải quyết RQ4 (Bảng 3.14):* Định vị tốt các node đích với Reference-target Recall đạt **58,67%**. Việc tái dựng chuỗi có thứ tự cần thêm cơ chế Constrained Graph Traversal (trên 18 câu dẫn chiếu, Chain Exact Match ghi nhận $0,0000$).
 * **Thẻ dẫn chứng:** `[Dẫn chứng: Báo cáo toàn văn — Mục 3.4, 3.6, 3.7 | Bảng 3.9, Bảng 3.11, Bảng 3.14, Bảng 3.15, Bảng 3.16 | Trang 103–112]`.
 
@@ -379,7 +380,7 @@ ightarrow$ Tiền tố $
 ightarrow$ Article MaxP** | *(Nói liền mạch sang Slide 9)* |
 | **9** | **Lâm** | 115s | • **[Slide đinh] Ma trận C1–C6: C5 đạt 0,9902** (+59,02 đpt)<br>• Tiết kiệm **79,9% token**; Weighted RRF $alphalpha=0,8$ tối ưu<br>• Cô lập biến số (Isolation of Variables) | Chỉ laser vào số **0,9902**, số **-79,9%**, và điểm **$alphalpha = 0,8$** | *"Sau đây xin mời bạn Nguyễn Bình Minh trình bày kiến trúc UKG và kết quả Giai đoạn 3."* |
 | **10** | **Minh** | 75s | • Kiến trúc UKG: Tầng vật lý (khóa cứng phả hệ) + Tầng ngữ nghĩa (trích xuất động)<br>• Indexing offline 1 lần; Module 5 Causal Router tại $	heta=0,85$ (Recall 96,85%) | Chỉ laser vào sơ đồ 2 tầng và khối **Module 5** | *(Nói liền mạch sang Slide 11)* |
-| **11** | **Minh** | 105s | • **[Slide đinh] Benchmark B (RQ3 & RQ4)**<br>• RQ3: Recall 0,9184 (+18,26 đpt), Citation Precision Điều 0,8369 vs 0,3333, Exception Coverage 0,6786 (+28,57 đpt)<br>• Trade-off Condition Coverage & Exact Locator; RQ4 ranh giới chuỗi | Chỉ laser vào số **0,9184**, số **0,8369**, số **+28,57 đpt**, và footnote trade-off | *(Nói liền mạch sang Slide 12)* |
+| **11** | **Minh** | 105s | • **[Slide đinh] Benchmark B (RQ3 & RQ4)**<br>• RQ3: Recall 0,9184 (+18,26 đpt), Citation Precision Điều 0,8369 vs 0,3333, Exception Coverage 0,6786 (+28,57 đpt)<br>• Trade-off Condition Coverage & Exact Locator; RQ4 ranh giới chuỗi<br>• [Phao N]: Cấp Điều N=47, Khoản N=46, Điểm N=37 (nhãn dừng ở cấp trên) | Chỉ laser vào số **0,9184**, số **0,8369**, số **+28,57 đpt**, và footnote trade-off | *(Nói liền mạch sang Slide 12)* |
 | **12** | **Minh** | 55s | • Bo 4 RQ: RQ1 (sụt giảm trích dẫn), RQ2 (Parser v2 + MaxP 0,9902), RQ3 (UKG vượt trội ngoại lệ), RQ4 (ranh giới chuỗi) | Quét laser lần lượt qua **4 khối RQ** đã được giải quyết | *(Nói liền mạch sang Slide 13)* |
 | **13** | **Minh** | 40s | • 3 Đóng góp: Khung Benchmark, Phân đoạn vi mô, Kiến trúc UKG 2 tầng<br>• Takeaway: Cấu trúc là điều kiện tiên quyết để trích dẫn đúng | Chỉ laser vào **Hộp thông điệp cốt lõi** | *(Nói liền mạch sang Slide 14)* |
 | **14** | **Minh** | 25s | • Hướng phát triển: Nghị định, Thông tư, Constrained Graph Traversal<br>• Lời cảm ơn trang trọng | Mắt hướng về Thầy Chủ tịch Hội đồng, chuyển sang thế sẵn sàng Q&A | Cả nhóm cúi đầu chào Hội đồng |
@@ -410,13 +411,12 @@ ightarrow$ Article MaxP** | *(Nói liền mạch sang Slide 9)* |
 > Thiết kế hiện tại chưa cô lập tác động riêng của từng thành phần đơn lẻ, và nhóm xác định việc chạy thêm các cấu hình ablation độc lập là hướng nghiên cứu ưu tiên tiếp theo."*
 
 **Câu 3 (Dương): "Các em dùng GPT-4o-mini vừa sinh câu trả lời vừa làm giám khảo. Kết quả có bị thiên lệch tự thân không?"**
-> *"Dạ đây là một rủi ro phương pháp luận mà nhóm đã chủ động kiểm soát qua quy trình thẩm định kép tại Mục 2.3.6.  
-> Thước đo trích dẫn là một kiểm tra tất định: căn cứ do hệ thống sinh ra được so khớp trực tiếp với Golden Citation định danh trong bộ dữ liệu chuẩn, không phụ thuộc vào cảm tính của LLM.  
-> Đối với các thước đo định tính như Legal Correctness, nhóm sử dụng giao thức chuẩn hóa với tiêu chí chấm điểm khắt khe và ghi nhận mức độ đồng thuận cao giữa các lượt chấm."*
+> *"Dạ thưa Thầy/Cô, đây là một hạn chế phương pháp luận đã được nhóm ghi nhận trung thực tại Mục 3.8.3. Ở Giai đoạn 1 và 2, Citation Accuracy được chấm bằng LLM-as-a-Judge (GPT-4o-mini) — cùng họ mô hình với mô hình sinh, nên chưa đạt tính độc lập tuyệt đối về mô hình. Nhóm đã giảm thiểu bằng cách tách biệt hoàn toàn prompt thẩm định, bắt buộc kiểm tra JSON schema, ghi log kiểm toán và thiết lập cơ chế thử lại tối đa 3 lần khi định dạng không hợp lệ.  
+> Đặc biệt sang Giai đoạn 3, các chỉ số Citation Precision và Recall tại Bảng 3.16 đã được chuyển đổi hoàn toàn sang phương pháp tính toán tất định dựa trên quy tắc (Rule-based Locator Matching), không còn phụ thuộc vào LLM chấm. Hướng hoàn thiện tiếp theo là sử dụng mô hình thẩm định độc lập từ nhà phát triển khác hoặc mời chuyên gia pháp lý chấm mẫu để hiệu chuẩn."*
 
 **Câu 4 (Dương): "Việc viết lại 512 câu hỏi ở Benchmark A có làm biến đổi ngữ nghĩa pháp lý gốc không?"**
-> *"Dạ không ạ. Quy trình viết lại tại Mục 2.3.5 được thiết kế với nguyên tắc bất biến ngữ nghĩa: chỉ thay đổi từ ngữ diễn đạt thông thường và cách đặt câu hỏi của người dân, trong khi giữ nguyên 100% căn cứ pháp lý đích.  
-> Nhóm chỉ thực hiện viết lại có chọn lọc trên các câu có độ trùng lặp từ vựng Jaccard vượt ngưỡng 0,5, đưa chỉ số trùng lặp trung bình từ 0,68 xuống 0,31 để loại bỏ hiện tượng học vẹt từ khóa mà không làm suy chuyển bản chất câu hỏi."*
+> *"Dạ quy trình viết lại tại Mục 2.3.5 được thiết kế với nguyên tắc bất biến ngữ nghĩa: chỉ thay đổi từ ngữ diễn đạt của người dân, giữ nguyên căn cứ pháp lý đích. Nhóm thực hiện viết lại có chọn lọc trên các câu có độ trùng lặp từ vựng Jaccard vượt ngưỡng 0,5, đưa chỉ số trùng lặp trung bình từ 0,68 xuống 0,31 để loại bỏ hiện tượng học vẹt từ khóa.  
+> Báo cáo cũng ghi nhận hạn chế là chưa có nhật ký xác nhận toàn bộ 512 câu đều viết lại thành công, và việc xây dựng pipeline kiểm tra ngữ nghĩa tự động cho toàn bộ tập dữ liệu là hướng nghiên cứu hoàn thiện tiếp theo."*
 
 **Câu 5 (Dương): "Tại sao ở Giai đoạn 1 nhóm chỉ đánh giá trên 205 câu hỏi Tier 1 mà không dùng toàn bộ 512 câu?"**
 > *"Dạ đây là thiết kế fair-play có chủ đích được giải thích tại Mục 3.2.1.  

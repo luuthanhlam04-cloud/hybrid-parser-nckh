@@ -93,3 +93,4 @@ with open('c:/Users/luuth/NCKH/Benchmark/06_tools_and_audits/update_kich_ban_15p
     f.write(text)
 
 print('Updated update_kich_ban_15p.py successfully.')
+

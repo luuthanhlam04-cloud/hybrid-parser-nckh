@@ -16,3 +16,4 @@ for i, s in enumerate(slides, 1):
     s_spoken = ' '.join(s_lines).replace('>', '').replace('*', '').replace('"', '')
     s_words = s_spoken.split()
     print(f'Slide {i:2d}: {len(s_words):3d} words  |  Est. time: {len(s_words)/2.1:.1f}s')
+
