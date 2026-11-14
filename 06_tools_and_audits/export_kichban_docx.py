@@ -311,5 +311,13 @@ if __name__ == "__main__":
     md_file = r"c:\Users\luuth\NCKH\Benchmark\docs\kich_ban_thuyet_trinh_15p.md"
     docx_file1 = r"c:\Users\luuth\NCKH\Benchmark\kichbanthuyettrinh.docx"
     docx_file2 = r"c:\Users\luuth\NCKH\Benchmark\kichbanthuyettrinh_storytelling.docx"
-    build_docx_from_md(md_file, docx_file1)
+    docx_file3 = r"c:\Users\luuth\NCKH\Benchmark\kichbanthuyettrinh_chuan_bao_ve.docx"
+    
     build_docx_from_md(md_file, docx_file2)
+    build_docx_from_md(md_file, docx_file3)
+    try:
+        build_docx_from_md(md_file, docx_file1)
+    except Exception as e:
+        print(f"[*] Note: kichbanthuyettrinh.docx is currently open in Word ({e}), successfully saved to kichbanthuyettrinh_storytelling.docx and kichbanthuyettrinh_chuan_bao_ve.docx.")
+
+
