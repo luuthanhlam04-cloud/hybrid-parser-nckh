@@ -145,7 +145,7 @@
 ### 4.1. Phân biệt 3 loại Citation (Tuyệt đối không so sánh chéo)
 1. **Citation Accuracy (GĐ1 - Bảng 3.4):** Đo trên câu trả lời sinh ra hoàn chỉnh. Tỷ lệ câu trả lời có trích dẫn đúng số Điều, Khoản trong ground-truth (Naive 32,59%, Hybrid 29,02%, LightRAG 13,71%).
 2. **In-context Citation Accuracy (GĐ2 - Bảng 3.6):** Đo trên ngữ cảnh truy hồi. Tỷ lệ phân đoạn nạp vào LLM có chứa đúng căn cứ pháp lý theo đánh giá của LLM-Judge (C5 đạt 0,9902; 504/512 câu đạt điểm tuyệt đối 1,0).
-3. **Citation Precision & Recall (GĐ3 - Bảng 3.16):** Đo bằng quy tắc so khớp ký tự trên câu trả lời Benchmark B. Cấp Điều: Precision 0,8369 / Recall 0,9078. Cấp Khoản: Precision 0,7757 / Recall 0,8170. Cấp Điểm: Precision 0,6797 / Recall 0,5517.
+3. **Citation Precision & Recall (GĐ3 - Bảng 3.16):** Đo bằng quy tắc so khớp ký tự trên câu trả lời Benchmark B. Cấp Điều: Precision 0,8369 / Recall 0,9078. Cấp Khoản: Precision 0,7757 / Recall 0,8170. Cấp Điểm: Precision 0,6797 / Recall 0,6374.
 
 ### 4.2. Bảng đối soát Giai đoạn 1 (Tier 1 Fair Subset, $N=205$, Bảng 3.3 & 3.4)
 | Hệ thống | Recall@5 (Bảng 3.3) | MRR@5 (Bảng 3.3) | Context Precision (Bảng 3.4) | Citation Accuracy (Bảng 3.4) |

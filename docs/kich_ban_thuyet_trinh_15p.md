@@ -233,7 +233,7 @@
     | | Exception Coverage | 0,3929 | **0,6786** | **+28,57 đpt** (Bảng 3.15) |
     | **Ranh giới kỹ thuật** | Condition Coverage | **0,8421** | 0,7066 | UKG thấp hơn -13,55 đpt (Bảng 3.15) |
     | | Exact Locator Recall@5 | **0,8509** | 0,5560* | Footnote kép (*39/47 câu đo được; Độ hạt)* |
-    | | Chain Exact Match (N=18) | N/A | **0,0000** | Ranh giới cần Constrained Traversal (Bảng 3.10) |
+    | | Chain Exact Match (N=18) | N/A | **0,0000** | Ranh giới cần Constrained Traversal (Bảng 3.14) |
   * *\*Footnote kỹ thuật:* UKG đo trên 39/47 câu (8 câu not_measured); LightRAG đo trên 47/47 câu. Chunk 1.200 token của LightRAG chứa trung bình ~15 locator, trong khi phân đoạn UKG chỉ chứa 1 locator. LightRAG chưa hỗ trợ trích xuất đường dẫn theo giao thức này nên Chain Exact Match là N/A.
 * **Lời thoại trình bày:**
 > *"Kính thưa Hội đồng, thực nghiệm Benchmark B gồm 50 câu hỏi tại Chương III Luật Đất đai 2024 làm sáng tỏ RQ3 và RQ4 qua ba khối thông tin:  
