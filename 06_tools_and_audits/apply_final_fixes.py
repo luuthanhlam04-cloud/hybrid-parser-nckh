@@ -46,3 +46,4 @@ with open('c:/Users/luuth/NCKH/Benchmark/docs/kich_ban_thuyet_trinh_15p.md', 'w'
     f.write(text)
 
 print('Updated kich_ban_thuyet_trinh_15p.md with the 2 Q&A fixes and N=47/46/37 sample note.')
+
