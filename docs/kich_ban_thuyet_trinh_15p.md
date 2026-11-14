@@ -141,12 +141,12 @@
 * **Người trình bày:** Lưu Thanh Lâm
 * **Thời lượng mục tiêu:** 1 phút (Dự kiến: ~140 từ)
 * **Blueprint Slide:**
-  * **Bảng 3.4 — Đối chuẩn Tier 1 (N=205 câu):**
-    | Kiến trúc | Recall@5 | Context Precision | Citation Accuracy | Chi phí API |
-    |---|:---:|:---:|:---:|:---:|
-    | **Naive Vector RAG** | 0,9512 | 0,9673 | **0,3259** | 0,0002 $ |
-    | **Hybrid RAG** | **0,9610** | **0,9760** | **0,2902** | 0,0004 $ |
-    | **LightRAG** | 0,9561 | 0,8829 | **0,1371** | 0,0423 $ |
+  * **Bảng 3.3 & 3.4 — Đối chuẩn Tier 1 (N=205 câu, 500 điều luật):**
+    | Kiến trúc | Recall@5 (Bảng 3.3) | Context Precision (Bảng 3.4) | Citation Accuracy (Bảng 3.4) |
+    |---|:---:|:---:|:---:|
+    | **Naive Vector RAG** | 0,9561 | 0,9659 | **0,3259** |
+    | **Hybrid RAG** | **0,9659** | **0,9660** | **0,2902** |
+    | **LightRAG** | **0,9659** | 0,8829 | **0,1371** |
   * **Phát hiện khoa học cốt lõi:** Nghịch lý truy hồi tốt nhưng trích dẫn kém (Citation Accuracy chỉ đạt 13% – 33%).
   * **Cơ chế giải thích:** Văn bản thô cấp Điều (Naive/Hybrid) và chunk 1.200 token (LightRAG) thiếu thông tin phân cấp tường minh, tạo khoảng cách giữa phạm vi truy hồi và vị trí căn cứ cần viện dẫn.
 * **Lời thoại trình bày:**
@@ -184,7 +184,7 @@
   * **Bảng 3.6 — Đánh giá trên Benchmark A (N=512, 3.072 lượt LLM-Judge):**
     * Cấu hình C2 (Raw Chunk + Dense): Citation Accuracy ngữ cảnh = **0,4000** | Token = 2.891
     * Cấu hình C5 (Parser v2 + Article MaxP + Dense): Citation Accuracy ngữ cảnh = **0,9902** (+59,02 đpt, 98,4% đạt điểm 1,0) | Token = **580** (Giảm 79,9%)
-  * **Bảng 3.7 — Khảo sát trọng số RRF ($\alpha$):** $\alpha=0,8$ đạt Recall 0,9297, MRR 0,8220 (Cấu hình cân bằng giữa Dense và BM25).
+  * **Bảng 3.7 — Khảo sát trọng số RRF (α):** α = 0,8 đạt Recall 0,9297, MRR 0,8220 (Cấu hình cân bằng giữa Dense và BM25).
   * **Lưu ý phương pháp luận:** GĐ2 đánh giá riêng chất lượng căn cứ trong ngữ cảnh truy hồi bằng LLM-Judge độc lập với việc sinh câu trả lời hoàn chỉnh.
 * **Lời thoại trình bày:**
 > *"Trên 512 câu hỏi Benchmark A với 3.072 lượt đánh giá LLM-Judge, Bảng 3.6 làm sáng tỏ RQ2:  
@@ -205,7 +205,7 @@
     * **Semantic Graph (Đồ thị ngữ nghĩa):** Trích xuất động quan hệ dẫn chiếu, điều kiện và ngoại lệ; thực hiện hoàn toàn trong pha lập chỉ mục.
   * **Module 5 Semantic Router (Mục 2.6.4):**
     * Mô hình ngôn ngữ tự hồi quy Qwen2.5-0.5B kết hợp toán tử Max-Fusion giữa Regex và điểm Vector.
-    * Đánh giá Golden Set v2 ($N=193$): Tại $\theta=0,85$, Recall đạt 96,85%, F1 đạt 0,8146.
+    * Đánh giá Golden Set v2 ($N=193$): Tại θ = 0,85, Recall đạt 96,85%, F1 đạt 0,8146.
     * Giảm 9,33% khối lượng xử lý chuyển tiếp (18 node), trong đó loại 14 node thủ tục và chấp nhận đánh đổi 4 node quy phạm bị bỏ sót.
 * **Lời thoại trình bày:**
 > *"Em xin cảm ơn bạn Lâm. Kính thưa Quý Thầy Cô,  
@@ -229,7 +229,7 @@
     | | MRR@5 | 0,5539 | **0,8848** | **+33,09 đpt** (Bảng 3.9) |
     | **Độ chính xác trích dẫn** | Citation Precision (Điều) | 0,3333 | **0,8369** | **+50,36 đpt** (Bảng 3.16) |
     | | Citation Precision (Khoản) | 0,0435 | **0,7757** | **+73,22 đpt** (Bảng 3.16) |
-    | **Chất lượng nội dung** | Legal Correctness | 0,7660 | **0,8777** | **+11,17 đpt** (Bảng 3.14) |
+    | **Chất lượng nội dung** | Legal Correctness | 0,8210 | **0,8777** | **+5,67 đpt** (Bảng 3.15) |
     | | Exception Coverage | 0,3929 | **0,6786** | **+28,57 đpt** (Bảng 3.15) |
     | **Ranh giới kỹ thuật** | Condition Coverage | **0,8421** | 0,7066 | UKG thấp hơn -13,55 đpt (Bảng 3.15) |
     | | Exact Locator Recall@5 | **0,8509** | 0,5560* | Footnote kép (*39/47 câu đo được; Độ hạt)* |
@@ -329,7 +329,7 @@
 * **Người trả lời:** Ngô Thế Dương
 * **Câu trả lời chuẩn:**
   > *"Dạ thưa Thầy Cô, Benchmark B được thiết kế chuyên biệt cho Giai đoạn 3 nhằm đánh giá sâu các quan hệ pháp lý phức tạp mà Benchmark A diện rộng chưa bao quát hết.  
-  > 50 câu hỏi này tập trung trọn vẹn tại Chương III Luật Đất đai 2024, bao gồm 47 câu đơn tầng và 3 câu đa tầng với 16 câu hỏi ngoại lệ và 18 câu hỏi dẫn chiếu chéo nhiều bước. Việc giới hạn 50 câu cho phép nhóm kiểm toán thủ công chi tiết từng căn cứ Điều, Khoản, Điểm và chuỗi suy luận, bảo đảm tính xác thực tuyệt đối của ground-truth mà các bộ dữ liệu tự động quy mô lớn không thể đối soát tỉ mỉ được."*
+  > 50 câu hỏi này tập trung trọn vẹn tại Chương III Luật Đất đai 2024, bao gồm 47 câu đơn tầng và 3 câu đa tầng với 7 câu hỏi ngoại lệ và điều cấm, cùng 10 câu hỏi dẫn chiếu (6 câu đơn bước, 4 câu đa bước). Việc giới hạn 50 câu cho phép nhóm kiểm toán thủ công chi tiết từng căn cứ Điều, Khoản, Điểm và chuỗi suy luận, bảo đảm tính xác thực tuyệt đối của ground-truth mà các bộ dữ liệu tự động quy mô lớn không thể đối soát tỉ mỉ được."*
 
 #### **Q3. Thiết kế thực nghiệm Tier 1 ở Giai đoạn 1 có bảo đảm tính công bằng không?**
 * **Người trả lời:** Ngô Thế Dương
@@ -375,11 +375,11 @@
   > Phân đoạn vi mô của UKG tập trung mạnh vào quy phạm lõi của từng phân đoạn, trong khi các điều kiện áp dụng pháp luật thường nằm rải rác ở nhiều Khoản hoặc các Điều quy định chung. LightRAG dùng chunk lớn 1.200 token nên vô tình ôm trọn các điều kiện bối cảnh xung quanh.  
   > Nhóm chưa đủ cơ sở quy toàn bộ chênh lệch này cho cơ chế phân đoạn, vì kết quả còn phụ thuộc quá trình mở rộng ngữ cảnh và mô hình sinh. Nhóm nhận định đây là hướng cần hoàn thiện thông qua cơ chế lan truyền ngữ cảnh điều kiện giữa các node liên quan."*
 
-#### **Q9. Tại sao trọng số $\alpha = 0,8$ được lựa chọn trong khảo sát RRF ở Giai đoạn 2?**
+#### **Q9. Tại sao trọng số α = 0,8 được lựa chọn trong khảo sát RRF ở Giai đoạn 2?**
 * **Người trả lời:** Lưu Thanh Lâm
 * **Câu trả lời chuẩn:**
-  > *"Dạ thưa Thầy Cô, tại Bảng 3.7, nhóm khảo sát 11 giá trị $\alpha$ từ 0,0 đến 1,0.  
-  > Thực nghiệm cho thấy $\alpha = 1,0$ (Dense thuần) đạt Recall cao nhất là 0,9316 và MRR 0,8350. Tuy nhiên, nhóm lựa chọn cấu hình $\alpha = 0,8$ (Recall 0,9297, MRR 0,8220) để tiếp tục khảo sát vì cấu hình này duy trì được sự cân bằng: vừa bảo toàn được ưu thế vượt trội của vector dense trên tập câu hỏi đã diễn đạt lại, vừa giữ lại 20% tín hiệu từ khóa của BM25 để phòng thủ khi người dùng tra cứu các thuật ngữ định danh cứng."*
+  > *"Dạ thưa Thầy Cô, tại Bảng 3.7, nhóm khảo sát 11 giá trị α từ 0,0 đến 1,0.  
+  > Thực nghiệm cho thấy α = 1,0 (Dense thuần) đạt Recall cao nhất là 0,9316 và MRR 0,8602. Tuy nhiên, nhóm lựa chọn cấu hình α = 0,8 (Recall 0,9297, MRR 0,8220) để tiếp tục khảo sát vì cấu hình này duy trì được sự cân bằng: vừa bảo toàn được ưu thế vượt trội của vector dense trên tập câu hỏi đã diễn đạt lại, vừa giữ lại 20% tín hiệu từ khóa của BM25 để phòng thủ khi người dùng tra cứu các thuật ngữ định danh cứng."*
 
 #### **Q10. Con số Citation Accuracy 0,9902 ở cấu hình C5 có phải là tỷ lệ trích dẫn chính xác của câu trả lời không?**
 * **Người trả lời:** Lưu Thanh Lâm
