@@ -1,477 +1,452 @@
 # KỊCH BẢN THUYẾT TRÌNH BÁO CÁO VÀ HỒ SƠ BẢO VỆ NCKH (15 PHÚT)
-## ĐỀ TÀI: ĐÁNH GIÁ VÀ TỐI ƯU HÓA CÁC KIẾN TRÚC RAG TRÊN NỀN TẢNG DỮ LIỆU CẤU TRÚC ĐẶC THÙ
-**Hội đồng Khoa học & Công nghệ Thông tin (PTIT)**  
-**Nhóm tác giả:** Lưu Thanh Lâm · Ngô Thế Dương · Nguyễn Bình Minh  
-**Giảng viên hướng dẫn:** TS. Nguyễn Mạnh Dũng  
-**Tổng thời lượng:** 15 phút (900 giây) | **Khung lời thoại chuẩn:** ~1.850 từ (~125–130 từ/phút) | **Thời gian dự phòng:** 30 giây
+**ĐỀ TÀI:** ĐÁNH GIÁ VÀ TỐI ƯU HÓA CÁC KIẾN TRÚC RAG TRÊN NỀN TẢNG DỮ LIỆU CẤU TRÚC ĐẶC THÙ  
+**HỘI ĐỒNG:** BẢO VỆ ĐỀ TÀI NGHIÊN CỨU KHOA HỌC SINH VIÊN  
+**NHÓM TÁC GIẢ:** LƯU THANH LÂM – NGÔ THẾ DƯƠNG – NGUYỄN BÌNH MINH  
+**GIẢNG VIÊN HƯỚNG DẪN:** TS. NGUYỄN MẠNH DŨNG  
 
 ---
 
-## MA TRẬN PHÂN BỔ THỜI GIAN & PHÂN VAI (3 THÀNH VIÊN)
+# PHẦN 1: TỔNG QUAN PHÂN VAI & ĐIỀU PHỐI THỜI GIAN
 
-```
-[00:00 - 01:30] CHẶNG 1: LƯU THANH LÂM (Slide 1 - 2 | 90s | ~200 từ)
-  └── Mở màn, Bối cảnh pháp lý, Tỷ lệ ảo giác 17%-33% (Magesh 2025) & Thách thức căn cứ vi mô.
+* **Tổng thời lượng bảo vệ:** Đúng 15 phút (900 giây).
+* **Thời gian thuyết trình phát biểu:** ~13 phút 55 giây (Tổng số từ thoại: 1.814 từ, tốc độ nói trung bình ~130 từ/phút).
+* **Khoảng đệm an toàn:** 1 phút 05 giây (Dành cho việc chuyển slide, ngắt nhịp và ổn định trước phần Q&A).
+* **Chiến lược học thuật:** Minh bạch theo trọng tâm (Relevance-based Transparency), Đĩnh đạc, Thận trọng và Tự tin dựa trên bằng chứng thực nghiệm (Precise Confidence).
 
-[01:30 - 05:15] CHẶNG 2: NGÔ THẾ DƯƠNG (Slide 3 - 6 | 225s | ~455 từ)
-  └── 3 Đặc thù luật & 3 Vấn đề kiểm chứng; 3 Trường phái RAG đối chứng; 4 RQ; Hạ tầng Benchmark Harness & 2 Bộ dữ liệu A/B.
+### Bảng phân bổ điều phối 3 thành viên
 
-[05:15 - 10:00] CHẶNG 3: LƯU THANH LÂM (Slide 7 - 9 | 285s | ~540 từ)
-  └── Giai đoạn 1: Khoảng cách truy hồi - trích dẫn (RQ1); Giai đoạn 2: Parser v2 & MaxP; Đột phá C5 (RQ2) & Tách tầng đánh giá.
-
-[10:00 - 15:00] CHẶNG 4: NGUYỄN BÌNH MINH (Slide 10 - 14 | 300s | ~655 từ)
-  └── Giai đoạn 3: Triết lý UKG 2 tầng & Module 5; Benchmark B (RQ3, RQ4) & Trade-off; Tổng hợp 4 RQ; Đóng góp & Kết luận.
-```
-
----
-
-# PHẦN 1: BẢN THIẾT KẾ KỊCH BẢN CHI TIẾT 14 SLIDE (14 SLIDE BLUEPRINTS & EVIDENCE SIGNPOSTS)
+| Chặng | Diễn giả | Slide | Nội dung trọng tâm | Thời lượng phát biểu | Quỹ thời gian tối đa |
+|---|---|:---:|---|:---:|:---:|
+| **Chặng 1** | **Lưu Thanh Lâm** | Slide 1 – 2 | Bìa đề tài, Đặt vấn đề & Bài toán ảo giác pháp lý | 1 phút 35 giây | 00:00 – 01:45 |
+| **Chặng 2** | **Ngô Thế Dương** | Slide 3 – 6 | Đặc thù văn bản luật, Khảo sát 3 trường phái RAG, 4 RQ & Phương pháp kiểm chuẩn | 3 phút 25 giây | 01:45 – 05:15 |
+| **Chặng 3** | **Lưu Thanh Lâm** | Slide 7 – 9 | Giai đoạn 1 (Khoảng cách tìm kiếm – trích dẫn) & Giai đoạn 2 (Parser v2, MaxP, Đột phá C5) | 3 phút 10 giây | 05:15 – 08:25 |
+| **Chặng 4** | **Nguyễn Bình Minh** | Slide 10 – 14 | Giai đoạn 3 (Kiến trúc Hybrid UKG, Thực nghiệm Benchmark B, Đóng gói 4 RQ, 3 Đóng góp) | 5 phút 30 giây | 08:25 – 13:55 |
+| **Dự phòng** | **Cả nhóm** | — | Khoảng đệm an toàn, chuyển giao micro và kính mời Hội đồng đặt câu hỏi | — | **13:55 – 15:00 (1:05)** |
 
 ---
 
-### SLIDE 1 · BÌA BÁO CÁO (LÂM | 00:00 – 00:20)
-* **Tiêu đề:** Đánh giá và tối ưu hóa các kiến trúc RAG trên nền tảng dữ liệu cấu trúc đặc thù
-* **Phụ đề:** Nghiên cứu thực nghiệm trên văn bản quy phạm pháp luật Việt Nam
-* **Bố cục hiển thị:**
-  * Cơ sở đào tạo: Học viện Công nghệ Bưu chính Viễn thông (PTIT).
-  * Tên đề tài NCKH, Giảng viên hướng dẫn: TS. Nguyễn Mạnh Dũng.
-  * Nhóm sinh viên thực hiện: Lưu Thanh Lâm, Ngô Thế Dương, Nguyễn Bình Minh.
-  * Thông điệp mở đầu: *"Khảo sát khoảng cách truy hồi – trích dẫn và giải pháp kiến trúc đồ thị tri thức pháp lý hai tầng."*
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Trang bìa | Đề tài NCKH 2025–2026]`.
+# PHẦN 2: KỊCH BẢN CHI TIẾT 14 SLIDE (BLUEPRINT & LỜI THOẠI)
 
 ---
 
-### SLIDE 2 · BỐI CẢNH & THÁCH THỨC CĂN CỨ PHÁP LÝ (LÂM | 00:20 – 01:30)
-* **Tiêu đề:** Bối cảnh nghiên cứu — Thách thức về tính xác thực của căn cứ pháp lý
-* **Luận điểm cốt lõi:** *Hỏi đáp pháp luật đòi hỏi kiểm chứng tuyệt đối; ảo giác trích dẫn làm đảo lộn hệ quả pháp lý của hành vi.*
-* **Bố cục hiển thị:**
-  * Cột trái — Thực tiễn: Nhu cầu tra cứu pháp luật tự động tăng cao; yêu cầu độ chính xác tuyệt đối ở mức vi mô (Điều, Khoản, Điểm).
-  * Cột phải — Bằng chứng khoa học quốc tế: Công bố của Magesh và cộng sự (2025) trên tạp chí *Journal of Empirical Legal Studies* (JELS): Các mô hình ngôn ngữ lớn thương mại hàng đầu vẫn gặp tỷ lệ ảo giác pháp lý từ **17% đến 33%**.
-  * Hộp cảnh báo trung tâm: *"Một câu trả lời đúng ngữ nghĩa nhưng sai căn cứ Điều, Khoản hoặc bỏ sót một ngoại lệ tại một Điểm có thể làm thay đổi hoàn toàn hệ quả pháp lý của hành vi."*
-  * Bài toán cốt lõi: Làm sao vừa tối ưu hiệu quả tìm kiếm, vừa hỗ trợ mô hình xác định chính xác căn cứ pháp lý vi mô mà không làm bùng nổ dung lượng ngữ cảnh?
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 1.1, 1.2 | Trang 1–4 | Trích dẫn [3] Magesh et al. (2025)]`.
-
----
-
-### SLIDE 3 · ĐẶC THÙ VĂN BẢN LUẬT & BA VẤN ĐỀ KIỂM CHỨNG (DƯƠNG | 01:30 – 02:25)
-* **Tiêu đề:** Đặc thù văn bản luật Việt Nam & Ba vấn đề nghiên cứu cần kiểm chứng
-* **Luận điểm cốt lõi:** *Đặc thù phân cấp đa tầng, dẫn chiếu chéo và lệch pha từ vựng định hình ba bài toán kiểm chứng thực nghiệm.*
-* **Bố cục hiển thị:** Sơ đồ đối sánh 3 Đặc thù $\longleftrightarrow$ 3 Vấn đề kiểm chứng (Mục 1.7.2):
-  * *Đặc thù 1 — Phân cấp đa tầng:* Luật $\rightarrow$ Chương $\rightarrow$ Mục $\rightarrow$ Điều $\rightarrow$ Khoản $\rightarrow$ Điểm. Nội dung ở Điểm phụ thuộc chủ thể ở Điều.  
-    $\longrightarrow$ **Vấn đề 1:** Khảo sát có kiểm soát ảnh hưởng của phân đoạn cấu trúc đến hiệu quả truy hồi và khả năng bảo toàn phả hệ.
-  * *Đặc thù 2 — Mạng lưới dẫn chiếu chéo:* Điều kiện áp dụng và trường hợp ngoại lệ nằm rải rác ở nhiều điều luật.  
-    $\longrightarrow$ **Vấn đề 2:** Đánh giá mức độ bao phủ các thành phần quy phạm (điều kiện, ngoại lệ, chủ thể) trong câu trả lời.
-  * *Đặc thù 3 — Lệch pha từ vựng:* Ngôn ngữ đời thường của người dân khác biệt lớn so với thuật ngữ pháp lý chuẩn tắc.  
-    $\longrightarrow$ **Vấn đề 3:** Đánh giá khả năng tìm đích dẫn chiếu và tái dựng đường dẫn có thứ tự trên bộ kiểm chuẩn hạn chế lợi thế trùng lặp từ khóa.
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 1.2, 1.3, 1.7.2 | Trang 5–14]`.
-
----
-
-### SLIDE 4 · CƠ SỞ LÝ THUYẾT: BA TRƯỜNG PHÁI RAG ĐỐI CHỨNG (DƯƠNG | 02:25 – 03:20)
-* **Tiêu đề:** Cơ sở lý thuyết — Ba trường phái RAG đại diện được chọn làm đối chứng
-* **Luận điểm cốt lõi:** *Ba kiến trúc đại diện cho ba cách tổ chức và truy hồi thông tin khác nhau, được sử dụng làm hệ thống đối chứng trên dữ liệu luật Việt Nam.*
-* **Bố cục hiển thị:** 3 cột kiến trúc đối chuẩn:
-  * *Cột 1 — Naive Vector RAG (Dense Only):* Nhúng vector dày đặc (BGE-M3), tìm kiếm bằng độ tương đồng Cosine; thế mạnh là nắm bắt ngữ nghĩa khái quát.
-  * *Cột 2 — Hybrid RAG (Lexical + Dense):* Dung hợp từ khóa Okapi BM25 và Dense qua Reciprocal Rank Fusion (RRF) kết hợp Cross-Encoder Reranker; hỗ trợ bắt các từ khóa định danh.
-  * *Cột 3 — LightRAG (Graph-based RAG):* Trích xuất đồ thị thực thể – quan hệ bằng mô hình ngôn ngữ để kết nối văn bản hai tầng; hỗ trợ bao quát tri thức liên kết.
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 2.1, 2.2 | Trang 15–35 | Trích dẫn [5], [6], [12], [21]]`.
-
----
-
-### SLIDE 5 · HỆ THỐNG CÂU HỎI NGHIÊN CỨU (DƯƠNG | 03:20 – 04:05)
-* **Tiêu đề:** Bốn câu hỏi nghiên cứu định hướng (RQ1 – RQ4)
-* **Luận điểm cốt lõi:** *Thiết kế thực nghiệm 3 giai đoạn được ánh xạ trực tiếp từ 4 câu hỏi khoa học cốt lõi.*
-* **Bố cục hiển thị:** Bảng ma trận 4 RQ gắn với 3 Giai đoạn thực nghiệm:
-  * **RQ1 (Giai đoạn 1):** *Hiệu quả truy hồi và độ chính xác trích dẫn căn cứ của các kiến trúc RAG cơ sở khác biệt như thế nào khi áp dụng chiến lược cắt đoạn thô?*
-  * **RQ2 (Giai đoạn 2):** *Việc bổ sung bộ phân tích cấu trúc vi mô kết hợp giải thuật MaxP tác động như thế nào đến độ chính xác trích dẫn ngữ cảnh và dung lượng tài liệu?*
-  * **RQ3 (Giai đoạn 3):** *Kiến trúc đồ thị tri thức hai tầng Hybrid UKG nâng cao hiệu quả truy hồi và xử lý quy phạm ngoại lệ ra sao khi đối sánh trực diện với LightRAG?*
-  * **RQ4 (Giai đoạn 3):** *Khả năng định vị đích dẫn chiếu và tái dựng chuỗi quan hệ có thứ tự của các mô hình đạt mức độ nào?*
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 1.4 | Trang 12–14]`.
-
----
-
-### SLIDE 6 · THIẾT KẾ THỰC NGHIỆM & HẠ TẦNG BENCHMARK (DƯƠNG | 04:05 – 05:15)
-* **Tiêu đề:** Phương pháp luận — Hạ tầng Benchmark Harness & Hai bộ dữ liệu kiểm chuẩn
-* **Luận điểm cốt lõi:** *Thiết lập khung đánh giá thống nhất và kiểm soát các biến thực nghiệm có thể chuẩn hóa.*
-* **Bố cục hiển thị:** 2 khối thông tin kiểm chuẩn:
-  * *Khối 1 — Benchmark Harness & Adapter Pattern:*  
-    Giao diện chuẩn hóa `BaseRAGAdapter` bao bọc tất cả hệ sinh thái. Cố định các biến có thể chuẩn hóa: cùng văn bản nguồn, cùng mô hình nhúng `BAAI/bge-m3`, LLM thẩm định `GPT-4o-mini`, $K=5$, cùng môi trường phần cứng NVIDIA T4 GPU.
-  * *Khối 2 — Hai bộ dữ liệu kiểm chuẩn chuyên biệt:*
-    * **Benchmark A (N = 512 câu):** Phủ rộng 7 đạo luật trọng điểm. Thực hiện diễn đạt lại có chọn lọc trên các câu có độ trùng lặp cao, đưa chỉ số từ vựng Jaccard trung bình từ **0,68 xuống 0,31** nhằm hạn chế lợi thế không mong muốn của truy hồi từ khóa.
-    * **Benchmark B (N = 50 câu):** Phân tầng tại Chương III Luật Đất đai 2024 (47 câu hỏi truy hồi/chất lượng + 3 câu kiểm tra an toàn/từ chối). Đánh giá chuyên sâu quyền nghĩa vụ, đa điều kiện, ngoại lệ và dẫn chiếu.
-    * *Ghi chú điều kiện Tier 1 (N = 205 câu):* Tập con được lựa chọn sao cho toàn bộ căn cứ cần thiết nằm trong 500 điều mà LightRAG đã lập chỉ mục, đảm bảo bao phủ căn cứ tương đương khi đối chuẩn ở Giai đoạn 1.
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 2.3, 2.4, 2.5, 2.10 | Bảng 2.1, 2.2, Hình 2.1 | Trang 36–58]`.
-
----
-
-### SLIDE 7 · GIAI ĐOẠN 1: KẾT QUẢ ĐỐI CHUẨN & TRẢ LỜI RQ1 (LÂM | 05:15 – 06:40)
-* **Tiêu đề:** Giai đoạn 1 — Khoảng cách giữa truy hồi và trích dẫn trên tập Tier 1 (N = 205 câu) & Trả lời RQ1
-* **Luận điểm cốt lõi:** *Hiệu năng tìm kiếm tài liệu cao chưa đồng nghĩa với việc câu trả lời trích dẫn đúng: Cắt đoạn thô thiếu thông tin phân cấp làm suy giảm khả năng định vị.*
-* **Bố cục hiển thị:** Bảng số liệu Bảng 3.4 kèm Hộp phân tích cơ chế:
-  * *Bảng số liệu đối chuẩn (Tier 1 Fair Subset — N = 205 câu):*
-    * Naive Vector RAG: Recall@5: 0,9561 | Context Precision: 0,9659 | **Citation Accuracy (Answer): 0,3259**
-    * Hybrid RAG: Recall@5: 0,9659 | Context Precision: 0,9660 | **Citation Accuracy (Answer): 0,2902**
-    * LightRAG: Recall@5: 0,9659 | Context Precision: 0,8829 | **Citation Accuracy (Answer): 0,1371**
-  * *Hiện tượng quan sát được:* Cả ba hệ thống đều tìm được Điều luật liên quan ($Recall > 95\%$). Tuy nhiên, khi đánh giá câu trả lời cuối cùng, Citation Accuracy chỉ đạt khoảng $30\%$, riêng LightRAG ghi nhận **$13,71\%$**.
-  * *Cơ chế kỹ thuật:* Cả ba hệ thống đều sử dụng khối văn bản thô thiếu cấu trúc phân cấp tường minh (Naive và Hybrid dùng Điều thô, riêng LightRAG chia chunk 1.200 token), khiến mô hình ngôn ngữ khó xác định mối liên hệ giữa nội dung truy hồi và vị trí pháp lý cần viện dẫn.
-  * *Chốt hạ RQ1:* Các kiến trúc RAG cơ sở bộc lộ khoảng cách lớn giữa khả năng tìm tài liệu và khả năng xác định chính xác căn cứ trích dẫn.
-* **Thẻ dẫn chứng:** `[Dẫn chứng: Báo cáo toàn văn — Mục 3.2 | Bảng 3.3, Bảng 3.4 | Trang 91–93]`.
-
----
-
-### SLIDE 8 · GIAI ĐOẠN 2: PARSER V2 & ARTICLE-LEVEL MAXP (LÂM | 06:40 – 08:05)
-* **Tiêu đề:** Giai đoạn 2 — Giải pháp phân đoạn cấu trúc vi mô & Giải thuật Article MaxP
-* **Luận điểm cốt lõi:** *Bảo toàn phả hệ bằng tiền tố cấu trúc và tối ưu hóa cửa sổ ngữ cảnh bằng Max-Pooling cấp Điều.*
-* **Bố cục hiển thị:** Sơ đồ luồng xử lý 2 bước:
-  * *Bước 1 — Structure-Aware Parser v2:*  
-    Bóc tách đệ quy văn bản thành 12.754 phân đoạn vi mô theo từng cấp Khoản và Điểm.  
-    Tự động gắn **tiền tố cấu trúc bất biến**: `[Văn bản: Luật Đất đai 2024 > Chương III > Điều 45 > Khoản 1 > Điểm a]`, giúp duy trì thông tin định vị và quan hệ phân cấp cha-con.
-  * *Bước 2 — Giải thuật Article-Level Max-Pooling (MaxP):*  
-    *Vấn đề xử lý:* Phân đoạn nhỏ dễ làm bão hòa cửa sổ Top-K bởi nhiều Khoản trong cùng 1 Điều.  
-    *Cơ chế:* Gom cụm các phân đoạn vi mô theo Điều; điểm số đại diện của Điều được tính bằng điểm cực đại của phân đoạn thành phần:  
-    $$S_{\text{article}} = \max_{c \in \text{Article}} S_{\text{micro}}(c)$$  
-    Xếp hạng Top-K ở cấp Điều, sau đó lựa chọn các phân đoạn vi mô liên quan nhất để xây dựng ngữ cảnh đưa vào mô hình ngôn ngữ.
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 2.6 | Bảng 2.3, Hình 2.2 | Trang 60–65]`.
-
----
-
-### SLIDE 9 · GIAI ĐOẠN 2: MA TRẬN ĐỐI SOÁT C1 – C6 & KẾT QUẢ C5 (LÂM | 08:05 – 10:00)
-* **Tiêu đề:** Giai đoạn 2 — Kết quả đối soát 6 cấu hình trên Benchmark A (N = 512 câu) & Trả lời RQ2
-* **Luận điểm cốt lõi:** *C5 nâng Citation Accuracy trên ngữ cảnh lên 0,9902, giảm 79,9% dung lượng ngữ cảnh; phân tách rõ tầng đánh giá ngữ cảnh và tầng sinh.*
-* **Bố cục hiển thị:** Bảng ma trận Bảng 3.6 và 3 con số kết quả nổi bật:
-  * *Bảng số liệu 6 cấu hình (512 câu | 3.072 lượt chấm LLM-Judge):*
-    * C1 (Naive BM25): Citation 0,7490 | Điểm 1,0: 72,5% | Token ~2.500
-    * C2 (Naive Dense): Citation 0,4000 | Điểm 1,0: 25,4% | Token ~2.898
-    * C3 (Naive Hybrid): Citation 0,3986 | Điểm 1,0: 25,6% | Token ~2.898
-    * C4 (Parser BM25): Citation 0,9028 | Điểm 1,0: 89,3% | Token ~580
-    * **C5 (Parser Dense): Citation 0,9902 | Điểm 1,0: 98,4% (504/512 câu) | Token ~580**
-    * C6 (Parser Hybrid $\alpha=0,5$): Citation 0,9786 | Điểm 1,0: 96,3% | Token ~580
-  * *Ba kết quả đáng chú ý:*
-    * **`0,9902` (Citation Acc C5 trên ngữ cảnh):** Tăng **+59,02 điểm phần trăm** so với C2 (0,4000). Có **504 / 512 câu đạt điểm tuyệt đối 1,0**.
-    * **`-79,9%` (Giảm dung lượng ngữ cảnh):** Dung lượng giảm từ $\sim 2.898$ token xuống còn **$\sim 580$ token**.
-    * **Khảo sát $\alpha$ tại Bảng 3.7:** Quét 11 giá trị $\alpha$ từ 0,0 đến 1,0; cấu hình cân bằng $\alpha=0,8$ đạt Recall **0,9297** và MRR **0,8220**, cải thiện so với cấu hình cào bằng trọng số ở C6.
-  * *Ghi chú phương pháp luận:* Ở GĐ2, nhóm đánh giá riêng chất lượng căn cứ xuất hiện trong ngữ cảnh truy hồi bằng LLM-Judge, không đồng nhất với độ chính xác câu trả lời pháp lý cuối cùng; C2 và C5 khác nhau ở cả gói giải pháp (phân đoạn vi mô, tiền tố, MaxP). Đánh giá sinh câu trả lời hoàn chỉnh được thực hiện tại Giai đoạn 3.
-  * *Chốt hạ RQ2:* Gói xử lý cấu trúc vi mô kết hợp MaxP cải thiện đáng kể chất lượng căn cứ trong ngữ cảnh và tối ưu hóa dung lượng đầu vào.
-* **Thẻ dẫn chứng:** `[Dẫn chứng: Báo cáo toàn văn — Mục 3.3, 3.9.2 | Bảng 3.5, Bảng 3.6, Bảng 3.7 | Trang 96–101]`.
-
----
-
-### SLIDE 10 · GIAI ĐOẠN 3: TRIẾT LÝ KIẾN TRÚC HYBRID UKG & MODULE 5 (MINH | 10:00 – 11:15)
-* **Tiêu đề:** Giai đoạn 3 — Triết lý kiến trúc 2 tầng Hybrid Parser / UKG & Bộ định tuyến Module 5
-* **Luận điểm cốt lõi:** *Tách biệt cấu trúc phân cấp vật lý và lớp ngữ nghĩa pháp lý; các bước xử lý tri thức thực hiện trong quá trình lập chỉ mục.*
-* **Bố cục hiển thị:** Sơ đồ dòng chảy 2 tầng:
-  * *Tầng 1 — Đồ thị Cấu trúc vật lý (Physical Graph):* Sử dụng các quy tắc xác định trước để xây dựng cấu trúc phân cấp Chương-Mục-Điều-Khoản-Điểm, Module 3 Validation cách ly các node lỗi nghiêm trọng.
-  * *Tầng 2 — Đồ thị Ngữ nghĩa (Semantic Graph):* Trích xuất các thực thể và quan hệ pháp lý động (quyền, nghĩa vụ, điều kiện, ngoại lệ) gắn lên trục phân cấp.
-  * *Quá trình vận hành:* Các bước phân tích, trích xuất và hợp nhất tri thức chạy trong quá trình lập chỉ mục; khi truy vấn trực tuyến, hệ thống duyệt đồ thị và truy hồi vector đã dựng.
-  * *Trọng tâm kỹ thuật Module 5 (Semantic Router):* 
-    * Mô hình ngôn ngữ nhân quả **Qwen2.5-0.5B** tạo biểu diễn vector kết hợp tín hiệu Regex bằng toán tử **Max-Fusion**:  
-      $$S_{\text{fusion}} = \max(S_{\text{regex}}, S_{\text{semantic}})$$
-    * Cơ chế Causal Attention giúp bảo toàn trật tự logic quy phạm, hạn chế làm phẳng tín hiệu ngữ pháp trên phân đoạn ngắn.
-    * *Kết quả kiểm chuẩn Golden Set (193 node) tại ngưỡng $\theta = 0,85$:* Đạt **Recall 96,85%**, Precision **70,29%**, F1 **0,8146**; loại bỏ 9,33% phân đoạn thủ tục, chấp nhận ranh giới đánh đổi 4 node quy phạm bị bỏ sót (FN = 4).
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 2.6 | Hình 2.2, Bảng 2.4 & Phụ lục A | Bảng A.1, A.2 | Trang 63, 128–130]`.
-
----
-
-### SLIDE 11 · GIAI ĐOẠN 3: KẾT QUẢ ĐỐI CHUẨN TRÊN BENCHMARK B (MINH | 11:15 – 13:00)
-* **Tiêu đề:** Giai đoạn 3 — Kết quả thực nghiệm Benchmark B (N = 50 câu) & Trả lời RQ3, RQ4
-* **Luận điểm cốt lõi:** *UKG thể hiện ưu thế ở truy hồi cấp Điều và nhận diện ngoại lệ; minh bạch các ranh giới về điều kiện và chuỗi dẫn chiếu.*
-* **Bố cục hiển thị:** Bảng đối sánh trực diện 3 khối thông tin (Bảng 3.9, 3.11, 3.15, 3.16):
-  * *Khối 1 — Khả năng truy hồi cấp Điều (Bảng 3.9, N = 47 câu):*
-    * **Recall@5 cấp Điều:** UKG đạt **0,9184** vs LightRAG **0,7358** (**Vượt +18,26 điểm %**).
-    * **MRR@5 cấp Điều:** UKG đạt **0,8848** vs LightRAG **0,5539** (**Vượt +33,09 điểm %**).
-  * *Khối 2 — Chất lượng câu trả lời & Độ chính xác trích dẫn:*
-    * **Citation Precision cấp Điều (Bảng 3.16, N = 47):** UKG đạt **0,8369** vs LightRAG **0,3333** (**Gấp 2,5 lần**).
-    * **Citation Precision cấp Khoản (Bảng 3.16, N = 46):** UKG đạt **0,7757** vs LightRAG **0,0435** (**Gấp gần 18 lần**).
-    * **Exception Coverage (Bảng 3.15, N = 14):** UKG đạt **0,6786** vs LightRAG **0,3929** (**Vượt +28,57 điểm %** nhờ bóc tách mệnh đề ngoại lệ).
-    * **Legal Correctness (Bảng 3.15, N = 50):** UKG đạt **0,8777** vs LightRAG **0,8210** (**Vượt +5,67 điểm %**).
-  * *Khối 3 — Hai ranh giới kỹ thuật cần tiếp tục hoàn thiện:*
-    * **Condition Coverage (Bảng 3.15, N = 19):** UKG đạt **0,7066** vs LightRAG **0,8421** ($-13,55$ đpt) do phân đoạn vi mô tập trung quy phạm lõi, cần thêm cơ chế lan truyền điều kiện diện rộng.
-    * **Tái dựng chuỗi dẫn chiếu (RQ4, Bảng 3.14):** UKG định vị được **58,67%** node đích (Reference-target Recall), nhưng Chain Exact Match = 0 trên 18 câu hỏi dẫn chiếu (46/47 đường dẫn dừng ở 1 bước), xác lập hướng đi cần giải thuật Constrained Graph Traversal.
-  * *Hàng đối soát Exact Locator Recall@5 (Bảng 3.11):* LightRAG đạt **0,8509** vs UKG đạt **0,5560**.
-  * *Footnote kép hiển thị chân slide:*  
-    `(*) Exact Locator đo mức trùng khớp chuỗi ký tự cục bộ trên 39/47 câu đo được của UKG so với 47/47 câu của LightRAG (8 câu N/A không gán 0). Do chunk LightRAG bao phủ trung bình ~15 locator/chunk trong khi evidence UKG là phân đoạn vi mô (1 locator/đoạn), chỉ số này phản ánh khác biệt về độ hạt bằng chứng hơn là năng lực định vị; khả năng trích dẫn thực tế ở tầng câu trả lời được phản ánh qua Citation Precision/Recall ở Bảng 3.16.`  
-    `(**) Mẫu số phân tầng Bảng 3.16: Điều N=47, Khoản N=46 (1 câu nhãn vàng dừng ở Điều), Điểm N=37 (10 câu nhãn vàng dừng ở Khoản, không có Điểm). Không gán điểm 0 cho trường hợp không áp dụng.`
-* **Thẻ dẫn chứng:** `[Dẫn chứng: Báo cáo toàn văn — Mục 3.4, 3.5, 3.6, 3.7 | Bảng 3.9, Bảng 3.11, Bảng 3.14, Bảng 3.15, Bảng 3.16 | Trang 103–112]`.
-
----
-
-### SLIDE 12 · TỔNG HỢP KẾT QUẢ THEO BỐN CÂU HỎI NGHIÊN CỨU (MINH | 13:00 – 13:55)
-* **Tiêu đề:** Tổng hợp kết quả thực nghiệm giải quyết 4 câu hỏi nghiên cứu (RQ1 – RQ4)
-* **Luận điểm cốt lõi:** *Đóng gói khách quan câu trả lời cho cả bốn bài toán khoa học đặt ra ở đầu đề tài.*
-* **Bố cục hiển thị:** Bảng ma trận 4 khối đối ứng:
-  * **Trả lời RQ1:** Xác lập khoảng cách giữa truy hồi và trích dẫn: RAG cơ sở đạt Recall trên 95% nhưng Citation Accuracy câu trả lời chỉ khoảng 30% (LightRAG ghi nhận 13,71%) do sử dụng văn bản thô thiếu cấu trúc phân cấp tường minh.
-  * **Trả lời RQ2:** Parser v2 và MaxP nâng Citation Accuracy trên ngữ cảnh lên **0,9902** (98,4% tuyệt đối) và giảm **79,9% dung lượng ngữ cảnh**, xác nhận hiệu quả của gói xử lý cấu trúc.
-  * **Trả lời RQ3:** Hybrid UKG vượt trội LightRAG ở truy hồi cấp Điều (Recall +18,26 đpt, MRR +33,09 đpt), độ chính xác trích dẫn cấp Điều gấp 2,5 lần (0,8369 vs 0,3333) và độ bao phủ ngoại lệ (+28,57 đpt); tuy nhiên hiệu quả chưa đồng đều ở thành phần điều kiện.
-  * **Trả lời RQ4:** Định vị được một phần căn cứ đích (58,67%); việc tái dựng chuỗi có thứ tự hoàn chỉnh cần thêm cơ chế constrained graph traversal, xác lập ranh giới cho giai đoạn nghiên cứu tiếp theo.
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 1, Kết luận | Trang 123–124]`.
-
----
-
-### SLIDE 13 · BA ĐÓNG GÓP KHOA HỌC CHÍNH (MINH | 13:55 – 14:35)
-* **Tiêu đề:** Ba đóng góp khoa học cốt lõi của đề tài & Thông điệp đúc kết
-* **Luận điểm cốt lõi:** *Đóng góp đồng thời về Khung đánh giá kiểm chuẩn, Giải pháp phân đoạn cấu trúc và Kiến trúc hệ thống đồ thị.*
-* **Bố cục hiển thị:** 3 cột đóng góp mang tính dấu ấn + Hộp thông điệp đúc kết:
-  * *Đóng góp 1 — Dữ liệu và phương pháp đánh giá:* Xây dựng bộ kiểm chuẩn Benchmark A, Benchmark B và khung kiểm thử Adapter Pattern phục vụ đối sánh các kiến trúc RAG trên dữ liệu luật Việt Nam.
-  * *Đóng góp 2 — Phương pháp tổ chức và truy hồi cấu trúc:* Khảo sát thực nghiệm phân đoạn cấu trúc vi mô kết hợp Article-level MaxP, ghi nhận cải thiện về chất lượng căn cứ ngữ cảnh và tối ưu dung lượng đầu vào.
-  * *Đóng góp 3 — Kiến trúc hệ thống đồ thị hai tầng:* Thiết kế và triển khai Hybrid Parser/UKG, kết hợp đồ thị cấu trúc vật lý với lớp ngữ nghĩa pháp lý, đánh giá khả năng truy hồi và xử lý các thành phần quy phạm chuyên biệt.
-  * *Thông điệp đúc kết:* **"Trong dữ liệu pháp luật, cấu trúc không chỉ là hình thức tổ chức văn bản mà còn ảnh hưởng trực tiếp đến khả năng định vị và sử dụng căn cứ của hệ thống RAG."**
-* **Thẻ dẫn chứng:** `[Tham chiếu: Báo cáo toàn văn — Mục 2, Kết luận | Trang 124–125]`.
-
----
-
-### SLIDE 14 · HƯỚNG PHÁT TRIỂN & KẾT THÚC (MINH | 14:35 – 15:00)
-* **Tiêu đề:** Hướng nghiên cứu tiếp theo & Lời cảm ơn
-* **Luận điểm cốt lõi:** *Xác định rõ ràng lộ trình hoàn thiện hệ thống và mở rộng phạm vi pháp lý.*
-* **Bố cục hiển thị:**
-  * *Mở rộng phạm vi văn bản:* Bổ sung bộ bóc tách cấu trúc sang các văn bản dưới luật như Nghị định, Thông tư và tự động hóa cập nhật hiệu lực văn bản.
-  * *Hoàn thiện thuật toán:* Phát triển cơ chế lan truyền điều kiện diện rộng và giải thuật Constrained Graph Traversal để khép kín chuỗi dẫn chiếu chéo.
-  * *Nâng cao thẩm định:* Bổ sung thực nghiệm ablation từng thành phần và phối hợp chuyên gia pháp lý để hiệu chuẩn kết quả độc lập.
-  * *Lời cảm ơn trang trọng:* "Trân trọng cảm ơn Quý Thầy Cô trong Hội đồng khoa học đã chú ý lắng nghe! Kính mời Hội đồng đặt câu hỏi (Q&A)."
-
----
----
-
-# PHẦN 2: KỊCH BẢN LỜI THOẠI STORYTELLING CHUYÊN SÂU 15 PHÚT (FULL SPOKEN SCRIPT)
-
-> **Nguyên tắc vàng:**  
-> - Tổng số từ nói thực tế: **~1.850 từ** (Tốc độ chuẩn: 125–130 từ/phút).  
-> - Thời gian trình bày: **14 phút 30 giây** (Dư 30 giây đệm an toàn).  
-> - Giữ phong thái: **Điềm tĩnh – Tự chủ – Tự hào có căn cứ – Trung thực trước giới hạn**.
-
----
-
-### [00:00 – 01:30] · CHẶNG 1: LƯU THANH LÂM (MỞ MÀN & ĐẶT VẤN ĐỀ)
-
-**[Slide 1 — Bìa báo cáo · 00:00 – 00:20 | 65 từ]**
+### **[Slide 1] Trang bìa & Giới thiệu đề tài**
+* **Người trình bày:** Lưu Thanh Lâm
+* **Thời lượng mục tiêu:** 30 giây (Dự kiến: 65 từ)
+* **Blueprint Slide:**
+  * Tiêu đề đề tài: *Đánh giá và tối ưu hóa các kiến trúc RAG trên nền tảng dữ liệu cấu trúc đặc thù*
+  * Nhóm tác giả: Lưu Thanh Lâm (Trưởng nhóm), Ngô Thế Dương, Nguyễn Bình Minh
+  * Giảng viên hướng dẫn: TS. Nguyễn Mạnh Dũng
+  * Đơn vị công tác: Khoa Công nghệ Thông tin
+* **Lời thoại trình bày:**
 > *"Kính thưa Hội đồng khoa học!  
 > Em xin đại diện nhóm tác giả gồm: Lưu Thanh Lâm, Ngô Thế Dương và Nguyễn Bình Minh, dưới sự hướng dẫn của TS. Nguyễn Mạnh Dũng, trình bày đề tài:  
 > **'Đánh giá và tối ưu hóa các kiến trúc RAG trên nền tảng dữ liệu cấu trúc đặc thù'**, tập trung vào văn bản pháp luật Việt Nam."*
-
-**[Slide 2 — Bối cảnh & Thách thức căn cứ pháp lý · 00:20 – 01:30 | 154 từ]**
-> *"Kính thưa Hội đồng, tra cứu pháp luật đòi hỏi kiểm chứng tuyệt đối: câu trả lời bắt buộc phải có căn cứ chính xác đến từng điều khoản cụ thể.  
-> Nghiên cứu của Magesh và cộng sự (2025) trên tạp chí JELS chỉ ra các AI thương mại hàng đầu vẫn gặp tỷ lệ ảo giác pháp lý từ 17% đến 33%.  
-> Trong thực tế, chỉ cần trích dẫn đúng Điều nhưng sai một Khoản hay bỏ sót một ngoại lệ tại một Điểm, hệ quả pháp lý có thể đảo lộn từ hợp pháp sang vi phạm.  
-> Nhóm đặt bài toán cốt lõi: Làm sao tối ưu tìm kiếm và giúp mô hình định vị đúng căn cứ vi mô mà không làm bùng nổ ngữ cảnh?  
-> Sau đây, xin mời bạn Ngô Thế Dương trình bày đặc thù dữ liệu."*  
-*(Lâm chuyển micro cho Dương).*
+* **Ghi chú hành vi:** Đứng thẳng ở trung tâm, giọng mở đầu rõ ràng, ấm, chào trang trọng.
 
 ---
 
-### [01:30 – 05:15] · CHẶNG 2: NGÔ THẾ DƯƠNG (ĐẶC THÙ, LÝ THUYẾT & HẠ TẦNG BENCHMARK)
+### **[Slide 2] Vấn đề nghiên cứu & Bài toán ảo giác pháp lý**
+* **Người trình bày:** Lưu Thanh Lâm
+* **Thời lượng mục tiêu:** 1 phút 05 giây (Dự kiến: ~140 từ)
+* **Blueprint Slide:**
+  * **Yêu cầu lĩnh vực:** Tra cứu pháp luật đòi hỏi căn cứ có thể truy vết và kiểm chứng chính xác đến từng Điều, Khoản, Điểm.
+  * **Khoảng cách thực tiễn:** Khảo sát của Magesh và cộng sự (2025, *JELS*) ghi nhận tỷ lệ thông tin sai lệch từ 17% đến 33% ở các công cụ AI hỗ trợ nghiên cứu pháp lý thương mại trong điều kiện đánh giá của công trình.
+  * **Hệ quả thực tế:** Trích dẫn sai Khoản hoặc bỏ sót Điểm ngoại lệ có thể làm đảo lộn hoàn toàn quyền và nghĩa vụ pháp lý.
+  * **Bài toán cốt lõi:** Cân bằng giữa hiệu quả tìm kiếm và năng lực định vị căn cứ vi mô mà không làm bùng nổ dung lượng ngữ cảnh.
+* **Lời thoại trình bày:**
+> *"Kính thưa Hội đồng, tra cứu pháp luật đòi hỏi căn cứ có thể truy vết và kiểm chứng chính xác đến từng Điều, Khoản, Điểm cụ thể.  
+> Tuy nhiên, công bố của Magesh và cộng sự (2025) trên tạp chí JELS ghi nhận tỷ lệ thông tin sai lệch từ 17% đến 33% ở các công cụ AI hỗ trợ nghiên cứu pháp lý được khảo sát, trong điều kiện đánh giá của công trình.  
+> Trong thực tế, chỉ cần trích dẫn đúng Điều nhưng sai một Khoản hay bỏ sót một ngoại lệ tại một Điểm, hệ quả pháp lý có thể đảo lộn hoàn toàn từ hợp pháp sang vi phạm.  
+> Nhóm đặt bài toán cốt lõi: Làm sao vừa tối ưu tìm kiếm, vừa giúp mô hình định vị chính xác căn cứ vi mô mà không làm bùng nổ dung lượng ngữ cảnh?  
+> Sau đây, xin mời bạn Ngô Thế Dương trình bày đặc thù dữ liệu."*
+* **Ghi chú hành vi:** Lâm nhấn giọng có kiểm soát ở cụm *"đảo lộn hoàn toàn từ hợp pháp sang vi phạm"*, sau đó lịch thiệp chuyển micro sang Dương.
 
-**[Slide 3 — Đặc thù luật & Ba vấn đề kiểm chứng · 01:30 – 02:25 | 123 từ]**
+---
+
+### **[Slide 3] Đặc thù văn bản luật & Ba vấn đề kiểm chứng thực nghiệm**
+* **Người trình bày:** Ngô Thế Dương
+* **Thời lượng mục tiêu:** 50 giây (Dự kiến: ~110 từ)
+* **Blueprint Slide:**
+  * **3 Đặc thù dữ liệu (Mục 1.7.1):**
+    1. Cấu trúc phân cấp đa tầng: Luật $\rightarrow$ Chương $\rightarrow$ Mục $\rightarrow$ Điều $\rightarrow$ Khoản $\rightarrow$ Điểm.
+    2. Mạng lưới dẫn chiếu chéo phức tạp: Quan hệ điều kiện, viện dẫn thi hành và quy phạm ngoại lệ.
+    3. Lệch pha từ vựng: Khoảng cách lớn giữa ngôn ngữ đời thường của người dân và thuật ngữ pháp lý quy chuẩn.
+  * **3 Vấn đề kiểm chứng thực nghiệm (Mục 1.7.2):**
+    1. Tác động của phân đoạn cấu trúc đến hiệu quả truy hồi.
+    2. Mức độ bảo đảm đầy đủ các thành phần quy phạm trong câu trả lời.
+    3. Khả năng truy vết quan hệ dẫn chiếu giữa những điều luật liên quan.
+* **Lời thoại trình bày:**
 > *"Em xin cảm ơn bạn Lâm. Kính thưa Quý Thầy Cô,  
 > Văn bản luật Việt Nam có ba đặc thù: phân cấp đa tầng từ Luật xuống Điều, Khoản, Điểm; mạng lưới dẫn chiếu chéo quy định điều kiện, ngoại lệ; và sự lệch pha từ vựng giữa câu hỏi người dân với thuật ngữ chuẩn tắc.  
-> Từ đó, nhóm tập trung vào ba vấn đề kiểm chứng thực nghiệm: tác động của phân đoạn cấu trúc đến hiệu quả truy hồi; mức độ bao phủ các thành phần quy phạm trong câu trả lời; và khả năng truy vết quan hệ dẫn chiếu giữa những điều luật liên quan."*
+> Từ đó, nhóm tập trung vào ba vấn đề kiểm chứng thực nghiệm: tác động của phân đoạn cấu trúc đến hiệu quả truy hồi; mức độ bảo đảm đầy đủ các thành phần quy phạm trong câu trả lời; và khả năng truy vết quan hệ dẫn chiếu giữa những điều luật liên quan."*
+* **Ghi chú hành vi:** Dương nói đĩnh đạc, rõ ràng từng đầu mục.
 
-**[Slide 4 — Cơ sở lý thuyết: Ba trường phái RAG đối chứng · 02:25 – 03:20 | 113 từ]**
+---
+
+### **[Slide 4] Khảo sát đối chứng ba trường phái RAG đại diện**
+* **Người trình bày:** Ngô Thế Dương
+* **Thời lượng mục tiêu:** 50 giây (Dự kiến: ~110 từ)
+* **Blueprint Slide:**
+  * **3 Trường phái đối chứng (Mục 1.4 – 1.6):**
+    * **Naive Vector RAG:** Nhúng vector dày đặc (Dense Embedding) + Cosine Similarity. Ưu thế: Khái quát ngữ nghĩa tổng thể; Hạn chế: Dễ mất từ khóa định danh cụ thể.
+    * **Hybrid RAG:** Dung hợp BM25 + Dense qua thuật toán RRF kết hợp Cross-Encoder Reranker. Ưu thế: Cân bằng từ khóa và ngữ nghĩa; Hạn chế: Chưa nắm bắt quan hệ phân cấp.
+    * **LightRAG (GraphRAG đại diện):** Khai thác LLM trích xuất đồ thị thực thể – quan hệ hai tầng (Low-level & High-level). Ưu thế: Liên kết tri thức mở; Hạn chế: Đòi hỏi tài nguyên lớn, phân đoạn chunk cố định 1.200 token.
+* **Lời thoại trình bày:**
 > *"Để kiểm chứng các vấn đề trên, nhóm lựa chọn khảo sát ba trường phái RAG đại diện làm hệ thống đối chứng:  
 > Naive Vector RAG dựa trên nhúng vector dày đặc và độ tương đồng Cosine, mạnh về ngữ nghĩa khái quát.  
 > Hybrid RAG dung hợp từ khóa BM25 và Dense qua giải thuật RRF kết hợp Cross-Encoder Reranker, cải thiện khả năng bắt từ khóa định danh.  
 > LightRAG đại diện cho GraphRAG, trích xuất đồ thị thực thể – quan hệ để kết nối tri thức hai tầng.  
 > Ba kiến trúc này đại diện cho ba cách tổ chức dữ liệu khác nhau để đối chuẩn trên văn bản luật Việt Nam."*
+* **Ghi chú hành vi:** Thể hiện thái độ khách quan khoa học, không chê bai phiến diện hệ thống đối chứng.
 
-**[Slide 5 — Hệ thống 4 Câu hỏi nghiên cứu RQ1 – RQ4 · 03:20 – 04:05 | 102 từ]**
+---
+
+### **[Slide 5] Bốn câu hỏi nghiên cứu (RQ1 – RQ4)**
+* **Người trình bày:** Ngô Thế Dương
+* **Thời lượng mục tiêu:** 50 giây (Dự kiến: ~105 từ)
+* **Blueprint Slide:**
+  * **RQ1 (Baseline Performance):** Hiệu năng truy hồi và độ chính xác trích dẫn của các RAG cơ sở khác biệt thế nào khi cắt đoạn thô?
+  * **RQ2 (Structural Optimization):** Bộ phân tích cấu trúc Parser v2 và giải thuật MaxP cải thiện trích dẫn ngữ cảnh và dung lượng ra sao?
+  * **RQ3 (Graph-based Reasoning):** Kiến trúc đồ thị hai tầng Hybrid UKG nâng cao hiệu quả truy hồi và xử lý ngoại lệ thế nào khi đối sánh với LightRAG?
+  * **RQ4 (Multi-step Reference):** Khả năng định vị đích dẫn chiếu và tái dựng chuỗi quan hệ có thứ tự đạt mức độ nào?
+* **Lời thoại trình bày:**
 > *"Từ đó, nhóm xây dựng bốn câu hỏi nghiên cứu định hướng:  
 > RQ1: Hiệu năng truy hồi và độ chính xác trích dẫn của các RAG cơ sở khác biệt thế nào khi cắt đoạn thô?  
 > RQ2: Bộ phân tích cấu trúc Parser v2 và giải thuật MaxP cải thiện trích dẫn ngữ cảnh và dung lượng ra sao?  
 > RQ3: Kiến trúc đồ thị hai tầng Hybrid UKG nâng cao hiệu quả truy hồi và xử lý ngoại lệ thế nào khi đối sánh với LightRAG?  
 > RQ4: Khả năng định vị đích dẫn chiếu và tái dựng chuỗi quan hệ có thứ tự đạt mức độ nào?"*
-
-**[Slide 6 — Thiết kế thực nghiệm & Hạ tầng Benchmark · 04:05 – 05:15 | 116 từ]**
-> *"Để trả lời bốn RQ, nhóm xây dựng Benchmark Harness chuẩn hóa giao diện Adapter Pattern, kiểm soát các biến thực nghiệm có thể chuẩn hóa: cùng văn bản nguồn, cùng embedding BGE-M3 và LLM thế hệ GPT-4o-mini.  
-> Nhóm biên soạn hai bộ kiểm chuẩn độc lập:  
-> Benchmark A gồm 512 câu hỏi phủ 7 đạo luật trọng điểm, được diễn đạt lại có chọn lọc giúp giảm Jaccard trung bình từ 0,68 xuống 0,31 nhằm hạn chế lợi thế của truy hồi từ khóa.  
-> Benchmark B gồm 50 câu hỏi phân tầng tại Chương III Luật Đất đai 2024 để kiểm tra chuyên sâu đa điều kiện, ngoại lệ và dẫn chiếu.  
-> Sau đây, xin mời bạn Lâm trình bày kết quả."*  
-*(Dương chuyển micro cho Lâm).*
+* **Ghi chú hành vi:** Đọc dứt khoát 4 RQ, tạo khung sườn logic vững chắc cho toàn bộ bài thuyết trình.
 
 ---
 
-### [05:15 – 10:00] · CHẶNG 3: LƯU THANH LÂM (GIAI ĐOẠN 1 NGHỊCH LÝ & GIAI ĐOẠN 2 ĐỘT PHÁ)
+### **[Slide 6] Phương pháp kiểm chuẩn & Hai bộ dữ liệu Benchmark A, B**
+* **Người trình bày:** Ngô Thế Dương
+* **Thời lượng mục tiêu:** 1 phút (Dự kiến: ~135 từ)
+* **Blueprint Slide:**
+  * **Kiểm soát biến thực nghiệm:** Benchmark Harness chuẩn hóa giao diện qua Adapter Pattern: cùng tập câu hỏi, cùng embedding BGE-M3 và LLM thế hệ GPT-4o-mini.
+  * **Quy chuẩn đối chứng GĐ1:** Do LightRAG lập chỉ mục trên 500 điều luật, nhóm xây dựng tập Tier 1 gồm 205 câu hỏi có toàn bộ căn cứ nằm trong 500 điều này để bảo đảm độ bao phủ dữ liệu công bằng.
+  * **2 Bộ kiểm chuẩn độc lập (Mục 3.1 & 3.2):**
+    * **Benchmark A (N=512):** Phủ 7 đạo luật trọng điểm; được diễn đạt lại có chọn lọc giúp hạ Jaccard trung bình từ 0,68 xuống 0,31 nhằm hạn chế lợi thế của truy hồi từ khóa.
+    * **Benchmark B (N=50):** Phân tầng sâu tại Chương III Luật Đất đai 2024 (47 câu phân tích chuyên sâu + 3 câu thẩm định đa tầng) đánh giá đa điều kiện, ngoại lệ và dẫn chiếu.
+* **Lời thoại trình bày:**
+> *"Để trả lời bốn câu hỏi nghiên cứu, nhóm xây dựng Benchmark Harness chuẩn hóa giao diện thông qua Adapter Pattern, kiểm soát các biến thực nghiệm có thể chuẩn hóa: cùng tập câu hỏi, cùng embedding BGE-M3 và mô hình GPT-4o-mini.  
+> Riêng ở Giai đoạn 1, do LightRAG được lập chỉ mục trên 500 điều luật, nhóm lựa chọn 205 câu Tier 1 sao cho toàn bộ căn cứ cần thiết đều nằm trong phạm vi này nhằm đối chuẩn công bằng về độ bao phủ dữ liệu.  
+> Nhóm biên soạn hai bộ kiểm chuẩn độc lập: Benchmark A gồm 512 câu hỏi phủ 7 đạo luật, được diễn đạt lại có chọn lọc để giảm Jaccard trung bình từ 0,68 xuống 0,31 nhằm hạn chế lợi thế của truy hồi từ khóa; Benchmark B gồm 50 câu hỏi phân tầng tại Chương III Luật Đất đai 2024.  
+> Sau đây, xin mời bạn Lâm trình bày kết quả."*
+* **Ghi chú hành vi:** Dương chuyển giao nhịp nhàng lại cho Lâm.
 
-**[Slide 7 — Giai đoạn 1: Khoảng cách truy hồi – trích dẫn · 05:15 – 06:40 | 136 từ]**
+---
+
+### **[Slide 7] Kết quả Giai đoạn 1: Khoảng cách giữa tìm kiếm và trích dẫn (RQ1)**
+* **Người trình bày:** Lưu Thanh Lâm
+* **Thời lượng mục tiêu:** 1 phút (Dự kiến: ~140 từ)
+* **Blueprint Slide:**
+  * **Bảng 3.4 — Đối chuẩn Tier 1 (N=205 câu):**
+    | Kiến trúc | Recall@5 | Context Precision | Citation Accuracy | Chi phí API |
+    |---|:---:|:---:|:---:|:---:|
+    | **Naive Vector RAG** | 0,9512 | 0,9673 | **0,3259** | 0,0002 $ |
+    | **Hybrid RAG** | **0,9610** | **0,9760** | **0,2902** | 0,0004 $ |
+    | **LightRAG** | 0,9561 | 0,8829 | **0,1371** | 0,0423 $ |
+  * **Phát hiện khoa học cốt lõi:** Nghịch lý truy hồi tốt nhưng trích dẫn kém (Citation Accuracy chỉ đạt 13% – 33%).
+  * **Cơ chế giải thích:** Văn bản thô cấp Điều (Naive/Hybrid) và chunk 1.200 token (LightRAG) thiếu thông tin phân cấp tường minh, tạo khoảng cách giữa phạm vi truy hồi và vị trí căn cứ cần viện dẫn.
+* **Lời thoại trình bày:**
 > *"Em xin cảm ơn bạn Dương. Kính thưa Hội đồng,  
 > Đối chuẩn ba kiến trúc RAG trên tập Tier 1 gồm 205 câu hỏi, nhóm ghi nhận khoảng cách rõ rệt giữa tìm kiếm và trích dẫn:  
 > Tại Bảng 3.4, cả ba hệ thống đều tìm kiếm tốt: Recall@5 vượt 95%, Context Precision Naive và Hybrid trên 0,96, LightRAG đạt 0,8829.  
-> Tuy nhiên, Citation Accuracy câu trả lời sụt giảm sâu: Naive Vector đạt 32,59%, Hybrid đạt 29,02%, và LightRAG chỉ 13,71%.  
-> Nguyên nhân là việc sử dụng văn bản thô thiếu cấu trúc phân cấp tường minh khiến mô hình khó xác định mối liên hệ giữa nội dung truy hồi và vị trí pháp lý cần viện dẫn.  
+> Tuy nhiên, Citation Accuracy trên câu trả lời sụt giảm sâu: Naive Vector đạt 32,59%, Hybrid đạt 29,02%, và LightRAG chỉ 13,71%.  
+> Kết quả gợi ý cơ chế giải thích: việc sử dụng văn bản thô thiếu cấu trúc phân cấp tường minh khiến mô hình khó xác định vị trí pháp lý cần viện dẫn. Riêng LightRAG chia chunk 1.200 token tạo thêm khoảng cách giữa phạm vi truy hồi và căn cứ cần trích dẫn.  
 > Kết quả này trả lời cho RQ1: RAG cơ sở bộc lộ khoảng cách lớn ở bài toán trích dẫn nếu giữ nguyên cắt đoạn thô."*
+* **Ghi chú hành vi:** Lâm nhấn mạnh nghịch lý bằng giọng điềm tĩnh, chỉ tay vào sự sụt giảm ở cột Citation Accuracy.
 
-**[Slide 8 — Giai đoạn 2: Parser v2 & Article MaxP · 06:40 – 08:05 | 161 từ]**
+---
+
+### **[Slide 8] Giai đoạn 2: Giải pháp cấu trúc Parser v2 & Article MaxP**
+* **Người trình bày:** Lưu Thanh Lâm
+* **Thời lượng mục tiêu:** 55 giây (Dự kiến: ~120 từ)
+* **Blueprint Slide:**
+  * **Structure-Aware Parser v2 (Mục 2.2):** Phân đoạn đệ quy theo cấu trúc pháp lý thành 12.754 đơn vị vi mô (cấp Khoản, Điểm); tự động gắn tiền tố phả hệ bất biến `[Luật > Chương > Điều > Khoản]` vào từng đơn vị để duy trì định vị.
+  * **Article-Level Max-Pooling (MaxP) (Mục 2.3):**
+    * Gom cụm các phân đoạn theo Điều: $S(d_i, q) = \max_{c \in d_i} s(c, q)$.
+    * Tránh bão hòa Top-K bởi nhiều Khoản cùng Điều, chọn lọc phân đoạn vi mô đại diện để đưa vào ngữ cảnh.
+* **Lời thoại trình bày:**
 > *"Để giải quyết khoảng cách trên, ở Giai đoạn 2, nhóm đề xuất giải pháp cấu trúc:  
 > Bộ phân tích Structure-Aware Parser v2 bóc tách đệ quy văn bản thành 12.754 phân đoạn vi mô cấp Khoản, Điểm; gắn tiền tố phả hệ bất biến từ Luật, Chương đến Điều, bảo toàn thông tin định vị phân cấp.  
 > Nhằm tránh bão hòa Top-K bởi nhiều Khoản cùng Điều, nhóm đề xuất giải thuật Article-Level Max-Pooling: gom cụm phân đoạn theo Điều, lấy điểm cực đại để xếp hạng cấp Điều; sau đó chọn lọc phân đoạn vi mô liên quan đưa vào mô hình.  
 > Giải pháp này vừa thu hẹp dung lượng ngữ cảnh, vừa bảo toàn thông tin phân cấp."*
-
-**[Slide 9 — Giai đoạn 2: Ma trận C1–C6 & Kết quả C5 · 08:05 – 10:00 | 194 từ]**
-> *"Trên 512 câu hỏi Benchmark A với 3.072 lượt đánh giá LLM-Judge, Bảng 3.6 làm sáng tỏ RQ2:  
-> Cấu hình C5 (Parser kết hợp Dense) nâng Citation Accuracy trên ngữ cảnh từ 0,4000 lên 0,9902, tăng 59,02 điểm phần trăm, với 98,4% số câu đạt điểm tuyệt đối 1,0.  
-> Đồng thời, dung lượng ngữ cảnh giảm mạnh 79,9%, từ gần 2.900 token xuống còn 580 token.  
-> Bảng 3.7 ghi nhận cấu hình cân bằng alpha = 0,8 đạt Recall 0,9297 và MRR 0,8220, cải thiện rõ rệt so với C6.  
-> Nhóm lưu ý: Giai đoạn 2 đánh giá riêng căn cứ trong ngữ cảnh bằng LLM-Judge, chưa chấm câu trả lời hoàn chỉnh. Kết quả C2 và C5 phản ánh tác động tích cực của cấu trúc trong Dense Retrieval, làm tiền đề cho Giai đoạn 3.  
-> Sau đây, xin mời bạn Nguyễn Bình Minh trình bày tiếp."*  
-*(Lâm chuyển micro cho Minh).*
+* **Ghi chú hành vi:** Trình bày gãy gọn hai trụ cột kỹ thuật: Parser v2 định danh, MaxP gom cụm.
 
 ---
 
-### [10:00 – 15:00] · CHẶNG 4: NGUYỄN BÌNH MINH (ĐỒ THỊ UKG, ĐA BƯỚC & KẾT LUẬN)
+### **[Slide 9] Kết quả Giai đoạn 2: Đột phá cấu hình C5 & Khảo sát tham số (RQ2)**
+* **Người trình bày:** Lưu Thanh Lâm
+* **Thời lượng mục tiêu:** 1 phút (Dự kiến: ~125 từ)
+* **Blueprint Slide:**
+  * **Bảng 3.6 — Đánh giá trên Benchmark A (N=512, 3.072 lượt LLM-Judge):**
+    * Cấu hình C2 (Raw Chunk + Dense): Citation Accuracy ngữ cảnh = **0,4000** | Token = 2.891
+    * Cấu hình C5 (Parser v2 + Article MaxP + Dense): Citation Accuracy ngữ cảnh = **0,9902** (+59,02 đpt, 98,4% đạt điểm 1,0) | Token = **580** (Giảm 79,9%)
+  * **Bảng 3.7 — Khảo sát trọng số RRF ($\alpha$):** $\alpha=0,8$ đạt Recall 0,9297, MRR 0,8220 (Cấu hình cân bằng giữa Dense và BM25).
+  * **Lưu ý phương pháp luận:** GĐ2 đánh giá riêng chất lượng căn cứ trong ngữ cảnh truy hồi bằng LLM-Judge độc lập với việc sinh câu trả lời hoàn chỉnh.
+* **Lời thoại trình bày:**
+> *"Trên 512 câu hỏi Benchmark A với 3.072 lượt đánh giá LLM-Judge, Bảng 3.6 làm sáng tỏ RQ2:  
+> Điểm nổi bật nhất, LLM-Judge Citation Accuracy trên ngữ cảnh truy hồi ở cấu hình C5 đạt 0,9902, tăng 59,02 điểm phần trăm so với C2, với 98,4% số câu đạt điểm tuyệt đối 1,0.  
+> Đồng thời, dung lượng ngữ cảnh giảm mạnh 79,9%, từ gần 2.900 token xuống còn 580 token. Khảo sát tại Bảng 3.7 ghi nhận cấu hình cân bằng alpha = 0,8 duy trì tốt cả truy hồi Dense và từ khóa.  
+> Nhóm lưu ý: Giai đoạn 2 đánh giá riêng chất lượng căn cứ trong ngữ cảnh bằng LLM-Judge, độc lập với việc sinh câu trả lời, tạo tiền đề để đánh giá toàn trình ở Giai đoạn 3.  
+> Sau đây, xin mời bạn Nguyễn Bình Minh trình bày tiếp."*
+* **Ghi chú hành vi:** Lâm nêu bật 2 con số ấn tượng nhất (0,9902 và -79,9% token), làm rõ phương pháp luận rồi chuyển micro cho Minh.
 
-**[Slide 10 — Giai đoạn 3: Kiến trúc Hybrid UKG & Module 5 · 10:00 – 11:15 | 163 từ]**
+---
+
+### **[Slide 10] Giai đoạn 3: Kiến trúc Hybrid UKG & Semantic Router Module 5**
+* **Người trình bày:** Nguyễn Bình Minh
+* **Thời lượng mục tiêu:** 1 phút 10 giây (Dự kiến: ~150 từ)
+* **Blueprint Slide:**
+  * **Kiến trúc đồ thị hai tầng Hybrid UKG (Mục 2.6):**
+    * **Physical Graph (Đồ thị vật lý):** Dựng khung phân cấp Chương-Mục-Điều-Khoản bằng quy tắc tất định; Module 3 Validation cách ly các node lỗi cấu trúc.
+    * **Semantic Graph (Đồ thị ngữ nghĩa):** Trích xuất động quan hệ dẫn chiếu, điều kiện và ngoại lệ; thực hiện hoàn toàn trong pha lập chỉ mục.
+  * **Module 5 Semantic Router (Mục 2.6.4):**
+    * Mô hình ngôn ngữ tự hồi quy Qwen2.5-0.5B kết hợp toán tử Max-Fusion giữa Regex và điểm Vector.
+    * Đánh giá Golden Set v2 ($N=193$): Tại $\theta=0,85$, Recall đạt 96,85%, F1 đạt 0,8146.
+    * Giảm 9,33% khối lượng xử lý chuyển tiếp (18 node), trong đó loại 14 node thủ tục và chấp nhận đánh đổi 4 node quy phạm bị bỏ sót.
+* **Lời thoại trình bày:**
 > *"Em xin cảm ơn bạn Lâm. Kính thưa Quý Thầy Cô,  
 > Để xử lý truy vấn đa bước và ngoại lệ, nhóm xây dựng kiến trúc Hybrid Parser/UKG hai tầng:  
-> Tầng 1 là Đồ thị vật lý — dùng quy tắc tất định dựng phân cấp, Module 3 Validation cách ly các node lỗi.  
+> Tầng 1 là Đồ thị vật lý — dùng quy tắc tất định dựng phân cấp, Module 3 Validation cách ly các node lỗi cấu trúc.  
 > Tầng 2 là Đồ thị ngữ nghĩa — trích xuất động quan hệ dẫn chiếu, điều kiện và ngoại lệ.  
 > Quá trình xử lý tri thức thực hiện lúc lập chỉ mục; khi truy vấn, hệ thống duyệt đồ thị để thu thập bằng chứng.  
-> Trọng tâm là Module 5 Semantic Router: kết hợp mô hình Qwen2.5-0.5B và toán tử Max-Fusion giữa Regex và Vector. Tại ngưỡng theta = 0,85 trên Golden Set 193 node, hệ thống đạt Recall 96,85%, F1 0,8146, loại 9,33% phân đoạn thủ tục, chấp nhận ranh giới 4 node quy phạm bị bỏ sót."*
+> Trọng tâm là Module 5 Semantic Router: kết hợp mô hình Qwen2.5-0.5B và toán tử Max-Fusion giữa Regex và Vector. Trên Golden Set 193 node, tại ngưỡng theta = 0,85, hệ thống đạt Recall 96,85% và F1 0,8146. So với ngưỡng 0,80, cơ chế này giúp giảm 9,33% khối lượng xử lý chuyển tiếp, trong đó loại 14 node thủ tục nhưng chấp nhận đánh đổi 4 node quy phạm bị bỏ sót."*
+* **Ghi chú hành vi:** Minh mở đầu dõng dạc, giải thích rành mạch kiến trúc và trade-off kỹ thuật.
 
-**[Slide 11 — Giai đoạn 3: Thực nghiệm Benchmark B · 11:15 – 13:00 | 216 từ]**
-> *"Kính thưa Hội đồng, thực nghiệm Benchmark B gồm 50 câu hỏi tại Chương III Luật Đất đai 2024 làm sáng tỏ RQ3 và RQ4:  
-> Về truy hồi cấp Điều (Bảng 3.9), Hybrid UKG đạt Recall@5 0,9184 vs 0,7358 của LightRAG (vượt +18,26 đpt) và MRR@5 đạt 0,8848 vs 0,5539 (vượt +33,09 đpt).  
-> Về chất lượng trích dẫn, Citation Precision cấp Điều đạt 0,8369 vs 0,3333 (gấp 2,5 lần); cấp Khoản đạt 0,7757 vs 0,0435 (gấp 18 lần). Ở tầng nội dung, Legal Correctness đạt 0,8777 và Exception Coverage đạt 0,6786 — vượt LightRAG 28,57 đpt nhờ bóc tách ngoại lệ.  
-> Về ranh giới kỹ thuật: Condition Coverage đạt 0,7066 vs 0,8421 do phân đoạn vi mô cần thêm cơ chế lan truyền diện rộng. Về RQ4, UKG định vị 58,67% node đích, nhưng việc tái dựng chuỗi cần thêm giải thuật duyệt đồ thị khi Chain Exact Match đạt 0,0000 trên 18 câu.  
-> Chỉ số Exact Locator Recall@5 đạt 0,5560 vs 0,8509 do khác biệt độ hạt: chunk LightRAG chứa trung bình ~15 locator trong khi phân đoạn UKG chỉ mang 1 locator."*
+---
 
-**[Slide 12 — Tổng kết: Đóng gói 4 Câu hỏi nghiên cứu · 13:00 – 13:55 | 132 từ]**
+### **[Slide 11] Kết quả Giai đoạn 3: Đối đầu trực diện LightRAG (RQ3 & RQ4)**
+* **Người trình bày:** Nguyễn Bình Minh
+* **Thời lượng mục tiêu:** 1 phút 20 giây (Dự kiến: ~170 từ)
+* **Blueprint Slide:**
+  * **Bảng đối soát Benchmark B (N=50, Chương III Luật Đất đai 2024):**
+    | Nhóm chỉ số | Chỉ số thực nghiệm | LightRAG | Hybrid UKG | Chênh lệch / Ý nghĩa |
+    |---|---|:---:|:---:|---|
+    | **Truy hồi cấp Điều** | Recall@5 | 0,7358 | **0,9184** | **+18,26 đpt** (Bảng 3.9) |
+    | | MRR@5 | 0,5539 | **0,8848** | **+33,09 đpt** (Bảng 3.9) |
+    | **Độ chính xác trích dẫn** | Citation Precision (Điều) | 0,3333 | **0,8369** | **+50,36 đpt** (Bảng 3.16) |
+    | | Citation Precision (Khoản) | 0,0435 | **0,7757** | **+73,22 đpt** (Bảng 3.16) |
+    | **Chất lượng nội dung** | Legal Correctness | 0,7660 | **0,8777** | **+11,17 đpt** (Bảng 3.14) |
+    | | Exception Coverage | 0,3929 | **0,6786** | **+28,57 đpt** (Bảng 3.15) |
+    | **Ranh giới kỹ thuật** | Condition Coverage | **0,8421** | 0,7066 | UKG thấp hơn -13,55 đpt (Bảng 3.15) |
+    | | Exact Locator Recall@5 | **0,8509** | 0,5560* | Footnote kép (*39/47 câu đo được; Độ hạt)* |
+    | | Chain Exact Match (N=18) | N/A | **0,0000** | Ranh giới cần Constrained Traversal (Bảng 3.10) |
+  * *\*Footnote kỹ thuật:* UKG đo trên 39/47 câu (8 câu not_measured); LightRAG đo trên 47/47 câu. Chunk 1.200 token của LightRAG chứa trung bình ~15 locator, trong khi phân đoạn UKG chỉ chứa 1 locator. LightRAG chưa hỗ trợ trích xuất đường dẫn theo giao thức này nên Chain Exact Match là N/A.
+* **Lời thoại trình bày:**
+> *"Kính thưa Hội đồng, thực nghiệm Benchmark B gồm 50 câu hỏi tại Chương III Luật Đất đai 2024 làm sáng tỏ RQ3 và RQ4 qua ba khối thông tin:  
+> Về truy hồi cấp Điều (Bảng 3.9), Hybrid UKG đạt Recall@5 0,9184 so với 0,7358 của LightRAG (vượt 18,26 điểm phần trăm) và MRR@5 đạt 0,8848 so với 0,5539 (vượt 33,09 điểm phần trăm).  
+> Về chất lượng trích dẫn, Citation Precision cấp Điều đạt 0,8369 so với 0,3333; cấp Khoản đạt 0,7757 so với 0,0435 của LightRAG. Ở tầng nội dung, Legal Correctness đạt 0,8777 và Exception Coverage đạt 0,6786 — cao hơn LightRAG 28,57 điểm phần trăm trong xử lý các tình huống có ngoại lệ.  
+> Về ranh giới kỹ thuật: Condition Coverage đạt 0,7066 so với 0,8421, cho thấy hệ thống còn hạn chế khi tổng hợp điều kiện phân tán. Với Exact Locator Recall@5, LightRAG đạt 0,8509 trên 47 câu, còn UKG đạt 0,5560 trên 39 câu đo được do khác biệt về độ hạt phân đoạn. Về Chain Exact Match, hệ thống đạt 0,0000 trên 18 câu đa bước, còn LightRAG ở trạng thái chưa hỗ trợ trích xuất đường dẫn theo giao thức này."*
+* **Ghi chú hành vi:** Minh bình tĩnh, chỉ trực tiếp vào các chỉ số trade-off, phong thái tự tin và minh bạch.
+
+---
+
+### **[Slide 12] Tổng hợp đóng gói câu trả lời cho bốn RQ**
+* **Người trình bày:** Nguyễn Bình Minh
+* **Thời lượng mục tiêu:** 1 phút (Dự kiến: ~135 từ)
+* **Blueprint Slide:**
+  * **RQ1 (Baseline Performance):** Xác lập thực nghiệm khoảng cách giữa tìm kiếm và trích dẫn, chỉ ra hạn chế của việc cắt đoạn thô thiếu cấu trúc phân cấp.
+  * **RQ2 (Structural Optimization):** Bằng chứng thực nghiệm khẳng định Parser v2 và MaxP nâng Citation Accuracy ngữ cảnh lên 0,9902 và giảm 79,9% dung lượng đầu vào.
+  * **RQ3 (Graph-based Reasoning):** Hybrid UKG vượt trội LightRAG ở truy hồi cấp Điều, trích dẫn cấp Khoản và độ bao phủ ngoại lệ; làm rõ ranh giới ở điều kiện pháp lý phân tán.
+  * **RQ4 (Multi-step Reference):** Hệ thống định vị được 58,67% căn cứ đích đơn lẻ; chỉ ra sự cần thiết của giải thuật duyệt đồ thị có ràng buộc để khép kín chuỗi quan hệ có thứ tự.
+* **Lời thoại trình bày:**
 > *"Từ ba giai đoạn thực nghiệm, nhóm đối chiếu lại bốn câu hỏi nghiên cứu ban đầu:  
 > RQ1: Xác lập thực nghiệm khoảng cách giữa truy hồi và trích dẫn, chỉ ra hạn chế của việc sử dụng văn bản thô thiếu cấu trúc phân cấp.  
 > RQ2: Cung cấp bằng chứng cho thấy Parser v2 và MaxP nâng Citation Accuracy ngữ cảnh lên 0,9902 và giảm 79,9% dung lượng ngữ cảnh.  
-> RQ3: Hybrid UKG đạt kết quả cao hơn LightRAG ở truy hồi cấp Điều (Recall +18,26 đpt, MRR +33,09 đpt), độ chính xác trích dẫn cấp Điều gấp 2,5 lần, và độ bao phủ ngoại lệ (+28,57 đpt); tuy nhiên hiệu quả chưa đồng đều ở thành phần điều kiện.  
-> RQ4: Hệ thống xác định được một phần căn cứ đích (58,67%), làm rõ ranh giới cần giải thuật duyệt đồ thị có ràng buộc để khép kín chuỗi dẫn chiếu."*
+> RQ3: Hybrid UKG đạt kết quả cao hơn LightRAG ở truy hồi cấp Điều, độ chính xác trích dẫn cấp Điều, Khoản và độ bao phủ ngoại lệ; tuy nhiên còn hạn chế ở thành phần điều kiện phân tán.  
+> RQ4: Hệ thống định vị được 58,67% căn cứ đích đơn lẻ, làm rõ ranh giới cần giải thuật duyệt đồ thị có ràng buộc để khép kín chuỗi dẫn chiếu có thứ tự."*
+* **Ghi chú hành vi:** Minh đúc kết mạch lạc, trả lời trọn vẹn 4 RQ đặt ra từ đầu bài.
 
-**[Slide 13 — Ba đóng góp khoa học chính · 13:55 – 14:35 | 122 từ]**
-> *"Từ các kết quả trên, đề tài xác định ba đóng góp cốt lõi:  
-> Khung dữ liệu và kiểm chuẩn Benchmark A, Benchmark B cùng Adapter Pattern phục vụ đối sánh các kiến trúc RAG trên dữ liệu luật Việt Nam.  
-> Phương pháp phân đoạn cấu trúc vi mô kết hợp Article MaxP, cải thiện chất lượng căn cứ ngữ cảnh và tối ưu dung lượng đầu vào.  
-> Kiến trúc đồ thị hai tầng Hybrid UKG, kết hợp đồ thị cấu trúc vật lý với lớp ngữ nghĩa pháp lý để xử lý quy phạm ngoại lệ.  
+---
+
+### **[Slide 13] Ba đóng góp khoa học cốt lõi & Thông điệp kết luận**
+* **Người trình bày:** Nguyễn Bình Minh
+* **Thời lượng mục tiêu:** 40 giây (Dự kiến: ~85 từ)
+* **Blueprint Slide:**
+  * **3 Đóng góp khoa học cốt lõi:**
+    1. *Khung kiểm chuẩn & Phương pháp đánh giá:* Bộ Benchmark A (512 câu), Benchmark B (50 câu) cùng hạ tầng Adapter Pattern chuẩn hóa.
+    2. *Phương pháp tổ chức dữ liệu cấu trúc:* Bộ bóc tách Parser v2 và giải thuật Article MaxP giúp tối ưu hóa dung lượng và định vị căn cứ.
+    3. *Kiến trúc đồ thị hai tầng:* Mô hình Hybrid UKG kết hợp đồ thị vật lý và ngữ nghĩa để xử lý quy phạm ngoại lệ.
+  * **Thông điệp đúc kết:** *"Trong dữ liệu pháp luật, cấu trúc không chỉ là hình thức tổ chức văn bản mà còn ảnh hưởng trực tiếp đến khả năng định vị và sử dụng căn cứ của hệ thống RAG."*
+* **Lời thoại trình bày:**
+> *"Từ kết quả ba giai đoạn, đề tài xác định ba đóng góp: khung kiểm chuẩn Benchmark A, B cùng Adapter Pattern; phương pháp phân đoạn cấu trúc vi mô kết hợp MaxP; và kiến trúc đồ thị hai tầng Hybrid UKG.  
 > Thông điệp đúc kết của nhóm là: Trong dữ liệu pháp luật, cấu trúc không chỉ là hình thức tổ chức văn bản mà còn ảnh hưởng trực tiếp đến khả năng định vị và sử dụng căn cứ của hệ thống RAG."*
-
-**[Slide 14 — Hướng phát triển & Kết thúc · 14:35 – 15:00 | 55 từ]**
-> *"Thời gian tới, nhóm hướng đến mở rộng sang Nghị định, Thông tư; tự động hóa cập nhật hiệu lực văn bản; và hoàn thiện giải thuật duyệt đồ thị có ràng buộc.  
-> Thay mặt nhóm nghiên cứu, chúng em xin trân trọng cảm ơn Quý Thầy Cô đã chú ý lắng nghe. Nhóm kính mời Hội đồng đặt câu hỏi."*  
-*(Cả ba thành viên Lâm, Dương, Minh cùng đứng nghiêm trang, cúi đầu chào Hội đồng).*
-
----
----
-
-# PHẦN 3: GHI CHÚ TẬP DƯỢT VÀ NEO NỘI DUNG (ANCHOR NOTES)
-
-> **Mục đích:** Tài liệu cầm tay phục vụ tập dượt thực chiến. Mỗi slide chỉ cần nhớ 2 – 3 từ khóa neo, điểm chỉ tia laser và câu chốt trigger cue để chuyển giao micro mượt mà.
-
-| Slide | Người nói | Thời lượng | Từ khóa neo chuyên sâu | Hành động / Điểm chỉ laser trên Slide | Câu chốt chuyển mic (Trigger Cue) |
-| :---: | :---: | :---: | :--- | :--- | :--- |
-| **1** | **Lâm** | 20s | • Chào Hội đồng, giới thiệu 3 thành viên, GVHD<br>• Đề tài: RAG trên dữ liệu cấu trúc đặc thù | Đứng giữa bục, mắt bao quát Hội đồng, phong thái tự tin | *(Nói liền mạch sang Slide 2)* |
-| **2** | **Lâm** | 70s | • Nhu cầu tra cứu pháp luật kiểm chứng tuyệt đối<br>• RAG ảo giác 17% – 33% (Magesh 2025)<br>• Sai lệch điều khoản làm đổi hệ quả pháp lý | Chỉ laser vào **Hộp cảnh báo 17% – 33%** | *"Sau đây xin mời bạn Ngô Thế Dương trình bày đặc thù dữ liệu và cơ sở nghiên cứu."* |
-| **3** | **Dương** | 55s | • 3 đặc thù: Phân cấp đa tầng, Dẫn chiếu, Lệch pha từ vựng<br>• 3 Vấn đề: Phân đoạn cấu trúc, Thành phần quy phạm, Chuỗi dẫn chiếu | Quét laser lần lượt qua **3 khối đặc thù** và **3 vấn đề kiểm chứng** | *(Nói liền mạch sang Slide 4)* |
-| **4** | **Dương** | 55s | • 3 trường phái RAG đối chứng: Naive Vector (Cosine), Hybrid (BM25+Dense+RRF), LightRAG (Graph) | Chỉ laser vào **3 cột kiến trúc RAG** | *(Nói liền mạch sang Slide 5)* |
-| **5** | **Dương** | 45s | • 4 câu hỏi nghiên cứu định hướng 3 giai đoạn: RQ1 (GĐ1), RQ2 (GĐ2), RQ3 & RQ4 (GĐ3) | Chỉ laser vào **bảng ma trận 4 RQ** | *(Nói liền mạch sang Slide 6)* |
-| **6** | **Dương** | 70s | • Benchmark Harness kiểm soát biến có thể chuẩn hóa<br>• BM-A 512 câu (Jaccard 0,68 $\to$ 0,31); BM-B 50 câu; Tier 1 205 câu | Chỉ laser vào **chỉ số Jaccard 0,31** và **cấu trúc 50 câu Benchmark B** | *"Sau đây xin mời bạn Lâm trình bày kết quả Giai đoạn 1 và 2."* |
-| **7** | **Lâm** | 85s | • Khoảng cách truy hồi – trích dẫn: Recall > 95% nhưng Citation chỉ ~30% (LightRAG 13,71%)<br>• Văn bản thô thiếu cấu trúc phân cấp tường minh; chốt RQ1 | Chỉ laser vào **Bảng 3.4**, nhấn vào hàng Citation Accuracy | *(Nói liền mạch sang Slide 8)* |
-| **8** | **Lâm** | 85s | • Parser v2 bóc tách 12.754 phân đoạn vi mô + tiền tố bất biến<br>• Giải thuật Article MaxP gom cụm cấp Điều chống bão hòa Top-K | Quét laser theo luồng: **Phân đoạn vi mô $\rightarrow$ Tiền tố $\rightarrow$ Article MaxP** | *(Nói liền mạch sang Slide 9)* |
-| **9** | **Lâm** | 115s | • **[Slide trọng tâm] Ma trận C1–C6: C5 đạt 0,9902** (+59,02 đpt)<br>• Giảm **79,9% dung lượng ngữ cảnh**; Weighted RRF $\alpha=0,8$ cân bằng<br>• Phân tách tầng đánh giá ngữ cảnh và câu trả lời | Chỉ laser vào số **0,9902**, số **-79,9%**, và điểm **$\alpha = 0,8$** | *"Sau đây xin mời bạn Nguyễn Bình Minh trình bày kiến trúc UKG và kết quả Giai đoạn 3."* |
-| **10** | **Minh** | 75s | • Kiến trúc UKG: Tầng vật lý (quy tắc tất định) + Tầng ngữ nghĩa (trích xuất động)<br>• Lập chỉ mục offline; Module 5 Router tại $\theta=0,85$ (Recall 96,85%, 4 FN) | Chỉ laser vào sơ đồ 2 tầng và khối **Module 5** | *(Nói liền mạch sang Slide 11)* |
-| **11** | **Minh** | 105s | • **[Slide trọng tâm] Benchmark B (RQ3 & RQ4)**<br>• RQ3: Recall 0,9184 (+18,26 đpt), Citation Precision Điều 0,8369 vs 0,3333, Exception 0,6786 (+28,57 đpt)<br>• Ranh giới Condition Coverage & Exact Locator; RQ4 ranh giới chuỗi<br>• [Phao N]: Điều N=47, Khoản N=46, Điểm N=37 | Chỉ laser vào số **0,9184**, số **0,8369**, số **+28,57 đpt**, và footnote độ hạt | *(Nói liền mạch sang Slide 12)* |
-| **12** | **Minh** | 55s | • Tổng hợp 4 RQ: RQ1 (khoảng cách trích dẫn), RQ2 (Parser v2 + MaxP 0,9902), RQ3 (UKG vượt trội ngoại lệ), RQ4 (ranh giới chuỗi) | Quét laser lần lượt qua **4 khối RQ** đã được giải quyết | *(Nói liền mạch sang Slide 13)* |
-| **13** | **Minh** | 40s | • 3 Đóng góp: Khung Benchmark, Phân đoạn vi mô, Kiến trúc UKG 2 tầng<br>• Đúc kết: Cấu trúc ảnh hưởng trực tiếp đến định vị và sử dụng căn cứ | Chỉ laser vào **Hộp thông điệp cốt lõi** | *(Nói liền mạch sang Slide 14)* |
-| **14** | **Minh** | 25s | • Hướng phát triển: Nghị định, Thông tư, Constrained Graph Traversal<br>• Lời cảm ơn trang trọng | Mắt hướng về Thầy Chủ tịch Hội đồng, chuyển sang thế sẵn sàng Q&A | Cả nhóm cúi đầu chào Hội đồng |
-
----
----
-
-# PHẦN 4: BỘ CÂU HỎI VÀ ĐỊNH HƯỚNG TRẢ LỜI PHẢN BIỆN (Q&A PLAYBOOK)
-## 18 CÂU HỎI PHẢN BIỆN TRỌNG YẾU & ĐỊNH HƯỚNG TRẢ LỜI ĐĨNH ĐẠC (20 – 30 GIÂY)
-
-> **Quy tắc vàng khi trả lời phản biện:**
-> 1. Luôn cảm ơn Thầy/Cô: *"Dạ em xin cảm ơn Thầy/Cô đã đặt một câu hỏi rất sâu sắc về..."*.
-> 2. Đi thẳng vào bản chất kỹ thuật trong câu đầu tiên, không vòng vo.
-> 3. Trả lời dứt khoát trong 20 – 30 giây, trung thực 100% theo đúng báo cáo, biến hạn chế thành hướng nghiên cứu tiếp theo.
+* **Ghi chú hành vi:** Minh nói chậm rãi, nhấn từng từ ở câu thông điệp kết luận, phong thái trang trọng.
 
 ---
 
-### NHÓM 1: CÂU HỎI VỀ PHƯƠNG PHÁP LUẬN & ĐO LƯỜNG (LÂM & DƯƠNG PHỤ TRÁCH)
-
-**Câu 1 (Lâm): "Citation Accuracy ở Giai đoạn 1 và Giai đoạn 2 có định nghĩa giống nhau không? Tại sao lại có sự chênh lệch lớn từ 32% lên 99%?"**
-> *"Dạ thưa Thầy/Cô, hai giai đoạn sử dụng cùng tên trường đánh giá nhưng khác nhau về đối tượng. Ở Giai đoạn 1, chỉ số đo lường sự xuất hiện của căn cứ trích dẫn trong câu trả lời hoàn chỉnh do mô hình sinh ra. Sang Giai đoạn 2, nhóm đánh giá riêng mức độ phù hợp của căn cứ trong ngữ cảnh truy hồi bằng LLM-as-a-Judge.  
-> Vì vậy, hai giá trị này phục vụ hai mục tiêu khác nhau và nhóm không so sánh trực tiếp 32% với 99%. Trong Giai đoạn 2, phép đối chiếu công bằng là giữa C2 (0,4000) và C5 (0,9902) trên cùng một thước đo ngữ cảnh, phản ánh hiệu quả của gói xử lý cấu trúc kết hợp MaxP trong điều kiện Dense Retrieval."*
-
-**Câu 2 (Lâm): "Trong Giai đoạn 2, các em thay đổi nhiều thành phần cùng lúc (micro-chunk, prefix, MaxP). Thành phần nào đóng góp chính?"**
-> *"Dạ đây là một giới hạn đã được nhóm ghi nhận tại Mục 3.3.9 của báo cáo. Kết quả của C5 là tác động tổng hợp của cả gói giải pháp cấu trúc: phân đoạn vi mô giúp thu hẹp phạm vi, tiền tố cấu trúc bảo toàn phả hệ cha-con, và MaxP giải quyết bão hòa Top-K.  
-> Thiết kế hiện tại chưa cô lập ảnh hưởng riêng của từng thành phần đơn lẻ, và nhóm xác định việc thực hiện các cấu hình ablation độc lập là hướng nghiên cứu ưu tiên tiếp theo."*
-
-**Câu 3 (Dương): "Các em dùng GPT-4o-mini vừa sinh câu trả lời vừa làm giám khảo. Kết quả có bị thiên lệch tự thân không?"**
-> *"Dạ thưa Thầy/Cô, đây là một giới hạn nhóm đã nhận diện tại Mục 3.8.3. Việc sử dụng GPT-4o-mini cho cả sinh và thẩm định ở Giai đoạn 1 và 2 có thể tạo ra thiên lệch tương đồng về cách diễn giải. Nhóm đã tách riêng prompt thẩm định, bắt buộc kiểm tra JSON schema và thiết lập cơ chế thử lại tối đa 3 lần.  
-> Tuy nhiên, những biện pháp này chưa thay thế được một phép thẩm định độc lập tuyệt đối. Sang Giai đoạn 3, các chỉ số Citation Precision/Recall tại Bảng 3.16 đã chuyển hoàn toàn sang tính toán tất định dựa trên quy tắc (Rule-based Locator Matching), không còn phụ thuộc LLM chấm. Hướng hoàn thiện là sử dụng thêm mô hình đánh giá khác và đối chiếu chuyên gia pháp lý."*
-
-**Câu 4 (Dương): "Việc viết lại 512 câu hỏi ở Benchmark A có làm biến đổi ngữ nghĩa pháp lý gốc không?"**
-> *"Dạ mục tiêu của quy trình tại Mục 2.3.5 là giảm sự trùng lặp từ vựng nhưng duy trì căn cứ pháp lý của truy vấn. Nhóm lựa chọn các câu có overlap lớn hơn 0,5 để diễn đạt lại, giúp giảm Jaccard trung bình từ 0,68 xuống 0,31.  
-> Tuy nhiên, báo cáo cũng ghi nhận chưa có nhật ký đầy đủ xác nhận toàn bộ 512 câu đều được viết lại thành công. Vì vậy, nhóm xem đây là bước kiểm soát trùng lặp từ vựng, chưa phải một phép chứng minh độc lập về tính tương đương ngữ nghĩa của mọi truy vấn, và việc kiểm tra ngữ nghĩa tự động toàn bộ tập là hướng hoàn thiện tiếp theo."*
-
-**Câu 5 (Dương): "Tại sao ở Giai đoạn 1 nhóm chỉ đánh giá trên 205 câu hỏi Tier 1 mà không dùng toàn bộ 512 câu?"**
-> *"Dạ thưa Thầy/Cô, tại Giai đoạn 1, LightRAG mới được lập chỉ mục trên 500 điều thuộc Bộ luật Hình sự và Bộ luật Lao động do giới hạn nguồn lực trích xuất đồ thị.  
-> Nhóm lựa chọn 205 câu hỏi Tier 1 sao cho toàn bộ căn cứ cần thiết của từng câu đều nằm trọn vẹn trong phạm vi 500 điều đó. Mục tiêu là đảm bảo điều kiện bao phủ căn cứ tương đương, tránh trường hợp LightRAG bị đánh giá thấp chỉ vì thiếu hụt tài liệu tham chiếu nguồn."*
+### **[Slide 14] Lộ trình phát triển & Lời cảm ơn**
+* **Người trình bày:** Nguyễn Bình Minh
+* **Thời lượng mục tiêu:** 30 giây (Dự kiến: ~60 từ)
+* **Blueprint Slide:**
+  * **Hướng phát triển tương lai:**
+    * Mở rộng bộ phân tích cấu trúc sang văn bản dưới luật (Nghị định, Thông tư).
+    * Tự động hóa cơ chế cập nhật hiệu lực và sửa đổi văn bản pháp luật.
+    * Hoàn thiện giải thuật duyệt đồ thị có ràng buộc (Constrained Traversal) để nâng cao Chain Exact Match.
+  * **Lời cảm ơn:** Trân trọng cảm ơn Quý Thầy Cô trong Hội đồng khoa học và Giảng viên hướng dẫn TS. Nguyễn Mạnh Dũng.
+* **Lời thoại trình bày:**
+> *"Thời gian tới, nhóm hướng đến mở rộng bộ bóc tách sang Nghị định, Thông tư; tự động hóa cập nhật hiệu lực văn bản; và hoàn thiện giải thuật duyệt đồ thị có ràng buộc.  
+> Thay mặt nhóm nghiên cứu, chúng em xin trân trọng cảm ơn Quý Thầy Cô đã chú ý lắng nghe. Nhóm kính mời Hội đồng đặt câu hỏi."*
+* **Ghi chú hành vi:** Cả ba thành viên cùng đứng nghiêm túc, cúi đầu chào Hội đồng.
 
 ---
 
-### NHÓM 2: CÂU HỎI VỀ KẾT QUẢ THỰC NGHIỆM & ĐỐI SÁNH (LÂM & MINH PHỤ TRÁCH)
+# PHẦN 3: BẢNG TỔNG HỢP ANCHOR NOTES 14 SLIDE (TRA CỨU TRÊN BỤC)
 
-**Câu 6 (Lâm): "Tại sao LightRAG lại đạt Citation Accuracy thấp như vậy ở Giai đoạn 1 (chỉ 13,71%)?"**
-> *"Dạ kết quả cho thấy đây là vấn đề chung của cả ba hệ thống cơ sở chứ không riêng LightRAG, khi Citation Accuracy của Naive Vector và Hybrid RAG cũng chỉ đạt khoảng 30%.  
-> Một nguyên nhân kỹ thuật là việc sử dụng các khối văn bản thô thiếu cấu trúc phân cấp tường minh khiến mô hình khó xác định vị trí pháp lý chính xác. Với LightRAG, cấu hình chunk 1.200 token còn tạo ra sự khác biệt giữa phạm vi văn bản được truy hồi và vị trí pháp lý cụ thể cần viện dẫn. Đây là cơ sở để nhóm nghiên cứu sâu hơn về phân đoạn cấu trúc ở các giai đoạn sau."*
-
-**Câu 7 (Minh): "Exact Locator Recall@5 của UKG chỉ đạt 0,5560, thấp hơn LightRAG (0,8509). Tại sao lại như vậy?"**
-> *"Dạ đây là chỉ số đánh giá khả năng tìm thấy chuỗi ký tự locator trong Top-5 bằng chứng truy hồi. Hai hệ thống có đơn vị truy hồi khác nhau: chunk của LightRAG dài 1.200 token chứa trung bình khoảng 15 locator nên xác suất trúng chuỗi ký tự cao hơn; trong khi evidence của UKG là các phân đoạn vi mô chỉ mang 1 locator duy nhất.  
-> Ngoài ra, chỉ số của UKG hiện mới đo được trên 39/47 câu hỏi (8 câu N/A không gán 0). Do khác biệt về độ hạt bằng chứng, nhóm không dùng riêng chỉ số này để kết luận bên nào định vị chính xác hơn mà đối chiếu thêm với Citation Precision và Recall ở tầng câu trả lời tại Bảng 3.16."*
-
-**Câu 8 (Minh): "Condition Coverage của UKG đạt 0,7066, thấp hơn LightRAG (0,8421). Nhóm giải thích thế nào?"**
-> *"Dạ đây là sự khác biệt được quan sát khách quan trong thực nghiệm. LightRAG đạt Condition Coverage 0,8421, cao hơn 0,7066 của Hybrid UKG; ngược lại, UKG đạt kết quả cao hơn rõ rệt về Exception Coverage (0,6786 so với 0,3929).  
-> Điều này cho thấy hiệu quả hai hệ thống chưa đồng đều giữa các loại thành phần quy phạm. Nhóm nhận định phân đoạn vi mô tập trung vào quy phạm lõi nên cần tiếp tục cải thiện cơ chế tổng hợp và lan truyền điều kiện từ nhiều node liên quan thay vì chỉ định vị cục bộ."*
-
-**Câu 9 (Minh): "Chỉ số Chain Exact Match bằng 0 trên 18 câu hỏi. Vậy đề tài có giải quyết được bài toán dẫn chiếu không?"**
-> *"Dạ hệ thống hiện tại đã xác định được một phần các node đích với Reference-target Recall đạt 58,67%, nhưng chưa tái dựng được chuỗi dẫn chiếu hoàn chỉnh theo tiêu chí đánh giá có thứ tự. Phân tích đầu ra cho thấy phần lớn đường dẫn dự đoán mới dừng ở một bước.  
-> Vì vậy, nhóm xác định cần bổ sung cơ chế duyệt đồ thị có ràng buộc (Constrained Graph Traversal) để bảo toàn thứ tự và loại quan hệ giữa các node. Với LightRAG, phép đo Chain Exact Match hiện chưa thực hiện được theo giao thức chung nên nhóm không đưa ra so sánh trực tiếp."*
-
-**Câu 10 (Lâm): "Việc cắt nhỏ văn bản thành 12.754 phân đoạn vi mô và giảm 79,9% token có làm mất mát thông tin ngữ cảnh không?"**
-> *"Dạ mục tiêu của nhóm không phải bảo đảm mọi phân đoạn đều giữ nguyên toàn bộ nội dung xung quanh, mà là duy trì thông tin định vị và quan hệ phân cấp cần thiết thông qua tiền tố cấu trúc.  
-> Giải thuật Article-level MaxP giúp lựa chọn các phân đoạn phù hợp theo cấp Điều để gửi vào mô hình. Tuy nhiên, việc giảm dung lượng ngữ cảnh vẫn cần được cân bằng với khả năng thu thập đầy đủ điều kiện và ngoại lệ diện rộng, và đây là nội dung nhóm tiếp tục hoàn thiện."*
+| Slide | Người nói | Số liệu mỏ neo (Anchor Metrics) | Căn cứ Báo cáo | Cảnh báo vùng cấm (Boundary Safeguard) |
+|:---:|:---:|---|---|---|
+| **1** | Lâm | 3 thành viên, GVHD: TS. Nguyễn Mạnh Dũng | Trang bìa | Đọc đúng tên đề tài, không nói lan man. |
+| **2** | Lâm | Ảo giác AI pháp lý 17% – 33% | Magesh et al. (2025), *JELS* | Nêu rõ trong phạm vi công cụ khảo sát; bỏ cụm từ "kiểm chứng tuyệt đối". |
+| **3** | Dương | Luật $\rightarrow$ Chương $\rightarrow$ Mục $\rightarrow$ Điều $\rightarrow$ Khoản $\rightarrow$ Điểm | Mục 1.7.1, 1.7.2 | Nêu đúng 3 vấn đề kiểm chứng thực nghiệm. |
+| **4** | Dương | Naive (Dense), Hybrid (BM25+Dense+RRF), LightRAG (Graph) | Mục 1.4 – 1.6 | Trình bày trung tính, không dìm hệ thống đối chứng. |
+| **5** | Dương | 4 câu hỏi nghiên cứu: RQ1, RQ2, RQ3, RQ4 | Mục 1.2 | Đọc đúng tên và phạm vi từng RQ. |
+| **6** | Dương | Benchmark A (512 câu, Jaccard 0,68 $\rightarrow$ 0,31); Benchmark B (50 câu); Tier 1 (205 câu) | Mục 3.1, 3.2 | Giải thích rõ Tier 1 nằm trong 500 điều index của LightRAG; không quy chụp "cùng toàn bộ văn bản nguồn". |
+| **7** | Lâm | Naive 32,59%, Hybrid 29,02%, LightRAG 13,71% Citation Acc | Bảng 3.4 | Nêu rõ Naive/Hybrid dùng Điều thô, LightRAG dùng chunk 1.200 token. Trình bày dưới dạng cơ chế giải thích. |
+| **8** | Lâm | 12.754 phân đoạn vi mô, tiền tố phả hệ bất biến, Article MaxP | Mục 2.2, 2.3 | MaxP gom cụm cấp Điều, không làm mất liên kết ngữ cảnh. |
+| **9** | Lâm | C5 Citation 0,9902 (+59,02 đpt, 98,4% đạt 1,0); Token giảm 79,9% (2.891 $\rightarrow$ 580) | Bảng 3.6, 3.7 | Làm rõ GĐ2 dùng LLM-Judge trên ngữ cảnh độc lập với việc sinh câu trả lời; alpha=0,8 là cấu hình cân bằng, không overclaim. |
+| **10** | Minh | 2 tầng Physical/Semantic; M5 Qwen2.5-0.5B: Recall 96,85%, F1 0,8146, giảm 9,33% tải chuyển tiếp | Mục 2.6, Golden Set v2 N=193 | Giải thích đúng 9,33% là giảm tải chuyển tiếp (18 node), loại 14 thủ tục, chấp nhận 4 FN. Không khẳng định Causal Attention đã được cô lập. |
+| **11** | Minh | Recall@5 Điều 0,9184 vs 0,7358; Precision Khoản 0,7757 vs 0,0435; Condition 0,7066 vs 0,8421; Exact Locator 0,5560 vs 0,8509 | Bảng 3.9, 3.11, 3.15, 3.16 | Không nói "gấp 18 lần". Đọc đủ footnote mẫu số 39/47 vs 47/47 và độ hạt ~15 locator/chunk. Nêu rõ LightRAG N/A ở Chain Exact Match. |
+| **12** | Minh | Khép góc 4 RQ: RQ1 (Khoảng cách), RQ2 (Parser v2+MaxP), RQ3 (UKG ưu thế + ranh giới), RQ4 (58,67% đích) | Mục 3.4 – 3.7 | Khẳng định khách quan theo đúng số liệu thực nghiệm. |
+| **13** | Minh | 3 đóng góp khoa học + 1 thông điệp triết lý cấu trúc | Kết luận báo cáo | Đọc chậm, đĩnh đạc, gói gọn trong 85 từ để tạo sức nặng. |
+| **14** | Minh | Mở rộng Nghị định/Thông tư, cập nhật hiệu lực, Constrained Traversal | Hướng phát triển | Cảm ơn Hội đồng trang trọng và khiêm tốn. |
 
 ---
 
-### NHÓM 3: CÂU HỎI VỀ KIẾN TRÚC & MÔ HÌNH HÓA (MINH & DƯƠNG PHỤ TRÁCH)
+# PHẦN 4: HỆ THỐNG 18 KỊCH BẢN PHẢN BIỆN (Q&A PLAYBOOK)
 
-**Câu 11 (Minh): "Kiến trúc UKG gồm 10 module, vậy đóng góp khoa học chính nằm ở đâu?"**
-> *"Dạ 10 module là cách tổ chức kiến trúc phần mềm theo nguyên lý phân tách trách nhiệm. Đóng góp khoa học cốt lõi của đề tài nằm ở ba điểm:  
-> Một là xây dựng khung kiểm chuẩn Benchmark A, B phục vụ đánh giá RAG pháp luật Việt Nam;  
-> Hai là khảo sát giải pháp phân đoạn cấu trúc vi mô kết hợp Article MaxP giúp cải thiện chất lượng căn cứ ngữ cảnh;  
-> Và ba là thiết kế kiến trúc Hybrid UKG kết hợp đồ thị cấu trúc vật lý với lớp ngữ nghĩa để đánh giá chuyên biệt các thành phần quy phạm."*
+### **Nhóm A: Tính hợp lệ thực nghiệm & Benchmark (Q1 – Q5)**
 
-**Câu 12 (Minh): "Tại sao Module 5 lại dùng mô hình ngôn ngữ nhân quả Qwen2.5-0.5B thay vì dùng các mô hình nhúng embedding chuyên dụng?"**
-> *"Dạ nhóm đã khảo sát nhiều mô hình biểu diễn và lựa chọn Qwen2.5-0.5B dựa trên kết quả kiểm chuẩn Golden Set v2. Mô hình được khai thác để tạo vector ngữ nghĩa, kết hợp với tín hiệu Regex bằng toán tử Max-Fusion.  
-> Cơ sở lựa chọn ở đây là kết quả thực nghiệm của bộ định tuyến trên dữ liệu kiểm chuẩn: cơ chế Causal Attention bảo toàn trật tự logic quy phạm tốt hơn trên phân đoạn ngắn so với phép gộp trung bình của Bi-encoder; không phải giả định rằng mọi mô hình nhân quả đều vượt trội mô hình nhúng chuyên dụng."*
+#### **Q1. Tại sao nhóm phải giảm Jaccard từ 0,68 xuống 0,31 ở Benchmark A?**
+* **Người trả lời:** Ngô Thế Dương
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, khi câu hỏi của người dùng trùng lặp từ vựng quá lớn với văn bản luật (Jaccard > 0,5), các giải thuật tìm kiếm từ khóa cổ điển như BM25 sẽ đạt kết quả cao đột biến. Điều này che lấp khoảng cách năng lực hiểu ngữ nghĩa và phân tích cấu trúc của các mô hình RAG.  
+  > Nhóm đã tiến hành diễn đạt lại có chọn lọc trên các câu có độ trùng lặp cao, đưa Jaccard trung bình từ 0,68 xuống 0,31. Mục tiêu là mô phỏng sát thực tế cách đặt câu hỏi bằng ngôn ngữ tự nhiên của người dân, từ đó kiểm định khách quan khả năng truy hồi ngữ nghĩa của từng kiến trúc."*
 
-**Câu 13 (Dương): "Tại sao nhóm lại chọn 7 văn bản luật này trong Benchmark A? Tính đại diện ở đâu?"**
-> *"Dạ nhóm lựa chọn 7 văn bản thuộc các lĩnh vực hình sự, dân sự, lao động, đất đai, doanh nghiệp, hôn nhân gia đình và xử lý vi phạm hành chính.  
-> Mục tiêu là xây dựng một phạm vi dữ liệu đa dạng về thể thức văn bản để khảo sát bộ phân tích cấu trúc và các phương thức truy hồi. Tuy nhiên, nhóm không xem tập dữ liệu này là mẫu đại diện thống kê cho toàn bộ hệ thống văn bản quy phạm pháp luật Việt Nam."*
+#### **Q2. Tập kiểm chuẩn Benchmark B chỉ có 50 câu hỏi thì có đủ ý nghĩa thống kê không?**
+* **Người trả lời:** Ngô Thế Dương
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, Benchmark B được thiết kế chuyên biệt cho Giai đoạn 3 nhằm đánh giá sâu các quan hệ pháp lý phức tạp mà Benchmark A diện rộng chưa bao quát hết.  
+  > 50 câu hỏi này tập trung trọn vẹn tại Chương III Luật Đất đai 2024, bao gồm 47 câu đơn tầng và 3 câu đa tầng với 16 câu hỏi ngoại lệ và 18 câu hỏi dẫn chiếu chéo nhiều bước. Việc giới hạn 50 câu cho phép nhóm kiểm toán thủ công chi tiết từng căn cứ Điều, Khoản, Điểm và chuỗi suy luận, bảo đảm tính xác thực tuyệt đối của ground-truth mà các bộ dữ liệu tự động quy mô lớn không thể đối soát tỉ mỉ được."*
 
-**Câu 14 (Minh): "Toán tử Max-Fusion ở Module 5 có ưu thế gì so với việc lấy điểm trung bình cộng?"**
-> *"Dạ thực nghiệm chỉ ra rằng nếu dùng trung bình cộng giữa điểm Regex và điểm ngữ nghĩa, khi một điều luật có quy phạm ngầm định không chứa từ khóa cứng, điểm Regex bằng 0 sẽ kéo tụt điểm tổng hợp xuống và loại nhầm quy phạm đó.  
-> Toán tử Max-Fusion giúp không làm mất tín hiệu mạnh chỉ vì tín hiệu còn lại thấp. Tuy nhiên, Max-Fusion không bảo đảm loại bỏ hoàn toàn cảnh báo giả, vì vậy hệ thống vẫn cần ngưỡng quyết định theta = 0,85 và kiểm chuẩn thực nghiệm."*
+#### **Q3. Thiết kế thực nghiệm Tier 1 ở Giai đoạn 1 có bảo đảm tính công bằng không?**
+* **Người trả lời:** Ngô Thế Dương
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, trong Giai đoạn 1, do LightRAG trích xuất đồ thị bằng mô hình ngôn ngữ lớn đòi hỏi chi phí API cao, nhóm lập chỉ mục LightRAG trên phạm vi 500 điều luật trọng điểm.  
+  > Để đảm bảo tính công bằng khi đối chuẩn, nhóm xây dựng tập Tier 1 gồm 205 câu hỏi mà toàn bộ căn cứ cần thiết đều nằm trọn trong 500 điều này. Nhờ đó, cả ba hệ thống đều có cơ hội truy hồi như nhau trên không gian chứa căn cứ. Các yếu tố khác như mô hình nhúng BGE-M3, mô hình sinh GPT-4o-mini và tham số K=5 đều được cố định thông qua Benchmark Harness."*
 
-**Câu 15 (Lâm): "Nếu hệ thống được đưa vào thực tế phục vụ người dân, nhóm tự tin nhất ở điểm nào và lo ngại nhất ở điểm nào?"**
-> *"Dạ điểm mạnh của hệ thống là khả năng duy trì thông tin định vị cấu trúc và thu thập căn cứ pháp lý chi tiết trong phạm vi dữ liệu kiểm thử, giúp hạn chế việc trích dẫn sai số Điều, Khoản.  
-> Tuy nhiên, nhóm chưa xem hệ thống là một công cụ tự động đưa ra kết luận pháp lý mà không cần chuyên gia kiểm chứng. Những tình huống nhiều điều kiện và dẫn chiếu liên văn bản vẫn cần tiếp tục hoàn thiện trước khi triển khai thực tế."*
+#### **Q4. Việc đánh giá bằng LLM-Judge (GPT-4o-mini) có đưa định kiến vào kết quả không?**
+* **Người trả lời:** Lưu Thanh Lâm
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, nhóm nhận thức rõ LLM-Judge có thể tồn tại thiên vị về độ dài hoặc vị trí thông tin. Để kiểm soát điều này, nhóm đã áp dụng ba giải pháp kỹ thuật:  
+  > Thứ nhất, chuẩn hóa prompt chấm điểm theo thang rubric nhị phân tường minh (0 hoặc 1) dựa trên căn cứ trích dẫn cụ thể.  
+  > Thứ hai, ở Giai đoạn 2, nhóm thực hiện 3.072 lượt thẩm định độc lập.  
+  > Thứ ba, ở Giai đoạn 3, nhóm kết hợp cả chỉ số tự động dựa trên quy tắc chuỗi ký tự (như Citation Precision cấp Điều, Khoản) lẫn đối soát thủ công của con người để kiểm chứng chéo, đảm bảo kết quả không phụ thuộc phiến diện vào một giám khảo AI."*
+
+#### **Q5. Tại sao Naive Vector RAG ở Giai đoạn 1 lại có Context Precision cao (0,9673) nhưng Citation Accuracy lại thấp (0,3259)?**
+* **Người trả lời:** Lưu Thanh Lâm
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, đây chính là phát hiện thực nghiệm quan trọng nhất của Giai đoạn 1:  
+  > Context Precision đo lường việc tài liệu liên quan có xuất hiện trong Top-K hay không. Do nhúng toàn bộ văn bản Điều thô, vector dense rất dễ bắt trúng ngữ nghĩa đại thể của câu hỏi, đưa Điều luật vào top đầu.  
+  > Tuy nhiên, Citation Accuracy đo lường việc câu trả lời của mô hình có chỉ ra chính xác căn cứ pháp lý hay không. Do văn bản thô thiếu cấu trúc phân cấp, LLM bị phân tâm bởi khối văn bản dài và trích dẫn mơ hồ, dẫn đến tỷ lệ ảo giác trích dẫn cao dù tài liệu liên quan đã được lấy về."*
 
 ---
 
-### NHÓM 4: CÂU HỎI KỸ THUẬT CNTT & TRIỂN KHAI HỆ THỐNG (MINH & DƯƠNG PHỤ TRÁCH)
+### **Nhóm B: Phương pháp phân đoạn & Tối ưu hóa GĐ2 (Q6 – Q10)**
 
-**Câu 16 (Minh): "Chi phí xây dựng UKG bằng LLM tốn kém thế nào? Hệ thống có scale phục vụ 1.000 người dùng đồng thời được không?"**
-> *"Dạ nhóm đã tách biệt quá trình lập chỉ mục và truy vấn trực tuyến để hạn chế việc phải thực hiện lại toàn bộ quá trình trích xuất tri thức khi người dùng đặt câu hỏi.  
-> Trong môi trường thử nghiệm, nhóm đã đo đạc một số thành phần xử lý nội bộ như thời gian nhân ma trận vector trên GPU và BM25 trên CPU, nhưng chưa thực hiện kiểm thử tải đồng thời ở quy mô 1.000 người dùng. Vì vậy, hiện tại nhóm chưa đủ dữ liệu thực nghiệm để khẳng định khả năng chịu tải đó. Đây là bước đánh giá cần thiết trước khi triển khai thực tế."*
+#### **Q6. Bộ phân tích Structure-Aware Parser v2 khác gì so với các công cụ chunking đệ quy phổ biến như RecursiveCharacterTextSplitter?**
+* **Người trả lời:** Lưu Thanh Lâm
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, các bộ cắt đoạn như RecursiveCharacterTextSplitter dựa hoàn toàn vào độ dài ký tự và dấu ngắt đoạn hình thức, dễ cắt đôi một mệnh đề điều kiện hoặc tách rời Khoản khỏi Điều.  
+  > Parser v2 của nhóm dựa trên văn phạm cấu trúc pháp luật Việt Nam: bóc tách đệ quy chuẩn xác theo từng cấp Điều, Khoản, Điểm; đồng thời tự động gắn tiền tố phả hệ bất biến chứa đầy đủ tên Luật, Chương, Điều vào từng phân đoạn vi mô. Nhờ đó, mỗi phân đoạn khi đứng độc lập trong không gian vector vẫn mang đầy đủ ngữ cảnh nguồn gốc mà không bị phân mảnh."*
 
-**Câu 17 (Dương): "Nếu văn bản luật scan bị lỗi OCR (mất dấu, sai định dạng), Parser có bị vỡ trận không?"**
-> *"Dạ đây là thách thức điển hình của các phương pháp phân tích dựa trên luật. Trong kiến trúc tại Mục 2.6.3, Module 3 Validation được thiết kế để kiểm tra tính toàn vẹn theo schema, thứ bậc và tính duy nhất. Khi Regex không nhận diện được do lỗi định dạng nghiêm trọng, hệ thống cách ly node lỗi và ghi log cảnh báo, không tự ý sửa nội dung thiếu căn cứ.  
-> Hiện tại Parser xử lý dữ liệu đầu vào đã chuẩn hóa; việc tích hợp tiền xử lý sửa lỗi OCR và phân đoạn mềm là hướng nghiên cứu tiếp theo."*
+#### **Q7. Tại sao lại cần giải thuật Article-Level Max-Pooling (MaxP) sau khi đã phân đoạn vi mô?**
+* **Người trả lời:** Lưu Thanh Lâm
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, khi bóc tách nhỏ thành cấp Khoản, một Điều luật dài có thể tạo ra hàng chục phân đoạn. Nếu truy hồi thông thường, danh sách Top-K sẽ bị bão hòa bởi nhiều Khoản thuộc cùng một Điều, làm mất cơ hội xuất hiện của các Điều luật liên quan khác.  
+  > Giải thuật MaxP giải quyết triệt để vấn đề này bằng cách gom cụm phân đoạn theo Điều và lấy điểm số cao nhất của phân đoạn đại diện để xếp hạng Top-K cấp Điều; sau đó mới thu thập các phân đoạn vi mô liên quan để nạp vào LLM. Cơ chế này vừa tối ưu độ phủ cấp Điều, vừa giữ ngữ cảnh tinh gọn."*
 
-**Câu 18 (Dương): "Hệ số kết hợp BM25 và Vector $\alpha = 0,5$ có phải là đoán mò không? Căn cứ vào đâu?"**
-> *"Dạ alpha = 0,5 là cấu hình dung hợp trọng số bằng nhau, được sử dụng làm baseline cho Weighted RRF tại cấu hình C6.  
-> Tại Bảng 3.7, nhóm đã khảo sát 11 giá trị trọng số từ 0,0 đến 1,0 để đánh giá mức ảnh hưởng của hai nhánh Dense và BM25. Kết quả tại alpha = 0,8 cải thiện so với cấu hình 0,5 (đạt Recall 0,9297, MRR 0,8220), tuy nhiên vẫn chưa vượt truy hồi vector thuần trên Benchmark A. Vì vậy, nhóm xem đây là cấu hình cân bằng để tiếp tục khảo sát, không kết luận đây là điểm tối ưu toàn cục."*
+#### **Q8. Tại sao Condition Coverage của Hybrid UKG (0,7066) lại thấp hơn LightRAG (0,8421)?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, nhóm xin thẳng thắn thừa nhận đây là một ranh giới đánh đổi kỹ thuật của hệ thống:  
+  > Phân đoạn vi mô của UKG tập trung mạnh vào quy phạm lõi của từng phân đoạn, trong khi các điều kiện áp dụng pháp luật thường nằm rải rác ở nhiều Khoản hoặc các Điều quy định chung. LightRAG dùng chunk lớn 1.200 token nên vô tình ôm trọn các điều kiện bối cảnh xung quanh.  
+  > Nhóm chưa đủ cơ sở quy toàn bộ chênh lệch này cho cơ chế phân đoạn, vì kết quả còn phụ thuộc quá trình mở rộng ngữ cảnh và mô hình sinh. Nhóm nhận định đây là hướng cần hoàn thiện thông qua cơ chế lan truyền ngữ cảnh điều kiện giữa các node liên quan."*
+
+#### **Q9. Tại sao trọng số $\alpha = 0,8$ được lựa chọn trong khảo sát RRF ở Giai đoạn 2?**
+* **Người trả lời:** Lưu Thanh Lâm
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, tại Bảng 3.7, nhóm khảo sát 11 giá trị $\alpha$ từ 0,0 đến 1,0.  
+  > Thực nghiệm cho thấy $\alpha = 1,0$ (Dense thuần) đạt Recall cao nhất là 0,9316 và MRR 0,8350. Tuy nhiên, nhóm lựa chọn cấu hình $\alpha = 0,8$ (Recall 0,9297, MRR 0,8220) để tiếp tục khảo sát vì cấu hình này duy trì được sự cân bằng: vừa bảo toàn được ưu thế vượt trội của vector dense trên tập câu hỏi đã diễn đạt lại, vừa giữ lại 20% tín hiệu từ khóa của BM25 để phòng thủ khi người dùng tra cứu các thuật ngữ định danh cứng."*
+
+#### **Q10. Con số Citation Accuracy 0,9902 ở cấu hình C5 có phải là tỷ lệ trích dẫn chính xác của câu trả lời không?**
+* **Người trả lời:** Lưu Thanh Lâm
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, nhóm xin làm rõ về phương pháp luận: Con số 0,9902 là điểm số LLM-Judge Citation Accuracy trung bình đánh giá trên ngữ cảnh truy hồi được nạp vào mô hình (với 504/512 câu đạt điểm tuyệt đối 1,0), chứ không phải độ chính xác trích dẫn trên câu trả lời sinh ra toàn trình.  
+  > Mục tiêu của Giai đoạn 2 là đánh giá độc lập năng lực của bộ truy hồi cấu trúc trong việc đưa đúng và đủ căn cứ vào ngữ cảnh, tách biệt với năng lực sinh văn bản của mô hình ngôn ngữ lớn. Năng lực trích dẫn trên câu trả lời toàn trình được đánh giá khắt khe ở Giai đoạn 3."*
+
+---
+
+### **Nhóm C: Kiến trúc Đồ thị & Module 5 Router (Q11 – Q15)**
+
+#### **Q11. Việc xây dựng đồ thị Hybrid UKG có làm tăng độ trễ khi người dùng gửi câu hỏi không?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, hoàn toàn không làm tăng độ trễ thời gian thực.  
+  > Toàn bộ quá trình phân tích cú pháp, trích xuất thực thể, dựng đồ thị vật lý và liên kết đồ thị ngữ nghĩa được thực hiện ngoại tuyến trong pha lập chỉ mục (Indexing time).  
+  > Khi người dùng gửi câu hỏi trực tuyến (Query time), hệ thống chỉ thực hiện truy vấn vector để định vị node mỏ neo và duyệt theo các cạnh quan hệ có sẵn trên đồ thị. Do đó, thời gian đáp ứng tương đương với các hệ thống RAG thông thường nhưng độ chính xác căn cứ vượt trội hơn."*
+
+#### **Q12. Tại sao nhóm lựa chọn mô hình Qwen2.5-0.5B và cơ chế Causal Attention cho Module 5?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, nhóm lựa chọn Qwen2.5-0.5B nhằm khai thác năng lực biểu diễn ngữ nghĩa của mô hình ngôn ngữ tự hồi quy, sau đó kết hợp điểm ngữ nghĩa với tín hiệu Regex bằng toán tử Max-Fusion.  
+  > Cơ sở lựa chọn là kết quả kiểm chuẩn toàn bộ cấu hình trên Golden Set v2 đạt F1 0,8146 với kích thước chỉ 0,5 tỷ tham số, tối ưu cho xử lý cục bộ. Nhóm nhận định hướng biểu diễn này phù hợp với văn bản quy phạm ngắn có trật tự logic điều kiện, dù chưa thực hiện ablation riêng lẻ để cô lập hoàn toàn đóng góp nhân quả của Causal Attention so với các yếu tố khác trong kiến trúc."*
+
+#### **Q13. Tại sao chỉ số Exact Locator Recall@5 của UKG (0,5560) lại thấp hơn LightRAG (0,8509)?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, đây là sự khác biệt bản chất về độ hạt phân đoạn giữa hai hệ thống:  
+  > Thứ nhất, về số câu đo được: 0,5560 được tính trên 39 câu đo được của UKG (8 câu ở trạng thái not_measured), trong khi LightRAG đo trên 47 câu.  
+  > Thứ hai, về độ hạt: Chunk 1.200 token của LightRAG chứa trung bình khoảng 15 locator (Điều/Khoản/Điểm), trong khi mỗi phân đoạn của UKG chỉ chứa đúng 1 locator vi mô duy nhất. Khối văn bản lớn của LightRAG có xác suất bao trùm locator cao hơn, nhưng dẫn đến việc mô hình không biết căn cứ nằm ở đâu, thể hiện qua việc Citation Precision cấp Khoản của LightRAG chỉ đạt 4,35%. UKG chấp nhận sự đánh đổi này để đạt Precision cấp Khoản 77,57%, gấp gần 18 lần đối thủ."*
+
+#### **Q14. Toán tử Max-Fusion trong Module 5 hoạt động thế nào khi có xung đột giữa Regex và Vector?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, Max-Fusion áp dụng logic OR mềm: $S_{final} = \max(S_{regex}, S_{vector})$.  
+  > Khi một phân đoạn có cấu trúc hiển ngôn chứa từ khóa quy phạm rõ ràng, điểm Regex đạt 1,0 và phân đoạn được định tuyến ngay.  
+  > Khi phân đoạn có điểm ngữ nghĩa cao từ mô hình ngôn ngữ nhưng tín hiệu Regex thấp do diễn đạt gián tiếp, điểm Vector sẽ bù đắp để giữ lại phân đoạn. Cơ chế lấy cực đại bảo đảm ưu tiên bắt giữ tối đa quy phạm pháp luật, giảm thiểu nguy cơ bỏ sót căn cứ quan trọng."*
+
+#### **Q15. Tại sao Chain Exact Match của hệ thống lại ghi nhận 0,0000 trên 18 câu hỏi dẫn chiếu ở Giai đoạn 3?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, đây là một đóng góp thực nghiệm rất quan trọng của đề tài:  
+  > Trên 18 câu hỏi dẫn chiếu phức tạp, dù UKG đã định vị thành công 58,67% căn cứ đích đơn lẻ (Reference-target Recall), nhưng để tái dựng chính xác 100% chuỗi đường dẫn có thứ tự từ Điều khởi đầu qua các Điều trung gian đến Điều kết luận thì hệ thống ghi nhận 0,0000 (với LightRAG là N/A vì chưa hỗ trợ trích xuất đường dẫn theo giao thức này).  
+  > Kết quả chứng minh rằng việc tìm kiếm ngữ nghĩa đơn thuần không thể giải quyết trọn vẹn bài toán dẫn chiếu nhiều bước; hệ thống bắt buộc phải tích hợp giải thuật duyệt đồ thị có ràng buộc (Constrained Graph Traversal) trong giai đoạn tiếp theo."*
+
+---
+
+### **Nhóm D: Giới hạn kỹ thuật & Triển khai thực tiễn (Q16 – Q18)**
+
+#### **Q16. Hệ thống xử lý thế nào khi một văn bản luật được sửa đổi, bổ sung hoặc hết hiệu lực?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, trong phạm vi đề tài hiện tại, hệ thống tập trung kiểm chuẩn trên văn bản có hiệu lực cố định là Luật Đất đai 2024.  
+  > Tuy nhiên, về mặt kiến trúc, đồ thị Hybrid UKG được thiết kế theo dạng node-edge có thuộc tính thời gian (temporal metadata) và trạng thái hiệu lực. Khi có luật sửa đổi, hệ thống chỉ cần cập nhật trạng thái của các node Điều cụ thể và thêm cạnh `amended_by` mà không cần tái cấu trúc toàn bộ đồ thị. Đây là một hướng phát triển trọng tâm của nhóm trong thời gian tới."*
+
+#### **Q17. Module Validation xử lý thế nào đối với các lỗi định dạng văn bản đầu vào?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, Module Validation của nhóm thực hiện kiểm tra các lỗi cấu trúc có thể nhận diện được như sai lệch schema, đứt gãy quan hệ phân cấp hoặc trùng lặp định danh node. Các trường hợp vi phạm nghiêm trọng sẽ được cách ly vào hàng đợi xử lý riêng và ghi log cảnh báo để bảo vệ tính toàn vẹn của đồ thị.  
+  > Nhóm xin lưu ý: Hệ thống hiện tại được thực nghiệm trên tập dữ liệu văn bản đã chuẩn hóa hình thức; khả năng xử lý các văn bản có độ nhiễu cao do quét OCR chưa được thực nghiệm chuyên biệt trong khuôn khổ nghiên cứu này."*
+
+#### **Q18. Khả năng mở rộng (Scalability) của hệ thống khi áp dụng cho toàn bộ hệ thống pháp luật Việt Nam ra sao?**
+* **Người trả lời:** Nguyễn Bình Minh
+* **Câu trả lời chuẩn:**
+  > *"Dạ thưa Thầy Cô, kiến trúc đề xuất hoàn toàn có tính khả thi khi mở rộng quy mô lớn:  
+  > Thứ nhất, bộ phân tích Parser v2 hoạt động dựa trên biểu thức quy chuẩn nên tốc độ xử lý rất nhanh, đạt hàng nghìn điều luật mỗi phút.  
+  > Thứ hai, Module 5 sử dụng mô hình Qwen2.5-0.5B cực kỳ gọn nhẹ, có thể chạy suy luận song song trên hạ tầng GPU phổ thông với chi phí vận hành thấp hơn rất nhiều so với việc gọi API đồ thị thương mại.  
+  > Nhóm đã kiểm chứng giải pháp trên 7 đạo luật với hơn 12.000 phân đoạn và hệ thống vận hành hoàn toàn ổn định."*
+
+---

@@ -74,3 +74,4 @@ for cur, tar, name in [(s2_cur, s2_tar, 'Slide 2'), (s8_cur, s8_tar, 'Slide 8'),
 with open('c:/Users/luuth/NCKH/Benchmark/docs/kich_ban_thuyet_trinh_15p.md', 'w', encoding='utf-8') as f:
     f.write(text)
 print('Done writing updated markdown.')
+
